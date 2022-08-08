@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6EAFE49C9D6A3C0E404AD101 /* Pods_Move.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E53B91612D6E3FF3117779E /* Pods_Move.framework */; };
+		B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B4B0C228A132AD00FD6B56 /* SplashView.swift */; };
 		B8D9111028A1188600D25454 /* MoveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9110F28A1188600D25454 /* MoveApp.swift */; };
 		B8D9111228A1188600D25454 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9111128A1188600D25454 /* ContentView.swift */; };
 		B8D9111428A1188800D25454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D9111328A1188800D25454 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* Begin PBXFileReference section */
 		6E53B91612D6E3FF3117779E /* Pods_Move.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DF2BD6A48EE2CC2E0439BB6 /* Pods-Move.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move.release.xcconfig"; path = "Target Support Files/Pods-Move/Pods-Move.release.xcconfig"; sourceTree = "<group>"; };
+		B8B4B0C228A132AD00FD6B56 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		B8D9110C28A1188600D25454 /* Move.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Move.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D9110F28A1188600D25454 /* MoveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveApp.swift; sourceTree = "<group>"; };
 		B8D9111128A1188600D25454 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -45,6 +47,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B8B4B0C028A1325200FD6B56 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				B8B4B0C228A132AD00FD6B56 /* SplashView.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		B8B4B0C128A1325A00FD6B56 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		B8D9110328A1188600D25454 = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +83,8 @@
 		B8D9110E28A1188600D25454 /* Move */ = {
 			isa = PBXGroup;
 			children = (
+				B8B4B0C128A1325A00FD6B56 /* Onboarding */,
+				B8B4B0C028A1325200FD6B56 /* Splash */,
 				B8D9110F28A1188600D25454 /* MoveApp.swift */,
 				B8D9111128A1188600D25454 /* ContentView.swift */,
 				B8D9111328A1188800D25454 /* Assets.xcassets */,
@@ -88,7 +107,6 @@
 				BF3D1FBCE5C048B8A060E965 /* Pods-Move.debug.xcconfig */,
 				9DF2BD6A48EE2CC2E0439BB6 /* Pods-Move.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -190,6 +208,7 @@
 			files = (
 				B8D9111228A1188600D25454 /* ContentView.swift in Sources */,
 				B8D9111028A1188600D25454 /* MoveApp.swift in Sources */,
+				B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
