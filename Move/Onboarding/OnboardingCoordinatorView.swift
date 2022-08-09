@@ -89,6 +89,7 @@ enum OnboardingState: Equatable {
         return lhs.identifier == rhs.identifier
     }
     
+    case start
     case safety(OnboardingStateData)
     case scan(OnboardingStateData)
     case ride(OnboardingStateData)
@@ -98,6 +99,7 @@ enum OnboardingState: Equatable {
     
     var identifier: String {
         switch self {
+        case .start: return "start"
         case .safety: return "safety"
         case .scan: return "scan"
         case .ride: return "ride"
@@ -109,7 +111,7 @@ enum OnboardingState: Equatable {
 }
 
 class OnboardingViewModel: ObservableObject {
-    @Published var state: OnboardingState = .safety(.init(imagePath: "safety", headline: "Safety", description: "Please wear a helmet and protect yourself while riding.", orderNumber: 0))
+    @Published var state: OnboardingState = .start
     let totalNumberOfStates = 5
 }
 
@@ -119,6 +121,13 @@ struct OnboardingCoordinatorView: View {
     var body: some View {
         ZStack {
             switch viewModel.state {
+            case .start:
+                SplashView()
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            viewModel.state = .safety(.init(imagePath: "safety", headline: "Safety", description: "Please wear a helmet and protect yourself while riding.", orderNumber: 0))
+                        }
+                    }
             case .safety(let safetyData):
                 SingleOnboardingView(viewData: safetyData, totalNumberOfStates: viewModel.totalNumberOfStates) {
                     viewModel.state = .scan(.init(imagePath: "scan", headline: "Scan", description: "Scan the QR code or NFC sticker on top of the scooter to unlock and ride.", orderNumber: 1))

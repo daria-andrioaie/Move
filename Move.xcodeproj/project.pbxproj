@@ -111,6 +111,7 @@
 		B8D9110E28A1188600D25454 /* Move */ = {
 			isa = PBXGroup;
 			children = (
+				B8E5BB9A28A279460012DB66 /* Authentication */,
 				B8E5BB9928A25F930012DB66 /* Info.plist */,
 				B8E5BB8028A25EF40012DB66 /* Fonts */,
 				B8B4B0C128A1325A00FD6B56 /* Onboarding */,
@@ -148,6 +149,13 @@
 				B8E5BB8728A25F280012DB66 /* BaiJamjuree-SemiBoldItalic.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		B8E5BB9A28A279460012DB66 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		E10C99F9B1960905A44E8065 /* Pods */ = {
