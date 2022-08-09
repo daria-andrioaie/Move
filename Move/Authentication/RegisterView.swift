@@ -8,12 +8,35 @@
 import SwiftUI
 
 struct RegisterView: View {
+    @State private var emailAddress = ""
+    
     var body: some View {
         ZStack {
             BackgroundView()
-            Text("Register")
-                .font(.custom("BaiJamjuree-Bold", size: 20))
-                .foregroundColor(.white)
+            VStack {
+                Image("littleIcon")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 30)
+
+                Text("Let's get started")
+                    .font(.custom("BaiJamjuree-Bold", size: 32))
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 38)
+                    .padding(.bottom, 20)
+
+                Text("Sign up or login and start riding right away")
+                    .font(.custom("BaiJamjuree-Medium", size: 20))
+                    .foregroundColor(Color("NeutralPurple"))
+                    .frame(width: 283, alignment: .leading)
+                    .offset(x: -30)
+                
+                TextField("Email address", text: $emailAddress)
+                    .foregroundColor(.white)
+                    .padding(.leading, 50)
+                
+                Text(emailAddress)
+            }
         }
     }
 }

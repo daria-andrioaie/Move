@@ -159,11 +159,7 @@ struct OnboardingCoordinatorView: View {
                     viewModel.state = .finished
                 }
             case .finished:
-                ZStack {
-                    Color("AccentPink")
-                    Text("Finished onboarding")
-                        .foregroundColor(.white)
-                }
+                RegisterView()
             }
         }
         .animation(.easeOut, value: viewModel.state)
