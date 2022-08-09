@@ -26,6 +26,9 @@
 		B8E5BB9628A25F290012DB66 /* BaiJamjuree-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8E5BB8A28A25F280012DB66 /* BaiJamjuree-LightItalic.ttf */; };
 		B8E5BB9728A25F290012DB66 /* BaiJamjuree-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8E5BB8B28A25F280012DB66 /* BaiJamjuree-Medium.ttf */; };
 		B8E5BB9828A25F290012DB66 /* BaiJamjuree-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8E5BB8C28A25F290012DB66 /* BaiJamjuree-MediumItalic.ttf */; };
+		B8E5BB9C28A27F0F0012DB66 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9B28A27F0F0012DB66 /* RegisterView.swift */; };
+		B8E5BB9E28A27F190012DB66 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9D28A27F190012DB66 /* LoginView.swift */; };
+		B8E5BBA028A27F2D0012DB66 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9F28A27F2D0012DB66 /* BackgroundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +54,9 @@
 		B8E5BB8B28A25F280012DB66 /* BaiJamjuree-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BaiJamjuree-Medium.ttf"; sourceTree = "<group>"; };
 		B8E5BB8C28A25F290012DB66 /* BaiJamjuree-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BaiJamjuree-MediumItalic.ttf"; sourceTree = "<group>"; };
 		B8E5BB9928A25F930012DB66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B8E5BB9B28A27F0F0012DB66 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		B8E5BB9D28A27F190012DB66 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		B8E5BB9F28A27F2D0012DB66 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		BF3D1FBCE5C048B8A060E965 /* Pods-Move.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move.debug.xcconfig"; path = "Target Support Files/Pods-Move/Pods-Move.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,6 +126,7 @@
 				B8D9111128A1188600D25454 /* ContentView.swift */,
 				B8D9111328A1188800D25454 /* Assets.xcassets */,
 				B8D9111528A1188800D25454 /* Preview Content */,
+				B8E5BB9F28A27F2D0012DB66 /* BackgroundView.swift */,
 			);
 			path = Move;
 			sourceTree = "<group>";
@@ -154,6 +161,8 @@
 		B8E5BB9A28A279460012DB66 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				B8E5BB9B28A27F0F0012DB66 /* RegisterView.swift */,
+				B8E5BB9D28A27F190012DB66 /* LoginView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -275,7 +284,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8E5BB9E28A27F190012DB66 /* LoginView.swift in Sources */,
 				B8E5BB7F28A243E60012DB66 /* OnboardingCoordinatorView.swift in Sources */,
+				B8E5BB9C28A27F0F0012DB66 /* RegisterView.swift in Sources */,
+				B8E5BBA028A27F2D0012DB66 /* BackgroundView.swift in Sources */,
 				B8D9111228A1188600D25454 /* ContentView.swift in Sources */,
 				B8D9111028A1188600D25454 /* MoveApp.swift in Sources */,
 				B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */,
