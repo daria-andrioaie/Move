@@ -108,45 +108,39 @@ struct OnboardingCoordinatorView: View {
                 } onSkip: {
                     viewModel.state = .finished
                 }
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
             case .scan(let scanData):
                 SingleOnboardingView(viewData: scanData) {
                     viewModel.state = .ride(.init(imagePath: "ride", headline: "Ride", description: "Step on the scooter with one foot and kick off the ground. When the scooter starts to coast, push the right throttle to accelerate."))
                 } onSkip: {
                     viewModel.state = .finished
                 }
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
             case .ride(let rideData):
                 SingleOnboardingView(viewData: rideData) {
                     viewModel.state = .parking(.init(imagePath: "parking", headline: "Parking", description: "If convenient, park at a bike rack. If not, park close to the edge of the sidewalk closest to the street. Do not block sidewalks, doors or ramps."))
                 } onSkip: {
                     viewModel.state = .finished
                 }
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
             case .parking(let parkingData):
                 SingleOnboardingView(viewData: parkingData) {
                     viewModel.state = .rules(.init(imagePath: "rules", headline: "Rules", description: "You must be 18 years or and older with a valid driving licence to operate a scooter. Please follow all street signs, signals and markings, and obey local traffic laws."))
                 } onSkip: {
                     viewModel.state = .finished
                 }
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
             case .rules(let rulesData):
                 SingleOnboardingView(viewData: rulesData) {
                     viewModel.state = .finished
                 } onSkip: {
                     viewModel.state = .finished
                 }
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
             case .finished:
                 ZStack {
                     Color("AccentPink")
                     Text("Finished onboarding")
                         .foregroundColor(.white)
                 }
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
             }
         }
-//        .animation(.easeInOut, value: viewModel.state)
+        .animation(.easeOut, value: viewModel.state)
     }
 }
 
