@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SingleOnboardingView: View {
     let viewData: OnboardingStateData
+    let totalNumberOfStates: Int
     let onNext: () -> Void
     let onSkip: () -> Void
     
@@ -27,9 +28,9 @@ struct SingleOnboardingView: View {
                     onSkip()
                 }
                     .font(.custom("BaiJamjuree-SemiBold", size: 14))
-                    .foregroundColor(Color("NeutralCement"))
+                    .foregroundColor(Color("NeutralPurple"))
             }
-            .padding([.leading, .trailing], 24)
+            .padding([.leading, .trailing], 30)
             
             Text(viewData.description)
                 .font(.custom("BaiJamjuree-Light", size: 16))
@@ -39,18 +40,32 @@ struct SingleOnboardingView: View {
                 .padding(.top, 12)
             Spacer()
             HStack {
-                Text("progress bar")
+                ForEach(0..<totalNumberOfStates, id: \.self) { index in
+                    if index == viewData.orderNumber {
+                        Capsule()
+                            .frame(width: 16, height: 4)
+                            .foregroundColor(Color("PrimaryBlue"))
+                            .padding(2)
+                    }
+                    else {
+                        Capsule()
+                            .frame(width: 4, height: 4)
+                            .foregroundColor(Color("NeutralPurple"))
+                            .padding(2)
+                    }
+                }
                 Spacer()
                 Button(action: {
                     onNext()
                 }) {
                     HStack {
-                        Text("Next")
+                        Text(viewData.orderNumber != totalNumberOfStates - 1 ? "Next" : "Get started")
                             .font(.custom("BaiJamjuree-Bold", size: 16))
                         Image(systemName: "arrow.right")
                     }
                         .foregroundColor(.white)
-                        .frame(width: 100, height: 56)
+                        .frame(height: 56)
+                        .padding([.leading, .trailing], 16)
                         .background(RoundedRectangle(cornerRadius: 17)
                             .fill(Color("AccentPink")))
                 }
@@ -63,9 +78,10 @@ struct SingleOnboardingView: View {
 }
 
 struct OnboardingStateData {
-    var imagePath: String
-    var headline: String
-    var description: String
+    let imagePath: String
+    let headline: String
+    let description: String
+    let orderNumber: Int
 }
 
 enum OnboardingState: Equatable {
@@ -93,7 +109,8 @@ enum OnboardingState: Equatable {
 }
 
 class OnboardingViewModel: ObservableObject {
-    @Published var state: OnboardingState = .safety(.init(imagePath: "safety", headline: "Safety", description: "Please wear a helmet and protect yourself while riding"))
+    @Published var state: OnboardingState = .safety(.init(imagePath: "safety", headline: "Safety", description: "Please wear a helmet and protect yourself while riding.", orderNumber: 0))
+    let totalNumberOfStates = 5
 }
 
 struct OnboardingCoordinatorView: View {
@@ -103,31 +120,31 @@ struct OnboardingCoordinatorView: View {
         ZStack {
             switch viewModel.state {
             case .safety(let safetyData):
-                SingleOnboardingView(viewData: safetyData) {
-                    viewModel.state = .scan(.init(imagePath: "scan", headline: "Scan", description: "Scan the QR code or NFC sticker on top of the scooter to unlock and ride."))
+                SingleOnboardingView(viewData: safetyData, totalNumberOfStates: viewModel.totalNumberOfStates) {
+                    viewModel.state = .scan(.init(imagePath: "scan", headline: "Scan", description: "Scan the QR code or NFC sticker on top of the scooter to unlock and ride.", orderNumber: 1))
                 } onSkip: {
                     viewModel.state = .finished
                 }
             case .scan(let scanData):
-                SingleOnboardingView(viewData: scanData) {
-                    viewModel.state = .ride(.init(imagePath: "ride", headline: "Ride", description: "Step on the scooter with one foot and kick off the ground. When the scooter starts to coast, push the right throttle to accelerate."))
+                SingleOnboardingView(viewData: scanData, totalNumberOfStates: viewModel.totalNumberOfStates) {
+                    viewModel.state = .ride(.init(imagePath: "ride", headline: "Ride", description: "Step on the scooter with one foot and kick off the ground. When the scooter starts to coast, push the right throttle to accelerate.", orderNumber: 2))
                 } onSkip: {
                     viewModel.state = .finished
                 }
             case .ride(let rideData):
-                SingleOnboardingView(viewData: rideData) {
-                    viewModel.state = .parking(.init(imagePath: "parking", headline: "Parking", description: "If convenient, park at a bike rack. If not, park close to the edge of the sidewalk closest to the street. Do not block sidewalks, doors or ramps."))
+                SingleOnboardingView(viewData: rideData, totalNumberOfStates: viewModel.totalNumberOfStates) {
+                    viewModel.state = .parking(.init(imagePath: "parking", headline: "Parking", description: "If convenient, park at a bike rack. If not, park close to the edge of the sidewalk closest to the street. Do not block sidewalks, doors or ramps.", orderNumber: 3))
                 } onSkip: {
                     viewModel.state = .finished
                 }
             case .parking(let parkingData):
-                SingleOnboardingView(viewData: parkingData) {
-                    viewModel.state = .rules(.init(imagePath: "rules", headline: "Rules", description: "You must be 18 years or and older with a valid driving licence to operate a scooter. Please follow all street signs, signals and markings, and obey local traffic laws."))
+                SingleOnboardingView(viewData: parkingData, totalNumberOfStates: viewModel.totalNumberOfStates) {
+                    viewModel.state = .rules(.init(imagePath: "rules", headline: "Rules", description: "You must be 18 years or and older with a valid driving licence to operate a scooter. Please follow all street signs, signals and markings, and obey local traffic laws.", orderNumber: 4))
                 } onSkip: {
                     viewModel.state = .finished
                 }
             case .rules(let rulesData):
-                SingleOnboardingView(viewData: rulesData) {
+                SingleOnboardingView(viewData: rulesData, totalNumberOfStates: viewModel.totalNumberOfStates) {
                     viewModel.state = .finished
                 } onSkip: {
                     viewModel.state = .finished
