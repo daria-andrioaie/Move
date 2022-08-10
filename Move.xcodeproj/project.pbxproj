@@ -14,6 +14,7 @@
 		B8D9111428A1188800D25454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D9111328A1188800D25454 /* Assets.xcassets */; };
 		B8D9111728A1188800D25454 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D9111628A1188800D25454 /* Preview Assets.xcassets */; };
 		B8D9B77D28A3A726003F0968 /* SimpleUnderlinedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B77C28A3A726003F0968 /* SimpleUnderlinedTextField.swift */; };
+		B8D9B77F28A3C1AE003F0968 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B77E28A3C1AE003F0968 /* Buttons.swift */; };
 		B8E5BB7F28A243E60012DB66 /* OnboardingCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB7E28A243E60012DB66 /* OnboardingCoordinatorView.swift */; };
 		B8E5BB8D28A25F290012DB66 /* BaiJamjuree-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8E5BB8128A25F280012DB66 /* BaiJamjuree-ExtraLight.ttf */; };
 		B8E5BB8E28A25F290012DB66 /* BaiJamjuree-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8E5BB8228A25F280012DB66 /* BaiJamjuree-Italic.ttf */; };
@@ -42,6 +43,7 @@
 		B8D9111328A1188800D25454 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8D9111628A1188800D25454 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B8D9B77C28A3A726003F0968 /* SimpleUnderlinedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleUnderlinedTextField.swift; sourceTree = "<group>"; };
+		B8D9B77E28A3C1AE003F0968 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		B8E5BB7E28A243E60012DB66 /* OnboardingCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinatorView.swift; sourceTree = "<group>"; };
 		B8E5BB8128A25F280012DB66 /* BaiJamjuree-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BaiJamjuree-ExtraLight.ttf"; sourceTree = "<group>"; };
 		B8E5BB8228A25F280012DB66 /* BaiJamjuree-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BaiJamjuree-Italic.ttf"; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 			children = (
 				B8E5BB9F28A27F2D0012DB66 /* BackgroundView.swift */,
 				B8D9B77C28A3A726003F0968 /* SimpleUnderlinedTextField.swift */,
+				B8D9B77E28A3C1AE003F0968 /* Buttons.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8D9B77F28A3C1AE003F0968 /* Buttons.swift in Sources */,
 				B8E5BB9E28A27F190012DB66 /* LoginView.swift in Sources */,
 				B8E5BB7F28A243E60012DB66 /* OnboardingCoordinatorView.swift in Sources */,
 				B8E5BB9C28A27F0F0012DB66 /* RegisterView.swift in Sources */,

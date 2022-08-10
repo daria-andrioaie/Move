@@ -41,8 +41,9 @@ struct RegisterView: View {
 
                 SecureUnderlinedTextField(placeholder: "Password", binding: $password)
                 
-                Text("By continuing you agree to Move’s  Terms and Conditions and Privacy Policy")
+                Text("By continuing you agree to Move’s  [Terms and Conditions](http://www.tapptitude.com/) and [Privacy Policy](http://www.tapptitude.com/).")
                     .font(.custom("BaiJamjuree-Regular", size: 12))
+                    .tint(.white)
                     .foregroundColor(.white)
                     .frame(width: 231)
                     .padding(.leading, -110)
