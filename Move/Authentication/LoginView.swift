@@ -7,13 +7,22 @@
 
 import SwiftUI
 
+class LoginViewModel: ObservableObject {
+    @Published var emailAddress = ""
+    @Published var password = ""
+    
+    func login() {
+        
+    }
+}
+
 struct LoginView: View {
     let onSwitch: () -> Void
     
-    @State private var emailAddress = ""
-    @State private var password = ""
+    @StateObject var viewModel = LoginViewModel()
+    
     private var formIsCompleted: Bool {
-        if !emailAddress.isEmpty && !password.isEmpty {
+        if !viewModel.emailAddress.isEmpty && !viewModel.password.isEmpty {
             return true
         }
         return false
@@ -43,9 +52,9 @@ struct LoginView: View {
                     .padding(.bottom, 24)
      
                 
-                SimpleUnderlinedTextField(placeholder: "Email address", binding: $emailAddress)
+                SimpleUnderlinedTextField(placeholder: "Email address", binding: $viewModel.emailAddress)
 
-                SecureUnderlinedTextField(placeholder: "Password", binding: $password)
+                SecureUnderlinedTextField(placeholder: "Password", binding: $viewModel.password)
                 
                 Text("Forgot your password?")
                     .font(.custom("BaiJamjuree-Regular", size: 12))
@@ -55,7 +64,9 @@ struct LoginView: View {
                     .padding(.leading, -210)
                     .padding(.bottom, 32)
                 
-                Button("Login") { }
+                Button("Login") {
+                    viewModel.login()
+                }
                     .largeButton(isEnabled: formIsCompleted)
                     .padding(.bottom, 32)
                 

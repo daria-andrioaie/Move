@@ -30,7 +30,8 @@ struct RegisterView: View {
                     .padding(.bottom, 20.4)
 
                 Text("Let's get started")
-                    .font(.custom("BaiJamjuree-Bold", size: 32))
+//                    .font(.custom("BaiJamjuree-Bold", size: 32))
+                    .font(.primary(.bold, size: 32))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 42)
