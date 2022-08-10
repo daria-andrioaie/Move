@@ -8,9 +8,17 @@
 import SwiftUI
 
 struct RegisterView: View {
+    let onSwitch: () -> Void
+    
     @State private var emailAddress = ""
     @State private var username = ""
     @State private var password = ""
+    private var formIsCompleted: Bool {
+        if !emailAddress.isEmpty && !username.isEmpty && !password.isEmpty {
+            return true
+        }
+        return false
+    }
     
     var body: some View {
         ZStack {
@@ -19,6 +27,7 @@ struct RegisterView: View {
                 Image("littleIcon")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 34)
+                    .padding(.bottom, 20.4)
 
                 Text("Let's get started")
                     .font(.custom("BaiJamjuree-Bold", size: 32))
@@ -47,6 +56,27 @@ struct RegisterView: View {
                     .foregroundColor(.white)
                     .frame(width: 231)
                     .padding(.leading, -110)
+                    .padding(.bottom, 32)
+                
+                Button("Get started") { }
+                    .largeButton(isEnabled: formIsCompleted)
+                    .padding(.bottom, 32)
+                
+                HStack {
+                    Text("You already have an account? You can ")
+                        .foregroundColor(.white)
+                        .font(.custom("BaiJamjuree-Regular", size: 12))
+                    Button {
+                        onSwitch()
+                    } label: {
+                        Text("log in here")
+                            .foregroundColor(.white)
+                            .font(.custom("BaiJamjuree-Bold", size: 12))
+                            .underline()
+                            .offset(x: -7)
+                    }
+                }
+                Spacer()
             }
         }
     }
@@ -54,6 +84,8 @@ struct RegisterView: View {
 
 struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterView()
+        RegisterView {
+            print("")
+        }
     }
 }

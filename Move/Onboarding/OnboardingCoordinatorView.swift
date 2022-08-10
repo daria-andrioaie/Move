@@ -159,7 +159,7 @@ struct OnboardingCoordinatorView: View {
                     viewModel.state = .finished
                 }
             case .finished:
-                RegisterView()
+                AuthenticationCoordinatorView()
             }
         }
         .animation(.easeOut, value: viewModel.state)

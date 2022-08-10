@@ -103,7 +103,7 @@ struct SimpleUnderlinedTextField: View {
                 .placeholder(when: binding.isEmpty) {
                     Text(placeholder).foregroundColor(.white)
                         .opacity(0.6)
-                        .font(.custom("BaiJamjuree-Medium", size: 16))
+                        .font(.custom("BaiJamjuree-Regular", size: 16))
                 }
                 .textInputAutocapitalization(.never)
                 .disableAutocorrection(true)

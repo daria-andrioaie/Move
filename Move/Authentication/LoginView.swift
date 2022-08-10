@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
+    let onSwitch: () -> Void
+    
     var body: some View {
         ZStack {
             BackgroundView()
@@ -20,6 +22,8 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView {
+            print("")
+        }
     }
 }
