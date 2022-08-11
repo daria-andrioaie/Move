@@ -10,6 +10,7 @@
 		6EAFE49C9D6A3C0E404AD101 /* Pods_Move.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E53B91612D6E3FF3117779E /* Pods_Move.framework */; };
 		B80979CC28A51861009B1C8D /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979CB28A51861009B1C8D /* ForgotPasswordView.swift */; };
 		B80979CE28A51A4E009B1C8D /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */; };
+		B80979D128A53504009B1C8D /* AddLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979D028A53504009B1C8D /* AddLicenseView.swift */; };
 		B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B4B0C228A132AD00FD6B56 /* SplashView.swift */; };
 		B8D9111028A1188600D25454 /* MoveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9110F28A1188600D25454 /* MoveApp.swift */; };
 		B8D9111228A1188600D25454 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9111128A1188600D25454 /* ContentView.swift */; };
@@ -42,6 +43,7 @@
 		9DF2BD6A48EE2CC2E0439BB6 /* Pods-Move.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move.release.xcconfig"; path = "Target Support Files/Pods-Move/Pods-Move.release.xcconfig"; sourceTree = "<group>"; };
 		B80979CB28A51861009B1C8D /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
+		B80979D028A53504009B1C8D /* AddLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLicenseView.swift; sourceTree = "<group>"; };
 		B8B4B0C228A132AD00FD6B56 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		B8D9110C28A1188600D25454 /* Move.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Move.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D9110F28A1188600D25454 /* MoveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveApp.swift; sourceTree = "<group>"; };
@@ -92,6 +94,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B80979CF28A52EDC009B1C8D /* Driving license validation */ = {
+			isa = PBXGroup;
+			children = (
+				B80979D028A53504009B1C8D /* AddLicenseView.swift */,
+			);
+			path = "Driving license validation";
+			sourceTree = "<group>";
+		};
 		B8B4B0C028A1325200FD6B56 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +139,7 @@
 		B8D9110E28A1188600D25454 /* Move */ = {
 			isa = PBXGroup;
 			children = (
+				B80979CF28A52EDC009B1C8D /* Driving license validation */,
 				B8D9B77B28A3A6FE003F0968 /* Utils */,
 				B8E5BB9A28A279460012DB66 /* Authentication */,
 				B8E5BB9928A25F930012DB66 /* Info.plist */,
@@ -310,6 +321,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B80979D128A53504009B1C8D /* AddLicenseView.swift in Sources */,
 				B8D9B77F28A3C1AE003F0968 /* Buttons.swift in Sources */,
 				B8E5BB9E28A27F190012DB66 /* LoginView.swift in Sources */,
 				B8E5BB7F28A243E60012DB66 /* OnboardingCoordinatorView.swift in Sources */,
