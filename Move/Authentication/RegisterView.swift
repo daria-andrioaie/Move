@@ -7,14 +7,19 @@
 
 import SwiftUI
 
+class RegisterViewModel: ObservableObject {
+    @Published var emailAddress = ""
+    @Published var username = ""
+    @Published var password = ""
+}
+
 struct RegisterView: View {
     let onSwitch: () -> Void
     
-    @State private var emailAddress = ""
-    @State private var username = ""
-    @State private var password = ""
+    @StateObject var viewModel = RegisterViewModel()
+    
     private var formIsCompleted: Bool {
-        if !emailAddress.isEmpty && !username.isEmpty && !password.isEmpty {
+        if !viewModel.emailAddress.isEmpty && !viewModel.username.isEmpty && !viewModel.password.isEmpty {
             return true
         }
         return false
@@ -45,11 +50,11 @@ struct RegisterView: View {
                     .padding(.bottom, 24)
      
                 
-                SimpleUnderlinedTextField(placeholder: "Email address", binding: $emailAddress)
+                SimpleUnderlinedTextField(placeholder: "Email address", binding: $viewModel.emailAddress)
                 
-                SimpleUnderlinedTextField(placeholder: "Username", binding: $username)
+                SimpleUnderlinedTextField(placeholder: "Username", binding: $viewModel.username)
 
-                SecureUnderlinedTextField(placeholder: "Password", binding: $password)
+                SecureUnderlinedTextField(placeholder: "Password", binding: $viewModel.password)
                 
                 Text("By continuing you agree to Move’s  [Terms and Conditions](http://www.tapptitude.com/) and [Privacy Policy](http://www.tapptitude.com/).")
                     .font(.custom("BaiJamjuree-Regular", size: 12))
