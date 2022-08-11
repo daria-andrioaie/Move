@@ -10,6 +10,7 @@ import SwiftUI
 enum AuthenticationState {
     case register
     case login
+    case forgotPassword
 }
 
 class AuthenticationCoordinatorViewModel: ObservableObject {
@@ -28,7 +29,11 @@ struct AuthenticationCoordinatorView: View {
         case .login:
             LoginView {
                 viewModel.state = .register
+            } onForgotPassword: {
+                viewModel.state = .forgotPassword
             }
+        case .forgotPassword:
+            ForgotPasswordView()
         }
     }
 }

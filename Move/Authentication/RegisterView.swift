@@ -11,6 +11,26 @@ class RegisterViewModel: ObservableObject {
     @Published var emailAddress = ""
     @Published var username = ""
     @Published var password = ""
+    
+    func validate(emailAddress: String) -> Bool {
+        return true
+    }
+    
+    func validate(username: String) -> Bool {
+        return true
+    }
+    
+    func validate(password: String) -> Bool {
+        return true
+    }
+    
+    func register() {
+        guard validate(emailAddress: emailAddress) && validate(username: username) && validate(password: password) else {
+            return
+        }
+        // fields are valid
+        // send register request
+    }
 }
 
 struct RegisterView: View {
@@ -63,7 +83,9 @@ struct RegisterView: View {
                     .padding(.leading, -110)
                     .padding(.bottom, 32)
                 
-                Button("Get started") { }
+                Button("Get started") {
+                    viewModel.register()
+                }
                     .frame(width: 327)
                     .largeButton(isEnabled: formIsCompleted)
                     .padding(.bottom, 32)

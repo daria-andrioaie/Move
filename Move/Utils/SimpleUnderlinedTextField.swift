@@ -28,7 +28,7 @@ struct SecureUnderlinedTextField: View {
         ZStack {
             if !showText {
                 SecureField("", text: $binding)
-                    .frame(width: 337)
+                    .frame(width: 327)
                     .placeholder(when: binding.isEmpty) {
                         Text(placeholder).foregroundColor(.white)
                             .opacity(0.6)
@@ -58,7 +58,7 @@ struct SecureUnderlinedTextField: View {
             }
             else {
                 TextField("", text: $binding)
-                    .frame(width: 337)
+                    .frame(width: 327)
                     .placeholder(when: binding.isEmpty) {
                         Text(placeholder).foregroundColor(.white)
                             .opacity(0.6)
@@ -99,7 +99,7 @@ struct SimpleUnderlinedTextField: View {
     var body: some View {
         ZStack {
             TextField("", text: $binding)
-                .frame(width: 337)
+                .frame(width: 327)
                 .placeholder(when: binding.isEmpty) {
                     Text(placeholder).foregroundColor(.white)
                         .opacity(0.6)

@@ -18,6 +18,7 @@ class LoginViewModel: ObservableObject {
 
 struct LoginView: View {
     let onSwitch: () -> Void
+    let onForgotPassword: () -> Void
     
     @StateObject var viewModel = LoginViewModel()
     
@@ -56,14 +57,18 @@ struct LoginView: View {
 
                 SecureUnderlinedTextField(placeholder: "Password", binding: $viewModel.password)
                 
-                Text("Forgot your password?")
-                    .font(.primary(type: .smallText))
-                    .foregroundColor(.white)
-                    .underline()
-                    .frame(width: 231)
-                    .padding(.leading, -210)
-                    .padding(.bottom, 32)
-                
+                Button {
+                    onForgotPassword()
+                } label: {
+                    Text("Forgot your password?")
+                        .font(.primary(type: .smallText))
+                        .foregroundColor(.white)
+                        .underline()
+                        .frame(width: 231)
+                        .padding(.leading, -200)
+                        .padding(.bottom, 32)
+                }
+
                 Button("Login") {
                     viewModel.login()
                 }
@@ -95,6 +100,8 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView {
+            print("")
+        } onForgotPassword: {
             print("")
         }
     }

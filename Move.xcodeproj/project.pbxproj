@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6EAFE49C9D6A3C0E404AD101 /* Pods_Move.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E53B91612D6E3FF3117779E /* Pods_Move.framework */; };
+		B80979CC28A51861009B1C8D /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979CB28A51861009B1C8D /* ForgotPasswordView.swift */; };
+		B80979CE28A51A4E009B1C8D /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */; };
 		B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B4B0C228A132AD00FD6B56 /* SplashView.swift */; };
 		B8D9111028A1188600D25454 /* MoveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9110F28A1188600D25454 /* MoveApp.swift */; };
 		B8D9111228A1188600D25454 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9111128A1188600D25454 /* ContentView.swift */; };
@@ -38,6 +40,8 @@
 /* Begin PBXFileReference section */
 		6E53B91612D6E3FF3117779E /* Pods_Move.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DF2BD6A48EE2CC2E0439BB6 /* Pods-Move.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move.release.xcconfig"; path = "Target Support Files/Pods-Move/Pods-Move.release.xcconfig"; sourceTree = "<group>"; };
+		B80979CB28A51861009B1C8D /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		B8B4B0C228A132AD00FD6B56 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		B8D9110C28A1188600D25454 /* Move.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Move.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D9110F28A1188600D25454 /* MoveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveApp.swift; sourceTree = "<group>"; };
@@ -183,6 +187,8 @@
 				B8E5BB9B28A27F0F0012DB66 /* RegisterView.swift */,
 				B8E5BB9D28A27F190012DB66 /* LoginView.swift */,
 				B8D9B78028A3D0F8003F0968 /* AuthenticationCoordinator.swift */,
+				B80979CB28A51861009B1C8D /* ForgotPasswordView.swift */,
+				B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -310,10 +316,12 @@
 				B8E5BB9C28A27F0F0012DB66 /* RegisterView.swift in Sources */,
 				B8E5BBA028A27F2D0012DB66 /* BackgroundView.swift in Sources */,
 				B8D9111228A1188600D25454 /* ContentView.swift in Sources */,
+				B80979CE28A51A4E009B1C8D /* ResetPasswordView.swift in Sources */,
 				B8D9B78128A3D0F8003F0968 /* AuthenticationCoordinator.swift in Sources */,
 				B8D9111028A1188600D25454 /* MoveApp.swift in Sources */,
 				B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */,
 				B8D9B78328A3D8B6003F0968 /* FontsExtensions.swift in Sources */,
+				B80979CC28A51861009B1C8D /* ForgotPasswordView.swift in Sources */,
 				B8D9B77D28A3A726003F0968 /* SimpleUnderlinedTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
