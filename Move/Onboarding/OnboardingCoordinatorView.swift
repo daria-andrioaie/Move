@@ -21,19 +21,19 @@ struct SingleOnboardingView: View {
                 .padding(.bottom, 0)
             HStack {
                 Text(viewData.headline)
-                    .font(.custom("BaiJamjuree-Bold", size: 32))
+                    .font(.primary(type: .heading1))
                     .foregroundColor(Color("PrimaryBlue"))
                 Spacer()
                 Button("Skip") {
                     onSkip()
                 }
-                    .font(.custom("BaiJamjuree-SemiBold", size: 14))
+                .font(.primary(.semiBold, size: 14))
                     .foregroundColor(Color("NeutralPurple"))
             }
-            .padding([.leading, .trailing], 30)
+            .padding([.leading, .trailing], 24)
             
             Text(viewData.description)
-                .font(.custom("BaiJamjuree-Light", size: 16))
+                .font(.primary(type: .body2))
                 .foregroundColor(Color("PrimaryBlue"))
                 .frame(width: 283, alignment: .leading)
                 .padding([.leading, .trailing], 24)
@@ -60,14 +60,10 @@ struct SingleOnboardingView: View {
                 }) {
                     HStack {
                         Text(viewData.orderNumber != totalNumberOfStates - 1 ? "Next" : "Get started")
-                            .font(.custom("BaiJamjuree-Bold", size: 16))
                         Image(systemName: "arrow.right")
                     }
-                        .foregroundColor(.white)
-                        .frame(height: 56)
-                        .padding([.leading, .trailing], 16)
-                        .background(RoundedRectangle(cornerRadius: 17)
-                            .fill(Color("AccentPink")))
+                    .padding([.leading, .trailing], 16)
+                    .largeActiveButton()
                 }
             }
             .padding([.leading, .trailing], 24)
@@ -111,7 +107,7 @@ enum OnboardingState: Equatable {
 }
 
 class OnboardingViewModel: ObservableObject {
-    @Published var state: OnboardingState = .start
+    @Published var state: OnboardingState = .safety(.init(imagePath: "safety", headline: "Safety", description: "Please wear a helmet and protect yourself while riding.", orderNumber: 0))
     let totalNumberOfStates = 5
 }
 

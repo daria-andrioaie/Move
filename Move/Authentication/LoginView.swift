@@ -38,14 +38,14 @@ struct LoginView: View {
                     .padding(.bottom, 20.4)
 
                 Text("Login")
-                    .font(.custom("BaiJamjuree-Bold", size: 32))
+                    .font(.primary(type: .heading1))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 42)
                     .padding(.bottom, 20)
 
                 Text("Enter your account credentials and start riding away")
-                    .font(.custom("BaiJamjuree-Medium", size: 20))
+                    .font(.primary(type: .heading2))
                     .foregroundColor(Color("NeutralPurple"))
                     .frame(width: 327, alignment: .leading)
                     .offset(x: -7)
@@ -57,7 +57,7 @@ struct LoginView: View {
                 SecureUnderlinedTextField(placeholder: "Password", binding: $viewModel.password)
                 
                 Text("Forgot your password?")
-                    .font(.custom("BaiJamjuree-Regular", size: 12))
+                    .font(.primary(type: .smallText))
                     .foregroundColor(.white)
                     .underline()
                     .frame(width: 231)
@@ -67,19 +67,21 @@ struct LoginView: View {
                 Button("Login") {
                     viewModel.login()
                 }
+                .frame(width: 327)
                     .largeButton(isEnabled: formIsCompleted)
                     .padding(.bottom, 32)
                 
                 HStack {
                     Text("Don't have an account? You can ")
                         .foregroundColor(.white)
-                        .font(.custom("BaiJamjuree-Regular", size: 12))
+                        .font(.primary(type: .smallText))
                     Button {
                         onSwitch()
                     } label: {
                         Text("start with one here")
                             .foregroundColor(.white)
-                            .font(.custom("BaiJamjuree-Bold", size: 12))
+                            .font(.primary(type: .smallText))
+                            .bold()
                             .underline()
                             .offset(x: -7)
                     }

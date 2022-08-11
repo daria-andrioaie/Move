@@ -35,15 +35,14 @@ struct RegisterView: View {
                     .padding(.bottom, 20.4)
 
                 Text("Let's get started")
-//                    .font(.custom("BaiJamjuree-Bold", size: 32))
-                    .font(.primary(.bold, size: 32))
+                    .font(.primary(type: .heading1))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 42)
                     .padding(.bottom, 20)
 
                 Text("Sign up or login and start riding right away")
-                    .font(.custom("BaiJamjuree-Medium", size: 20))
+                    .font(.primary(type: .heading2))
                     .foregroundColor(Color("NeutralPurple"))
                     .frame(width: 283, alignment: .leading)
                     .offset(x: -27)
@@ -57,7 +56,7 @@ struct RegisterView: View {
                 SecureUnderlinedTextField(placeholder: "Password", binding: $viewModel.password)
                 
                 Text("By continuing you agree to Move’s  [Terms and Conditions](http://www.tapptitude.com/) and [Privacy Policy](http://www.tapptitude.com/).")
-                    .font(.custom("BaiJamjuree-Regular", size: 12))
+                    .font(.primary(type: .smallText))
                     .tint(.white)
                     .foregroundColor(.white)
                     .frame(width: 231)
@@ -65,19 +64,21 @@ struct RegisterView: View {
                     .padding(.bottom, 32)
                 
                 Button("Get started") { }
+                    .frame(width: 327)
                     .largeButton(isEnabled: formIsCompleted)
                     .padding(.bottom, 32)
                 
                 HStack {
                     Text("You already have an account? You can ")
                         .foregroundColor(.white)
-                        .font(.custom("BaiJamjuree-Regular", size: 12))
+                        .font(.primary(type: .smallText))
                     Button {
                         onSwitch()
                     } label: {
                         Text("log in here")
                             .foregroundColor(.white)
-                            .font(.custom("BaiJamjuree-Bold", size: 12))
+                            .font(.primary(type: .smallText))
+                            .bold()
                             .underline()
                             .offset(x: -7)
                     }

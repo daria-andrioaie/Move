@@ -12,8 +12,8 @@ struct LargeActiveButtonModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .foregroundColor(.white)
-            .font(.custom("BaiJamjuree-Bold", size: 16))
-            .frame(width: 327, height: 56)
+            .font(.primary(type: .button1))
+            .frame(height: 56)
             .background(RoundedRectangle(cornerRadius: 16).foregroundColor(Color("AccentPink")))
     }
 }
@@ -29,8 +29,8 @@ struct LargeDisabledButtonModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .foregroundColor(Color("NeutralPurple"))
-            .font(.custom("BaiJamjuree-Regular", size: 16))
-            .frame(width: 327, height: 56)
+            .font(.primary(.regular, size: 16))
+            .frame(height: 56)
             .background(RoundedRectangle(cornerRadius: 16).stroke(Color("AccentPink"), lineWidth: 0.5))
     }
 }

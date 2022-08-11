@@ -32,14 +32,14 @@ struct SecureUnderlinedTextField: View {
                     .placeholder(when: binding.isEmpty) {
                         Text(placeholder).foregroundColor(.white)
                             .opacity(0.6)
-                            .font(.custom("BaiJamjuree-Medium", size: 16))
+                            .font(.primary(type: .body1))
                     }
                     .textInputAutocapitalization(.never)
                     .disableAutocorrection(true)
                     .focused($fieldIsFocused)
                     .overlay(Rectangle().frame(height: fieldIsFocused ? 2 : 1).padding(.top, 45))
                     .foregroundColor(.white)
-                    .font(.custom("BaiJamjuree-Medium", size: 16))
+                    .font(.primary(type: .body1))
                     .opacity(fieldIsFocused ? 1 : 0.6)
                     .padding(.bottom, 50)
                 
@@ -62,14 +62,14 @@ struct SecureUnderlinedTextField: View {
                     .placeholder(when: binding.isEmpty) {
                         Text(placeholder).foregroundColor(.white)
                             .opacity(0.6)
-                            .font(.custom("BaiJamjuree-Medium", size: 16))
+                            .font(.primary(type: .body1))
                     }
                     .textInputAutocapitalization(.never)
                     .disableAutocorrection(true)
                     .focused($fieldIsFocused)
                     .overlay(Rectangle().frame(height: fieldIsFocused ? 2 : 1).padding(.top, 45))
                     .foregroundColor(.white)
-                    .font(.custom("BaiJamjuree-Medium", size: 16))
+                    .font(.primary(type: .body1))
                     .opacity(fieldIsFocused ? 1 : 0.6)
                     .padding(.bottom, 50)
                 
@@ -103,14 +103,14 @@ struct SimpleUnderlinedTextField: View {
                 .placeholder(when: binding.isEmpty) {
                     Text(placeholder).foregroundColor(.white)
                         .opacity(0.6)
-                        .font(.custom("BaiJamjuree-Regular", size: 16))
+                        .font(.primary(type: .body1))
                 }
                 .textInputAutocapitalization(.never)
                 .disableAutocorrection(true)
                 .focused($fieldIsFocused)
                 .overlay(Rectangle().frame(height: fieldIsFocused ? 2 : 1).padding(.top, 45))
                 .foregroundColor(.white)
-                .font(.custom("BaiJamjuree-Medium", size: 16))
+                .font(.primary(type: .body1))
                 .opacity(fieldIsFocused ? 1 : 0.6)
                 .padding(.bottom, 50)
             if fieldIsFocused {
