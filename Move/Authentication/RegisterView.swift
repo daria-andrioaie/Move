@@ -48,25 +48,26 @@ struct RegisterView: View {
     var body: some View {
         ZStack {
             BackgroundView()
-            VStack {
+            VStack(alignment: .leading) {
                 Image("littleIcon")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 34)
-                    .padding(.bottom, 20.4)
+                    .padding(.bottom, 20)
 
                 Text("Let's get started")
                     .font(.primary(type: .heading1))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 42)
+//                    .padding(.leading, 42)
                     .padding(.bottom, 20)
 
                 Text("Sign up or login and start riding right away")
                     .font(.primary(type: .heading2))
                     .foregroundColor(.neutralPurple)
 //                    .foregroundColor(Color("NeutralPurple"))
-                    .frame(width: 283, alignment: .leading)
-                    .offset(x: -27)
+                    .frame(maxWidth: .infinity)
+//                    .frame(width: 283, alignment: .leading)
+//                    .offset(x: -27)
                     .padding(.bottom, 24)
      
                 
@@ -108,6 +109,7 @@ struct RegisterView: View {
                 }
                 Spacer()
             }
+            .padding(.horizontal, 24)
         }
     }
 }

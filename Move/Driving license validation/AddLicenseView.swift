@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AddLicenseView: View {
+    let onFinished: () -> Void
+    
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
@@ -41,6 +43,6 @@ struct AddLicenseView: View {
 
 struct AddLicenseView_Previews: PreviewProvider {
     static var previews: some View {
-        AddLicenseView()
+        AddLicenseView {}
     }
 }

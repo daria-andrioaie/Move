@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SplashView: View {
+    let afterAppear: () -> Void
+    
     var body: some View {
         ZStack {
             Color.primaryPurple
@@ -16,12 +18,17 @@ struct SplashView: View {
                 .offset(x: -192)
             Image("moveText")
         }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                afterAppear()
+            }
+        }
         .ignoresSafeArea()
     }
 }
 
 struct SplashView_Previews: PreviewProvider {
     static var previews: some View {
-        SplashView()
+        SplashView {}
     }
 }

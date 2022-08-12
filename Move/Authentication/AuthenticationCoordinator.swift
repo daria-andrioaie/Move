@@ -13,12 +13,13 @@ enum AuthenticationState {
     case forgotPassword
 }
 
-class AuthenticationCoordinatorViewModel: ObservableObject {
+class AuthenticationViewModel: ObservableObject {
     @Published var state: AuthenticationState = .register
 }
 
-struct AuthenticationCoordinatorView: View {
-    @StateObject var viewModel = AuthenticationCoordinatorViewModel()
+struct AuthenticationView: View {
+    @StateObject var viewModel = AuthenticationViewModel()
+    let onFinished: () -> Void
     
     var body: some View {
         switch viewModel.state {
@@ -38,8 +39,8 @@ struct AuthenticationCoordinatorView: View {
     }
 }
 
-struct AuthenticationCoordinatorView_Previews: PreviewProvider {
+struct AuthenticationView_Previews: PreviewProvider {
     static var previews: some View {
-        AuthenticationCoordinatorView()
+        AuthenticationView { }
     }
 }
