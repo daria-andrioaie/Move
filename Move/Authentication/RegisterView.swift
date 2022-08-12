@@ -63,7 +63,8 @@ struct RegisterView: View {
 
                 Text("Sign up or login and start riding right away")
                     .font(.primary(type: .heading2))
-                    .foregroundColor(Color("NeutralPurple"))
+                    .foregroundColor(.neutralPurple)
+//                    .foregroundColor(Color("NeutralPurple"))
                     .frame(width: 283, alignment: .leading)
                     .offset(x: -27)
                     .padding(.bottom, 24)
@@ -113,8 +114,29 @@ struct RegisterView: View {
 
 struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterView {
-            print("")
+        Group {
+            ForEach(devices) { device in
+                RegisterView {}
+                    .previewDevice(device)
+            }
         }
+    }
+}
+
+
+extension PreviewDevice: Identifiable {
+   public var id: String {self.rawValue}
+}
+
+extension PreviewProvider {
+    static var iphone8: PreviewDevice {
+        PreviewDevice(rawValue: "iPhone 8")
+    }
+    static var iphone13: PreviewDevice {
+        PreviewDevice(rawValue: "iPhone 13")
+    }
+    
+    static var devices: [PreviewDevice] {
+        [iphone13, iphone8]
     }
 }

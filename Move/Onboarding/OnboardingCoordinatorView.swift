@@ -22,19 +22,19 @@ struct SingleOnboardingView: View {
             HStack {
                 Text(viewData.headline)
                     .font(.primary(type: .heading1))
-                    .foregroundColor(Color("PrimaryBlue"))
+                    .foregroundColor(.primaryBlue)
                 Spacer()
                 Button("Skip") {
                     onSkip()
                 }
                 .font(.primary(.semiBold, size: 14))
-                    .foregroundColor(Color("NeutralPurple"))
+                .foregroundColor(.neutralPurple)
             }
             .padding([.leading, .trailing], 24)
             
             Text(viewData.description)
                 .font(.primary(type: .body2))
-                .foregroundColor(Color("PrimaryBlue"))
+                .foregroundColor(.primaryBlue)
                 .frame(width: 283, alignment: .leading)
                 .padding([.leading, .trailing], 24)
                 .padding(.top, 12)
@@ -44,13 +44,13 @@ struct SingleOnboardingView: View {
                     if index == viewData.orderNumber {
                         Capsule()
                             .frame(width: 16, height: 4)
-                            .foregroundColor(Color("PrimaryBlue"))
+                            .foregroundColor(.primaryBlue)
                             .padding(2)
                     }
                     else {
                         Capsule()
                             .frame(width: 4, height: 4)
-                            .foregroundColor(Color("NeutralPurple"))
+                            .foregroundColor(.neutralPurple)
                             .padding(2)
                     }
                 }

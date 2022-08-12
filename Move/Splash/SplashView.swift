@@ -10,7 +10,7 @@ import SwiftUI
 struct SplashView: View {
     var body: some View {
         ZStack {
-            Color("PrimaryPurple")
+            Color.primaryPurple
             Image("rectangleIcon")
             Image("eScooter")
                 .offset(x: -192)

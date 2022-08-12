@@ -47,7 +47,7 @@ struct LoginView: View {
 
                 Text("Enter your account credentials and start riding away")
                     .font(.primary(type: .heading2))
-                    .foregroundColor(Color("NeutralPurple"))
+                    .foregroundColor(.neutralPurple)
                     .frame(width: 327, alignment: .leading)
                     .offset(x: -7)
                     .padding(.bottom, 24)

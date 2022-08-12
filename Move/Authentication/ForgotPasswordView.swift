@@ -45,7 +45,7 @@ struct ForgotPasswordView: View {
 
                 Text("Enter the email address you’re using for your account bellow and we’ll send you a password reset link.")
                     .font(.primary(type: .body1))
-                    .foregroundColor(Color("NeutralPurple"))
+                    .foregroundColor(.neutralPurple)
                     .frame(width: 327, alignment: .leading)
                     .offset(x: -7)
                     .padding(.bottom, 32)

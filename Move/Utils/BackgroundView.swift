@@ -10,7 +10,7 @@ import SwiftUI
 struct BackgroundView: View {
     var body: some View {
         ZStack {
-            Color("PrimaryPurple")
+            Color.primaryPurple
             VStack {
                 RoundedRectangle(cornerRadius: 94)
                     .frame(width: 327, height: 327)
