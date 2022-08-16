@@ -53,9 +53,9 @@ struct LoginView: View {
                     .padding(.bottom, 24)
      
                 
-                SimpleUnderlinedTextField(placeholder: "Email address", binding: $viewModel.emailAddress)
+                SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress)
 
-                SecureUnderlinedTextField(placeholder: "Password", binding: $viewModel.password)
+                SecureUnderlinedTextField(placeholder: "Password", inputValue: $viewModel.password)
                 
                 Button {
                     onForgotPassword()

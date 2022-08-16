@@ -47,8 +47,8 @@ struct ResetPasswordView: View {
                     .padding(.bottom, 45)
 
 
-                SecureUnderlinedTextField(placeholder: "New password", binding: $viewModel.password)
-                SecureUnderlinedTextField(placeholder: "Confirm new password", binding: $viewModel.confirmedPassword)
+                SecureUnderlinedTextField(placeholder: "New password", inputValue: $viewModel.password)
+                SecureUnderlinedTextField(placeholder: "Confirm new password", inputValue: $viewModel.confirmedPassword)
 
                 Button("Reset password") {
                     viewModel.resetPassword()

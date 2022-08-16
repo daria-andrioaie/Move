@@ -51,7 +51,7 @@ struct ForgotPasswordView: View {
                     .padding(.bottom, 32)
      
                 
-                SimpleUnderlinedTextField(placeholder: "Email address", binding: $viewModel.emailAddress)
+                SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress)
                 
                 Button("Send Reset Link") {
                     viewModel.sendResetLink()

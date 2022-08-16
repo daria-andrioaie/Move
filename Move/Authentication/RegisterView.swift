@@ -48,49 +48,48 @@ struct RegisterView: View {
     var body: some View {
         ZStack {
             BackgroundView()
-            VStack(alignment: .leading) {
+            VStack() {
                 Image("littleIcon")
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 34)
+                    .padding(.leading, 14)
                     .padding(.bottom, 20)
 
                 Text("Let's get started")
                     .font(.primary(type: .heading1))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, alignment: .leading)
-//                    .padding(.leading, 42)
+                    .padding(.horizontal, 24)
                     .padding(.bottom, 20)
 
                 Text("Sign up or login and start riding right away")
                     .font(.primary(type: .heading2))
                     .foregroundColor(.neutralPurple)
-//                    .foregroundColor(Color("NeutralPurple"))
-                    .frame(maxWidth: .infinity)
-//                    .frame(width: 283, alignment: .leading)
-//                    .offset(x: -27)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 24)
                     .padding(.bottom, 24)
      
                 
-                SimpleUnderlinedTextField(placeholder: "Email address", binding: $viewModel.emailAddress)
+                SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress)
                 
-                SimpleUnderlinedTextField(placeholder: "Username", binding: $viewModel.username)
+                SimpleUnderlinedTextField(placeholder: "Username", inputValue: $viewModel.username)
 
-                SecureUnderlinedTextField(placeholder: "Password", binding: $viewModel.password)
+                SecureUnderlinedTextField(placeholder: "Password", inputValue: $viewModel.password)
                 
                 Text("By continuing you agree to Move’s  [Terms and Conditions](http://www.tapptitude.com/) and [Privacy Policy](http://www.tapptitude.com/).")
                     .font(.primary(type: .smallText))
                     .tint(.white)
                     .foregroundColor(.white)
-                    .frame(width: 231)
-                    .padding(.leading, -110)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 24)
                     .padding(.bottom, 32)
                 
                 Button("Get started") {
                     viewModel.register()
                 }
-                    .frame(width: 327)
-                    .largeButton(isEnabled: formIsCompleted)
-                    .padding(.bottom, 32)
+                .frame(maxWidth: .infinity)
+                .largeButton(isEnabled: formIsCompleted)
+                .padding(.horizontal, 24)
+                .padding(.bottom, 32)
                 
                 HStack {
                     Text("You already have an account? You can ")
@@ -107,6 +106,7 @@ struct RegisterView: View {
                             .offset(x: -7)
                     }
                 }
+                .frame(maxWidth: .infinity)
                 Spacer()
             }
             .padding(.horizontal, 24)

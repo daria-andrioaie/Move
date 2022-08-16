@@ -28,6 +28,7 @@ extension View {
 struct LargeDisabledButtonModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
+            .disabled(true)
             .foregroundColor(.neutralPurple)
             .font(.primary(.regular, size: 16))
             .frame(height: 56)

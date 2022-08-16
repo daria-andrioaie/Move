@@ -17,73 +17,81 @@ extension View {
     }
 }
 
+struct FieldModifier: ViewModifier {
+    var placeholder: String
+
+    @Binding var inputValue: String
+    @FocusState var fieldIsFocused: Bool
+    
+    func body(content: Content) -> some View {
+        content
+            .frame(maxWidth: .infinity)
+            .placeholder(when: inputValue.isEmpty) {
+                Text(placeholder).foregroundColor(.white)
+                    .opacity(0.6)
+                    .font(.primary(type: .body1))
+            }
+            .textInputAutocapitalization(.never)
+            .disableAutocorrection(true)
+            .focused($fieldIsFocused)
+            .overlay(Rectangle().frame(height: fieldIsFocused ? 2 : 1).padding(.top, 45))
+            .foregroundColor(.white)
+            .font(.primary(type: .body1))
+            .opacity(fieldIsFocused ? 1 : 0.6)
+            .padding(.bottom, 50)
+            .padding(.horizontal, 24)
+    }
+}
+
+extension View {
+    func fieldModifier(placeholder: String, inputValue: Binding<String>, fieldIsFocused: FocusState<Bool>) -> some View {
+        modifier(FieldModifier(placeholder: placeholder, inputValue: inputValue, fieldIsFocused: fieldIsFocused))
+    }
+}
+
+struct IconView: View {
+    let onClick: () -> Void
+    let imagePath: String
+    
+    var body: some View {
+        Button {
+            onClick()
+        } label: {
+            Image(imagePath)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.trailing, 30)
+                .padding(.bottom, 40)
+        }
+    }
+}
+
 struct SecureUnderlinedTextField: View {
     var placeholder: String
     
-    @Binding var binding: String
+    @Binding var inputValue: String
     @FocusState var fieldIsFocused: Bool
     @State private var showText = false
     
     var body: some View {
         ZStack {
             if !showText {
-                SecureField("", text: $binding)
-                    .frame(width: 327)
-                    .placeholder(when: binding.isEmpty) {
-                        Text(placeholder).foregroundColor(.white)
-                            .opacity(0.6)
-                            .font(.primary(type: .body1))
-                    }
-                    .textInputAutocapitalization(.never)
-                    .disableAutocorrection(true)
-                    .focused($fieldIsFocused)
-                    .overlay(Rectangle().frame(height: fieldIsFocused ? 2 : 1).padding(.top, 45))
-                    .foregroundColor(.white)
-                    .font(.primary(type: .body1))
-                    .opacity(fieldIsFocused ? 1 : 0.6)
-                    .padding(.bottom, 50)
+                SecureField("", text: $inputValue)
+                    .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused)
                 
                 if fieldIsFocused {
-                    Button {
-                        print("button pressed")
+                    IconView(onClick: {
                         showText.toggle()
-                    } label: {
-                        Image("eye-opened")
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                            .padding(.trailing, 55)
-                            .offset(y: -20)
-                    }
+                    }, imagePath: "eye-opened")
                 }
             }
             else {
-                TextField("", text: $binding)
-                    .frame(width: 327)
-                    .placeholder(when: binding.isEmpty) {
-                        Text(placeholder).foregroundColor(.white)
-                            .opacity(0.6)
-                            .font(.primary(type: .body1))
-                    }
-                    .textInputAutocapitalization(.never)
-                    .disableAutocorrection(true)
-                    .focused($fieldIsFocused)
-                    .overlay(Rectangle().frame(height: fieldIsFocused ? 2 : 1).padding(.top, 45))
-                    .foregroundColor(.white)
-                    .font(.primary(type: .body1))
-                    .opacity(fieldIsFocused ? 1 : 0.6)
-                    .padding(.bottom, 50)
+                TextField("", text: $inputValue)
+                    .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused)
                 
                 if fieldIsFocused {
-                    Button {
-                        print("button pressed")
+                    IconView(onClick: {
                         showText.toggle()
-                    } label: {
-                        Image("eye-closed")
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                            .padding(.trailing, 55)
-                            .offset(y: -20)
-                    }
+                    }, imagePath: "eye-closed")
                 }
             }
         }
@@ -93,36 +101,18 @@ struct SecureUnderlinedTextField: View {
 struct SimpleUnderlinedTextField: View {
     var placeholder: String
     
-    @Binding var binding: String
+    @Binding var inputValue: String
     @FocusState var fieldIsFocused: Bool
     
     var body: some View {
         ZStack {
-            TextField("", text: $binding)
-                .frame(width: 327)
-                .placeholder(when: binding.isEmpty) {
-                    Text(placeholder).foregroundColor(.white)
-                        .opacity(0.6)
-                        .font(.primary(type: .body1))
-                }
-                .textInputAutocapitalization(.never)
-                .disableAutocorrection(true)
-                .focused($fieldIsFocused)
-                .overlay(Rectangle().frame(height: fieldIsFocused ? 2 : 1).padding(.top, 45))
-                .foregroundColor(.white)
-                .font(.primary(type: .body1))
-                .opacity(fieldIsFocused ? 1 : 0.6)
-                .padding(.bottom, 50)
+            TextField("", text: $inputValue)
+                .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused)
+            
             if fieldIsFocused {
-                Button {
-                    binding = ""
-                } label: {
-                    Image("close-circle")
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                        .padding(.trailing, 45)
-                        .offset(y: -20)
-                }
+                IconView(onClick: {
+                    inputValue = ""
+                }, imagePath: "close-circle")
             }
         }
             
