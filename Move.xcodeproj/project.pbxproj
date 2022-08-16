@@ -12,6 +12,7 @@
 		B80979CE28A51A4E009B1C8D /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */; };
 		B80979D128A53504009B1C8D /* AddLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979D028A53504009B1C8D /* AddLicenseView.swift */; };
 		B861626128ABB73300BDE4CA /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861626028ABB73300BDE4CA /* Shared.swift */; };
+		B861626328ABBAAA00BDE4CA /* LayoutExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861626228ABBAAA00BDE4CA /* LayoutExtensions.swift */; };
 		B896D15628A63D6000BD7791 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B896D15528A63D6000BD7791 /* ColorExtensions.swift */; };
 		B896D15828A6422500BD7791 /* PreviewDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B896D15728A6422500BD7791 /* PreviewDevices.swift */; };
 		B896D15A28A66AD000BD7791 /* MainCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B896D15928A66AD000BD7791 /* MainCoordinatorView.swift */; };
@@ -48,6 +49,7 @@
 		B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		B80979D028A53504009B1C8D /* AddLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLicenseView.swift; sourceTree = "<group>"; };
 		B861626028ABB73300BDE4CA /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
+		B861626228ABBAAA00BDE4CA /* LayoutExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutExtensions.swift; sourceTree = "<group>"; };
 		B896D15528A63D6000BD7791 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		B896D15728A6422500BD7791 /* PreviewDevices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDevices.swift; sourceTree = "<group>"; };
 		B896D15928A66AD000BD7791 /* MainCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorView.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				B8D9B78228A3D8B6003F0968 /* FontsExtensions.swift */,
 				B896D15528A63D6000BD7791 /* ColorExtensions.swift */,
 				B896D15728A6422500BD7791 /* PreviewDevices.swift */,
+				B861626228ABBAAA00BDE4CA /* LayoutExtensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				B861626128ABB73300BDE4CA /* Shared.swift in Sources */,
 				B896D15828A6422500BD7791 /* PreviewDevices.swift in Sources */,
 				B8E5BB9C28A27F0F0012DB66 /* RegisterView.swift in Sources */,
+				B861626328ABBAAA00BDE4CA /* LayoutExtensions.swift in Sources */,
 				B8E5BBA028A27F2D0012DB66 /* BackgroundView.swift in Sources */,
 				B80979CE28A51A4E009B1C8D /* ResetPasswordView.swift in Sources */,
 				B896D15A28A66AD000BD7791 /* MainCoordinatorView.swift in Sources */,

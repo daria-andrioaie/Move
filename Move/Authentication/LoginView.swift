@@ -46,8 +46,7 @@ struct LoginView: View {
                         .font(.primary(type: .smallText))
                         .foregroundColor(.white)
                         .underline()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal, 24)
+                        .alignLeadingWithHorizontalPadding()
                         .padding(.bottom, 32)
                 }
 

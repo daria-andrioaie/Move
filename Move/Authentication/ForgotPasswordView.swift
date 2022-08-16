@@ -30,38 +30,32 @@ struct ForgotPasswordView: View {
             BackgroundView()
             VStack {
                 Image("chevron-left")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .foregroundColor(.white)
-                    .padding(.leading, 40)
+                    .alignLeadingWithHorizontalPadding()
                     .padding(.bottom, 10)
 
 
                 Text("Forgot password")
                     .font(.primary(type: .heading1))
                     .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 42)
+                    .alignLeadingWithHorizontalPadding()
                     .padding(.bottom, 20)
 
                 Text("Enter the email address you’re using for your account bellow and we’ll send you a password reset link.")
                     .font(.primary(type: .body1))
                     .foregroundColor(.neutralPurple)
-                    .frame(width: 327, alignment: .leading)
-                    .offset(x: -7)
+                    .alignLeadingWithHorizontalPadding()
                     .padding(.bottom, 32)
      
                 
                 SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress)
                 
-                Button("Send Reset Link") {
+                FormButton(title: "Send reset link", isEnabled: formIsCompleted) {
                     viewModel.sendResetLink()
                 }
-                    .frame(width: 327)
-                    .largeButton(isEnabled: formIsCompleted)
-                    .padding(.bottom, 32)
                 
                 Spacer()
             }
+            .padding(.horizontal, 24)
         }
     }
 }

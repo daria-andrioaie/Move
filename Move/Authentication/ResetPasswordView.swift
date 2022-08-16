@@ -34,30 +34,26 @@ struct ResetPasswordView: View {
             BackgroundView()
             VStack {
                 Image("chevron-left")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .foregroundColor(.white)
-                    .padding(.leading, 42)
+                    .alignLeadingWithHorizontalPadding()
                     .padding(.bottom, 10)
-
+                
                 Text("Reset password")
                     .font(.primary(type: .heading1))
                     .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 42)
-                    .padding(.bottom, 45)
+                    .alignLeadingWithHorizontalPadding()
+                    .padding(.bottom, 20)
 
 
                 SecureUnderlinedTextField(placeholder: "New password", inputValue: $viewModel.password)
                 SecureUnderlinedTextField(placeholder: "Confirm new password", inputValue: $viewModel.confirmedPassword)
 
-                Button("Reset password") {
+                FormButton(title: "Reset password", isEnabled: formIsCompleted) {
                     viewModel.resetPassword()
                 }
-                    .frame(width: 327)
-                    .largeButton(isEnabled: formIsCompleted)
                 
                 Spacer()
             }
+            .padding(.horizontal, 24)
         }
     }
 }

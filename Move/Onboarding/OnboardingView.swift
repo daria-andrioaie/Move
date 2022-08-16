@@ -19,7 +19,7 @@ struct SingleOnboardingView: View {
                 Image(viewData.imagePath)
                     .resizable()
                     .scaledToFill()
-                    .frame(height: geometry.size.height * 7/10)
+                    .frame(height: geometry.size.height * 6/10)
                     .clipped()
                 HStack {
                     Text(viewData.headline)
@@ -38,8 +38,7 @@ struct SingleOnboardingView: View {
                     .font(.primary(type: .body2))
                     .foregroundColor(.primaryBlue)
                     .padding(.top, 12)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 24)
+                    .alignLeadingWithHorizontalPadding()
                     
                 Spacer()
                 HStack {
@@ -70,7 +69,6 @@ struct SingleOnboardingView: View {
                     }
                 }
                 .padding(.horizontal, 24)
-//                .padding(.bottom, 74)
                 Spacer()
             }
             .ignoresSafeArea()

@@ -61,8 +61,7 @@ struct RegisterView: View {
                     .font(.primary(type: .smallText))
                     .tint(.white)
                     .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 24)
+                    .alignLeadingWithHorizontalPadding()
                     .padding(.bottom, 32)
                 
                 FormButton(title: "Get started", isEnabled: formIsCompleted) {
