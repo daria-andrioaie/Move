@@ -33,25 +33,7 @@ struct LoginView: View {
         ZStack {
             BackgroundView()
             VStack {
-                Image("littleIcon")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 34)
-                    .padding(.bottom, 20.4)
-
-                Text("Login")
-                    .font(.primary(type: .heading1))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 42)
-                    .padding(.bottom, 20)
-
-                Text("Enter your account credentials and start riding away")
-                    .font(.primary(type: .heading2))
-                    .foregroundColor(.neutralPurple)
-                    .frame(width: 327, alignment: .leading)
-                    .offset(x: -7)
-                    .padding(.bottom, 24)
-     
+                HeaderView(title: "Login", caption: "Enter your account credentials and start riding away")
                 
                 SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress)
 
@@ -64,17 +46,14 @@ struct LoginView: View {
                         .font(.primary(type: .smallText))
                         .foregroundColor(.white)
                         .underline()
-                        .frame(width: 231)
-                        .padding(.leading, -200)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 24)
                         .padding(.bottom, 32)
                 }
 
-                Button("Login") {
+                FormButton(title: "Login", isEnabled: formIsCompleted) {
                     viewModel.login()
                 }
-                .frame(width: 327)
-                    .largeButton(isEnabled: formIsCompleted)
-                    .padding(.bottom, 32)
                 
                 HStack {
                     Text("Don't have an account? You can ")
@@ -93,6 +72,7 @@ struct LoginView: View {
                 }
                 Spacer()
             }
+            .padding(.horizontal, 24)
         }
     }
 }
