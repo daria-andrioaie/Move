@@ -20,9 +20,10 @@ struct MainCoordinatorView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            List {
                 NavigationLink(destination: SplashView(afterAppear: {
-                    currentState = .onboarding
+                        currentState = .onboarding
+
                 }).ignoresSafeArea().navigationBarBackButtonHidden(true), tag: .splash, selection: $currentState, label: { EmptyView() })
                 
                 NavigationLink(destination: OnboardingView(onFinished: {
@@ -34,7 +35,6 @@ struct MainCoordinatorView: View {
                 }).navigationBarBackButtonHidden(true), tag: .authentication, selection: $currentState, label: { EmptyView() })
                 
                 NavigationLink(destination: AddLicenseView(onFinished: {}).navigationBarBackButtonHidden(true), tag: .addLicense, selection: $currentState, label: { EmptyView() })
-                    
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())

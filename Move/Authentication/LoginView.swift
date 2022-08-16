@@ -99,10 +99,11 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView {
-            print("")
-        } onForgotPassword: {
-            print("")
+        Group {
+            ForEach(devices) { device in
+                LoginView(onSwitch: {}, onForgotPassword: {})
+                    .previewDevice(device)
+            }
         }
     }
 }

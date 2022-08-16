@@ -64,6 +64,11 @@ struct ResetPasswordView: View {
 
 struct ResetPasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        ResetPasswordView()
+        Group {
+            ForEach(devices) { device in
+                ResetPasswordView()
+                    .previewDevice(device)
+            }
+        }
     }
 }

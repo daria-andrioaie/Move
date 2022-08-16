@@ -152,6 +152,11 @@ struct OnboardingView: View {
 
 struct OnboardingCoordinatorView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView { }
+        Group {
+            ForEach(devices) { device in
+                OnboardingView(onFinished: {})
+                    .previewDevice(device)
+            }
+        }
     }
 }

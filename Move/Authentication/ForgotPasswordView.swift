@@ -68,6 +68,11 @@ struct ForgotPasswordView: View {
 
 struct ForgotPasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        ForgotPasswordView()
+        Group {
+            ForEach(devices) { device in
+                ForgotPasswordView()
+                    .previewDevice(device)
+            }
+        }
     }
 }

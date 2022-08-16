@@ -43,6 +43,11 @@ struct AddLicenseView: View {
 
 struct AddLicenseView_Previews: PreviewProvider {
     static var previews: some View {
-        AddLicenseView {}
+        Group {
+            ForEach(devices) { device in
+                AddLicenseView(onFinished: {})
+                    .previewDevice(device)
+            }
+        }
     }
 }

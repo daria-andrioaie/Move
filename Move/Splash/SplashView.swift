@@ -14,8 +14,17 @@ struct SplashView: View {
         ZStack {
             Color.primaryPurple
             Image("rectangleIcon")
-            Image("eScooter")
-                .offset(x: -192)
+//            Image("xiaomi-cut")
+//                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+//                .padding(.vertical, 200)
+
+            GeometryReader { geo in
+                Image("xiaomi-cut")
+                    .frame(maxWidth: geo.size.width, alignment: .leading)
+                    .frame(maxHeight: geo.size.height, alignment: .center)
+                    .padding(.vertical, 50)
+            }
+            .frame(height: UIScreen.main.bounds.height)
             Image("moveText")
         }
         .onAppear {
@@ -29,6 +38,11 @@ struct SplashView: View {
 
 struct SplashView_Previews: PreviewProvider {
     static var previews: some View {
-        SplashView {}
+        Group {
+            ForEach(devices) { device in
+                SplashView {}
+                    .previewDevice(device)
+            }
+        }
     }
 }
