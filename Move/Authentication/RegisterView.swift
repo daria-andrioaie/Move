@@ -49,26 +49,8 @@ struct RegisterView: View {
         ZStack {
             BackgroundView()
             VStack() {
-                Image("littleIcon")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 14)
-                    .padding(.bottom, 20)
+                HeaderView(title: "Let's get started", caption: "Sign up or login and start riding right away")
 
-                Text("Let's get started")
-                    .font(.primary(type: .heading1))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 24)
-                    .padding(.bottom, 20)
-
-                Text("Sign up or login and start riding right away")
-                    .font(.primary(type: .heading2))
-                    .foregroundColor(.neutralPurple)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 24)
-                    .padding(.bottom, 24)
-     
-                
                 SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress)
                 
                 SimpleUnderlinedTextField(placeholder: "Username", inputValue: $viewModel.username)
@@ -83,13 +65,9 @@ struct RegisterView: View {
                     .padding(.horizontal, 24)
                     .padding(.bottom, 32)
                 
-                Button("Get started") {
+                FormButton(title: "Get started", isEnabled: formIsCompleted) {
                     viewModel.register()
                 }
-                .frame(maxWidth: .infinity)
-                .largeButton(isEnabled: formIsCompleted)
-                .padding(.horizontal, 24)
-                .padding(.bottom, 32)
                 
                 HStack {
                     Text("You already have an account? You can ")
