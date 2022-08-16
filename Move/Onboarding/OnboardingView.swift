@@ -14,62 +14,67 @@ struct SingleOnboardingView: View {
     let onSkip: () -> Void
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Image(viewData.imagePath)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .padding(.bottom, 0)
-            HStack {
-                Text(viewData.headline)
-                    .font(.primary(type: .heading1))
+        GeometryReader { geometry in
+            VStack() {
+                Image(viewData.imagePath)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(height: geometry.size.height * 7/10)
+                    .clipped()
+                HStack {
+                    Text(viewData.headline)
+                        .font(.primary(type: .heading1))
+                        .foregroundColor(.primaryBlue)
+                    Spacer()
+                    Button("Skip") {
+                        onSkip()
+                    }
+                    .font(.primary(.semiBold, size: 14))
+                    .foregroundColor(.neutralPurple)
+                }
+                .padding(.horizontal, 24)
+                
+                Text(viewData.description)
+                    .font(.primary(type: .body2))
                     .foregroundColor(.primaryBlue)
+                    .padding(.top, 12)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 24)
+                    
                 Spacer()
-                Button("Skip") {
-                    onSkip()
-                }
-                .font(.primary(.semiBold, size: 14))
-                .foregroundColor(.neutralPurple)
-            }
-            .padding([.leading, .trailing], 24)
-            
-            Text(viewData.description)
-                .font(.primary(type: .body2))
-                .foregroundColor(.primaryBlue)
-                .frame(width: 283, alignment: .leading)
-                .padding([.leading, .trailing], 24)
-                .padding(.top, 12)
-            Spacer()
-            HStack {
-                ForEach(0..<totalNumberOfStates, id: \.self) { index in
-                    if index == viewData.orderNumber {
-                        Capsule()
-                            .frame(width: 16, height: 4)
-                            .foregroundColor(.primaryBlue)
-                            .padding(2)
+                HStack {
+                    ForEach(0..<totalNumberOfStates, id: \.self) { index in
+                        if index == viewData.orderNumber {
+                            Capsule()
+                                .frame(width: 16, height: 4)
+                                .foregroundColor(.primaryBlue)
+                                .padding(2)
+                        }
+                        else {
+                            Capsule()
+                                .frame(width: 4, height: 4)
+                                .foregroundColor(.neutralPurple)
+                                .padding(2)
+                        }
                     }
-                    else {
-                        Capsule()
-                            .frame(width: 4, height: 4)
-                            .foregroundColor(.neutralPurple)
-                            .padding(2)
+                    Spacer()
+                    Button(action: {
+                        onNext()
+                    }) {
+                        HStack {
+                            Text(viewData.orderNumber != totalNumberOfStates - 1 ? "Next" : "Get started")
+                            Image(systemName: "arrow.right")
+                        }
+                        .padding(.horizontal, 16)
+                        .largeActiveButton()
                     }
                 }
+                .padding(.horizontal, 24)
+//                .padding(.bottom, 74)
                 Spacer()
-                Button(action: {
-                    onNext()
-                }) {
-                    HStack {
-                        Text(viewData.orderNumber != totalNumberOfStates - 1 ? "Next" : "Get started")
-                        Image(systemName: "arrow.right")
-                    }
-                    .padding([.leading, .trailing], 16)
-                    .largeActiveButton()
-                }
             }
-            .padding([.leading, .trailing], 24)
-            .padding(.bottom, 74)
+            .ignoresSafeArea()
         }
-        .ignoresSafeArea()
     }
 }
 
