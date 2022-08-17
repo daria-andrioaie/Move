@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct HeaderView: View {
+struct AuthenticationHeaderView: View {
     let title: String
     let caption: String
     
@@ -21,15 +21,13 @@ struct HeaderView: View {
         Text(title)
             .font(.primary(type: .heading1))
             .foregroundColor(.white)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 24)
+            .alignLeadingWithHorizontalPadding()
             .padding(.bottom, 20)
 
         Text(caption)
             .font(.primary(type: .heading2))
             .foregroundColor(.neutralPurple)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 24)
+            .alignLeadingWithHorizontalPadding()
             .padding(.bottom, 24)
     }
 }

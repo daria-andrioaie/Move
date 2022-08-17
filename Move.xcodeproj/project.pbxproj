@@ -39,7 +39,7 @@
 		B8E5BB9828A25F290012DB66 /* BaiJamjuree-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8E5BB8C28A25F290012DB66 /* BaiJamjuree-MediumItalic.ttf */; };
 		B8E5BB9C28A27F0F0012DB66 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9B28A27F0F0012DB66 /* RegisterView.swift */; };
 		B8E5BB9E28A27F190012DB66 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9D28A27F190012DB66 /* LoginView.swift */; };
-		B8E5BBA028A27F2D0012DB66 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9F28A27F2D0012DB66 /* BackgroundView.swift */; };
+		B8E5BBA028A27F2D0012DB66 /* PurpleBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9F28A27F2D0012DB66 /* PurpleBackgroundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,7 +78,7 @@
 		B8E5BB9928A25F930012DB66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B8E5BB9B28A27F0F0012DB66 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B8E5BB9D28A27F190012DB66 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		B8E5BB9F28A27F2D0012DB66 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		B8E5BB9F28A27F2D0012DB66 /* PurpleBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleBackgroundView.swift; sourceTree = "<group>"; };
 		BF3D1FBCE5C048B8A060E965 /* Pods-Move.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move.debug.xcconfig"; path = "Target Support Files/Pods-Move/Pods-Move.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -173,7 +173,7 @@
 		B8D9B77B28A3A6FE003F0968 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				B8E5BB9F28A27F2D0012DB66 /* BackgroundView.swift */,
+				B8E5BB9F28A27F2D0012DB66 /* PurpleBackgroundView.swift */,
 				B8D9B77C28A3A726003F0968 /* SimpleUnderlinedTextField.swift */,
 				B8D9B77E28A3C1AE003F0968 /* Buttons.swift */,
 				B8D9B78228A3D8B6003F0968 /* FontsExtensions.swift */,
@@ -341,7 +341,7 @@
 				B896D15828A6422500BD7791 /* PreviewDevices.swift in Sources */,
 				B8E5BB9C28A27F0F0012DB66 /* RegisterView.swift in Sources */,
 				B861626328ABBAAA00BDE4CA /* LayoutExtensions.swift in Sources */,
-				B8E5BBA028A27F2D0012DB66 /* BackgroundView.swift in Sources */,
+				B8E5BBA028A27F2D0012DB66 /* PurpleBackgroundView.swift in Sources */,
 				B80979CE28A51A4E009B1C8D /* ResetPasswordView.swift in Sources */,
 				B896D15A28A66AD000BD7791 /* MainCoordinatorView.swift in Sources */,
 				B8D9B78128A3D0F8003F0968 /* AuthenticationCoordinator.swift in Sources */,

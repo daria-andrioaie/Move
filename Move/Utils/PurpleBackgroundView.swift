@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BackgroundView: View {
+struct PurpleBackgroundView: View {
     var body: some View {
         ZStack {
             Color.primaryPurple
@@ -26,12 +26,14 @@ struct BackgroundView: View {
                     .offset(x: -110, y: 50)
             }
         }
+//        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+//        .clipped()
         .ignoresSafeArea()
     }
 }
 
-struct BackgroundView_Previews: PreviewProvider {
+struct PurpleBackgroundView_Previews: PreviewProvider {
     static var previews: some View {
-        BackgroundView()
+        PurpleBackgroundView()
     }
 }

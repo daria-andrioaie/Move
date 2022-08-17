@@ -27,7 +27,7 @@ struct ForgotPasswordView: View {
     
     var body: some View {
         ZStack {
-            BackgroundView()
+            PurpleBackgroundView()
             VStack {
                 Image("chevron-left")
                     .alignLeadingWithHorizontalPadding()

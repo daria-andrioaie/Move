@@ -31,9 +31,9 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
-            BackgroundView()
+            PurpleBackgroundView()
             VStack {
-                HeaderView(title: "Login", caption: "Enter your account credentials and start riding away")
+                AuthenticationHeaderView(title: "Login", caption: "Enter your account credentials and start riding away")
                 
                 SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress)
 
