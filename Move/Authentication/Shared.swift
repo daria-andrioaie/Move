@@ -15,7 +15,7 @@ struct AuthenticationHeaderView: View {
     var body: some View {
         Image("littleIcon")
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 24)
+            .padding(.top, 40)
             .padding(.leading, 14)
             .padding(.bottom, 10)
 

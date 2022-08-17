@@ -73,6 +73,7 @@ struct SingleOnboardingView: View {
                 Spacer()
             }
             .ignoresSafeArea()
+            .background(.white)
         }
     }
 }

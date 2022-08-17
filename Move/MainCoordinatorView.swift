@@ -25,18 +25,21 @@ struct MainCoordinatorView: View {
                         currentState = .onboarding
 
                 }).ignoresSafeArea()
+                    .preferredColorScheme(.dark)
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .splash, selection: $currentState, label: { EmptyView() })
                 
                 NavigationLink(destination: OnboardingView(onFinished: {
                     currentState = .authentication
                 })
+                    .preferredColorScheme(.dark)
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .onboarding, selection: $currentState, label: { EmptyView() })
                 
                 NavigationLink(destination: AuthenticationView(onFinished: {
                     currentState = .addLicense
                 })
+                    .preferredColorScheme(.dark)
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .authentication, selection: $currentState, label: { EmptyView() })
                 

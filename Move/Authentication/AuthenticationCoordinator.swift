@@ -47,7 +47,9 @@ struct AuthenticationView: View {
                     EmptyView()
                 })
 
-                NavigationLink(destination: ForgotPasswordView()
+                NavigationLink(destination: ForgotPasswordView(onBack: {
+                    viewModel.state = .login
+                })
                     .ignoresSafeArea()
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .forgotPassword, selection: $viewModel.state, label: {

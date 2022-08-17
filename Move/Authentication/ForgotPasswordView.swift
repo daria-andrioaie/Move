@@ -18,6 +18,8 @@ class ForgotPasswordViewModel: ObservableObject {
 struct ForgotPasswordView: View {
     @StateObject var viewModel = ForgotPasswordViewModel()
     
+    let onBack: () -> Void
+    
     private var formIsCompleted: Bool {
         if !viewModel.emailAddress.isEmpty {
             return true
@@ -29,11 +31,16 @@ struct ForgotPasswordView: View {
         ZStack {
             PurpleBackgroundView()
             VStack {
-                Image("chevron-left")
-                    .alignLeadingWithHorizontalPadding()
-                    .padding(.top, 45)
-                    .padding(.bottom, 10)
-
+                Button {
+                    print("Back button pressed")
+                    onBack()
+                } label: {
+                    // TODO: - the button can't be pressed
+                    Image("chevron-left")
+                        .alignLeadingWithHorizontalPadding()
+                        .padding(.top, 45)
+                        .padding(.bottom, 10)
+                }
 
                 Text("Forgot password")
                     .font(.primary(type: .heading1))
@@ -65,7 +72,7 @@ struct ForgotPasswordView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                ForgotPasswordView()
+                ForgotPasswordView {}
                     .previewDevice(device)
             }
         }
