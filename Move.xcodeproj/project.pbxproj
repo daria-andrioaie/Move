@@ -110,6 +110,26 @@
 			path = "Driving license validation";
 			sourceTree = "<group>";
 		};
+		B862BEFD28ACF642002EF079 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B8E5BB9F28A27F2D0012DB66 /* PurpleBackgroundView.swift */,
+				B8D9B77C28A3A726003F0968 /* SimpleUnderlinedTextField.swift */,
+				B8D9B77E28A3C1AE003F0968 /* Buttons.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		B862BEFE28ACF66B002EF079 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B861626228ABBAAA00BDE4CA /* LayoutExtensions.swift */,
+				B896D15528A63D6000BD7791 /* ColorExtensions.swift */,
+				B8D9B78228A3D8B6003F0968 /* FontsExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		B8B4B0C028A1325200FD6B56 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +167,8 @@
 		B8D9110E28A1188600D25454 /* Move */ = {
 			isa = PBXGroup;
 			children = (
+				B862BEFE28ACF66B002EF079 /* Extensions */,
+				B862BEFD28ACF642002EF079 /* Components */,
 				B80979CF28A52EDC009B1C8D /* Driving license validation */,
 				B8D9B77B28A3A6FE003F0968 /* Utils */,
 				B8E5BB9A28A279460012DB66 /* Authentication */,
@@ -173,13 +195,7 @@
 		B8D9B77B28A3A6FE003F0968 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				B8E5BB9F28A27F2D0012DB66 /* PurpleBackgroundView.swift */,
-				B8D9B77C28A3A726003F0968 /* SimpleUnderlinedTextField.swift */,
-				B8D9B77E28A3C1AE003F0968 /* Buttons.swift */,
-				B8D9B78228A3D8B6003F0968 /* FontsExtensions.swift */,
-				B896D15528A63D6000BD7791 /* ColorExtensions.swift */,
 				B896D15728A6422500BD7791 /* PreviewDevices.swift */,
-				B861626228ABBAAA00BDE4CA /* LayoutExtensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";

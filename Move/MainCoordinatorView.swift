@@ -24,17 +24,25 @@ struct MainCoordinatorView: View {
                 NavigationLink(destination: SplashView(afterAppear: {
                         currentState = .onboarding
 
-                }).ignoresSafeArea().navigationBarBackButtonHidden(true), tag: .splash, selection: $currentState, label: { EmptyView() })
+                }).ignoresSafeArea()
+                    .transition(.opacity.animation(.default))
+                    .navigationBarBackButtonHidden(true), tag: .splash, selection: $currentState, label: { EmptyView() })
                 
                 NavigationLink(destination: OnboardingView(onFinished: {
                     currentState = .authentication
-                }).navigationBarBackButtonHidden(true), tag: .onboarding, selection: $currentState, label: { EmptyView() })
+                })
+                    .transition(.opacity.animation(.default))
+                    .navigationBarBackButtonHidden(true), tag: .onboarding, selection: $currentState, label: { EmptyView() })
                 
                 NavigationLink(destination: AuthenticationView(onFinished: {
                     currentState = .addLicense
-                }).navigationBarBackButtonHidden(true), tag: .authentication, selection: $currentState, label: { EmptyView() })
+                })
+                    .transition(.opacity.animation(.default))
+                    .navigationBarBackButtonHidden(true), tag: .authentication, selection: $currentState, label: { EmptyView() })
                 
-                NavigationLink(destination: AddLicenseView(onFinished: {}).navigationBarBackButtonHidden(true), tag: .addLicense, selection: $currentState, label: { EmptyView() })
+                NavigationLink(destination: AddLicenseView(onFinished: {})
+                    .transition(.opacity.animation(.default))
+                    .navigationBarBackButtonHidden(true), tag: .addLicense, selection: $currentState, label: { EmptyView() })
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())

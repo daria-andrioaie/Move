@@ -106,7 +106,7 @@ struct OnboardingStateData {
 //    }
 //}
 
-enum OnboardingState: Equatable {
+enum OnboardingState: Equatable, CaseIterable {
     static func == (lhs: OnboardingState, rhs: OnboardingState) -> Bool {
         return lhs.identifier == rhs.identifier
     }
@@ -129,34 +129,39 @@ enum OnboardingState: Equatable {
 }
 
 class OnboardingViewModel: ObservableObject {
-//    @Published var state: OnboardingState = .safety(.init(imagePath: "safety", headline: "Safety", description: "Please wear a helmet and protect yourself while riding.", orderNumber: 0))
+
     let totalNumberOfStates = 5
-//
-    
-//    @Published var state3 = OnboardingState3.safety
-//    let states = ["safety" : OnboardingStateData(imagePath: "safety", headline: "Safety", description: "Please wear a helmet and protect yourself while riding.", orderNumber: 0)
-//    ]
     
     @Published var state: OnboardingState? = .safety
     
-    func getSafetyData() -> OnboardingStateData {
-        OnboardingStateData(imagePath: "safety", headline: "Safety", description: "Please wear a helmet and protect yourself while riding.", orderNumber: 0)
+    func getViewData(state: OnboardingState) -> OnboardingStateData {
+        switch state {
+        case .safety:
+            return OnboardingStateData(imagePath: "safety", headline: "Safety", description: "Please wear a helmet and protect yourself while riding.", orderNumber: 0)
+        case .scan:
+            return OnboardingStateData(imagePath: "scan", headline: "Scan", description: "Scan the QR code or NFC sticker on top of the scooter to unlock and ride.", orderNumber: 1)
+        case .ride:
+            return OnboardingStateData(imagePath: "ride", headline: "Ride", description: "Step on the scooter with one foot and kick off the ground. When the scooter starts to coast, push the right throttle to accelerate.", orderNumber: 2)
+        case .parking:
+            return OnboardingStateData(imagePath: "parking", headline: "Parking", description: "If convenient, park at a bike rack. If not, park close to the edge of the sidewalk closest to the street. Do not block sidewalks, doors or ramps.", orderNumber: 3)
+        case .rules:
+            return OnboardingStateData(imagePath: "rules", headline: "Rules", description: "You must be 18 years or and older with a valid driving licence to operate a scooter. Please follow all street signs, signals and markings, and obey local traffic laws.", orderNumber: 4)
+        }
     }
     
-    func getScanData() -> OnboardingStateData {
-        OnboardingStateData(imagePath: "scan", headline: "Scan", description: "Scan the QR code or NFC sticker on top of the scooter to unlock and ride.", orderNumber: 1)
-    }
-    
-    func getRideData() -> OnboardingStateData {
-        OnboardingStateData(imagePath: "ride", headline: "Ride", description: "Step on the scooter with one foot and kick off the ground. When the scooter starts to coast, push the right throttle to accelerate.", orderNumber: 2)
-    }
-    
-    func getParkingData() -> OnboardingStateData {
-        OnboardingStateData(imagePath: "parking", headline: "Parking", description: "If convenient, park at a bike rack. If not, park close to the edge of the sidewalk closest to the street. Do not block sidewalks, doors or ramps.", orderNumber: 3)
-    }
-    
-    func getRulesData() -> OnboardingStateData {
-        OnboardingStateData(imagePath: "rules", headline: "Rules", description: "You must be 18 years or and older with a valid driving licence to operate a scooter. Please follow all street signs, signals and markings, and obey local traffic laws.", orderNumber: 4)
+    func getNextState(after state: OnboardingState) -> OnboardingState? {
+        switch state {
+        case .safety:
+            return .scan
+        case .scan:
+            return .ride
+        case .ride:
+            return .parking
+        case .parking:
+            return .rules
+        case .rules:
+            return nil
+        }
     }
 }
 
@@ -167,102 +172,24 @@ struct OnboardingView: View {
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: SingleOnboardingView(viewData: viewModel.getSafetyData(), totalNumberOfStates: viewModel.totalNumberOfStates, onNext: {
-                        viewModel.state = .scan
-                }, onSkip: {
-                    onFinished()
-                })
-                    .transition(.opacity.animation(.default))
-                    .navigationBarBackButtonHidden(true), tag: .safety, selection: $viewModel.state, label: {
-                    EmptyView()
-                })
-                
-                NavigationLink(destination: SingleOnboardingView(viewData: viewModel.getScanData(), totalNumberOfStates: viewModel.totalNumberOfStates, onNext: {
-                        viewModel.state = .ride
-                }, onSkip: {
-                    onFinished()
-                })
-                    .transition(.opacity.animation(.default))
-                    .navigationBarBackButtonHidden(true), tag: .scan, selection: $viewModel.state) {
-                    EmptyView()
-                }
-                .transition(.move(edge: .trailing))
-//                .animation(.easeOut, value: viewModel.state)
-                
-                NavigationLink(destination: SingleOnboardingView(viewData: viewModel.getRideData(), totalNumberOfStates: viewModel.totalNumberOfStates, onNext: {
-                    withAnimation {
-                        viewModel.state = .parking
-                    }
-                }, onSkip: {
-                    onFinished()
-                })
-                    .transition(.opacity.animation(.default))
-                    .navigationBarBackButtonHidden(true), tag: .ride, selection: $viewModel.state) {
-                    EmptyView()
-                }
-                
-                NavigationLink(destination: SingleOnboardingView(viewData: viewModel.getParkingData(), totalNumberOfStates: viewModel.totalNumberOfStates, onNext: {
-                    withAnimation {
-                        viewModel.state = .rules
-                    }
-                }, onSkip: {
-                    onFinished()
-                })
-                    .transition(.opacity.animation(.default))
-                    .navigationBarBackButtonHidden(true), tag: .parking, selection: $viewModel.state) {
-                    EmptyView()
-                }
-                
-                NavigationLink(destination: SingleOnboardingView(viewData: viewModel.getRulesData(), totalNumberOfStates: viewModel.totalNumberOfStates, onNext: {
-                    withAnimation {
+                ForEach(OnboardingState.allCases, id: \.self) { state in
+                    NavigationLink(destination: SingleOnboardingView(viewData: viewModel.getViewData(state: state), totalNumberOfStates: viewModel.totalNumberOfStates, onNext: {
+                        guard let nextState = viewModel.getNextState(after: state) else {
+                            onFinished()
+                            return
+                        }
+                        viewModel.state = nextState
+                        
+                    }, onSkip: {
                         onFinished()
+                    })
+                        .transition(.opacity.animation(.default))
+                        .navigationBarBackButtonHidden(true), tag: state, selection: $viewModel.state) {
+                        EmptyView()
                     }
-                }, onSkip: {
-                    onFinished()
-                })
-                    .transition(.opacity.animation(.default))
-                    .navigationBarBackButtonHidden(true), tag: .rules, selection: $viewModel.state) {
-                    EmptyView()
                 }
             }
         }
-        
-    
-//        ZStack {
-//            switch viewModel.state {
-//            case .safety(let safetyData):
-//                SingleOnboardingView(viewData: safetyData, totalNumberOfStates: viewModel.totalNumberOfStates) {
-//                    viewModel.state = .scan(.init(imagePath: "scan", headline: "Scan", description: "Scan the QR code or NFC sticker on top of the scooter to unlock and ride.", orderNumber: 1))
-//                } onSkip: {
-//                    onFinished()
-//                }
-//            case .scan(let scanData):
-//                SingleOnboardingView(viewData: scanData, totalNumberOfStates: viewModel.totalNumberOfStates) {
-//                    viewModel.state = .ride(.init(imagePath: "ride", headline: "Ride", description: "Step on the scooter with one foot and kick off the ground. When the scooter starts to coast, push the right throttle to accelerate.", orderNumber: 2))
-//                } onSkip: {
-//                    onFinished()
-//                }
-//            case .ride(let rideData):
-//                SingleOnboardingView(viewData: rideData, totalNumberOfStates: viewModel.totalNumberOfStates) {
-//                    viewModel.state = .parking(.init(imagePath: "parking", headline: "Parking", description: "If convenient, park at a bike rack. If not, park close to the edge of the sidewalk closest to the street. Do not block sidewalks, doors or ramps.", orderNumber: 3))
-//                } onSkip: {
-//                    onFinished()
-//                }
-//            case .parking(let parkingData):
-//                SingleOnboardingView(viewData: parkingData, totalNumberOfStates: viewModel.totalNumberOfStates) {
-//                    viewModel.state = .rules(.init(imagePath: "rules", headline: "Rules", description: "You must be 18 years or and older with a valid driving licence to operate a scooter. Please follow all street signs, signals and markings, and obey local traffic laws.", orderNumber: 4))
-//                } onSkip: {
-//                    onFinished()
-//                }
-//            case .rules(let rulesData):
-//                SingleOnboardingView(viewData: rulesData, totalNumberOfStates: viewModel.totalNumberOfStates) {
-//                    onFinished()
-//                } onSkip: {
-//                    onFinished()
-//                }
-//            }
-//        }
-//        .animation(.easeOut, value: viewModel.state)
     }
 }
 
