@@ -31,6 +31,7 @@ struct ForgotPasswordView: View {
             VStack {
                 Image("chevron-left")
                     .alignLeadingWithHorizontalPadding()
+                    .padding(.top, 45)
                     .padding(.bottom, 10)
 
 
@@ -55,7 +56,7 @@ struct ForgotPasswordView: View {
                 
                 Spacer()
             }
-            .padding(.horizontal, 24)
+//            .padding(.horizontal, 24)
         }
     }
 }

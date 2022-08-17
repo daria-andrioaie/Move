@@ -49,7 +49,7 @@ extension View {
     }
 }
 
-struct IconView: View {
+struct FieldIconView: View {
     let onClick: () -> Void
     let imagePath: String
     
@@ -79,7 +79,7 @@ struct SecureUnderlinedTextField: View {
                     .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused)
                 
                 if fieldIsFocused {
-                    IconView(onClick: {
+                    FieldIconView(onClick: {
                         showText.toggle()
                     }, imagePath: "eye-opened")
                 }
@@ -89,7 +89,7 @@ struct SecureUnderlinedTextField: View {
                     .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused)
                 
                 if fieldIsFocused {
-                    IconView(onClick: {
+                    FieldIconView(onClick: {
                         showText.toggle()
                     }, imagePath: "eye-closed")
                 }
@@ -110,7 +110,7 @@ struct SimpleUnderlinedTextField: View {
                 .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused)
             
             if fieldIsFocused {
-                IconView(onClick: {
+                FieldIconView(onClick: {
                     inputValue = ""
                 }, imagePath: "close-circle")
             }

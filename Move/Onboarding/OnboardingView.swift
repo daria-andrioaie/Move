@@ -84,28 +84,6 @@ struct OnboardingStateData {
     let orderNumber: Int
 }
 
-//enum OnboardingState: Equatable {
-//    static func == (lhs: OnboardingState, rhs: OnboardingState) -> Bool {
-//        return lhs.identifier == rhs.identifier
-//    }
-//
-//    case safety(OnboardingStateData)
-//    case scan(OnboardingStateData)
-//    case ride(OnboardingStateData)
-//    case parking(OnboardingStateData)
-//    case rules(OnboardingStateData)
-//
-//    var identifier: String {
-//        switch self {
-//        case .safety: return "safety"
-//        case .scan: return "scan"
-//        case .ride: return "ride"
-//        case .parking: return "parking"
-//        case .rules: return "rules"
-//        }
-//    }
-//}
-
 enum OnboardingState: Equatable, CaseIterable {
     static func == (lhs: OnboardingState, rhs: OnboardingState) -> Bool {
         return lhs.identifier == rhs.identifier

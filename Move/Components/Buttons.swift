@@ -8,49 +8,18 @@
 import Foundation
 import SwiftUI
 
-struct LargeActiveButtonModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .foregroundColor(.white)
-            .font(.primary(type: .button1))
-            .frame(height: 56)
-            .background(RoundedRectangle(cornerRadius: 16).foregroundColor(.accentPink))
-    }
-}
-
-extension View {
-    func largeActiveButton() -> some View {
-        modifier(LargeActiveButtonModifier())
-    }
-}
-
-
-struct LargeDisabledButtonModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .disabled(true)
-            .foregroundColor(.neutralPurple)
-            .font(.primary(.regular, size: 16))
-            .frame(height: 56)
-            .background(RoundedRectangle(cornerRadius: 16).stroke(Color.accentPink, lineWidth: 0.5))
-    }
-}
-
-extension View {
-    func largeDisabledButton() -> some View {
-        modifier(LargeDisabledButtonModifier())
-    }
-}
-
-extension View {
+struct FormButton: View {
+    let title: String
+    let isEnabled: Bool
+    let action: () -> Void
     
-    @ViewBuilder
-    func largeButton(isEnabled: Bool) -> some View {
-        if isEnabled {
-            modifier(LargeActiveButtonModifier())
+    var body: some View {
+        Button(title) {
+            action()
         }
-        else {
-            modifier(LargeDisabledButtonModifier())
-        }
+        .frame(maxWidth: .infinity)
+        .largeButton(isEnabled: isEnabled)
+        .padding(.horizontal, 24)
+        .padding(.bottom, 32)
     }
 }

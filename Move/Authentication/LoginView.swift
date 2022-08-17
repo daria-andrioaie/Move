@@ -19,6 +19,7 @@ class LoginViewModel: ObservableObject {
 struct LoginView: View {
     let onSwitch: () -> Void
     let onForgotPassword: () -> Void
+    let onFinished: () -> Void
     
     @StateObject var viewModel = LoginViewModel()
     
@@ -52,6 +53,7 @@ struct LoginView: View {
 
                 FormButton(title: "Login", isEnabled: formIsCompleted) {
                     viewModel.login()
+                    onFinished()
                 }
                 
                 HStack {
@@ -71,7 +73,7 @@ struct LoginView: View {
                 }
                 Spacer()
             }
-            .padding(.horizontal, 24)
+//            .padding(.horizontal, 24)
         }
     }
 }
@@ -80,7 +82,7 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                LoginView(onSwitch: {}, onForgotPassword: {})
+                LoginView(onSwitch: {}, onForgotPassword: {}, onFinished: {})
                     .previewDevice(device)
             }
         }

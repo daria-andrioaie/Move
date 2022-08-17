@@ -26,8 +26,8 @@ struct PurpleBackgroundView: View {
                     .offset(x: -110, y: 50)
             }
         }
-//        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-//        .clipped()
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        .clipped()
         .ignoresSafeArea()
     }
 }

@@ -15,8 +15,9 @@ struct AuthenticationHeaderView: View {
     var body: some View {
         Image("littleIcon")
             .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, 24)
             .padding(.leading, 14)
-            .padding(.bottom, 20)
+            .padding(.bottom, 10)
 
         Text(title)
             .font(.primary(type: .heading1))
@@ -28,22 +29,10 @@ struct AuthenticationHeaderView: View {
             .font(.primary(type: .heading2))
             .foregroundColor(.neutralPurple)
             .alignLeadingWithHorizontalPadding()
+//            .frame(width: UIScreen.main.bounds.width)
+//            .padding(.horizontal, 24)
             .padding(.bottom, 24)
     }
 }
 
-struct FormButton: View {
-    let title: String
-    let isEnabled: Bool
-    let action: () -> Void
-    
-    var body: some View {
-        Button(title) {
-            action()
-        }
-        .frame(maxWidth: .infinity)
-        .largeButton(isEnabled: isEnabled)
-        .padding(.horizontal, 24)
-        .padding(.bottom, 32)
-    }
-}
+

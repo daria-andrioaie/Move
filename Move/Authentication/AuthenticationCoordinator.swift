@@ -14,7 +14,7 @@ enum AuthenticationState {
 }
 
 class AuthenticationViewModel: ObservableObject {
-    @Published var state: AuthenticationState = .register
+    @Published var state: AuthenticationState? = .register
 }
 
 struct AuthenticationView: View {
@@ -22,20 +22,40 @@ struct AuthenticationView: View {
     let onFinished: () -> Void
     
     var body: some View {
-        switch viewModel.state {
-        case .register:
-            RegisterView {
-                viewModel.state = .login
+        NavigationView {
+            List {
+                NavigationLink(destination: RegisterView(onSwitch: {
+                    viewModel.state = .login
+                }, onFinished: {
+                    onFinished()
+                })
+                    .ignoresSafeArea()
+                    .transition(.opacity.animation(.default))
+                    .navigationBarBackButtonHidden(true), tag: .register, selection: $viewModel.state) {
+                    EmptyView()
+                }
+                NavigationLink(destination: LoginView(onSwitch: {
+                    viewModel.state = .register
+                }, onForgotPassword: {
+                    viewModel.state = .forgotPassword
+                }, onFinished: {
+                    onFinished()
+                })
+                .ignoresSafeArea()
+                .transition(.opacity.animation(.default))
+                .navigationBarBackButtonHidden(true), tag: .login, selection: $viewModel.state, label: {
+                    EmptyView()
+                })
+
+                NavigationLink(destination: ForgotPasswordView()
+                    .ignoresSafeArea()
+                    .transition(.opacity.animation(.default))
+                    .navigationBarBackButtonHidden(true), tag: .forgotPassword, selection: $viewModel.state, label: {
+                    EmptyView()
+                })
             }
-        case .login:
-            LoginView {
-                viewModel.state = .register
-            } onForgotPassword: {
-                viewModel.state = .forgotPassword
-            }
-        case .forgotPassword:
-            ForgotPasswordView()
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
