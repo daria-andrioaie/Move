@@ -16,7 +16,7 @@ enum MainCoordinatorState {
 
 
 struct MainCoordinatorView: View {
-    @State private var currentState: MainCoordinatorState? = .addLicense
+    @State private var currentState: MainCoordinatorState? = .splash
     
     var body: some View {
         NavigationView {
@@ -43,17 +43,17 @@ struct MainCoordinatorView: View {
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .authentication, selection: $currentState, label: { EmptyView() })
                 
-//                NavigationLink(destination: AddLicenseView(onFinished: {}, onBack: {
-//                        currentState = .authentication
-//                })
-//                    .navigationBarHidden(true)
-//                    .transition(.opacity.animation(.default))
-//                    .navigationBarBackButtonHidden(true), tag: .addLicense, selection: $currentState, label: { EmptyView() })
-                
-                NavigationLink(destination: ValidationInProgressView()
+                NavigationLink(destination: AddLicenseView(onFinished: {}, onBack: {
+                        currentState = .authentication
+                })
                     .navigationBarHidden(true)
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .addLicense, selection: $currentState, label: { EmptyView() })
+                
+//                NavigationLink(destination: ValidationInProgressView()
+//                    .navigationBarHidden(true)
+//                    .transition(.opacity.animation(.default))
+//                    .navigationBarBackButtonHidden(true), tag: .addLicense, selection: $currentState, label: { EmptyView() })
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
