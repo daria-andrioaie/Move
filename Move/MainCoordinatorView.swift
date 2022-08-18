@@ -16,7 +16,7 @@ enum MainCoordinatorState {
 
 
 struct MainCoordinatorView: View {
-    @State private var currentState: MainCoordinatorState? = .splash
+    @State private var currentState: MainCoordinatorState? = .addLicense
     
     var body: some View {
         NavigationView {

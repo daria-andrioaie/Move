@@ -9,6 +9,8 @@ import SwiftUI
 
 
 struct ValidationInProgressView: View {
+    @State private var isAnimating = true
+    
     var body: some View {
         ZStack {
             PurpleBackgroundView()
@@ -19,8 +21,11 @@ struct ValidationInProgressView: View {
                     .font(.primary(type: .heading1))
                     .foregroundColor(.white)
                 ActivityIndicator()
-                    .frame(width: 200, height: 200)
+                    .frame(width: 50, height: 50)
                     .foregroundColor(.white)
+//                Blinking(isAnimating: $isAnimating, count: 8, size: 16)
+//                    .frame(width: 50, height: 50)
+//                    .foregroundColor(.white)
             }
         }
     }
