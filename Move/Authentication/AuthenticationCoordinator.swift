@@ -23,12 +23,13 @@ struct AuthenticationView: View {
     
     var body: some View {
         NavigationView {
-            List {
+            VStack {
                 NavigationLink(destination: RegisterView(onSwitch: {
                     viewModel.state = .login
                 }, onFinished: {
                     onFinished()
                 })
+                    .navigationBarHidden(true)
                     .ignoresSafeArea()
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .register, selection: $viewModel.state) {
