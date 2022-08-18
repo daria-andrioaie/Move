@@ -42,9 +42,9 @@ struct AuthenticationView: View {
                 }, onFinished: {
                     onFinished()
                 })
-                .ignoresSafeArea()
-                .transition(.opacity.animation(.default))
-                .navigationBarBackButtonHidden(true), tag: .login, selection: $viewModel.state, label: {
+                    .ignoresSafeArea()
+                    .transition(.opacity.animation(.default))
+                    .navigationBarBackButtonHidden(true), tag: .login, selection: $viewModel.state, label: {
                     EmptyView()
                 })
 

@@ -41,6 +41,9 @@
 		B8E5BB9C28A27F0F0012DB66 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9B28A27F0F0012DB66 /* RegisterView.swift */; };
 		B8E5BB9E28A27F190012DB66 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9D28A27F190012DB66 /* LoginView.swift */; };
 		B8E5BBA028A27F2D0012DB66 /* PurpleBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9F28A27F2D0012DB66 /* PurpleBackgroundView.swift */; };
+		B8E9752728AE6766004E83A4 /* ValidationInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E9752628AE6766004E83A4 /* ValidationInProgressView.swift */; };
+		B8E9752B28AE67A1004E83A4 /* ValidationSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E9752A28AE67A1004E83A4 /* ValidationSuccessView.swift */; };
+		B8E9752D28AE7111004E83A4 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E9752C28AE7111004E83A4 /* ActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +84,9 @@
 		B8E5BB9B28A27F0F0012DB66 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B8E5BB9D28A27F190012DB66 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B8E5BB9F28A27F2D0012DB66 /* PurpleBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleBackgroundView.swift; sourceTree = "<group>"; };
+		B8E9752628AE6766004E83A4 /* ValidationInProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationInProgressView.swift; sourceTree = "<group>"; };
+		B8E9752A28AE67A1004E83A4 /* ValidationSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationSuccessView.swift; sourceTree = "<group>"; };
+		B8E9752C28AE7111004E83A4 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		BF3D1FBCE5C048B8A060E965 /* Pods-Move.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move.debug.xcconfig"; path = "Target Support Files/Pods-Move/Pods-Move.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				B80979D028A53504009B1C8D /* AddLicenseView.swift */,
+				B8E9752628AE6766004E83A4 /* ValidationInProgressView.swift */,
+				B8E9752A28AE67A1004E83A4 /* ValidationSuccessView.swift */,
 			);
 			path = "Driving license validation";
 			sourceTree = "<group>";
@@ -118,6 +126,7 @@
 				B8E5BB9F28A27F2D0012DB66 /* PurpleBackgroundView.swift */,
 				B8D9B77C28A3A726003F0968 /* TextFields.swift */,
 				B8D9B77E28A3C1AE003F0968 /* Buttons.swift */,
+				B8E9752C28AE7111004E83A4 /* ActivityIndicator.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -359,13 +368,16 @@
 				B861626128ABB73300BDE4CA /* Shared.swift in Sources */,
 				B896D15828A6422500BD7791 /* PreviewDevices.swift in Sources */,
 				B8E5BB9C28A27F0F0012DB66 /* RegisterView.swift in Sources */,
+				B8E9752728AE6766004E83A4 /* ValidationInProgressView.swift in Sources */,
 				B861626328ABBAAA00BDE4CA /* LayoutExtensions.swift in Sources */,
 				B8E5BBA028A27F2D0012DB66 /* PurpleBackgroundView.swift in Sources */,
 				B80979CE28A51A4E009B1C8D /* ResetPasswordView.swift in Sources */,
 				B896D15A28A66AD000BD7791 /* MainCoordinatorView.swift in Sources */,
+				B8E9752B28AE67A1004E83A4 /* ValidationSuccessView.swift in Sources */,
 				B8D9B78128A3D0F8003F0968 /* AuthenticationCoordinator.swift in Sources */,
 				B8D9111028A1188600D25454 /* MoveApp.swift in Sources */,
 				B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */,
+				B8E9752D28AE7111004E83A4 /* ActivityIndicator.swift in Sources */,
 				B896D15628A63D6000BD7791 /* ColorExtensions.swift in Sources */,
 				B8D9B78328A3D8B6003F0968 /* FontsExtensions.swift in Sources */,
 				B80979CC28A51861009B1C8D /* ForgotPasswordView.swift in Sources */,

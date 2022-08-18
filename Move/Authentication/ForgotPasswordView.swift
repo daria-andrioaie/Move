@@ -40,8 +40,21 @@ struct ForgotPasswordView: View {
                         .alignLeadingWithHorizontalPadding()
                         .padding(.top, 45)
                         .padding(.bottom, 10)
+                        .overlay(Rectangle().opacity(0))
                 }
 
+                
+//                Image("chevron-left")
+//                    .alignLeadingWithHorizontalPadding()
+//                    .padding(.top, 45)
+//                    .padding(.bottom, 10)
+//                    .contentShape(Rectangle())
+//                    .onTapGesture {
+//                        print("Back button pressed")
+//                        onBack()
+//                    }
+//
+                
                 Text("Forgot password")
                     .font(.primary(type: .heading1))
                     .foregroundColor(.white)

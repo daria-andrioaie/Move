@@ -43,7 +43,15 @@ struct MainCoordinatorView: View {
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .authentication, selection: $currentState, label: { EmptyView() })
                 
-                NavigationLink(destination: AddLicenseView(onFinished: {})
+//                NavigationLink(destination: AddLicenseView(onFinished: {}, onBack: {
+//                        currentState = .authentication
+//                })
+//                    .navigationBarHidden(true)
+//                    .transition(.opacity.animation(.default))
+//                    .navigationBarBackButtonHidden(true), tag: .addLicense, selection: $currentState, label: { EmptyView() })
+                
+                NavigationLink(destination: ValidationInProgressView()
+                    .navigationBarHidden(true)
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .addLicense, selection: $currentState, label: { EmptyView() })
             }
