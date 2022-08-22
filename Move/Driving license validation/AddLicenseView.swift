@@ -52,6 +52,7 @@ struct AddLicenseView: View {
                     .font(.primary(type: .body2))
                     .foregroundColor(Color("PrimaryBlue"))
                     .alignLeadingWithHorizontalPadding()
+                    .padding(.top, 10)
                 FormButton(title: "Add driving license", isEnabled: true, action: {
                     
                 })

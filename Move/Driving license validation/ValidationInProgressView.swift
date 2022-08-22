@@ -15,7 +15,7 @@ struct ValidationInProgressView: View {
         ZStack {
             PurpleBackgroundView()
             VStack(alignment: .center) {
-                Text("We are currently verifying your driving license")
+                Text("We are currently verifying your \ndriving license")
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 24)
                     .font(.primary(type: .heading1))
@@ -33,6 +33,11 @@ struct ValidationInProgressView: View {
 
 struct ValidationInProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        ValidationInProgressView()
+        Group {
+            ForEach(devices) { device in
+                ValidationInProgressView()
+                    .previewDevice(device)
+            }
+        }
     }
 }
