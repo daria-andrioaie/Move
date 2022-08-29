@@ -28,8 +28,7 @@ class RegisterViewModel: ObservableObject {
         guard validate(emailAddress: emailAddress) && validate(username: username) && validate(password: password) else {
             return
         }
-        // fields are valid
-        // send register request
+        APIService.registerUser(name: username, email: emailAddress, password: password)
     }
 }
 
@@ -47,48 +46,6 @@ struct RegisterView: View {
     }
     
     var body: some View {
-//        VStack() {
-//            AuthenticationHeaderView(title: "Let's get started", caption: "Sign up or login and start riding right away")
-//
-//            SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress)
-//
-//            SimpleUnderlinedTextField(placeholder: "Username", inputValue: $viewModel.username)
-//
-//            SecureUnderlinedTextField(placeholder: "Password", inputValue: $viewModel.password)
-//
-//            Text("By continuing you agree to Move’s  [Terms and Conditions](http://www.tapptitude.com/) and [Privacy Policy](http://www.tapptitude.com/).")
-//                .font(.primary(type: .smallText))
-//                .tint(.white)
-//                .foregroundColor(.white)
-//                .alignLeadingWithHorizontalPadding()
-//                .padding(.bottom, 32)
-//
-//            FormButton(title: "Get started", isEnabled: formIsCompleted) {
-//                viewModel.register()
-//            }
-//
-//            HStack {
-//                Text("You already have an account? You can ")
-//                    .foregroundColor(.white)
-//                    .font(.primary(type: .smallText))
-//                Button {
-//                    onSwitch()
-//                } label: {
-//                    Text("log in here")
-//                        .foregroundColor(.white)
-//                        .font(.primary(type: .smallText))
-//                        .bold()
-//                        .underline()
-//                        .offset(x: -7)
-//                }
-//            }
-//            .frame(maxWidth: .infinity)
-//            Spacer()
-//        }
-////        .padding(.horizontal, 24)
-////        .background(PurpleBackgroundView())
-//    }
-        
         ZStack {
             PurpleBackgroundView()
             ScrollView {

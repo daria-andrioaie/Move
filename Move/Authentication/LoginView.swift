@@ -12,7 +12,7 @@ class LoginViewModel: ObservableObject {
     @Published var password = ""
     
     func login() {
-        
+        APIService.loginUser(email: emailAddress, password: password)
     }
 }
 

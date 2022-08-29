@@ -11,6 +11,8 @@
 		B80979CC28A51861009B1C8D /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979CB28A51861009B1C8D /* ForgotPasswordView.swift */; };
 		B80979CE28A51A4E009B1C8D /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */; };
 		B80979D128A53504009B1C8D /* AddLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979D028A53504009B1C8D /* AddLicenseView.swift */; };
+		B83DD3FD28BCBB4D00F1F2F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83DD3FC28BCBB4D00F1F2F6 /* User.swift */; };
+		B83DD40628BCDC7700F1F2F6 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83DD40528BCDC7700F1F2F6 /* APIService.swift */; };
 		B861626128ABB73300BDE4CA /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861626028ABB73300BDE4CA /* Shared.swift */; };
 		B861626328ABBAAA00BDE4CA /* LayoutExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861626228ABBAAA00BDE4CA /* LayoutExtensions.swift */; };
 		B862BF0028AD0148002EF079 /* ButtonStylesExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B862BEFF28AD0148002EF079 /* ButtonStylesExtensions.swift */; };
@@ -52,6 +54,8 @@
 		B80979CB28A51861009B1C8D /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		B80979D028A53504009B1C8D /* AddLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLicenseView.swift; sourceTree = "<group>"; };
+		B83DD3FC28BCBB4D00F1F2F6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B83DD40528BCDC7700F1F2F6 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		B861626028ABB73300BDE4CA /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 		B861626228ABBAAA00BDE4CA /* LayoutExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutExtensions.swift; sourceTree = "<group>"; };
 		B862BEFF28AD0148002EF079 /* ButtonStylesExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStylesExtensions.swift; sourceTree = "<group>"; };
@@ -120,6 +124,22 @@
 			path = "Driving license validation";
 			sourceTree = "<group>";
 		};
+		B83DD3FB28BCBB3800F1F2F6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B83DD3FC28BCBB4D00F1F2F6 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B83DD40428BCDC6500F1F2F6 /* APIService */ = {
+			isa = PBXGroup;
+			children = (
+				B83DD40528BCDC7700F1F2F6 /* APIService.swift */,
+			);
+			path = APIService;
+			sourceTree = "<group>";
+		};
 		B862BEFD28ACF642002EF079 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +199,8 @@
 		B8D9110E28A1188600D25454 /* Move */ = {
 			isa = PBXGroup;
 			children = (
+				B83DD40428BCDC6500F1F2F6 /* APIService */,
+				B83DD3FB28BCBB3800F1F2F6 /* Models */,
 				B862BEFE28ACF66B002EF079 /* Extensions */,
 				B862BEFD28ACF642002EF079 /* Components */,
 				B80979CF28A52EDC009B1C8D /* Driving license validation */,
@@ -264,6 +286,7 @@
 				B8D9110828A1188600D25454 /* Sources */,
 				B8D9110928A1188600D25454 /* Frameworks */,
 				B8D9110A28A1188600D25454 /* Resources */,
+				1A78924DD4028C4BC592AD65 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -332,6 +355,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1A78924DD4028C4BC592AD65 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Move/Pods-Move-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Move/Pods-Move-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Move/Pods-Move-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C8C609289003631297011BF6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -362,6 +402,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B80979D128A53504009B1C8D /* AddLicenseView.swift in Sources */,
+				B83DD40628BCDC7700F1F2F6 /* APIService.swift in Sources */,
 				B8D9B77F28A3C1AE003F0968 /* Buttons.swift in Sources */,
 				B8E5BB9E28A27F190012DB66 /* LoginView.swift in Sources */,
 				B8E5BB7F28A243E60012DB66 /* OnboardingView.swift in Sources */,
@@ -383,6 +424,7 @@
 				B80979CC28A51861009B1C8D /* ForgotPasswordView.swift in Sources */,
 				B862BF0028AD0148002EF079 /* ButtonStylesExtensions.swift in Sources */,
 				B8D9B77D28A3A726003F0968 /* TextFields.swift in Sources */,
+				B83DD3FD28BCBB4D00F1F2F6 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
