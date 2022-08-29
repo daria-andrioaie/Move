@@ -22,6 +22,7 @@ struct ValidationSuccessView: View {
                     .padding(.top, 30)
                 
                 Spacer()
+                Spacer()
                 FormButton(title: "Find scooters", isEnabled: true, action: {})
                     .padding(.bottom, 12)
             }

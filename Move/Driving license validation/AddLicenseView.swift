@@ -7,58 +7,142 @@
 
 import SwiftUI
 
+enum SheetMode {
+    case none
+    case third
+}
+
+struct FlexibleSheet<Content: View>: View {
+    
+    let content: () -> Content
+    var sheetMode: Binding<SheetMode>
+    
+    init(sheetMode: Binding<SheetMode>, @ViewBuilder content: @escaping () -> Content) {
+        self.sheetMode = sheetMode
+        self.content = content
+    }
+    
+    var body: some View {
+        content()
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .padding(45)
+            .background(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
+            .shadow(radius: 25)
+            .offset(y: calculateOffset())
+            .animation(.spring())
+            .edgesIgnoringSafeArea(.all)
+    }
+    
+    private func calculateOffset() -> CGFloat {
+        switch sheetMode.wrappedValue {
+        case .none:
+            return UIScreen.main.bounds.height
+        case .third:
+            return UIScreen.main.bounds.height * 3/4
+        }
+    }
+}
+
+struct UploadOrTakePictureSheetView: View {
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        VStack {
+            Button("Upload from gallery", action: {
+                dismiss()
+            })
+            .frame(maxWidth: .infinity)
+            .lightActiveButton()
+            .padding(.horizontal, 24)
+            
+            Button("Take picture now", action: {
+                dismiss()
+            })
+            .frame(maxWidth: .infinity)
+            .largeActiveButton()
+            .padding(.horizontal, 24)
+        }
+    }
+}
+
 struct AddLicenseView: View {
     
     let onFinished: () -> Void
     let onBack: () -> Void
     
+//    @State private var showingSheet = false
+    @State private var sheetMode = SheetMode.none
+    
     var body: some View {
-        ScrollView {
-            VStack {
-                HStack {
-                    Button {
-                        // TODO: add slide animation when returning to authentication screen
-                        onBack()
-                    } label: {
-                        Image(systemName: "chevron.left")
+        ZStack {
+            ScrollView {
+                VStack {
+                    HStack {
+                        Button {
+                            // TODO: add slide animation when returning to authentication screen
+                            onBack()
+                        } label: {
+                            Image(systemName: "chevron.left")
+                                .foregroundColor(.primaryPurple)
+                                .padding(.horizontal, 24)
+                        }
+                        Spacer()
+                        Text("Driving License")
                             .foregroundColor(.primaryPurple)
-                            .padding(.horizontal, 24)
+                            .font(.primary(type: .navbarTitle))
+                        Spacer()
+                        Button {} label: {
+                            Image(systemName: "chevron.left")
+                                .foregroundColor(.primaryPurple)
+                                .padding(.horizontal, 24)
+                        }
+                        .opacity(0)
                     }
-                    Spacer()
-                    Text("Driving License")
-                        .foregroundColor(.primaryPurple)
-                        .font(.primary(type: .navbarTitle))
-                    Spacer()
-                    Button {} label: {
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.primaryPurple)
-                            .padding(.horizontal, 24)
-                    }
-                    .opacity(0)
-                }
-                .padding()
-                
-                Image("driving-license-scan")
-                    .resizable()
-                    .scaledToFill()
-                    .clipped()
-
-                Text("Before you can start riding")
-                    .font(.primary(type: .heading1))
-                    .foregroundColor(Color("PrimaryBlue"))
-                    .alignLeadingWithHorizontalPadding()
-                
-                Text("Please take a photo or upload the front side of your driving license so we can make sure that it is valid.")
-                    .font(.primary(type: .body2))
-                    .foregroundColor(Color("PrimaryBlue"))
-                    .alignLeadingWithHorizontalPadding()
-                    .padding(.top, 10)
-                FormButton(title: "Add driving license", isEnabled: true, action: {
+                    .padding()
                     
-                })
-                .padding(.top, 31)
+                    Image("driving-license-scan")
+                        .resizable()
+                        .scaledToFill()
+                        .clipped()
+
+                    Text("Before you can start \nriding")
+                        .font(.primary(type: .heading1))
+                        .foregroundColor(Color("PrimaryBlue"))
+                        .alignLeadingWithHorizontalPadding()
+                    
+                    Text("Please take a photo or upload the front side of your driving license so we can make sure that it is valid.")
+                        .font(.primary(type: .body2))
+                        .foregroundColor(Color("PrimaryBlue"))
+                        .alignLeadingWithHorizontalPadding()
+                        .padding(.top, 10)
+                    FormButton(title: "Add driving license", isEnabled: true, action: {
+                        sheetMode = .third
+                    })
+                    .padding(.top, 31)
+//                    .sheet(isPresented: $showingSheet) {
+//                        UploadOrTakePictureSheetView()
+//                            .frame(height: UIScreen.main.bounds.height / 2)
+//                    }
+                }
+            }
+            FlexibleSheet(sheetMode: $sheetMode) {
+                VStack {
+                    Button("Upload from gallery", action: {
+                    })
+                    .frame(maxWidth: .infinity)
+                    .lightActiveButton()
+                    .padding(.horizontal, 24)
+                    
+                    Button("Take picture now", action: {
+                    })
+                    .frame(maxWidth: .infinity)
+                    .largeActiveButton()
+                    .padding(.horizontal, 24)
+                }
             }
         }
+        
     }
 }
 

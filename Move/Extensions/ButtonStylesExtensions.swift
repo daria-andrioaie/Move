@@ -55,3 +55,19 @@ extension View {
     }
 }
 
+struct LightActiveButtonModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(.accentPink)
+            .font(.primary(.regular, size: 16))
+            .frame(height: 56)
+            .background(RoundedRectangle(cornerRadius: 16).stroke(Color.accentPink, lineWidth: 0.5))
+    }
+}
+
+extension View {
+    func lightActiveButton() -> some View {
+        
+        modifier(LightActiveButtonModifier())
+    }
+}
