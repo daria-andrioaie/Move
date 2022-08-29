@@ -129,18 +129,27 @@ struct AddLicenseView: View {
             FlexibleSheet(sheetMode: $sheetMode) {
                 VStack {
                     Button("Upload from gallery", action: {
+                        sheetMode = .none
                     })
                     .frame(maxWidth: .infinity)
                     .lightActiveButton()
                     .padding(.horizontal, 24)
                     
                     Button("Take picture now", action: {
+                        sheetMode = .none
                     })
                     .frame(maxWidth: .infinity)
                     .largeActiveButton()
                     .padding(.horizontal, 24)
                 }
             }
+            .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
+                .onEnded{ value in
+                    if (-100...100).contains(value.translation.width) &&
+                        (0...).contains(value.translation.height) {
+                        sheetMode = .none
+                    }
+                })
         }
         
     }
