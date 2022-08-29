@@ -13,15 +13,42 @@ class RegisterViewModel: ObservableObject {
     @Published var password = ""
     
     func validate(emailAddress: String) -> Bool {
-        return true
+        if emailAddress == "" {
+            return false
+        }
+        
+        if emailAddress.count < 8 {
+            return false
+        }
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+
+        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPredicate.evaluate(with: emailAddress)
     }
     
     func validate(username: String) -> Bool {
-        return true
+        if username == "" {
+            return false
+        }
+        if username.count < 5 {
+            return false
+        }
+        
+        // the username must only contain word characters: letters, digits or underscores
+        let usernameRegEx = "\\w{7,18}"
+        let usernamePredicate = NSPredicate(format:"SELF MATCHES %@", usernameRegEx)
+        return usernamePredicate.evaluate(with: username)
     }
     
     func validate(password: String) -> Bool {
+        if password == "" {
+            return false
+        }
+        if password.count < 5 {
+            return false
+        }
         return true
+
     }
     
     func register() {
