@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import VisionKit
+import AVFoundation
 
 enum SheetMode {
     case none
@@ -44,24 +46,28 @@ struct FlexibleSheet<Content: View>: View {
     }
 }
 
-struct UploadOrTakePictureSheetView: View {
-    @Environment(\.dismiss) var dismiss
+class AddLicenseViewModel: ObservableObject {
+    @Published var showScanner = false
+    @Published var deniedCameraAccess = false
     
-    var body: some View {
-        VStack {
-            Button("Upload from gallery", action: {
-                dismiss()
-            })
-            .frame(maxWidth: .infinity)
-            .lightActiveButton()
-            .padding(.horizontal, 24)
+    func scanLicense() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            showScanner = true
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { accessGranted in
+                if accessGranted {
+                    self.showScanner = true
+                }
+            }
+        case .denied:
+            self.deniedCameraAccess = true
             
-            Button("Take picture now", action: {
-                dismiss()
-            })
-            .frame(maxWidth: .infinity)
-            .largeActiveButton()
-            .padding(.horizontal, 24)
+        case .restricted:
+            return
+            
+        @unknown default:
+            return
         }
     }
 }
@@ -70,9 +76,9 @@ struct AddLicenseView: View {
     
     let onFinished: () -> Void
     let onBack: () -> Void
-    
-//    @State private var showingSheet = false
+
     @State private var sheetMode = SheetMode.none
+    @StateObject private var viewModel = AddLicenseViewModel()
     
     var body: some View {
         ZStack {
@@ -120,10 +126,6 @@ struct AddLicenseView: View {
                         sheetMode = .third
                     })
                     .padding(.top, 31)
-//                    .sheet(isPresented: $showingSheet) {
-//                        UploadOrTakePictureSheetView()
-//                            .frame(height: UIScreen.main.bounds.height / 2)
-//                    }
                 }
             }
             FlexibleSheet(sheetMode: $sheetMode) {
@@ -137,6 +139,7 @@ struct AddLicenseView: View {
                     
                     Button("Take picture now", action: {
                         sheetMode = .none
+                        viewModel.scanLicense()
                     })
                     .frame(maxWidth: .infinity)
                     .largeActiveButton()
@@ -150,6 +153,19 @@ struct AddLicenseView: View {
                         sheetMode = .none
                     }
                 })
+        }
+        .sheet(isPresented: $viewModel.showScanner) {
+            ScannerView { result in
+                switch result {
+                case .success(let scannedImage):
+                    print(scannedImage)
+                    // api call to upload image
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            } didCancelScanning: {
+                viewModel.showScanner = false
+            }
         }
     }
 }

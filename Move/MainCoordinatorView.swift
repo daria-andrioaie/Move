@@ -34,13 +34,13 @@ struct MainCoordinatorView: View {
         NavigationView {
             List {
                 NavigationLink(destination: SplashView(afterAppear: {
-                    currentState = .onboarding
-//                    switch viewModel.isUserLoggedIn() {
-//                    case true:
-//                        currentState = .addLicense
-//                    case false:
-//                        currentState = .onboarding
-//                    }
+//                    currentState = .onboarding
+                    switch viewModel.isUserLoggedIn() {
+                    case true:
+                        currentState = .addLicense
+                    case false:
+                        currentState = .onboarding
+                    }
 
                 }).ignoresSafeArea()
                     .preferredColorScheme(.dark)
