@@ -35,7 +35,7 @@ class RegisterViewModel: ObservableObject {
         }
         
         // the username must only contain word characters: letters, digits or underscores
-        let usernameRegEx = "\\w{7,18}"
+        let usernameRegEx = "\\w{5,18}"
         let usernamePredicate = NSPredicate(format:"SELF MATCHES %@", usernameRegEx)
         return usernamePredicate.evaluate(with: username)
     }
@@ -55,7 +55,7 @@ class RegisterViewModel: ObservableObject {
         guard validate(emailAddress: emailAddress) && validate(username: username) && validate(password: password) else {
             return
         }
-        APIService.registerUser(name: username, email: emailAddress, password: password)
+        APIService.registerUser(username: username, email: emailAddress, password: password)
     }
 }
 

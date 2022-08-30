@@ -151,7 +151,14 @@ struct AddLicenseView: View {
                     }
                 })
         }
-        
+        .onAppear {
+            let decoder = JSONDecoder()
+            
+            if let userData = UserDefaults.standard.value(forKey: "currentUser") as? Data {
+                let decodedUser = try? decoder.decode(User.self, from: userData)
+                print("Hi, \(decodedUser?.username ?? "unknown")! You are now logged in!")
+            }
+        }
     }
 }
 

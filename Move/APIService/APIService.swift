@@ -9,18 +9,22 @@ import Foundation
 import Alamofire
 
 class APIService {
-    static func registerUser(name: String, email: String, password: String) {
-        let registerParameters = ["name": name, "email": email, "password": password]
+    static func registerUser(username: String, email: String, password: String) {
+        let registerParameters = ["username": username, "email": email, "password": password]
         
         AF.request("https://move-scooter.herokuapp.com/user/register", method: .post, parameters: registerParameters)
             .validate()
             .responseDecodable(of: User.self) { response in
                 switch response.result {
                 case .success(let userResponse):
-                    let newUser = User(_id: userResponse._id, name: userResponse.name, email: userResponse.email, password: userResponse.password, status: userResponse.status)
-                    UserDefaults.standard.set(newUser, forKey: "currentUser")
+                    let newUser = User(_id: userResponse._id, username: userResponse.username, email: userResponse.email, password: userResponse.password, status: userResponse.status)
                     
+                    print("Hi, \(newUser.username)")
                     // save to current session
+                    if let userData = try? JSONEncoder().encode(newUser) {
+                        UserDefaults.standard.set(userData, forKey: "currentUser")
+                    }
+                    
                 case .failure(let error):
                     print("Error: \(error)")
                 }
@@ -38,8 +42,14 @@ class APIService {
                     let user = loginResponse.user
                     let token = loginResponse.token
                     
-                    UserDefaults.standard.set(user, forKey: "currentUser")
-                    UserDefaults.standard.set(token, forKey: "userToken")
+                    print("User: \(user)")
+                    print("Token: \(token)")
+                    
+                    if let userData = try? JSONEncoder().encode(user) {
+                        UserDefaults.standard.set(userData, forKey: "currentUser")
+                        UserDefaults.standard.set(token, forKey: "userToken")
+                    }
+                
                 case .failure(let error):
                     print("Error: \(error)")
                 }
