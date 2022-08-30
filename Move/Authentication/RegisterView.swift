@@ -11,6 +11,7 @@ class RegisterViewModel: ObservableObject {
     @Published var emailAddress = ""
     @Published var username = ""
     @Published var password = ""
+    @Published var requestInProgress = false
     
     func validate(emailAddress: String) -> Bool {
         if emailAddress == "" {
@@ -92,11 +93,20 @@ struct RegisterView: View {
                         .alignLeadingWithHorizontalPadding()
                         .padding(.bottom, 32)
 
-                    FormButton(title: "Get started", isEnabled: formIsCompleted) {
-                        viewModel.register()
-                        onFinished()
+                    switch viewModel.requestInProgress {
+                    case false:
+                        FormButton(title: "Get started", isEnabled: formIsCompleted) {
+                            viewModel.requestInProgress = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                                viewModel.register()
+                                onFinished()
+                            })
+                        }
+                    case true:
+                        LoadingDisabledButton()
                     }
-
+                    
+                    
                     HStack {
                         Text("You already have an account? You can ")
                             .foregroundColor(.white)

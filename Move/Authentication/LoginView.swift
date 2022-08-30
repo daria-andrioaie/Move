@@ -10,6 +10,7 @@ import SwiftUI
 class LoginViewModel: ObservableObject {
     @Published var emailAddress = ""
     @Published var password = ""
+    @Published var requestInProgress = false
     
     func login() {
         APIService.loginUser(email: emailAddress, password: password)
@@ -50,10 +51,17 @@ struct LoginView: View {
                         .alignLeadingWithHorizontalPadding()
                         .padding(.bottom, 32)
                 }
-
-                FormButton(title: "Login", isEnabled: formIsCompleted) {
-                    viewModel.login()
-                    onFinished()
+                switch viewModel.requestInProgress {
+                case false:
+                    FormButton(title: "Login", isEnabled: formIsCompleted) {
+                        viewModel.requestInProgress = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                            viewModel.login()
+                            onFinished()
+                        })
+                    }
+                case true:
+                    LoadingDisabledButton()
                 }
                 
                 HStack {

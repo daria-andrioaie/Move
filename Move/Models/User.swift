@@ -7,7 +7,7 @@
 
 import Foundation
 
-class User: NSObject, Codable, NSCoding {
+class User: Codable {
     var _id: String
     var username: String
     var email: String
@@ -20,22 +20,21 @@ class User: NSObject, Codable, NSCoding {
         self.email = email
         self.password = password
         self.status = status
-        super.init()
     }
     
-    required init(coder: NSCoder) {
-        _id = coder.decodeObject(forKey: "_id") as! String
-        username = coder.decodeObject(forKey: "username") as! String
-        email = coder.decodeObject(forKey: "email") as! String
-        password = coder.decodeObject(forKey: "password") as! String
-        status = coder.decodeObject(forKey: "status") as! String
-    }
-    
-    func encode(with coder: NSCoder) {
-        coder.encode(_id, forKey: "_id")
-        coder.encode(username, forKey: "username")
-        coder.encode(email, forKey: "email")
-        coder.encode(password, forKey: "password")
-        coder.encode(status, forKey: "status")
-    }
+//    required init(coder: NSCoder) {
+//        _id = coder.decodeObject(forKey: "_id") as! String
+//        username = coder.decodeObject(forKey: "username") as! String
+//        email = coder.decodeObject(forKey: "email") as! String
+//        password = coder.decodeObject(forKey: "password") as! String
+//        status = coder.decodeObject(forKey: "status") as! String
+//    }
+//
+//    func encode(with coder: NSCoder) {
+//        coder.encode(_id, forKey: "_id")
+//        coder.encode(username, forKey: "username")
+//        coder.encode(email, forKey: "email")
+//        coder.encode(password, forKey: "password")
+//        coder.encode(status, forKey: "status")
+//    }
 }

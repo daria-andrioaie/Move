@@ -14,15 +14,33 @@ enum MainCoordinatorState {
     case addLicense
 }
 
+class MainCoordinatorViewModel: ObservableObject {
+    func isUserLoggedIn() -> Bool {
+        if let userData = UserDefaults.standard.value(forKey: "currentUser") as? Data {
+            if let decodedUser = try? JSONDecoder().decode(User.self, from: userData) {
+                print("\(decodedUser.username) is logged in")
+            }
+            return true
+        }
+        return false
+    }
+}
 
 struct MainCoordinatorView: View {
-    @State private var currentState: MainCoordinatorState? = .authentication
+    @State private var currentState: MainCoordinatorState? = .splash
+    @StateObject private var viewModel = MainCoordinatorViewModel()
     
     var body: some View {
         NavigationView {
             List {
                 NavigationLink(destination: SplashView(afterAppear: {
-                        currentState = .onboarding
+                    currentState = .onboarding
+//                    switch viewModel.isUserLoggedIn() {
+//                    case true:
+//                        currentState = .addLicense
+//                    case false:
+//                        currentState = .onboarding
+//                    }
 
                 }).ignoresSafeArea()
                     .preferredColorScheme(.dark)

@@ -23,3 +23,18 @@ struct FormButton: View {
         .padding(.bottom, 32)
     }
 }
+
+struct LoadingDisabledButton: View {
+    var body: some View {
+        Button {}
+        label: {
+             ActivityIndicator()
+                .frame(width: 25, height: 25)
+                .foregroundColor(.white)
+        }
+        .frame(maxWidth: .infinity)
+        .largeDisabledButton()
+        .padding(.horizontal, 24)
+        .padding(.bottom, 32)
+    }
+}
