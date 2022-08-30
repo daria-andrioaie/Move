@@ -50,6 +50,10 @@ class AddLicenseViewModel: ObservableObject {
     @Published var showScanner = false
     @Published var deniedCameraAccess = false
     
+    @Published var showImagePicker = false
+    @Published var image: Image?
+    @Published var inputImage: UIImage?
+    
     func scanLicense() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
@@ -69,6 +73,13 @@ class AddLicenseViewModel: ObservableObject {
         @unknown default:
             return
         }
+    }
+    
+    func loadImage() {
+        guard let inputImage = inputImage else {
+            return
+        }
+        image = Image(uiImage: inputImage)
     }
 }
 
@@ -132,6 +143,7 @@ struct AddLicenseView: View {
                 VStack {
                     Button("Upload from gallery", action: {
                         sheetMode = .none
+                        viewModel.showImagePicker = true
                     })
                     .frame(maxWidth: .infinity)
                     .lightActiveButton()
@@ -166,6 +178,12 @@ struct AddLicenseView: View {
             } didCancelScanning: {
                 viewModel.showScanner = false
             }
+        }
+        .sheet(isPresented: $viewModel.showImagePicker) {
+            ImagePickerView(image: $viewModel.inputImage)
+        }
+        .onChange(of: viewModel.inputImage) { _ in
+            viewModel.loadImage()
         }
     }
 }
