@@ -58,7 +58,7 @@ struct FieldIconView: View {
             onClick()
         } label: {
             Image(imagePath)
-                .frame(maxWidth: .infinity, alignment: .trailing)
+//                .offset(x: UIScreen.main.bounds.width / 2)
                 .padding(.trailing, 30)
                 .padding(.bottom, 40)
         }
@@ -82,6 +82,7 @@ struct SecureUnderlinedTextField: View {
                     FieldIconView(onClick: {
                         showText.toggle()
                     }, imagePath: "eye-opened")
+                    .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
             else {
@@ -92,6 +93,8 @@ struct SecureUnderlinedTextField: View {
                     FieldIconView(onClick: {
                         showText.toggle()
                     }, imagePath: "eye-closed")
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+
                 }
             }
         }
@@ -113,6 +116,8 @@ struct SimpleUnderlinedTextField: View {
                 FieldIconView(onClick: {
                     inputValue = ""
                 }, imagePath: "close-circle")
+                .frame(maxWidth: .infinity, alignment: .trailing)
+
             }
         }
             
