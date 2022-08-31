@@ -52,11 +52,11 @@ class RegisterViewModel: ObservableObject {
 
     }
     
-    func register() {
+    func register(onRegisterCompleted: @escaping () -> Void) {
         guard validate(emailAddress: emailAddress) && validate(username: username) && validate(password: password) else {
             return
         }
-        APIService.registerUser(username: username, email: emailAddress, password: password)
+        APIService.registerUser(username: username, email: emailAddress, password: password, onRegisterCompleted: onRegisterCompleted)
     }
 }
 
@@ -98,8 +98,9 @@ struct RegisterView: View {
                         FormButton(title: "Get started", isEnabled: formIsCompleted) {
                             viewModel.requestInProgress = true
                             DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-                                viewModel.register()
-                                onFinished()
+                                viewModel.register {
+                                    onFinished()
+                                }
                             })
                         }
                     case true:

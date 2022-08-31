@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 class APIService {
-    static func registerUser(username: String, email: String, password: String) {
+    static func registerUser(username: String, email: String, password: String, onRegisterCompleted: @escaping () -> Void) {
         let registerParameters = ["username": username, "email": email, "password": password]
         
         AF.request("https://move-scooter.herokuapp.com/user/register", method: .post, parameters: registerParameters)
@@ -24,14 +24,14 @@ class APIService {
                     if let userData = try? JSONEncoder().encode(newUser) {
                         UserDefaults.standard.set(userData, forKey: "currentUser")
                     }
-                    
+                    onRegisterCompleted()
                 case .failure(let error):
                     print("Error: \(error)")
                 }
             }
     }
     
-    static func loginUser(email: String, password: String) {
+    static func loginUser(email: String, password: String, onLoginCompleted: @escaping () -> Void) {
         let loginParameters = ["email": email, "password": password]
         
         AF.request("https://move-scooter.herokuapp.com/user/login", method: .post, parameters: loginParameters)
@@ -42,14 +42,14 @@ class APIService {
                     let user = loginResponse.user
                     let token = loginResponse.token
                     
-                    print("User: \(user)")
+                    print("User: \(user.username)")
                     print("Token: \(token)")
                     
                     if let userData = try? JSONEncoder().encode(user) {
                         UserDefaults.standard.set(userData, forKey: "currentUser")
                         UserDefaults.standard.set(token, forKey: "userToken")
                     }
-                
+                    onLoginCompleted()
                 case .failure(let error):
                     print("Error: \(error)")
                 }

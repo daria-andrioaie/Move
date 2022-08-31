@@ -12,8 +12,8 @@ class LoginViewModel: ObservableObject {
     @Published var password = ""
     @Published var requestInProgress = false
     
-    func login() {
-        APIService.loginUser(email: emailAddress, password: password)
+    func login(onLoginCompleted: @escaping () -> Void) {
+        APIService.loginUser(email: emailAddress, password: password, onLoginCompleted: onLoginCompleted)
     }
 }
 
@@ -56,8 +56,9 @@ struct LoginView: View {
                     FormButton(title: "Login", isEnabled: formIsCompleted) {
                         viewModel.requestInProgress = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-                            viewModel.login()
-                            onFinished()
+                            viewModel.login {
+                                onFinished()
+                            }
                         })
                     }
                 case true:

@@ -12,17 +12,41 @@ enum MainCoordinatorState {
     case onboarding
     case authentication
     case addLicense
+    case rideScooter
+}
+
+enum UserState {
+    case firstUseOfApplication
+    case notLoggedIn
+    case suspended
+    case active
 }
 
 class MainCoordinatorViewModel: ObservableObject {
-    func isUserLoggedIn() -> Bool {
+    
+    var userState: UserState {
         if let userData = UserDefaults.standard.value(forKey: "currentUser") as? Data {
             if let decodedUser = try? JSONDecoder().decode(User.self, from: userData) {
-                print("\(decodedUser.username) is logged in")
+                
+                // the user was successfully decoded
+                if decodedUser.status == "suspended" {
+                    return .suspended
+                }
+                return .active
             }
-            return true
+            // there is a user value on UserDefaults, but it couldn't be decoded
+            return .notLoggedIn
         }
-        return false
+        
+        // no user detected
+        // determine if it's the first time launching the app or not
+        if UserDefaults.standard.bool(forKey: "isAppAlreadyLaunchedOnce") {
+            return .notLoggedIn
+        }
+        else {
+            UserDefaults.standard.set(true, forKey: "isAppAlreadyLaunchedOnce")
+            return .firstUseOfApplication
+        }
     }
 }
 
@@ -34,12 +58,16 @@ struct MainCoordinatorView: View {
         NavigationView {
             List {
                 NavigationLink(destination: SplashView(afterAppear: {
-//                    currentState = .onboarding
-                    switch viewModel.isUserLoggedIn() {
-                    case true:
-                        currentState = .addLicense
-                    case false:
+//                    currentState = .authentication
+                    switch viewModel.userState {
+                    case .firstUseOfApplication:
                         currentState = .onboarding
+                    case .notLoggedIn:
+                        currentState = .authentication
+                    case .suspended:
+                        currentState = .addLicense
+                    case .active:
+                        currentState = .rideScooter
                     }
 
                 }).ignoresSafeArea()
@@ -55,7 +83,19 @@ struct MainCoordinatorView: View {
                     .navigationBarBackButtonHidden(true), tag: .onboarding, selection: $currentState, label: { EmptyView() })
                 
                 NavigationLink(destination: AuthenticationView(onFinished: {
-                    currentState = .addLicense
+//                    currentState = .addLicense
+                    switch viewModel.userState {
+                    case .firstUseOfApplication:
+                        //TODO: also handle this case
+                        return
+                    case .notLoggedIn:
+                        //TODO: handle this case
+                        return
+                    case.suspended:
+                        currentState = .addLicense
+                    case .active:
+                        currentState = .rideScooter
+                    }
                 })
                     .preferredColorScheme(.dark)
                     .transition(.opacity.animation(.default))
@@ -72,6 +112,11 @@ struct MainCoordinatorView: View {
 //                    .navigationBarHidden(true)
 //                    .transition(.opacity.animation(.default))
 //                    .navigationBarBackButtonHidden(true), tag: .addLicense, selection: $currentState, label: { EmptyView() })
+                
+                NavigationLink(destination: RideScooterCoordinatorView()
+                    .navigationBarHidden(true)
+                    .transition(.opacity.animation(.default))
+                    .navigationBarBackButtonHidden(true), tag: .rideScooter, selection: $currentState) { EmptyView() }
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
