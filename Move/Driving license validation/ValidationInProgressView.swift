@@ -15,7 +15,7 @@ struct ValidationInProgressView: View {
         ZStack {
             PurpleBackgroundView()
             VStack(alignment: .center) {
-                Text("We are currently verifying your \ndriving license")
+                Text("We are currently verifying your driving license")
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 24)
                     .font(.primary(type: .heading1))

@@ -12,15 +12,20 @@
 		B80979CE28A51A4E009B1C8D /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */; };
 		B80979D128A53504009B1C8D /* AddLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979D028A53504009B1C8D /* AddLicenseView.swift */; };
 		B83DD3FD28BCBB4D00F1F2F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83DD3FC28BCBB4D00F1F2F6 /* User.swift */; };
-		B83DD40628BCDC7700F1F2F6 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83DD40528BCDC7700F1F2F6 /* APIService.swift */; };
+		B83DD40628BCDC7700F1F2F6 /* AuthenticationAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83DD40528BCDC7700F1F2F6 /* AuthenticationAPIService.swift */; };
 		B83DD40828BD1C1300F1F2F6 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83DD40728BD1C1200F1F2F6 /* LoginResponse.swift */; };
 		B854D2F828BE32DB006AA8EE /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B854D2F728BE32DB006AA8EE /* ScannerView.swift */; };
-		B861626128ABB73300BDE4CA /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861626028ABB73300BDE4CA /* Shared.swift */; };
+		B861626128ABB73300BDE4CA /* Shared view components.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861626028ABB73300BDE4CA /* Shared view components.swift */; };
 		B861626328ABBAAA00BDE4CA /* LayoutExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861626228ABBAAA00BDE4CA /* LayoutExtensions.swift */; };
 		B862BF0028AD0148002EF079 /* ButtonStylesExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B862BEFF28AD0148002EF079 /* ButtonStylesExtensions.swift */; };
 		B896D15628A63D6000BD7791 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B896D15528A63D6000BD7791 /* ColorExtensions.swift */; };
 		B896D15828A6422500BD7791 /* PreviewDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B896D15728A6422500BD7791 /* PreviewDevices.swift */; };
 		B896D15A28A66AD000BD7791 /* MainCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B896D15928A66AD000BD7791 /* MainCoordinatorView.swift */; };
+		B8A096DD28C094DD00F0BEFC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A096DC28C094DD00F0BEFC /* LoginViewModel.swift */; };
+		B8A096E028C0951A00F0BEFC /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A096DF28C0951A00F0BEFC /* RegisterViewModel.swift */; };
+		B8A096E228C097B100F0BEFC /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A096E128C097B100F0BEFC /* AuthenticationViewModel.swift */; };
+		B8A096E628C0A17F00F0BEFC /* SingleOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A096E528C0A17F00F0BEFC /* SingleOnboardingView.swift */; };
+		B8A096E828C0A23100F0BEFC /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A096E728C0A23100F0BEFC /* OnboardingViewModel.swift */; };
 		B8B14F2428BE49FC00979F01 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B14F2328BE49FC00979F01 /* ImagePickerView.swift */; };
 		B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B4B0C228A132AD00FD6B56 /* SplashView.swift */; };
 		B8D9111028A1188600D25454 /* MoveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9110F28A1188600D25454 /* MoveApp.swift */; };
@@ -31,7 +36,7 @@
 		B8D9B78128A3D0F8003F0968 /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B78028A3D0F8003F0968 /* AuthenticationCoordinator.swift */; };
 		B8D9B78328A3D8B6003F0968 /* FontsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B78228A3D8B6003F0968 /* FontsExtensions.swift */; };
 		B8DC508C28BF3CD100D9B2C6 /* RideScooterCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DC508B28BF3CD100D9B2C6 /* RideScooterCoordinatorView.swift */; };
-		B8E5BB7F28A243E60012DB66 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB7E28A243E60012DB66 /* OnboardingView.swift */; };
+		B8E5BB7F28A243E60012DB66 /* OnboardingCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB7E28A243E60012DB66 /* OnboardingCoordinatorView.swift */; };
 		B8E5BB8D28A25F290012DB66 /* BaiJamjuree-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8E5BB8128A25F280012DB66 /* BaiJamjuree-ExtraLight.ttf */; };
 		B8E5BB8E28A25F290012DB66 /* BaiJamjuree-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8E5BB8228A25F280012DB66 /* BaiJamjuree-Italic.ttf */; };
 		B8E5BB8F28A25F290012DB66 /* BaiJamjuree-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8E5BB8328A25F280012DB66 /* BaiJamjuree-BoldItalic.ttf */; };
@@ -59,15 +64,20 @@
 		B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		B80979D028A53504009B1C8D /* AddLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLicenseView.swift; sourceTree = "<group>"; };
 		B83DD3FC28BCBB4D00F1F2F6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		B83DD40528BCDC7700F1F2F6 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		B83DD40528BCDC7700F1F2F6 /* AuthenticationAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationAPIService.swift; sourceTree = "<group>"; };
 		B83DD40728BD1C1200F1F2F6 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		B854D2F728BE32DB006AA8EE /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
-		B861626028ABB73300BDE4CA /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
+		B861626028ABB73300BDE4CA /* Shared view components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shared view components.swift"; sourceTree = "<group>"; };
 		B861626228ABBAAA00BDE4CA /* LayoutExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutExtensions.swift; sourceTree = "<group>"; };
 		B862BEFF28AD0148002EF079 /* ButtonStylesExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStylesExtensions.swift; sourceTree = "<group>"; };
 		B896D15528A63D6000BD7791 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		B896D15728A6422500BD7791 /* PreviewDevices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDevices.swift; sourceTree = "<group>"; };
 		B896D15928A66AD000BD7791 /* MainCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorView.swift; sourceTree = "<group>"; };
+		B8A096DC28C094DD00F0BEFC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		B8A096DF28C0951A00F0BEFC /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		B8A096E128C097B100F0BEFC /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		B8A096E528C0A17F00F0BEFC /* SingleOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleOnboardingView.swift; sourceTree = "<group>"; };
+		B8A096E728C0A23100F0BEFC /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		B8B14F2328BE49FC00979F01 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		B8B4B0C228A132AD00FD6B56 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		B8D9110C28A1188600D25454 /* Move.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Move.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,7 +89,7 @@
 		B8D9B78028A3D0F8003F0968 /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
 		B8D9B78228A3D8B6003F0968 /* FontsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontsExtensions.swift; sourceTree = "<group>"; };
 		B8DC508B28BF3CD100D9B2C6 /* RideScooterCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideScooterCoordinatorView.swift; sourceTree = "<group>"; };
-		B8E5BB7E28A243E60012DB66 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		B8E5BB7E28A243E60012DB66 /* OnboardingCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinatorView.swift; sourceTree = "<group>"; };
 		B8E5BB8128A25F280012DB66 /* BaiJamjuree-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BaiJamjuree-ExtraLight.ttf"; sourceTree = "<group>"; };
 		B8E5BB8228A25F280012DB66 /* BaiJamjuree-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BaiJamjuree-Italic.ttf"; sourceTree = "<group>"; };
 		B8E5BB8328A25F280012DB66 /* BaiJamjuree-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BaiJamjuree-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -143,15 +153,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		B83DD40428BCDC6500F1F2F6 /* APIService */ = {
+		B83DD40428BCDC6500F1F2F6 /* API Services */ = {
 			isa = PBXGroup;
 			children = (
-				B83DD40528BCDC7700F1F2F6 /* APIService.swift */,
+				B83DD40528BCDC7700F1F2F6 /* AuthenticationAPIService.swift */,
 			);
-			path = APIService;
+			path = "API Services";
 			sourceTree = "<group>";
 		};
-		B862BEFD28ACF642002EF079 /* Components */ = {
+		B862BEFD28ACF642002EF079 /* Shared Components */ = {
 			isa = PBXGroup;
 			children = (
 				B8E5BB9F28A27F2D0012DB66 /* PurpleBackgroundView.swift */,
@@ -159,7 +169,7 @@
 				B8D9B77E28A3C1AE003F0968 /* Buttons.swift */,
 				B8E9752C28AE7111004E83A4 /* ActivityIndicator.swift */,
 			);
-			path = Components;
+			path = "Shared Components";
 			sourceTree = "<group>";
 		};
 		B862BEFE28ACF66B002EF079 /* Extensions */ = {
@@ -173,6 +183,40 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		B8A096DB28C094B800F0BEFC /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				B8E5BB9D28A27F190012DB66 /* LoginView.swift */,
+				B8A096DC28C094DD00F0BEFC /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		B8A096DE28C0950500F0BEFC /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				B8E5BB9B28A27F0F0012DB66 /* RegisterView.swift */,
+				B8A096DF28C0951A00F0BEFC /* RegisterViewModel.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		B8A096E328C0A0C600F0BEFC /* ForgotPassword */ = {
+			isa = PBXGroup;
+			children = (
+				B80979CB28A51861009B1C8D /* ForgotPasswordView.swift */,
+			);
+			path = ForgotPassword;
+			sourceTree = "<group>";
+		};
+		B8A096E428C0A0D400F0BEFC /* Reset password */ = {
+			isa = PBXGroup;
+			children = (
+				B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */,
+			);
+			path = "Reset password";
+			sourceTree = "<group>";
+		};
 		B8B4B0C028A1325200FD6B56 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,7 +228,9 @@
 		B8B4B0C128A1325A00FD6B56 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				B8E5BB7E28A243E60012DB66 /* OnboardingView.swift */,
+				B8E5BB7E28A243E60012DB66 /* OnboardingCoordinatorView.swift */,
+				B8A096E528C0A17F00F0BEFC /* SingleOnboardingView.swift */,
+				B8A096E728C0A23100F0BEFC /* OnboardingViewModel.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -211,10 +257,10 @@
 			isa = PBXGroup;
 			children = (
 				B8DC508A28BF3CA200D9B2C6 /* Ride scooter */,
-				B83DD40428BCDC6500F1F2F6 /* APIService */,
+				B83DD40428BCDC6500F1F2F6 /* API Services */,
 				B83DD3FB28BCBB3800F1F2F6 /* Models */,
 				B862BEFE28ACF66B002EF079 /* Extensions */,
-				B862BEFD28ACF642002EF079 /* Components */,
+				B862BEFD28ACF642002EF079 /* Shared Components */,
 				B80979CF28A52EDC009B1C8D /* Driving license validation */,
 				B8D9B77B28A3A6FE003F0968 /* Utils */,
 				B8E5BB9A28A279460012DB66 /* Authentication */,
@@ -276,12 +322,13 @@
 		B8E5BB9A28A279460012DB66 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				B8E5BB9B28A27F0F0012DB66 /* RegisterView.swift */,
-				B8E5BB9D28A27F190012DB66 /* LoginView.swift */,
+				B8A096E428C0A0D400F0BEFC /* Reset password */,
+				B8A096E328C0A0C600F0BEFC /* ForgotPassword */,
+				B8A096DE28C0950500F0BEFC /* Register */,
+				B8A096DB28C094B800F0BEFC /* Login */,
 				B8D9B78028A3D0F8003F0968 /* AuthenticationCoordinator.swift */,
-				B80979CB28A51861009B1C8D /* ForgotPasswordView.swift */,
-				B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */,
-				B861626028ABB73300BDE4CA /* Shared.swift */,
+				B861626028ABB73300BDE4CA /* Shared view components.swift */,
+				B8A096E128C097B100F0BEFC /* AuthenticationViewModel.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -422,11 +469,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B80979D128A53504009B1C8D /* AddLicenseView.swift in Sources */,
-				B83DD40628BCDC7700F1F2F6 /* APIService.swift in Sources */,
+				B8A096E028C0951A00F0BEFC /* RegisterViewModel.swift in Sources */,
+				B83DD40628BCDC7700F1F2F6 /* AuthenticationAPIService.swift in Sources */,
 				B8D9B77F28A3C1AE003F0968 /* Buttons.swift in Sources */,
 				B8E5BB9E28A27F190012DB66 /* LoginView.swift in Sources */,
-				B8E5BB7F28A243E60012DB66 /* OnboardingView.swift in Sources */,
-				B861626128ABB73300BDE4CA /* Shared.swift in Sources */,
+				B8E5BB7F28A243E60012DB66 /* OnboardingCoordinatorView.swift in Sources */,
+				B861626128ABB73300BDE4CA /* Shared view components.swift in Sources */,
 				B896D15828A6422500BD7791 /* PreviewDevices.swift in Sources */,
 				B8E5BB9C28A27F0F0012DB66 /* RegisterView.swift in Sources */,
 				B8E9752728AE6766004E83A4 /* ValidationInProgressView.swift in Sources */,
@@ -439,11 +487,15 @@
 				B8D9B78128A3D0F8003F0968 /* AuthenticationCoordinator.swift in Sources */,
 				B8D9111028A1188600D25454 /* MoveApp.swift in Sources */,
 				B854D2F828BE32DB006AA8EE /* ScannerView.swift in Sources */,
+				B8A096E828C0A23100F0BEFC /* OnboardingViewModel.swift in Sources */,
 				B8DC508C28BF3CD100D9B2C6 /* RideScooterCoordinatorView.swift in Sources */,
 				B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */,
+				B8A096E628C0A17F00F0BEFC /* SingleOnboardingView.swift in Sources */,
 				B8E9752D28AE7111004E83A4 /* ActivityIndicator.swift in Sources */,
+				B8A096DD28C094DD00F0BEFC /* LoginViewModel.swift in Sources */,
 				B896D15628A63D6000BD7791 /* ColorExtensions.swift in Sources */,
 				B8D9B78328A3D8B6003F0968 /* FontsExtensions.swift in Sources */,
+				B8A096E228C097B100F0BEFC /* AuthenticationViewModel.swift in Sources */,
 				B8B14F2428BE49FC00979F01 /* ImagePickerView.swift in Sources */,
 				B80979CC28A51861009B1C8D /* ForgotPasswordView.swift in Sources */,
 				B862BF0028AD0148002EF079 /* ButtonStylesExtensions.swift in Sources */,

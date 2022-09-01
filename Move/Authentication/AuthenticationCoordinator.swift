@@ -13,47 +13,48 @@ enum AuthenticationState {
     case forgotPassword
 }
 
-class AuthenticationViewModel: ObservableObject {
-    @Published var state: AuthenticationState? = .register
-}
+//class AuthenticationViewModel: ObservableObject {
+//    @Published var state: AuthenticationState? = .register
+//}
 
 struct AuthenticationView: View {
-    @StateObject var viewModel = AuthenticationViewModel()
+//    @StateObject var viewModel = AuthenticationViewModel()
+    @State var state: AuthenticationState? = .register
     let onFinished: () -> Void
     
     var body: some View {
         NavigationView {
             VStack {
                 NavigationLink(destination: RegisterView(onSwitch: {
-                    viewModel.state = .login
+                    state = .login
                 }, onFinished: {
                     onFinished()
                 })
                     .navigationBarHidden(true)
                     .ignoresSafeArea()
                     .transition(.opacity.animation(.default))
-                    .navigationBarBackButtonHidden(true), tag: .register, selection: $viewModel.state) {
+                    .navigationBarBackButtonHidden(true), tag: .register, selection: $state) {
                     EmptyView()
                 }
                 NavigationLink(destination: LoginView(onSwitch: {
-                    viewModel.state = .register
+                    state = .register
                 }, onForgotPassword: {
-                    viewModel.state = .forgotPassword
+                    state = .forgotPassword
                 }, onFinished: {
                     onFinished()
                 })
                     .ignoresSafeArea()
                     .transition(.opacity.animation(.default))
-                    .navigationBarBackButtonHidden(true), tag: .login, selection: $viewModel.state, label: {
+                    .navigationBarBackButtonHidden(true), tag: .login, selection: $state, label: {
                     EmptyView()
                 })
 
                 NavigationLink(destination: ForgotPasswordView(onBack: {
-                    viewModel.state = .login
+                    state = .login
                 })
                     .ignoresSafeArea()
                     .transition(.opacity.animation(.default))
-                    .navigationBarBackButtonHidden(true), tag: .forgotPassword, selection: $viewModel.state, label: {
+                    .navigationBarBackButtonHidden(true), tag: .forgotPassword, selection: $state, label: {
                     EmptyView()
                 })
             }

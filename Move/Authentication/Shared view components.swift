@@ -29,10 +29,30 @@ struct AuthenticationHeaderView: View {
             .font(.primary(type: .heading2))
             .foregroundColor(.neutralPurple)
             .alignLeadingWithHorizontalPadding()
-//            .frame(width: UIScreen.main.bounds.width)
-//            .padding(.horizontal, 24)
             .padding(.bottom, 24)
     }
 }
 
-
+struct SwitchAuthenticationMethodLink: View {
+    let questionText: String
+    let linkText: String
+    let onSwitch: () -> Void
+    
+    var body: some View {
+        HStack {
+            Text(questionText)
+                .foregroundColor(.white)
+                .font(.primary(type: .smallText))
+            Button {
+                onSwitch()
+            } label: {
+                Text(linkText)
+                    .foregroundColor(.white)
+                    .font(.primary(type: .smallText))
+                    .bold()
+                    .underline()
+                    .offset(x: -7)
+            }
+        }
+    }
+}

@@ -76,7 +76,6 @@ struct ForgotPasswordView: View {
                 
                 Spacer()
             }
-//            .padding(.horizontal, 24)
         }
     }
 }

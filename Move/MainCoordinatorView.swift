@@ -75,7 +75,7 @@ struct MainCoordinatorView: View {
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .splash, selection: $currentState, label: { EmptyView() })
                 
-                NavigationLink(destination: OnboardingView(onFinished: {
+                NavigationLink(destination: OnboardingCoordinatorView(onFinished: {
                     currentState = .authentication
                 })
                     .preferredColorScheme(.dark)

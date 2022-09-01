@@ -7,15 +7,6 @@
 
 import SwiftUI
 
-class LoginViewModel: ObservableObject {
-    @Published var emailAddress = ""
-    @Published var password = ""
-    @Published var requestInProgress = false
-    
-    func login(onLoginCompleted: @escaping () -> Void) {
-        APIService.loginUser(email: emailAddress, password: password, onLoginCompleted: onLoginCompleted)
-    }
-}
 
 struct LoginView: View {
     let onSwitch: () -> Void
@@ -51,6 +42,9 @@ struct LoginView: View {
                         .alignLeadingWithHorizontalPadding()
                         .padding(.bottom, 32)
                 }
+                
+                //TODO: duplicate block ( also present in RegisterView), break it into a separatecomponent and make an AuthenticationViewModelProtocol to pass as a variable
+
                 switch viewModel.requestInProgress {
                 case false:
                     FormButton(title: "Login", isEnabled: formIsCompleted) {
@@ -65,24 +59,10 @@ struct LoginView: View {
                     LoadingDisabledButton()
                 }
                 
-                HStack {
-                    Text("Don't have an account? You can ")
-                        .foregroundColor(.white)
-                        .font(.primary(type: .smallText))
-                    Button {
-                        onSwitch()
-                    } label: {
-                        Text("start with one here")
-                            .foregroundColor(.white)
-                            .font(.primary(type: .smallText))
-                            .bold()
-                            .underline()
-                            .offset(x: -7)
-                    }
-                }
+                SwitchAuthenticationMethodLink(questionText: "Don't have an account? You can ", linkText: "start with one here", onSwitch: onSwitch)
+                
                 Spacer()
             }
-//            .padding(.horizontal, 24)
         }
     }
 }

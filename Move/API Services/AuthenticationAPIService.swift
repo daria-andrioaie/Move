@@ -8,20 +8,23 @@
 import Foundation
 import Alamofire
 
-class APIService {
+class AuthenticationAPIService {
     static func registerUser(username: String, email: String, password: String, onRegisterCompleted: @escaping () -> Void) {
         let registerParameters = ["username": username, "email": email, "password": password]
         
+        //TODO: refactoring
         AF.request("https://move-scooter.herokuapp.com/user/register", method: .post, parameters: registerParameters)
             .validate()
             .responseDecodable(of: User.self) { response in
                 switch response.result {
                 case .success(let userResponse):
+                    // get rid of this
                     let newUser = User(_id: userResponse._id, username: userResponse.username, email: userResponse.email, password: userResponse.password, status: userResponse.status)
                     
                     print("Hi, \(newUser.username)")
                     // save to current session
                     if let userData = try? JSONEncoder().encode(newUser) {
+                        //TODO: separate keys
                         UserDefaults.standard.set(userData, forKey: "currentUser")
                     }
                     onRegisterCompleted()
