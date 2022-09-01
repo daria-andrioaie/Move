@@ -25,28 +25,60 @@ enum UserState {
 class MainCoordinatorViewModel: ObservableObject {
     
     var userState: UserState {
-        if let userData = UserDefaults.standard.value(forKey: "currentUser") as? Data {
-            if let decodedUser = try? JSONDecoder().decode(User.self, from: userData) {
-                
-                // the user was successfully decoded
-                if decodedUser.status == "suspended" {
-                    return .suspended
-                }
-                return .active
+        do {
+            let currentUser = try UserDefaultsManager.shared.getUser()
+            print("user \(currentUser.username) is logged in. He is \(currentUser.status)")
+            // the user was successfully decoded
+            if currentUser.status == "suspended" {
+                return .suspended
             }
-            // there is a user value on UserDefaults, but it couldn't be decoded
+            return .active
+        }
+        catch CodingError.cannotDecodeUser {
+            print("Can't decode user")
+            return .notLoggedIn
+        }
+        catch UserDefaultsManagerError.cannotFindKey {
+            print("No user logged in")
+            // no user saved in UserDefaults
+            // determine if it's the first time launching the app or not
+            if UserDefaultsManager.shared.isAppOnFirstLaunch() {
+                UserDefaultsManager.shared.setAppAlreadyLanchedOnce()
+                return .firstUseOfApplication
+            }
+            else {
+                return .notLoggedIn
+            }
+        }
+        catch {
+            print("Unexpected error: \(error)")
+            
+            //TODO: what should I return in this case?
             return .notLoggedIn
         }
         
-        // no user detected
-        // determine if it's the first time launching the app or not
-        if UserDefaults.standard.bool(forKey: "isAppAlreadyLaunchedOnce") {
-            return .notLoggedIn
-        }
-        else {
-            UserDefaults.standard.set(true, forKey: "isAppAlreadyLaunchedOnce")
-            return .firstUseOfApplication
-        }
+//        if let userData = UserDefaults.standard.value(forKey: "currentUser") as? Data {
+//            if let decodedUser = try? JSONDecoder().decode(User.self, from: userData) {
+//
+//                // the user was successfully decoded
+//                if decodedUser.status == "suspended" {
+//                    return .suspended
+//                }
+//                return .active
+//            }
+//            // there is a user value on UserDefaults, but it couldn't be decoded
+//            return .notLoggedIn
+//        }
+//
+//        // no user detected
+//        // determine if it's the first time launching the app or not
+//        if UserDefaults.standard.bool(forKey: "isAppAlreadyLaunchedOnce") {
+//            return .notLoggedIn
+//        }
+//        else {
+//            UserDefaults.standard.set(true, forKey: "isAppAlreadyLaunchedOnce")
+//            return .firstUseOfApplication
+//        }
     }
 }
 
@@ -58,17 +90,17 @@ struct MainCoordinatorView: View {
         NavigationView {
             List {
                 NavigationLink(destination: SplashView(afterAppear: {
-//                    currentState = .authentication
-                    switch viewModel.userState {
-                    case .firstUseOfApplication:
-                        currentState = .onboarding
-                    case .notLoggedIn:
-                        currentState = .authentication
-                    case .suspended:
-                        currentState = .addLicense
-                    case .active:
-                        currentState = .rideScooter
-                    }
+                    currentState = .authentication
+//                    switch viewModel.userState {
+//                    case .firstUseOfApplication:
+//                        currentState = .onboarding
+//                    case .notLoggedIn:
+//                        currentState = .authentication
+//                    case .suspended:
+//                        currentState = .addLicense
+//                    case .active:
+//                        currentState = .rideScooter
+//                    }
 
                 }).ignoresSafeArea()
                     .preferredColorScheme(.dark)
@@ -86,10 +118,10 @@ struct MainCoordinatorView: View {
 //                    currentState = .addLicense
                     switch viewModel.userState {
                     case .firstUseOfApplication:
-                        //TODO: also handle this case
+                        //TODO: handle this case
                         return
                     case .notLoggedIn:
-                        //TODO: handle this case
+                        //TODO: also this one
                         return
                     case.suspended:
                         currentState = .addLicense
@@ -101,6 +133,7 @@ struct MainCoordinatorView: View {
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .authentication, selection: $currentState, label: { EmptyView() })
                 
+                //TODO: set the color scheme of views on this flow
                 NavigationLink(destination: AddLicenseView(onFinished: {}, onBack: {
                         currentState = .authentication
                 })
@@ -108,11 +141,7 @@ struct MainCoordinatorView: View {
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .addLicense, selection: $currentState, label: { EmptyView() })
                 
-//                NavigationLink(destination: ValidationSuccessView()
-//                    .navigationBarHidden(true)
-//                    .transition(.opacity.animation(.default))
-//                    .navigationBarBackButtonHidden(true), tag: .addLicense, selection: $currentState, label: { EmptyView() })
-                
+                //TODO: set the color scheme of views on this flow
                 NavigationLink(destination: RideScooterCoordinatorView()
                     .navigationBarHidden(true)
                     .transition(.opacity.animation(.default))

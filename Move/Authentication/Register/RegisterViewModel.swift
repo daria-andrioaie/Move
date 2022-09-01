@@ -57,6 +57,14 @@ class RegisterViewModel: ObservableObject {
             //TODO: handle this case
             return
         }
-        AuthenticationAPIService.registerUser(username: username, email: emailAddress, password: password, onRegisterCompleted: onRegisterCompleted)
+        AuthenticationAPIService.registerUser(username: username, email: emailAddress, password: password, onRegisterCompleted: { result in
+            do {
+                let user = try result.get()
+                print(user)
+            }
+            catch {
+                print("In register view model: \(error)")
+            }
+        })
     }
 }
