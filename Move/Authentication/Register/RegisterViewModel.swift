@@ -68,7 +68,9 @@ class RegisterViewModel: ObservableObject {
             return
         }
         
-        AuthenticationAPIService.registerUser(username: username, email: emailAddress, password: password, onRequestCompleted: { result in
+        let registerParameters = ["username": username, "email": emailAddress, "password": password]
+        
+        AuthenticationAPIService.authenticationRequest(type: .register, parameters: registerParameters, onRequestCompleted: { result in
             switch result {
             case .success(let registerResponse):
                 try? UserDefaultsManager.shared.saveUser(registerResponse.user)

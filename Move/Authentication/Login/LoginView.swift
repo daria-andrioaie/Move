@@ -74,31 +74,31 @@ struct LoginView: View {
         viewModel.requestInProgress = false
         let warningView = MessageView.viewFromNib(layout: .cardView)
         var config = SwiftMessages.Config()
-        
+
         warningView.configureTheme(.warning)
         warningView.button?.isHidden = true
         warningView.configureDropShadow()
         warningView.configureContent(title: "Oops!", body: "The \(fieldName) you entered is invalid")
-        
+
         config.presentationStyle = .center
         config.dimMode = .gray(interactive: true)
-        
+
         SwiftMessages.show(config: config, view: warningView)
     }
-    
+
     func showAPIError(message: String) {
         viewModel.requestInProgress = false
         let warningView = MessageView.viewFromNib(layout: .cardView)
         var config = SwiftMessages.Config()
-        
+
         warningView.configureTheme(.error)
         warningView.button?.isHidden = true
         warningView.configureDropShadow()
         warningView.configureContent(title: "Oops!", body: message)
-        
+
         config.presentationStyle = .center
         config.dimMode = .gray(interactive: true)
-        
+
         SwiftMessages.show(config: config, view: warningView)
     }
 

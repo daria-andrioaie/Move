@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SwiftMessages
 
 struct AuthenticationHeaderView: View {
     let title: String

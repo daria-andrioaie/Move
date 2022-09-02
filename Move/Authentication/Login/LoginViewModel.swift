@@ -42,20 +42,17 @@ class LoginViewModel: ObservableObject {
             return
         }
         
-        guard isValid(password: password) else {
-            onInvalidField("password")
-            return
-        }
+        let loginParameters = ["email": emailAddress, "password": password]
         
-        AuthenticationAPIService.loginUser(email: emailAddress, password: password, onRequestCompleted: { result in
-            switch result {
-            case .success(let loginResponse):
-                try? UserDefaultsManager.shared.saveUser(loginResponse.user)
-                UserDefaultsManager.shared.saveUserToken(loginResponse.token)
-                onLoginCompleted()
-            case .failure(let apiError):
-                onAPIError(apiError)
-            }
+        AuthenticationAPIService.authenticationRequest(type: .login, parameters: loginParameters, onRequestCompleted: { result in
+                switch result {
+                case .success(let loginResponse):
+                    try? UserDefaultsManager.shared.saveUser(loginResponse.user)
+                    UserDefaultsManager.shared.saveUserToken(loginResponse.token)
+                    onLoginCompleted()
+                case .failure(let apiError):
+                    onAPIError(apiError)
+                }
         })
     }
 }
