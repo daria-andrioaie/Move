@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import SwiftMessages
 
 struct LoginView: View {
     let onSwitch: () -> Void
@@ -49,8 +49,12 @@ struct LoginView: View {
                 case false:
                     FormButton(title: "Login", isEnabled: formIsCompleted) {
                         viewModel.requestInProgress = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-                            viewModel.login {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                            viewModel.login { fieldName in
+                                showInvalidFieldWarning(fieldName: fieldName)
+                            } onAPIError: { error in
+                                showAPIError(message: error.message)
+                            } onLoginCompleted: {
                                 onFinished()
                             }
                         })
@@ -65,6 +69,39 @@ struct LoginView: View {
             }
         }
     }
+    
+    func showInvalidFieldWarning(fieldName: String) {
+        viewModel.requestInProgress = false
+        let warningView = MessageView.viewFromNib(layout: .cardView)
+        var config = SwiftMessages.Config()
+        
+        warningView.configureTheme(.warning)
+        warningView.button?.isHidden = true
+        warningView.configureDropShadow()
+        warningView.configureContent(title: "Oops!", body: "The \(fieldName) you entered is invalid")
+        
+        config.presentationStyle = .center
+        config.dimMode = .gray(interactive: true)
+        
+        SwiftMessages.show(config: config, view: warningView)
+    }
+    
+    func showAPIError(message: String) {
+        viewModel.requestInProgress = false
+        let warningView = MessageView.viewFromNib(layout: .cardView)
+        var config = SwiftMessages.Config()
+        
+        warningView.configureTheme(.error)
+        warningView.button?.isHidden = true
+        warningView.configureDropShadow()
+        warningView.configureContent(title: "Oops!", body: message)
+        
+        config.presentationStyle = .center
+        config.dimMode = .gray(interactive: true)
+        
+        SwiftMessages.show(config: config, view: warningView)
+    }
+
 }
 
 struct LoginView_Previews: PreviewProvider {

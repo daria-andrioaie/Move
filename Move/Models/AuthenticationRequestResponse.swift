@@ -7,7 +7,7 @@
 
 import Foundation
 
-class LoginResponse: Decodable {
+class AuthenticationRequestResponse: Decodable {
     let user: User
     let token: String
 }

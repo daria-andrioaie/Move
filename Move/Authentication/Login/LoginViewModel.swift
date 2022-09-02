@@ -1,5 +1,5 @@
 //
-//  RegisterViewModel.swift
+//  LoginViewModel.swift
 //  Move
 //
 //  Created by Daria Andrioaie on 01.09.2022.
@@ -7,11 +7,9 @@
 
 import Foundation
 
-class RegisterViewModel: ObservableObject {
+class LoginViewModel: ObservableObject {
     @Published var emailAddress = ""
-    @Published var username = ""
     @Published var password = ""
-    
     @Published var requestInProgress = false
     
     func isValid(emailAddress: String) -> Bool {
@@ -28,20 +26,6 @@ class RegisterViewModel: ObservableObject {
         return emailPredicate.evaluate(with: emailAddress)
     }
     
-    func isValid(username: String) -> Bool {
-        if username == "" {
-            return false
-        }
-        if username.count < 5 {
-            return false
-        }
-        
-        // the username must only contain word characters: letters, digits or underscores
-        let usernameRegEx = "\\w{5,18}"
-        let usernamePredicate = NSPredicate(format:"SELF MATCHES %@", usernameRegEx)
-        return usernamePredicate.evaluate(with: username)
-    }
-    
     func isValid(password: String) -> Bool {
         if password == "" {
             return false
@@ -52,14 +36,9 @@ class RegisterViewModel: ObservableObject {
         return true
     }
     
-    func register(onInvalidField: (String) -> Void, onAPIError: @escaping (APIError) -> Void, onRegisterCompleted: @escaping () -> Void) {
+    func login(onInvalidField: (String) -> Void, onAPIError: @escaping (APIError) -> Void, onLoginCompleted: @escaping () -> Void) {
         guard isValid(emailAddress: emailAddress) else {
             onInvalidField("email address")
-            return
-        }
-        
-        guard isValid(username: username) else {
-            onInvalidField("username")
             return
         }
         
@@ -68,12 +47,12 @@ class RegisterViewModel: ObservableObject {
             return
         }
         
-        AuthenticationAPIService.registerUser(username: username, email: emailAddress, password: password, onRequestCompleted: { result in
+        AuthenticationAPIService.loginUser(email: emailAddress, password: password, onRequestCompleted: { result in
             switch result {
-            case .success(let registerResponse):
-                try? UserDefaultsManager.shared.saveUser(registerResponse.user)
-                UserDefaultsManager.shared.saveUserToken(registerResponse.token)
-                onRegisterCompleted()
+            case .success(let loginResponse):
+                try? UserDefaultsManager.shared.saveUser(loginResponse.user)
+                UserDefaultsManager.shared.saveUserToken(loginResponse.token)
+                onLoginCompleted()
             case .failure(let apiError):
                 onAPIError(apiError)
             }

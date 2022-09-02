@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import SwiftMessages
 
 struct RegisterView: View {
     let onSwitch: () -> Void
@@ -41,8 +41,12 @@ struct RegisterView: View {
                     case false:
                         FormButton(title: "Get started", isEnabled: formIsCompleted) {
                             viewModel.requestInProgress = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-                                viewModel.register {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                                viewModel.register { fieldName in
+                                    showInvalidFieldWarning(fieldName: fieldName)
+                                } onAPIError: { error in
+                                    showAPIError(message: error.message)
+                                } onRegisterCompleted: {
                                     onFinished()
                                 }
                             })
@@ -59,7 +63,41 @@ struct RegisterView: View {
             }
         }
     }
+    
+    
+    func showInvalidFieldWarning(fieldName: String) {
+        viewModel.requestInProgress = false
+        let warningView = MessageView.viewFromNib(layout: .cardView)
+        var config = SwiftMessages.Config()
+        
+        warningView.configureTheme(.warning)
+        warningView.button?.isHidden = true
+        warningView.configureDropShadow()
+        warningView.configureContent(title: "Oops!", body: "The \(fieldName) you entered is invalid")
+        
+        config.presentationStyle = .center
+        config.dimMode = .gray(interactive: true)
+        
+        SwiftMessages.show(config: config, view: warningView)
+    }
+    
+    func showAPIError(message: String) {
+        viewModel.requestInProgress = false
+        let warningView = MessageView.viewFromNib(layout: .cardView)
+        var config = SwiftMessages.Config()
+        
+        warningView.configureTheme(.error)
+        warningView.button?.isHidden = true
+        warningView.configureDropShadow()
+        warningView.configureContent(title: "Oops!", body: message)
+        
+        config.presentationStyle = .center
+        config.dimMode = .gray(interactive: true)
+        
+        SwiftMessages.show(config: config, view: warningView)
+    }
 }
+
 
 struct TermsAndConditionsNote: View {
     var body: some View {
