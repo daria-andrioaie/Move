@@ -33,10 +33,6 @@ enum MessageType {
 }
 
 class SwiftMessagesErrorHandler {
-    static let shared = SwiftMessagesErrorHandler()
-    
-    private init() {}
-    
     func handle(message: String, type: MessageType = .info) {
         let errorView = MessageView.viewFromNib(layout: .cardView)
         var config = SwiftMessages.Config()

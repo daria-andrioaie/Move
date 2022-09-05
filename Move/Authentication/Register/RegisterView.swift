@@ -9,11 +9,20 @@ import SwiftUI
 import SwiftMessages
 
 struct RegisterView: View {
+    let userDefaultsManager: UserDefaultsManager
     let errorHandler: SwiftMessagesErrorHandler
     let onSwitch: () -> Void
     let onFinished: () -> Void
     
-    @StateObject var viewModel = RegisterViewModel()
+    @StateObject var viewModel: RegisterViewModel
+    
+    init(userDefaultsManager: UserDefaultsManager, errorHandler: SwiftMessagesErrorHandler, onSwitch: @escaping () -> Void, onFinished: @escaping () -> Void) {
+        self.userDefaultsManager = userDefaultsManager
+        self.errorHandler = errorHandler
+        self.onSwitch = onSwitch
+        self.onFinished = onFinished
+        self._viewModel = StateObject(wrappedValue: RegisterViewModel(userDefaultsManager: userDefaultsManager))
+    }
     
     private var formIsCompleted: Bool {
         if !viewModel.emailAddress.isEmpty && !viewModel.username.isEmpty && !viewModel.password.isEmpty {
@@ -47,11 +56,9 @@ struct RegisterView: View {
                                 viewModel.register { fieldName in
                                     viewModel.requestInProgress = false
                                     errorHandler.handle(message: "The \(fieldName) you entered is invalid", type: .warning)
-//                                    showInvalidFieldWarning(fieldName: fieldName)
                                 } onAPIError: { error in
                                     viewModel.requestInProgress = false
                                     errorHandler.handle(message: error.message, type: .error)
-//                                    showAPIError(message: error.message)
                                 } onRegisterCompleted: {
                                     onFinished()
                                 }
@@ -69,37 +76,6 @@ struct RegisterView: View {
             }
         }
     }
-//    func showInvalidFieldWarning(fieldName: String) {
-//        viewModel.requestInProgress = false
-//        let warningView = MessageView.viewFromNib(layout: .cardView)
-//        var config = SwiftMessages.Config()
-//
-//        warningView.configureTheme(.warning)
-//        warningView.button?.isHidden = true
-//        warningView.configureDropShadow()
-//        warningView.configureContent(title: "Oops!", body: "The \(fieldName) you entered is invalid")
-//
-//        config.presentationStyle = .center
-//        config.dimMode = .gray(interactive: true)
-//
-//        SwiftMessages.show(config: config, view: warningView)
-//    }
-//
-//    func showAPIError(message: String) {
-//        viewModel.requestInProgress = false
-//        let warningView = MessageView.viewFromNib(layout: .cardView)
-//        var config = SwiftMessages.Config()
-//
-//        warningView.configureTheme(.error)
-//        warningView.button?.isHidden = true
-//        warningView.configureDropShadow()
-//        warningView.configureContent(title: "Oops!", body: message)
-//
-//        config.presentationStyle = .center
-//        config.dimMode = .gray(interactive: true)
-//
-//        SwiftMessages.show(config: config, view: warningView)
-//    }
 }
 
 
@@ -118,7 +94,7 @@ struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                RegisterView(errorHandler: .shared, onSwitch: {}, onFinished: {})
+                RegisterView(userDefaultsManager: UserDefaultsManager(), errorHandler: SwiftMessagesErrorHandler(), onSwitch: {}, onFinished: {})
                     .previewDevice(device)
             }
         }

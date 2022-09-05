@@ -9,12 +9,22 @@ import SwiftUI
 import SwiftMessages
 
 struct LoginView: View {
+    let userDefaultsManager: UserDefaultsManager
     let errorHandler: SwiftMessagesErrorHandler
     let onSwitch: () -> Void
     let onForgotPassword: () -> Void
     let onFinished: () -> Void
     
-    @StateObject var viewModel = LoginViewModel()
+    @StateObject var viewModel: LoginViewModel
+    
+    init(userDefaultsManager: UserDefaultsManager, errorHandler: SwiftMessagesErrorHandler, onSwitch: @escaping () -> Void, onForgotPassword: @escaping () -> Void, onFinished: @escaping () -> Void) {
+        self.userDefaultsManager = userDefaultsManager
+        self.errorHandler = errorHandler
+        self.onSwitch = onSwitch
+        self.onForgotPassword = onForgotPassword
+        self.onFinished = onFinished
+        self._viewModel = StateObject(wrappedValue: LoginViewModel(userDefaultsManager: userDefaultsManager))
+    }
     
     private var formIsCompleted: Bool {
         if !viewModel.emailAddress.isEmpty && !viewModel.password.isEmpty {
@@ -74,46 +84,13 @@ struct LoginView: View {
             }
         }
     }
-    
-    func showInvalidFieldWarning(fieldName: String) {
-        viewModel.requestInProgress = false
-        let warningView = MessageView.viewFromNib(layout: .cardView)
-        var config = SwiftMessages.Config()
-
-        warningView.configureTheme(.warning)
-        warningView.button?.isHidden = true
-        warningView.configureDropShadow()
-        warningView.configureContent(title: "Oops!", body: "The \(fieldName) you entered is invalid")
-
-        config.presentationStyle = .center
-        config.dimMode = .gray(interactive: true)
-
-        SwiftMessages.show(config: config, view: warningView)
-    }
-
-    func showAPIError(message: String) {
-        viewModel.requestInProgress = false
-        let warningView = MessageView.viewFromNib(layout: .cardView)
-        var config = SwiftMessages.Config()
-
-        warningView.configureTheme(.error)
-        warningView.button?.isHidden = true
-        warningView.configureDropShadow()
-        warningView.configureContent(title: "Oops!", body: message)
-
-        config.presentationStyle = .center
-        config.dimMode = .gray(interactive: true)
-
-        SwiftMessages.show(config: config, view: warningView)
-    }
-
 }
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                LoginView(errorHandler: .shared, onSwitch: {}, onForgotPassword: {}, onFinished: {})
+                LoginView(userDefaultsManager: UserDefaultsManager(), errorHandler: SwiftMessagesErrorHandler(), onSwitch: {}, onForgotPassword: {}, onFinished: {})
                     .previewDevice(device)
             }
         }

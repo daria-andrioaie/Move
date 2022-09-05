@@ -23,10 +23,15 @@ enum UserState {
 }
 
 class MainCoordinatorViewModel: ObservableObject {
+    private let userDefaultsManager: UserDefaultsManager
+    
+    init(userDefaultsManager: UserDefaultsManager) {
+        self.userDefaultsManager = userDefaultsManager
+    }
     
     var userState: UserState {
         do {
-            let currentUser = try UserDefaultsManager.shared.getUser()
+            let currentUser = try userDefaultsManager.getUser()
             print("user \(currentUser.username) is logged in. He is \(currentUser.status)")
             // the user was successfully decoded
             if currentUser.status == "suspended" {
@@ -42,8 +47,8 @@ class MainCoordinatorViewModel: ObservableObject {
             print("No user logged in")
             // no user saved in UserDefaults
             // determine if it's the first time launching the app or not
-            if UserDefaultsManager.shared.isAppOnFirstLaunch() {
-                UserDefaultsManager.shared.setAppAlreadyLanchedOnce()
+            if userDefaultsManager.isAppOnFirstLaunch() {
+                userDefaultsManager.setAppAlreadyLanchedOnce()
                 return .firstUseOfApplication
             }
             else {
@@ -61,11 +66,14 @@ class MainCoordinatorViewModel: ObservableObject {
 
 struct MainCoordinatorView: View {
     private let errorHandler: SwiftMessagesErrorHandler
+    private let userDefaultsManager: UserDefaultsManager
     @State private var currentState: MainCoordinatorState? = .splash
-    @StateObject private var viewModel = MainCoordinatorViewModel()
+    @StateObject private var viewModel: MainCoordinatorViewModel
     
-    init(errorHandler: SwiftMessagesErrorHandler) {
+    init(errorHandler: SwiftMessagesErrorHandler, userDefaultsManager: UserDefaultsManager) {
         self.errorHandler = errorHandler
+        self.userDefaultsManager = userDefaultsManager
+        self._viewModel = StateObject(wrappedValue: MainCoordinatorViewModel(userDefaultsManager: userDefaultsManager))
     }
     
     var body: some View {
@@ -96,7 +104,7 @@ struct MainCoordinatorView: View {
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .onboarding, selection: $currentState, label: { EmptyView() })
                 
-                NavigationLink(destination: AuthenticationView(errorHandler: self.errorHandler, onFinished: {
+                NavigationLink(destination: AuthenticationView(userDefaultsManager: self.userDefaultsManager, errorHandler: self.errorHandler, onFinished: {
 //                    currentState = .addLicense
                     switch viewModel.userState {
                     case .firstUseOfApplication:
@@ -136,6 +144,6 @@ struct MainCoordinatorView: View {
 
 struct MainCoordinatorView_Previews: PreviewProvider {
     static var previews: some View {
-        MainCoordinatorView(errorHandler: .shared)
+        MainCoordinatorView(errorHandler: SwiftMessagesErrorHandler(), userDefaultsManager: UserDefaultsManager())
     }
 }

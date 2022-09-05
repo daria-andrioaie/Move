@@ -11,7 +11,7 @@ import SwiftUI
 struct MoveApp: App {
     var body: some Scene {
         WindowGroup {
-            MainCoordinatorView(errorHandler: .shared)
+            MainCoordinatorView(errorHandler: SwiftMessagesErrorHandler(), userDefaultsManager: UserDefaultsManager())
         }
     }
 }

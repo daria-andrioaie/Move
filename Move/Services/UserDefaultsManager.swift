@@ -18,13 +18,9 @@ enum CodingError: Error {
 }
 
 class UserDefaultsManager {
-    static let shared = UserDefaultsManager()
-    
     private let currentUserKey = "currentUser"
     private let currentUserTokenKey = "currentUserToken"
     private let isAppAlreadyLaunchedOnceKey = "isAppAlreadyLaunchedOnce"
-    
-    private init() {}
     
     func saveUser(_ user: User) throws {
         if let userData = try? JSONEncoder().encode(user) {
