@@ -14,7 +14,7 @@ class AddLicenseViewModel: ObservableObject {
     @Published var deniedCameraAccess = false
     
     @Published var showImagePicker = false
-    @Published var image: Image?
+//    @Published var image: Image?
     @Published var inputImage: UIImage?
     
     let userDefaultsManager: UserDefaultsManager
@@ -53,34 +53,47 @@ class AddLicenseViewModel: ObservableObject {
     func onScanFinished(result: Result<UIImage, Error>) {
         switch result {
         case .success(let scannedImage):
-            image = Image(uiImage: scannedImage)
+            inputImage = scannedImage
             sendRequest()
         case .failure(let error):
             errorHandler.handle(message: error.localizedDescription, type: .error)
         }
     }
     
-    func loadImage() {
+//    func loadImage() {
+//        guard let inputImage = inputImage else {
+//            return
+//        }
+//        image = Image(uiImage: inputImage)
+//        sendRequest()
+//    }
+
+    func sendRequest() {
         guard let inputImage = inputImage else {
+            errorHandler.handle(message: "No image selected", type: .error)
             return
         }
-        image = Image(uiImage: inputImage)
-        sendRequest()
-    }
-    
-    func sendRequest() {
-        if let image = image {
-            print("Request in progress..")
-            self.onValidationInProgress()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-                print("Request finished")
-                self.onValidationSuccessful()
-            })
+        
+        guard let userToken = try? userDefaultsManager.getUserToken() else {
+            errorHandler.handle(message: "Can't find token in User Defaults!", type: .error)
+            return
         }
-        else {
-            errorHandler.handle(message: "No image selected", type: .error)
-        }
+        
+        print("Request in progress..")
+        self.onValidationInProgress()
+        
+        AuthenticationAPIService.uploadDrivingLicenseRequest(image: inputImage, userToken: userToken, onRequestCompleted: { result in
+            switch result {
+            case .success(let user):
+                try? self.userDefaultsManager.saveUser(user)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                    print("Request finished")
+                    self.onValidationSuccessful()
+                })
+            case .failure(let apiError):
+                self.errorHandler.handle(message: apiError.message, type: .error)
+            }
+        })
     }
 }
 
@@ -193,7 +206,8 @@ struct AddLicenseView: View {
             ImagePickerView(image: $viewModel.inputImage)
         }
         .onChange(of: viewModel.inputImage) { _ in
-            viewModel.loadImage()
+//            viewModel.loadImage()
+            viewModel.sendRequest()
         }
     }
 }
