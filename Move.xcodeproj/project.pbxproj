@@ -16,6 +16,8 @@
 		B83DD40828BD1C1300F1F2F6 /* AuthenticationRequestResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83DD40728BD1C1200F1F2F6 /* AuthenticationRequestResponse.swift */; };
 		B84DE57928C5D9AC0051311B /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84DE57828C5D9AC0051311B /* APIError.swift */; };
 		B84DE57C28C5DA7D0051311B /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84DE57B28C5DA7D0051311B /* ErrorHandler.swift */; };
+		B84DE57E28C5FD3A0051311B /* LicenseCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84DE57D28C5FD3A0051311B /* LicenseCoordinatorView.swift */; };
+		B84DE58028C604910051311B /* FlexibleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84DE57F28C604910051311B /* FlexibleSheet.swift */; };
 		B854D2F828BE32DB006AA8EE /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B854D2F728BE32DB006AA8EE /* ScannerView.swift */; };
 		B861626128ABB73300BDE4CA /* Shared view components.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861626028ABB73300BDE4CA /* Shared view components.swift */; };
 		B861626328ABBAAA00BDE4CA /* LayoutExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861626228ABBAAA00BDE4CA /* LayoutExtensions.swift */; };
@@ -71,6 +73,8 @@
 		B83DD40728BD1C1200F1F2F6 /* AuthenticationRequestResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRequestResponse.swift; sourceTree = "<group>"; };
 		B84DE57828C5D9AC0051311B /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		B84DE57B28C5DA7D0051311B /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		B84DE57D28C5FD3A0051311B /* LicenseCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCoordinatorView.swift; sourceTree = "<group>"; };
+		B84DE57F28C604910051311B /* FlexibleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleSheet.swift; sourceTree = "<group>"; };
 		B854D2F728BE32DB006AA8EE /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		B861626028ABB73300BDE4CA /* Shared view components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shared view components.swift"; sourceTree = "<group>"; };
 		B861626228ABBAAA00BDE4CA /* LayoutExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutExtensions.swift; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 				B8E9752A28AE67A1004E83A4 /* ValidationSuccessView.swift */,
 				B854D2F728BE32DB006AA8EE /* ScannerView.swift */,
 				B8B14F2328BE49FC00979F01 /* ImagePickerView.swift */,
+				B84DE57D28C5FD3A0051311B /* LicenseCoordinatorView.swift */,
 			);
 			path = "Driving license validation";
 			sourceTree = "<group>";
@@ -184,6 +189,7 @@
 				B8D9B77C28A3A726003F0968 /* TextFields.swift */,
 				B8D9B77E28A3C1AE003F0968 /* Buttons.swift */,
 				B8E9752C28AE7111004E83A4 /* ActivityIndicator.swift */,
+				B84DE57F28C604910051311B /* FlexibleSheet.swift */,
 			);
 			path = "Shared Components";
 			sourceTree = "<group>";
@@ -515,11 +521,13 @@
 				B896D15628A63D6000BD7791 /* ColorExtensions.swift in Sources */,
 				B8D9B78328A3D8B6003F0968 /* FontsExtensions.swift in Sources */,
 				B8A096E228C097B100F0BEFC /* AuthenticationViewModel.swift in Sources */,
+				B84DE58028C604910051311B /* FlexibleSheet.swift in Sources */,
 				B8B14F2428BE49FC00979F01 /* ImagePickerView.swift in Sources */,
 				B80979CC28A51861009B1C8D /* ForgotPasswordView.swift in Sources */,
 				B862BF0028AD0148002EF079 /* ButtonStylesExtensions.swift in Sources */,
 				B84DE57C28C5DA7D0051311B /* ErrorHandler.swift in Sources */,
 				B8D9B77D28A3A726003F0968 /* TextFields.swift in Sources */,
+				B84DE57E28C5FD3A0051311B /* LicenseCoordinatorView.swift in Sources */,
 				B83DD3FD28BCBB4D00F1F2F6 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

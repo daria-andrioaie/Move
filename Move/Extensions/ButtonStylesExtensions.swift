@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct LargeActiveButtonModifier: ViewModifier {
+struct ActiveButtonModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .foregroundColor(.white)
@@ -19,13 +19,13 @@ struct LargeActiveButtonModifier: ViewModifier {
 }
 
 extension View {
-    func largeActiveButton() -> some View {
-        modifier(LargeActiveButtonModifier())
+    func activeButton() -> some View {
+        modifier(ActiveButtonModifier())
     }
 }
 
 
-struct LargeDisabledButtonModifier: ViewModifier {
+struct DisabledButtonModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .disabled(true)
@@ -37,8 +37,8 @@ struct LargeDisabledButtonModifier: ViewModifier {
 }
 
 extension View {
-    func largeDisabledButton() -> some View {
-        modifier(LargeDisabledButtonModifier())
+    func disabledButton() -> some View {
+        modifier(DisabledButtonModifier())
     }
 }
 
@@ -47,10 +47,10 @@ extension View {
     @ViewBuilder
     func largeButton(isEnabled: Bool) -> some View {
         if isEnabled {
-            modifier(LargeActiveButtonModifier())
+            modifier(ActiveButtonModifier())
         }
         else {
-            modifier(LargeDisabledButtonModifier())
+            modifier(DisabledButtonModifier())
         }
     }
 }

@@ -33,7 +33,7 @@ struct LoadingDisabledButton: View {
                 .foregroundColor(.white)
         }
         .frame(maxWidth: .infinity)
-        .largeDisabledButton()
+        .disabledButton()
         .padding(.horizontal, 24)
         .padding(.bottom, 32)
     }

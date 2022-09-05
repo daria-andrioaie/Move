@@ -9,43 +9,6 @@ import SwiftUI
 import VisionKit
 import AVFoundation
 
-enum SheetMode {
-    case none
-    case third
-}
-
-struct FlexibleSheet<Content: View>: View {
-    
-    let content: () -> Content
-    var sheetMode: Binding<SheetMode>
-    
-    init(sheetMode: Binding<SheetMode>, @ViewBuilder content: @escaping () -> Content) {
-        self.sheetMode = sheetMode
-        self.content = content
-    }
-    
-    var body: some View {
-        content()
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .padding(45)
-            .background(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
-            .shadow(radius: 25)
-            .offset(y: calculateOffset())
-            .animation(.spring())
-            .edgesIgnoringSafeArea(.all)
-    }
-    
-    private func calculateOffset() -> CGFloat {
-        switch sheetMode.wrappedValue {
-        case .none:
-            return UIScreen.main.bounds.height
-        case .third:
-            return UIScreen.main.bounds.height * 3/4
-        }
-    }
-}
-
 class AddLicenseViewModel: ObservableObject {
     @Published var showScanner = false
     @Published var deniedCameraAccess = false
@@ -53,6 +16,18 @@ class AddLicenseViewModel: ObservableObject {
     @Published var showImagePicker = false
     @Published var image: Image?
     @Published var inputImage: UIImage?
+    
+    let userDefaultsManager: UserDefaultsManager
+    let errorHandler: SwiftMessagesErrorHandler
+    let onValidationInProgress: () -> Void
+    let onValidationSuccessful: () -> Void
+    
+    init(userDefaultsManager: UserDefaultsManager, errorHandler: SwiftMessagesErrorHandler, onValidationInProgress: @escaping () -> Void, onValidationSuccessful: @escaping () -> Void) {
+        self.userDefaultsManager = userDefaultsManager
+        self.errorHandler = errorHandler
+        self.onValidationInProgress = onValidationInProgress
+        self.onValidationSuccessful = onValidationSuccessful
+    }
     
     func scanLicense() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -75,21 +50,58 @@ class AddLicenseViewModel: ObservableObject {
         }
     }
     
+    func onScanFinished(result: Result<UIImage, Error>) {
+        switch result {
+        case .success(let scannedImage):
+            image = Image(uiImage: scannedImage)
+            sendRequest()
+        case .failure(let error):
+            errorHandler.handle(message: error.localizedDescription, type: .error)
+        }
+    }
+    
     func loadImage() {
         guard let inputImage = inputImage else {
             return
         }
         image = Image(uiImage: inputImage)
+        sendRequest()
+    }
+    
+    func sendRequest() {
+        if let image = image {
+            print("Request in progress..")
+            self.onValidationInProgress()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                print("Request finished")
+                self.onValidationSuccessful()
+            })
+        }
+        else {
+            errorHandler.handle(message: "No image selected", type: .error)
+        }
     }
 }
 
 struct AddLicenseView: View {
-    
-    let onFinished: () -> Void
+    let userDefaultsManager: UserDefaultsManager
+    let errorHandler: SwiftMessagesErrorHandler
+    let onValidationInProgress: () -> Void
+    let onValidationSuccessful: () -> Void
     let onBack: () -> Void
 
-    @State private var sheetMode = SheetMode.none
-    @StateObject private var viewModel = AddLicenseViewModel()
+    @State private var actionSheetDisplayMode = SheetDisplayMode.none
+    @StateObject private var viewModel: AddLicenseViewModel
+    
+    init(userDefaultsManager: UserDefaultsManager, errorHandler: SwiftMessagesErrorHandler, onValidationInProgress: @escaping () -> Void, onValidationSuccessful: @escaping () -> Void, onBack: @escaping () -> Void) {
+        self.userDefaultsManager = userDefaultsManager
+        self.errorHandler = errorHandler
+        self.onValidationInProgress = onValidationInProgress
+        self.onValidationSuccessful = onValidationSuccessful
+        self.onBack = onBack
+        self._viewModel = StateObject(wrappedValue: AddLicenseViewModel(userDefaultsManager: userDefaultsManager, errorHandler: errorHandler, onValidationInProgress: onValidationInProgress, onValidationSuccessful: onValidationSuccessful))
+    }
     
     var body: some View {
         ZStack {
@@ -123,7 +135,7 @@ struct AddLicenseView: View {
                         .scaledToFill()
                         .clipped()
 
-                    Text("Before you can start \nriding")
+                    Text("Before you can start riding")
                         .font(.primary(type: .heading1))
                         .foregroundColor(Color("PrimaryBlue"))
                         .alignLeadingWithHorizontalPadding()
@@ -133,16 +145,18 @@ struct AddLicenseView: View {
                         .foregroundColor(Color("PrimaryBlue"))
                         .alignLeadingWithHorizontalPadding()
                         .padding(.top, 10)
+                    
+                    
                     FormButton(title: "Add driving license", isEnabled: true, action: {
-                        sheetMode = .third
+                        actionSheetDisplayMode = .third
                     })
                     .padding(.top, 31)
                 }
             }
-            FlexibleSheet(sheetMode: $sheetMode) {
+            FlexibleSheet(sheetMode: $actionSheetDisplayMode) {
                 VStack {
                     Button("Upload from gallery", action: {
-                        sheetMode = .none
+                        actionSheetDisplayMode = .none
                         viewModel.showImagePicker = true
                     })
                     .frame(maxWidth: .infinity)
@@ -150,31 +164,27 @@ struct AddLicenseView: View {
                     .padding(.horizontal, 24)
                     
                     Button("Take picture now", action: {
-                        sheetMode = .none
+                        actionSheetDisplayMode = .none
                         viewModel.scanLicense()
                     })
                     .frame(maxWidth: .infinity)
-                    .largeActiveButton()
+                    .activeButton()
                     .padding(.horizontal, 24)
                 }
             }
             .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
                 .onEnded{ value in
+                    // swipe down gesture on the action sheet
                     if (-100...100).contains(value.translation.width) &&
                         (0...).contains(value.translation.height) {
-                        sheetMode = .none
+                        actionSheetDisplayMode = .none
                     }
                 })
         }
         .sheet(isPresented: $viewModel.showScanner) {
             ScannerView { result in
-                switch result {
-                case .success(let scannedImage):
-                    print(scannedImage)
-                    // api call to upload image
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
+                viewModel.showScanner = false
+                viewModel.onScanFinished(result: result)
             } didCancelScanning: {
                 viewModel.showScanner = false
             }
@@ -192,7 +202,7 @@ struct AddLicenseView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                AddLicenseView(onFinished: {}, onBack: {})
+                AddLicenseView(userDefaultsManager: UserDefaultsManager(), errorHandler: SwiftMessagesErrorHandler(), onValidationInProgress: {}, onValidationSuccessful: {}, onBack: {})
                     .previewDevice(device)
             }
         }

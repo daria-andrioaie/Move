@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ValidationSuccessView: View {
+    let onFinished: () -> Void
+    
     var body: some View {
         ZStack {
             PurpleBackgroundView()
@@ -23,7 +25,9 @@ struct ValidationSuccessView: View {
                 
                 Spacer()
                 Spacer()
-                FormButton(title: "Find scooters", isEnabled: true, action: {})
+                FormButton(title: "Find scooters", isEnabled: true, action: {
+                    onFinished()
+                })
                     .padding(.bottom, 12)
             }
             
@@ -35,7 +39,7 @@ struct ValidationSuccessView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                ValidationSuccessView()
+                ValidationSuccessView(onFinished: {})
                     .previewDevice(device)
             }
         }

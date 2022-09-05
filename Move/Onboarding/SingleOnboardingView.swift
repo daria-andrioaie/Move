@@ -67,7 +67,7 @@ struct SingleOnboardingView: View {
                             Image(systemName: "arrow.right")
                         }
                         .padding(.horizontal, 16)
-                        .largeActiveButton()
+                        .activeButton()
                     }
                 }
                 .padding(.horizontal, 24)

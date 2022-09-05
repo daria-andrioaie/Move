@@ -124,8 +124,10 @@ struct MainCoordinatorView: View {
                     .navigationBarBackButtonHidden(true), tag: .authentication, selection: $currentState, label: { EmptyView() })
                 
                 //TODO: set the color scheme of views on this flow
-                NavigationLink(destination: AddLicenseView(onFinished: {}, onBack: {
-                        currentState = .authentication
+                NavigationLink(destination: LicenseCoordinatorView(userDefaultsManager: self.userDefaultsManager, errorHandler: self.errorHandler, onFinished: {
+                    currentState = .rideScooter
+                }, onBack: {
+                    currentState = .authentication
                 })
                     .navigationBarHidden(true)
                     .transition(.opacity.animation(.default))

@@ -9,7 +9,7 @@ import SwiftUI
 import VisionKit
 
 struct ScannerView: UIViewControllerRepresentable {
-    var didFinishScanning: ((_ result: Result<[UIImage], Error>) -> Void)
+    var didFinishScanning: ((_ result: Result<UIImage, Error>) -> Void)
     var didCancelScanning: () -> Void
     
     class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
@@ -20,13 +20,17 @@ struct ScannerView: UIViewControllerRepresentable {
         }
         
         func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFinishWith scan: VNDocumentCameraScan) {
-            var scannedImages = [UIImage]()
             
-            for index in 0..<scan.pageCount {
-                scannedImages.append(scan.imageOfPage(at: index))
-            }
+            // scan multiple pages
+//            var scannedImages = [UIImage]()
+//            for index in 0..<scan.pageCount {
+//                scannedImages.append(scan.imageOfPage(at: index))
+//            }
+//
+//            scannerView.didFinishScanning(.success(scannedImages))
             
-            scannerView.didFinishScanning(.success(scannedImages))
+            // only send the first scan
+            scannerView.didFinishScanning(.success(scan.imageOfPage(at: 0)))
         }
         
         func documentCameraViewControllerDidCancel(_ controller: VNDocumentCameraViewController) {
