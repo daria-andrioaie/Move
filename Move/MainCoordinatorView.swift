@@ -56,35 +56,17 @@ class MainCoordinatorViewModel: ObservableObject {
             //TODO: what should I return in this case?
             return .notLoggedIn
         }
-        
-//        if let userData = UserDefaults.standard.value(forKey: "currentUser") as? Data {
-//            if let decodedUser = try? JSONDecoder().decode(User.self, from: userData) {
-//
-//                // the user was successfully decoded
-//                if decodedUser.status == "suspended" {
-//                    return .suspended
-//                }
-//                return .active
-//            }
-//            // there is a user value on UserDefaults, but it couldn't be decoded
-//            return .notLoggedIn
-//        }
-//
-//        // no user detected
-//        // determine if it's the first time launching the app or not
-//        if UserDefaults.standard.bool(forKey: "isAppAlreadyLaunchedOnce") {
-//            return .notLoggedIn
-//        }
-//        else {
-//            UserDefaults.standard.set(true, forKey: "isAppAlreadyLaunchedOnce")
-//            return .firstUseOfApplication
-//        }
     }
 }
 
 struct MainCoordinatorView: View {
+    private let errorHandler: SwiftMessagesErrorHandler
     @State private var currentState: MainCoordinatorState? = .splash
     @StateObject private var viewModel = MainCoordinatorViewModel()
+    
+    init(errorHandler: SwiftMessagesErrorHandler) {
+        self.errorHandler = errorHandler
+    }
     
     var body: some View {
         NavigationView {
@@ -114,7 +96,7 @@ struct MainCoordinatorView: View {
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .onboarding, selection: $currentState, label: { EmptyView() })
                 
-                NavigationLink(destination: AuthenticationView(onFinished: {
+                NavigationLink(destination: AuthenticationView(errorHandler: self.errorHandler, onFinished: {
 //                    currentState = .addLicense
                     switch viewModel.userState {
                     case .firstUseOfApplication:
@@ -154,6 +136,6 @@ struct MainCoordinatorView: View {
 
 struct MainCoordinatorView_Previews: PreviewProvider {
     static var previews: some View {
-        MainCoordinatorView()
+        MainCoordinatorView(errorHandler: .shared)
     }
 }

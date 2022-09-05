@@ -19,13 +19,19 @@ enum AuthenticationState {
 
 struct AuthenticationView: View {
 //    @StateObject var viewModel = AuthenticationViewModel()
+    let errorHandler: SwiftMessagesErrorHandler
     @State var state: AuthenticationState? = .register
     let onFinished: () -> Void
+    
+//    init(errorHandler: SwiftMessagesErrorHandler, onFinished: @escaping () -> Void) {
+//        self.errorHandler = errorHandler
+//        self.onFinished = onFinished
+//    }
     
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: RegisterView(onSwitch: {
+                NavigationLink(destination: RegisterView(errorHandler: self.errorHandler, onSwitch: {
                     state = .login
                 }, onFinished: {
                     onFinished()
@@ -36,7 +42,7 @@ struct AuthenticationView: View {
                     .navigationBarBackButtonHidden(true), tag: .register, selection: $state) {
                     EmptyView()
                 }
-                NavigationLink(destination: LoginView(onSwitch: {
+                NavigationLink(destination: LoginView(errorHandler: self.errorHandler, onSwitch: {
                     state = .register
                 }, onForgotPassword: {
                     state = .forgotPassword
@@ -67,7 +73,7 @@ struct AuthenticationView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                AuthenticationView {}
+                AuthenticationView(errorHandler: .shared, onFinished: {})
                     .previewDevice(device)
             }
         }

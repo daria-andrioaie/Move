@@ -8,9 +8,9 @@
 import Foundation
 import Alamofire
 
-class APIError: Error, Decodable {
-    var message: String
-}
+//class APIError: Error, Decodable {
+//    var message: String
+//}
 
 enum AuthenticationRequestType {
     case login
@@ -41,7 +41,7 @@ class AuthenticationAPIService {
                         onRequestCompleted(.failure(APIerror))
                     }
                     else {
-                        print("Error: \(error.localizedDescription)")
+                        print("Unknown decoding error: \(error.localizedDescription)")
                     }
                 }
             }

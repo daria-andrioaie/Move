@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftMessages
 
 struct RegisterView: View {
+    let errorHandler: SwiftMessagesErrorHandler
     let onSwitch: () -> Void
     let onFinished: () -> Void
     
@@ -21,6 +22,7 @@ struct RegisterView: View {
         return false
     }
     
+
     var body: some View {
         ZStack {
             PurpleBackgroundView()
@@ -43,9 +45,13 @@ struct RegisterView: View {
                             viewModel.requestInProgress = true
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                                 viewModel.register { fieldName in
-                                    showInvalidFieldWarning(fieldName: fieldName)
+                                    viewModel.requestInProgress = false
+                                    errorHandler.handle(message: "The \(fieldName) you entered is invalid", type: .warning)
+//                                    showInvalidFieldWarning(fieldName: fieldName)
                                 } onAPIError: { error in
-                                    showAPIError(message: error.message)
+                                    viewModel.requestInProgress = false
+                                    errorHandler.handle(message: error.message, type: .error)
+//                                    showAPIError(message: error.message)
                                 } onRegisterCompleted: {
                                     onFinished()
                                 }
@@ -63,39 +69,37 @@ struct RegisterView: View {
             }
         }
     }
-    
-    
-    func showInvalidFieldWarning(fieldName: String) {
-        viewModel.requestInProgress = false
-        let warningView = MessageView.viewFromNib(layout: .cardView)
-        var config = SwiftMessages.Config()
-        
-        warningView.configureTheme(.warning)
-        warningView.button?.isHidden = true
-        warningView.configureDropShadow()
-        warningView.configureContent(title: "Oops!", body: "The \(fieldName) you entered is invalid")
-        
-        config.presentationStyle = .center
-        config.dimMode = .gray(interactive: true)
-        
-        SwiftMessages.show(config: config, view: warningView)
-    }
-    
-    func showAPIError(message: String) {
-        viewModel.requestInProgress = false
-        let warningView = MessageView.viewFromNib(layout: .cardView)
-        var config = SwiftMessages.Config()
-        
-        warningView.configureTheme(.error)
-        warningView.button?.isHidden = true
-        warningView.configureDropShadow()
-        warningView.configureContent(title: "Oops!", body: message)
-        
-        config.presentationStyle = .center
-        config.dimMode = .gray(interactive: true)
-        
-        SwiftMessages.show(config: config, view: warningView)
-    }
+//    func showInvalidFieldWarning(fieldName: String) {
+//        viewModel.requestInProgress = false
+//        let warningView = MessageView.viewFromNib(layout: .cardView)
+//        var config = SwiftMessages.Config()
+//
+//        warningView.configureTheme(.warning)
+//        warningView.button?.isHidden = true
+//        warningView.configureDropShadow()
+//        warningView.configureContent(title: "Oops!", body: "The \(fieldName) you entered is invalid")
+//
+//        config.presentationStyle = .center
+//        config.dimMode = .gray(interactive: true)
+//
+//        SwiftMessages.show(config: config, view: warningView)
+//    }
+//
+//    func showAPIError(message: String) {
+//        viewModel.requestInProgress = false
+//        let warningView = MessageView.viewFromNib(layout: .cardView)
+//        var config = SwiftMessages.Config()
+//
+//        warningView.configureTheme(.error)
+//        warningView.button?.isHidden = true
+//        warningView.configureDropShadow()
+//        warningView.configureContent(title: "Oops!", body: message)
+//
+//        config.presentationStyle = .center
+//        config.dimMode = .gray(interactive: true)
+//
+//        SwiftMessages.show(config: config, view: warningView)
+//    }
 }
 
 
@@ -114,7 +118,7 @@ struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                RegisterView {} onFinished: {}
+                RegisterView(errorHandler: .shared, onSwitch: {}, onFinished: {})
                     .previewDevice(device)
             }
         }

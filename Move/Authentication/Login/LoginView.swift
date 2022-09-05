@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftMessages
 
 struct LoginView: View {
+    let errorHandler: SwiftMessagesErrorHandler
     let onSwitch: () -> Void
     let onForgotPassword: () -> Void
     let onFinished: () -> Void
@@ -51,9 +52,13 @@ struct LoginView: View {
                         viewModel.requestInProgress = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                             viewModel.login { fieldName in
-                                showInvalidFieldWarning(fieldName: fieldName)
+                                viewModel.requestInProgress = false
+                                errorHandler.handle(message: "The \(fieldName) you entered is invalid", type: .warning)
+//                                showInvalidFieldWarning(fieldName: fieldName)
                             } onAPIError: { error in
-                                showAPIError(message: error.message)
+                                viewModel.requestInProgress = false
+                                errorHandler.handle(message: error.message, type: .error)
+//                                showAPIError(message: error.message)
                             } onLoginCompleted: {
                                 onFinished()
                             }
@@ -108,7 +113,7 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                LoginView(onSwitch: {}, onForgotPassword: {}, onFinished: {})
+                LoginView(errorHandler: .shared, onSwitch: {}, onForgotPassword: {}, onFinished: {})
                     .previewDevice(device)
             }
         }
