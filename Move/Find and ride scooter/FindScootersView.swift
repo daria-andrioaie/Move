@@ -15,6 +15,14 @@ final class LocationManger: NSObject, ObservableObject {
     
     private let locationManager = CLLocationManager()
     
+    var currentRegion: Binding<MKCoordinateRegion>? {
+        guard let location = userLocation else {
+            return MKCoordinateRegion.ClujCentralRegion().getBinding()
+        }
+        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 2000, longitudinalMeters: 2000)
+        return region.getBinding()
+    }
+    
     override init() {
         super.init()
         locationManager.requestWhenInUseAuthorization()
@@ -35,18 +43,35 @@ extension LocationManger: CLLocationManagerDelegate {
 }
 
 extension MKCoordinateRegion {
+    static func ClujCentralRegion() -> MKCoordinateRegion {
+        MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 46.769484, longitude: 23.589884), latitudinalMeters: 4000, longitudinalMeters: 4000)
+    }
     
+    func getBinding() -> Binding<MKCoordinateRegion>? {
+        return Binding<MKCoordinateRegion>(.constant(self))
+    }
 }
 
 class FindScootersViewModel: ObservableObject{
-    let locationManager = LocationManger()
+    @StateObject private var locationManager = LocationManger()
+    
+    func getUserLocation() -> CLLocation? {
+        locationManager.userLocation
+    }
+    
+    func getCurrentRegion() -> Binding<MKCoordinateRegion>? {
+        locationManager.currentRegion
+    }
 }
 
 struct FindScootersView: View {
     @StateObject private var viewModel = FindScootersViewModel()
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        if let region = viewModel.getCurrentRegion() {
+            Map(coordinateRegion: region, interactionModes: .all, showsUserLocation: true, userTrackingMode: .constant(.follow))
+                .ignoresSafeArea()
+        }
     }
 }
 
