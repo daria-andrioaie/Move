@@ -40,8 +40,9 @@
 		B8D9B77F28A3C1AE003F0968 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B77E28A3C1AE003F0968 /* Buttons.swift */; };
 		B8D9B78128A3D0F8003F0968 /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B78028A3D0F8003F0968 /* AuthenticationCoordinator.swift */; };
 		B8D9B78328A3D8B6003F0968 /* FontsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B78228A3D8B6003F0968 /* FontsExtensions.swift */; };
-		B8DC508C28BF3CD100D9B2C6 /* RideScooterCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DC508B28BF3CD100D9B2C6 /* RideScooterCoordinatorView.swift */; };
+		B8DC508C28BF3CD100D9B2C6 /* RideCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DC508B28BF3CD100D9B2C6 /* RideCoordinatorView.swift */; };
 		B8E278F728C72CAD00F6FB50 /* AddLicenseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E278F628C72CAD00F6FB50 /* AddLicenseViewModel.swift */; };
+		B8E278F928C74CB300F6FB50 /* FindScootersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E278F828C74CB300F6FB50 /* FindScootersView.swift */; };
 		B8E5BB7F28A243E60012DB66 /* OnboardingCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB7E28A243E60012DB66 /* OnboardingCoordinatorView.swift */; };
 		B8E5BB8D28A25F290012DB66 /* BaiJamjuree-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8E5BB8128A25F280012DB66 /* BaiJamjuree-ExtraLight.ttf */; };
 		B8E5BB8E28A25F290012DB66 /* BaiJamjuree-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8E5BB8228A25F280012DB66 /* BaiJamjuree-Italic.ttf */; };
@@ -99,8 +100,9 @@
 		B8D9B77E28A3C1AE003F0968 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		B8D9B78028A3D0F8003F0968 /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
 		B8D9B78228A3D8B6003F0968 /* FontsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontsExtensions.swift; sourceTree = "<group>"; };
-		B8DC508B28BF3CD100D9B2C6 /* RideScooterCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideScooterCoordinatorView.swift; sourceTree = "<group>"; };
+		B8DC508B28BF3CD100D9B2C6 /* RideCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideCoordinatorView.swift; sourceTree = "<group>"; };
 		B8E278F628C72CAD00F6FB50 /* AddLicenseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLicenseViewModel.swift; sourceTree = "<group>"; };
+		B8E278F828C74CB300F6FB50 /* FindScootersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindScootersView.swift; sourceTree = "<group>"; };
 		B8E5BB7E28A243E60012DB66 /* OnboardingCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinatorView.swift; sourceTree = "<group>"; };
 		B8E5BB8128A25F280012DB66 /* BaiJamjuree-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BaiJamjuree-ExtraLight.ttf"; sourceTree = "<group>"; };
 		B8E5BB8228A25F280012DB66 /* BaiJamjuree-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BaiJamjuree-Italic.ttf"; sourceTree = "<group>"; };
@@ -282,7 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				B84DE57A28C5DA680051311B /* Services */,
-				B8DC508A28BF3CA200D9B2C6 /* Ride scooter */,
+				B8DC508A28BF3CA200D9B2C6 /* Find and ride scooter */,
 				B83DD40428BCDC6500F1F2F6 /* Networking */,
 				B83DD3FB28BCBB3800F1F2F6 /* Models */,
 				B862BEFE28ACF66B002EF079 /* Extensions */,
@@ -318,12 +320,13 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		B8DC508A28BF3CA200D9B2C6 /* Ride scooter */ = {
+		B8DC508A28BF3CA200D9B2C6 /* Find and ride scooter */ = {
 			isa = PBXGroup;
 			children = (
-				B8DC508B28BF3CD100D9B2C6 /* RideScooterCoordinatorView.swift */,
+				B8DC508B28BF3CD100D9B2C6 /* RideCoordinatorView.swift */,
+				B8E278F828C74CB300F6FB50 /* FindScootersView.swift */,
 			);
-			path = "Ride scooter";
+			path = "Find and ride scooter";
 			sourceTree = "<group>";
 		};
 		B8E5BB8028A25EF40012DB66 /* Fonts */ = {
@@ -511,13 +514,14 @@
 				B84DE57928C5D9AC0051311B /* APIError.swift in Sources */,
 				B80979CE28A51A4E009B1C8D /* ResetPasswordView.swift in Sources */,
 				B896D15A28A66AD000BD7791 /* MainCoordinatorView.swift in Sources */,
+				B8E278F928C74CB300F6FB50 /* FindScootersView.swift in Sources */,
 				B8E9752B28AE67A1004E83A4 /* ValidationSuccessView.swift in Sources */,
 				B83DD40828BD1C1300F1F2F6 /* AuthenticationRequestResponse.swift in Sources */,
 				B8D9B78128A3D0F8003F0968 /* AuthenticationCoordinator.swift in Sources */,
 				B8D9111028A1188600D25454 /* MoveApp.swift in Sources */,
 				B854D2F828BE32DB006AA8EE /* ScannerView.swift in Sources */,
 				B8A096E828C0A23100F0BEFC /* OnboardingViewModel.swift in Sources */,
-				B8DC508C28BF3CD100D9B2C6 /* RideScooterCoordinatorView.swift in Sources */,
+				B8DC508C28BF3CD100D9B2C6 /* RideCoordinatorView.swift in Sources */,
 				B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */,
 				B8A096E628C0A17F00F0BEFC /* SingleOnboardingView.swift in Sources */,
 				B8E9752D28AE7111004E83A4 /* ActivityIndicator.swift in Sources */,
@@ -666,6 +670,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Move/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera to take photos of your driving license.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be displayed on the map and used for directions.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -697,6 +703,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Move/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera to take photos of your driving license.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be displayed on the map and used for directions.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

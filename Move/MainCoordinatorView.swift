@@ -80,17 +80,17 @@ struct MainCoordinatorView: View {
         NavigationView {
             List {
                 NavigationLink(destination: SplashView(afterAppear: {
-                    currentState = .authentication
-//                    switch viewModel.userState {
-//                    case .firstUseOfApplication:
-//                        currentState = .onboarding
-//                    case .notLoggedIn:
-//                        currentState = .authentication
-//                    case .suspended:
-//                        currentState = .addLicense
-//                    case .active:
-//                        currentState = .rideScooter
-//                    }
+//                    currentState = .authentication
+                    switch viewModel.userState {
+                    case .firstUseOfApplication:
+                        currentState = .onboarding
+                    case .notLoggedIn:
+                        currentState = .authentication
+                    case .suspended:
+                        currentState = .addLicense
+                    case .active:
+                        currentState = .rideScooter
+                    }
 
                 }).ignoresSafeArea()
                     .preferredColorScheme(.dark)
@@ -134,7 +134,7 @@ struct MainCoordinatorView: View {
                     .navigationBarBackButtonHidden(true), tag: .addLicense, selection: $currentState, label: { EmptyView() })
                 
                 //TODO: set the color scheme of views on this flow
-                NavigationLink(destination: RideScooterCoordinatorView()
+                NavigationLink(destination: RideCoordinatorView()
                     .navigationBarHidden(true)
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .rideScooter, selection: $currentState) { EmptyView() }

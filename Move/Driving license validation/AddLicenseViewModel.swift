@@ -39,11 +39,21 @@ class AddLicenseViewModel: ObservableObject {
                 if accessGranted {
                     self.showScanner = true
                 }
+                else {
+//                    self.errorHandler.handle(message: "To scan your license, you need to allow Move to use your camera.", type: .warning)
+                    self.errorHandler.handle(message: "To scan your license, you need to allow Move to use your camera.", buttonLabel: "Go to settings", type: .warning, onScreenDuration: 4) {
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                    }
+                }
             }
         case .denied:
             self.deniedCameraAccess = true
+            self.errorHandler.handle(message: "To scan your license, you need to allow Move to use your camera.", buttonLabel: "Go to settings", type: .warning, onScreenDuration: 4) {
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }
             
         case .restricted:
+            //TODO: how do you handle this case?
             return
             
         @unknown default:

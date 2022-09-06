@@ -30,6 +30,7 @@ struct LicenseCoordinatorView: View {
                 }, onBack: {
                     onBack()
                 })
+                    .preferredColorScheme(.light)
                     .navigationBarHidden(true)
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .addLicense, selection: $state) {
@@ -37,6 +38,7 @@ struct LicenseCoordinatorView: View {
                 }
                 
                 NavigationLink(destination: ValidationInProgressView()
+                    .preferredColorScheme(.dark)
                     .navigationBarHidden(true)
                     .ignoresSafeArea()
                     .transition(.opacity.animation(.default))
@@ -47,6 +49,7 @@ struct LicenseCoordinatorView: View {
                 NavigationLink(destination: ValidationSuccessView(onFinished: {
                     onFinished()
                 })
+                    .preferredColorScheme(.dark)
                     .navigationBarHidden(true)
                     .ignoresSafeArea()
                     .transition(.opacity.animation(.default))
