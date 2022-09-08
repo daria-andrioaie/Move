@@ -14,12 +14,11 @@ final class LocationManger: NSObject, ObservableObject {
     @Published var userLocation: CLLocation?
     
     private let locationManager = CLLocationManager()
-    
     var currentRegion: Binding<MKCoordinateRegion>? {
         guard let location = userLocation else {
             return MKCoordinateRegion.ClujCentralRegion().getBinding()
         }
-        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 2000, longitudinalMeters: 2000)
+        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
         return region.getBinding()
     }
     
@@ -28,6 +27,36 @@ final class LocationManger: NSObject, ObservableObject {
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
+    }
+    
+    func checkIfLocationServicesIsEnabled() {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            
+            // this is the default value anyway
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        }
+        else {
+            // TODO: alert the user
+        }
+    }
+    
+    func checkLocationAuthorization() {
+        switch locationManager.authorizationStatus {
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted:
+            //TODO: show an alert
+            print("Location is restricted")
+        case .denied:
+            //TODO: show an alert
+            print("Location is denied. go to settings")
+        case .authorizedAlways, .authorizedWhenInUse:
+            // update the ui to show the current user location
+            break
+        @unknown default:
+            break
+        }
     }
 }
 
@@ -39,6 +68,10 @@ extension LocationManger: CLLocationManagerDelegate {
         DispatchQueue.main.async {
             self.userLocation = lastLocation
         }
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkLocationAuthorization()
     }
 }
 
@@ -53,14 +86,17 @@ extension MKCoordinateRegion {
 }
 
 class FindScootersViewModel: ObservableObject{
-    @StateObject private var locationManager = LocationManger()
+    @Published var selectedScooter: ScooterAnnotation?
+    var mapViewModel: ScooterMapViewModel = .init()
     
-    func getUserLocation() -> CLLocation? {
-        locationManager.userLocation
+    init() {
+        mapViewModel.onSelectedScooter = { scooter in
+            self.selectedScooter = scooter
+        }
     }
     
-    func getCurrentRegion() -> Binding<MKCoordinateRegion>? {
-        locationManager.currentRegion
+    func loadScooters() {
+        mapViewModel.scooters = ScooterAnnotation.requestMockData()
     }
 }
 
@@ -68,9 +104,12 @@ struct FindScootersView: View {
     @StateObject private var viewModel = FindScootersViewModel()
     
     var body: some View {
-        if let region = viewModel.getCurrentRegion() {
-            Map(coordinateRegion: region, interactionModes: .all, showsUserLocation: true, userTrackingMode: .constant(.follow))
-                .ignoresSafeArea()
+        ZStack {
+            ScooterMapView(viewModel: viewModel.mapViewModel)
+                .onAppear {
+                    viewModel.loadScooters()
+                }
+                
         }
     }
 }

@@ -19,6 +19,7 @@ struct RideCoordinatorView: View {
         NavigationView {
             VStack {
                 NavigationLink(destination: FindScootersView()
+                    .preferredColorScheme(.light)
                     .navigationBarHidden(true)
                     .ignoresSafeArea()
                     .transition(.opacity.animation(.default))
