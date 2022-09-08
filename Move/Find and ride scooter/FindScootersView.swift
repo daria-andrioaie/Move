@@ -104,12 +104,12 @@ struct FindScootersView: View {
     @StateObject private var viewModel = FindScootersViewModel()
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             ScooterMapView(viewModel: viewModel.mapViewModel)
                 .onAppear {
                     viewModel.loadScooters()
                 }
-                
+            MapHeaderView()
         }
     }
 }

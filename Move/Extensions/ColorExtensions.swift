@@ -17,4 +17,6 @@ extension Color {
     static let primaryBlue = Color("PrimaryBlue")
     
     static let accentPink = Color("AccentPink")
+    
+    static let washedWhite = Color("WashedWhite")
 }

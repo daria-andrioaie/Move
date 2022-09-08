@@ -71,3 +71,20 @@ extension View {
         modifier(LightActiveButtonModifier())
     }
 }
+
+
+struct MapButtonModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .frame(width: 36, height: 36)
+            .background(RoundedRectangle(cornerRadius: 16)
+                .foregroundColor(.white))
+            .shadow(radius: 20, x: 7, y: 7)
+    }
+}
+
+extension View {
+    func mapShadowedButton() -> some View {
+        modifier(MapButtonModifier())
+    }
+}
