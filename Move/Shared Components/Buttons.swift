@@ -13,6 +13,12 @@ struct FormButton: View {
     let isEnabled: Bool
     let action: () -> Void
     
+    init(title: String, isEnabled: Bool = true, action: @escaping () -> Void) {
+        self.title = title
+        self.isEnabled = isEnabled
+        self.action = action
+    }
+    
     var body: some View {
         Button(title) {
             action()
