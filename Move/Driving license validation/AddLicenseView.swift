@@ -10,7 +10,7 @@ import VisionKit
 import AVFoundation
 
 struct AddLicenseView: View {
-    let userDefaultsManager: UserDefaultsManager
+    let authenticationAPIService: AuthenticationAPIService
     let errorHandler: SwiftMessagesErrorHandler
     let onValidationInProgress: () -> Void
     let onValidationSuccessful: () -> Void
@@ -19,13 +19,13 @@ struct AddLicenseView: View {
     @State private var actionSheetDisplayMode = SheetDisplayMode.none
     @StateObject private var viewModel: AddLicenseViewModel
     
-    init(userDefaultsManager: UserDefaultsManager, errorHandler: SwiftMessagesErrorHandler, onValidationInProgress: @escaping () -> Void, onValidationSuccessful: @escaping () -> Void, onBack: @escaping () -> Void) {
-        self.userDefaultsManager = userDefaultsManager
+    init(authenticationAPIService: AuthenticationAPIService, errorHandler: SwiftMessagesErrorHandler, onValidationInProgress: @escaping () -> Void, onValidationSuccessful: @escaping () -> Void, onBack: @escaping () -> Void) {
+        self.authenticationAPIService = authenticationAPIService
         self.errorHandler = errorHandler
         self.onValidationInProgress = onValidationInProgress
         self.onValidationSuccessful = onValidationSuccessful
         self.onBack = onBack
-        self._viewModel = StateObject(wrappedValue: AddLicenseViewModel(userDefaultsManager: userDefaultsManager, errorHandler: errorHandler, onValidationInProgress: onValidationInProgress, onValidationSuccessful: onValidationSuccessful))
+        self._viewModel = StateObject(wrappedValue: AddLicenseViewModel(authenticationAPIService: authenticationAPIService, errorHandler: errorHandler, onValidationInProgress: onValidationInProgress, onValidationSuccessful: onValidationSuccessful))
     }
     
     var body: some View {
@@ -128,7 +128,7 @@ struct AddLicenseView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                AddLicenseView(userDefaultsManager: UserDefaultsManager(), errorHandler: SwiftMessagesErrorHandler(), onValidationInProgress: {}, onValidationSuccessful: {}, onBack: {})
+                AddLicenseView(authenticationAPIService: AuthenticationAPIService(userDefaultsManager: UserDefaultsManager()), errorHandler: SwiftMessagesErrorHandler(), onValidationInProgress: {}, onValidationSuccessful: {}, onBack: {})
                     .previewDevice(device)
             }
         }

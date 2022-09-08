@@ -18,13 +18,14 @@ class AddLicenseViewModel: ObservableObject {
 //    @Published var image: Image?
     @Published var inputImage: UIImage?
     
-    let userDefaultsManager: UserDefaultsManager
+    let authenticationAPIService: AuthenticationAPIService
+//    let userDefaultsManager: UserDefaultsManager
     let errorHandler: SwiftMessagesErrorHandler
     let onValidationInProgress: () -> Void
     let onValidationSuccessful: () -> Void
     
-    init(userDefaultsManager: UserDefaultsManager, errorHandler: SwiftMessagesErrorHandler, onValidationInProgress: @escaping () -> Void, onValidationSuccessful: @escaping () -> Void) {
-        self.userDefaultsManager = userDefaultsManager
+    init(authenticationAPIService: AuthenticationAPIService, errorHandler: SwiftMessagesErrorHandler, onValidationInProgress: @escaping () -> Void, onValidationSuccessful: @escaping () -> Void) {
+        self.authenticationAPIService = authenticationAPIService
         self.errorHandler = errorHandler
         self.onValidationInProgress = onValidationInProgress
         self.onValidationSuccessful = onValidationSuccessful
@@ -77,18 +78,17 @@ class AddLicenseViewModel: ObservableObject {
             return
         }
         
-        guard let userToken = try? userDefaultsManager.getUserToken() else {
-            errorHandler.handle(message: "Can't find token in User Defaults!", type: .error)
-            return
-        }
+//        guard let userToken = try? userDefaultsManager.getUserToken() else {
+//            errorHandler.handle(message: "Can't find token in User Defaults!", type: .error)
+//            return
+//        }
         
         print("Request in progress..")
         self.onValidationInProgress()
         
-        AuthenticationAPIService.uploadDrivingLicenseRequest(image: inputImage, userToken: userToken, onRequestCompleted: { result in
+            authenticationAPIService.uploadDrivingLicenseRequest(image: inputImage, onRequestCompleted: { result in
             switch result {
-            case .success(let user):
-                try? self.userDefaultsManager.saveUser(user)
+            case .success(_):
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
                     print("Request finished")
                     self.onValidationSuccessful()

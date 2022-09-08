@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct MoveApp: App {
+    let errorHandler = SwiftMessagesErrorHandler()
+    let userDefaultsManager = UserDefaultsManager()
+    
     var body: some Scene {
         WindowGroup {
-            MainCoordinatorView(errorHandler: SwiftMessagesErrorHandler(), userDefaultsManager: UserDefaultsManager())
+            MainCoordinatorView(errorHandler: errorHandler, userDefaultsManager: userDefaultsManager, authenticationAPIService: AuthenticationAPIService(userDefaultsManager: self.userDefaultsManager))
         }
     }
 }

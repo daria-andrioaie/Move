@@ -8,14 +8,15 @@
 import Foundation
 
 class LoginViewModel: ObservableObject {
-    let userDefaultsManager: UserDefaultsManager
+//    let userDefaultsManager: UserDefaultsManager
+    let authenticationAPIService: AuthenticationAPIService
     
     @Published var emailAddress = ""
     @Published var password = ""
     @Published var requestInProgress = false
     
-    init(userDefaultsManager: UserDefaultsManager) {
-        self.userDefaultsManager = userDefaultsManager
+    init(authenticationAPIService: AuthenticationAPIService) {
+        self.authenticationAPIService = authenticationAPIService
     }
     
     func isValid(emailAddress: String) -> Bool {
@@ -50,11 +51,9 @@ class LoginViewModel: ObservableObject {
         
         let loginParameters = ["email": emailAddress, "password": password]
         
-        AuthenticationAPIService.authenticationRequest(type: .login, parameters: loginParameters, onRequestCompleted: { result in
+        self.authenticationAPIService.authenticationRequest(type: .login, parameters: loginParameters, onRequestCompleted: { result in
                 switch result {
-                case .success(let loginResponse):
-                    try? self.userDefaultsManager.saveUser(loginResponse.user)
-                    self.userDefaultsManager.saveUserToken(loginResponse.token)
+                case .success(_):
                     onLoginCompleted()
                 case .failure(let apiError):
                     onAPIError(apiError)

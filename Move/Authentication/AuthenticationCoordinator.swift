@@ -19,15 +19,17 @@ enum AuthenticationState {
 
 struct AuthenticationView: View {
 //    @StateObject var viewModel = AuthenticationViewModel()
-    let userDefaultsManager: UserDefaultsManager
+//    let userDefaultsManager: UserDefaultsManager
     let errorHandler: SwiftMessagesErrorHandler
-    @State var state: AuthenticationState? = .register
+    let authenticationAPIService: AuthenticationAPIService
     let onFinished: () -> Void
+    @State var state: AuthenticationState? = .register
+    
         
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: RegisterView(userDefaultsManager: self.userDefaultsManager, errorHandler: self.errorHandler, onSwitch: {
+                NavigationLink(destination: RegisterView(authenticationAPIService: self.authenticationAPIService, errorHandler: self.errorHandler, onSwitch: {
                     state = .login
                 }, onFinished: {
                     onFinished()
@@ -38,7 +40,7 @@ struct AuthenticationView: View {
                     .navigationBarBackButtonHidden(true), tag: .register, selection: $state) {
                     EmptyView()
                 }
-                NavigationLink(destination: LoginView(userDefaultsManager: self.userDefaultsManager, errorHandler: self.errorHandler, onSwitch: {
+                NavigationLink(destination: LoginView(authenticationAPIService: self.authenticationAPIService, errorHandler: self.errorHandler, onSwitch: {
                     state = .register
                 }, onForgotPassword: {
                     state = .forgotPassword
@@ -69,7 +71,7 @@ struct AuthenticationView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                AuthenticationView(userDefaultsManager: UserDefaultsManager(), errorHandler: SwiftMessagesErrorHandler(), onFinished: {})
+                AuthenticationView(errorHandler: SwiftMessagesErrorHandler(), authenticationAPIService: AuthenticationAPIService(userDefaultsManager: UserDefaultsManager()), onFinished: {})
                     .previewDevice(device)
             }
         }

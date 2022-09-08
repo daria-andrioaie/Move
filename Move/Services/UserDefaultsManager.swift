@@ -18,6 +18,8 @@ enum CodingError: Error {
 }
 
 class UserDefaultsManager {
+    static let sharedInstance = UserDefaultsManager()
+    
     private let currentUserKey = "currentUser"
     private let currentUserTokenKey = "currentUserToken"
     private let isAppAlreadyLaunchedOnceKey = "isAppAlreadyLaunchedOnce"

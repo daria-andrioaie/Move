@@ -15,7 +15,7 @@ enum AddLicenseState {
 
 struct LicenseCoordinatorView: View {
     @State private var state: AddLicenseState? = .addLicense
-    let userDefaultsManager: UserDefaultsManager
+    let authenticationAPIService: AuthenticationAPIService
     let errorHandler: SwiftMessagesErrorHandler
     let onFinished: () -> Void
     let onBack: () -> Void
@@ -23,7 +23,7 @@ struct LicenseCoordinatorView: View {
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: AddLicenseView(userDefaultsManager: self.userDefaultsManager, errorHandler: self.errorHandler , onValidationInProgress: {
+                NavigationLink(destination: AddLicenseView(authenticationAPIService: self.authenticationAPIService, errorHandler: self.errorHandler , onValidationInProgress: {
                     state = .validationInPogress
                 }, onValidationSuccessful: {
                     state = .validationSuccessful
@@ -66,7 +66,7 @@ struct LicenseCoordinatorView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                LicenseCoordinatorView(userDefaultsManager: UserDefaultsManager(), errorHandler: SwiftMessagesErrorHandler(), onFinished: {}, onBack: {})
+                LicenseCoordinatorView(authenticationAPIService: AuthenticationAPIService(userDefaultsManager: UserDefaultsManager()), errorHandler: SwiftMessagesErrorHandler(), onFinished: {}, onBack: {})
                     .previewDevice(device)
             }
         }

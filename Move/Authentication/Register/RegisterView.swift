@@ -8,20 +8,50 @@
 import SwiftUI
 import SwiftMessages
 
+//class MockedRegisterViewModel: ObservableObject {
+//    let userDefaultsManager: UserDefaultsManager
+////    let errorHandler: SwiftMessagesErrorHandler
+////    let onSwitch: () -> Void
+////    let onFinished: () -> Void
+//
+//    @Published private var requestInProgress = false
+//
+//    init(userDefaultsManager: UserDefaultsManager){
+//        self.userDefaultsManager = userDefaultsManager
+//    }
+//
+//    @ViewBuilder
+//    func computeView() -> some View {
+//        VStack {
+//            Text(self.requestInProgress ? "loading" : "not loading" )
+//            Text("aba")
+//        }
+//    }
+//
+//}
+//
+//struct RegisterView2: View {
+//    @ObservedObject var viewModel: MockedRegisterViewModel
+//
+//    var body: some View {
+//        viewModel.computeView()
+//    }
+//}
+
 struct RegisterView: View {
-    let userDefaultsManager: UserDefaultsManager
+    let authenticationAPIService: AuthenticationAPIService
     let errorHandler: SwiftMessagesErrorHandler
     let onSwitch: () -> Void
     let onFinished: () -> Void
     
     @StateObject var viewModel: RegisterViewModel
     
-    init(userDefaultsManager: UserDefaultsManager, errorHandler: SwiftMessagesErrorHandler, onSwitch: @escaping () -> Void, onFinished: @escaping () -> Void) {
-        self.userDefaultsManager = userDefaultsManager
+    init(authenticationAPIService: AuthenticationAPIService, errorHandler: SwiftMessagesErrorHandler, onSwitch: @escaping () -> Void, onFinished: @escaping () -> Void) {
+        self.authenticationAPIService = authenticationAPIService
         self.errorHandler = errorHandler
         self.onSwitch = onSwitch
         self.onFinished = onFinished
-        self._viewModel = StateObject(wrappedValue: RegisterViewModel(userDefaultsManager: userDefaultsManager))
+        self._viewModel = StateObject(wrappedValue: RegisterViewModel(authenticationAPIService: authenticationAPIService))
     }
     
     private var formIsCompleted: Bool {
@@ -94,7 +124,7 @@ struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                RegisterView(userDefaultsManager: UserDefaultsManager(), errorHandler: SwiftMessagesErrorHandler(), onSwitch: {}, onFinished: {})
+                RegisterView(authenticationAPIService: AuthenticationAPIService(userDefaultsManager: UserDefaultsManager()), errorHandler: SwiftMessagesErrorHandler(), onSwitch: {}, onFinished: {})
                     .previewDevice(device)
             }
         }

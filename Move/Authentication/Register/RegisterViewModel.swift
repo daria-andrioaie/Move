@@ -8,7 +8,8 @@
 import Foundation
 
 class RegisterViewModel: ObservableObject {
-    let userDefaultsManager: UserDefaultsManager
+//    let userDefaultsManager: UserDefaultsManager
+    let authenticationAPIService: AuthenticationAPIService
 
     @Published var emailAddress = ""
     @Published var username = ""
@@ -16,8 +17,8 @@ class RegisterViewModel: ObservableObject {
     
     @Published var requestInProgress = false
     
-    init(userDefaultsManager: UserDefaultsManager) {
-        self.userDefaultsManager = userDefaultsManager
+    init(authenticationAPIService: AuthenticationAPIService) {
+        self.authenticationAPIService = authenticationAPIService
     }
     
     func isValid(emailAddress: String) -> Bool {
@@ -76,11 +77,9 @@ class RegisterViewModel: ObservableObject {
         
         let registerParameters = ["username": username, "email": emailAddress, "password": password]
         
-        AuthenticationAPIService.authenticationRequest(type: .register, parameters: registerParameters, onRequestCompleted: { result in
+        self.authenticationAPIService.authenticationRequest(type: .register, parameters: registerParameters, onRequestCompleted: { result in
             switch result {
-            case .success(let registerResponse):
-                try? self.userDefaultsManager.saveUser(registerResponse.user)
-                self.userDefaultsManager.saveUserToken(registerResponse.token)
+            case .success(_):
                 onRegisterCompleted()
             case .failure(let apiError):
                 onAPIError(apiError)

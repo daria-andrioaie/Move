@@ -67,12 +67,14 @@ class MainCoordinatorViewModel: ObservableObject {
 struct MainCoordinatorView: View {
     private let errorHandler: SwiftMessagesErrorHandler
     private let userDefaultsManager: UserDefaultsManager
+    private let authenticationAPIService: AuthenticationAPIService
     @State private var currentState: MainCoordinatorState? = .splash
     @StateObject private var viewModel: MainCoordinatorViewModel
     
-    init(errorHandler: SwiftMessagesErrorHandler, userDefaultsManager: UserDefaultsManager) {
+    init(errorHandler: SwiftMessagesErrorHandler, userDefaultsManager: UserDefaultsManager, authenticationAPIService: AuthenticationAPIService) {
         self.errorHandler = errorHandler
         self.userDefaultsManager = userDefaultsManager
+        self.authenticationAPIService = authenticationAPIService
         self._viewModel = StateObject(wrappedValue: MainCoordinatorViewModel(userDefaultsManager: userDefaultsManager))
     }
     
@@ -104,7 +106,7 @@ struct MainCoordinatorView: View {
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .onboarding, selection: $currentState, label: { EmptyView() })
                 
-                NavigationLink(destination: AuthenticationView(userDefaultsManager: self.userDefaultsManager, errorHandler: self.errorHandler, onFinished: {
+                NavigationLink(destination: AuthenticationView(errorHandler: self.errorHandler, authenticationAPIService: self.authenticationAPIService, onFinished: {
 //                    currentState = .addLicense
                     switch viewModel.userState {
                     case .firstUseOfApplication:
@@ -124,7 +126,7 @@ struct MainCoordinatorView: View {
                     .navigationBarBackButtonHidden(true), tag: .authentication, selection: $currentState, label: { EmptyView() })
                 
                 //TODO: set the color scheme of views on this flow
-                NavigationLink(destination: LicenseCoordinatorView(userDefaultsManager: self.userDefaultsManager, errorHandler: self.errorHandler, onFinished: {
+                NavigationLink(destination: LicenseCoordinatorView(authenticationAPIService: self.authenticationAPIService, errorHandler: self.errorHandler, onFinished: {
                     currentState = .rideScooter
                 }, onBack: {
                     currentState = .authentication
@@ -146,6 +148,6 @@ struct MainCoordinatorView: View {
 
 struct MainCoordinatorView_Previews: PreviewProvider {
     static var previews: some View {
-        MainCoordinatorView(errorHandler: SwiftMessagesErrorHandler(), userDefaultsManager: UserDefaultsManager())
+        MainCoordinatorView(errorHandler: SwiftMessagesErrorHandler(), userDefaultsManager: UserDefaultsManager(), authenticationAPIService: AuthenticationAPIService(userDefaultsManager: UserDefaultsManager()))
     }
 }

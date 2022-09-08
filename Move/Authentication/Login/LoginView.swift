@@ -8,8 +8,23 @@
 import SwiftUI
 import SwiftMessages
 
+
+extension LoginView {
+    struct ServiceDependencies {
+        let userDefaultsManager: UserDefaultsManager
+        let errorHandler: SwiftMessagesErrorHandler
+    }
+    
+    struct Actions {
+        let onSwitch: () -> Void
+        let onForgotPassword: () -> Void
+        let onFinished: () -> Void
+    }
+}
+
 struct LoginView: View {
-    let userDefaultsManager: UserDefaultsManager
+//    let userDefaultsManager: UserDefaultsManager
+    let authenticationAPIService: AuthenticationAPIService
     let errorHandler: SwiftMessagesErrorHandler
     let onSwitch: () -> Void
     let onForgotPassword: () -> Void
@@ -17,13 +32,13 @@ struct LoginView: View {
     
     @StateObject var viewModel: LoginViewModel
     
-    init(userDefaultsManager: UserDefaultsManager, errorHandler: SwiftMessagesErrorHandler, onSwitch: @escaping () -> Void, onForgotPassword: @escaping () -> Void, onFinished: @escaping () -> Void) {
-        self.userDefaultsManager = userDefaultsManager
+    init(authenticationAPIService: AuthenticationAPIService, errorHandler: SwiftMessagesErrorHandler, onSwitch: @escaping () -> Void, onForgotPassword: @escaping () -> Void, onFinished: @escaping () -> Void) {
+        self.authenticationAPIService = authenticationAPIService
         self.errorHandler = errorHandler
         self.onSwitch = onSwitch
         self.onForgotPassword = onForgotPassword
         self.onFinished = onFinished
-        self._viewModel = StateObject(wrappedValue: LoginViewModel(userDefaultsManager: userDefaultsManager))
+        self._viewModel = StateObject(wrappedValue: LoginViewModel(authenticationAPIService: authenticationAPIService))
     }
     
     private var formIsCompleted: Bool {
@@ -90,7 +105,7 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                LoginView(userDefaultsManager: UserDefaultsManager(), errorHandler: SwiftMessagesErrorHandler(), onSwitch: {}, onForgotPassword: {}, onFinished: {})
+                LoginView(authenticationAPIService: AuthenticationAPIService(userDefaultsManager: UserDefaultsManager()), errorHandler: SwiftMessagesErrorHandler(), onSwitch: {}, onForgotPassword: {}, onFinished: {})
                     .previewDevice(device)
             }
         }
