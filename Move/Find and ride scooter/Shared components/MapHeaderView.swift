@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct MapHeaderView: View {
+    let onMenuButtonPressed: () -> Void
+    let onLocationButtonPressed: () -> Void
+    
     var body: some View {
         HStack {
             MapButtonView(imagePath: "menu-button", onTap: {
-                print("go to menu")
+                onMenuButtonPressed()
             })
             Spacer()
             MapButtonView(imagePath: "location-button", onTap: {
-                print("center on user location")
+                onLocationButtonPressed()
             })
         }
         .padding(.horizontal, 24)
@@ -26,6 +29,11 @@ struct MapHeaderView: View {
 
 struct MapHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        MapHeaderView()
+        MapHeaderView {
+            print("go to menu")
+        } onLocationButtonPressed: {
+            print("center map")
+        }
+
     }
 }

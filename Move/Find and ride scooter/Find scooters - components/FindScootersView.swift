@@ -14,14 +14,14 @@ final class LocationManger: NSObject, ObservableObject {
     @Published var userLocation: CLLocation?
     
     private let locationManager = CLLocationManager()
-    var currentRegion: Binding<MKCoordinateRegion>? {
-        guard let location = userLocation else {
-            return MKCoordinateRegion.ClujCentralRegion().getBinding()
-        }
-        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
-        return region.getBinding()
-    }
-    
+//    var currentRegion: Binding<MKCoordinateRegion>? {
+//        guard let location = userLocation else {
+//            return MKCoordinateRegion.ClujCentralRegion().getBinding()
+//        }
+//        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+//        return region.getBinding()
+//    }
+  
     override init() {
         super.init()
         locationManager.requestWhenInUseAuthorization()
@@ -75,28 +75,35 @@ extension LocationManger: CLLocationManagerDelegate {
     }
 }
 
-extension MKCoordinateRegion {
-    static func ClujCentralRegion() -> MKCoordinateRegion {
-        MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 46.769484, longitude: 23.589884), latitudinalMeters: 4000, longitudinalMeters: 4000)
-    }
-    
-    func getBinding() -> Binding<MKCoordinateRegion>? {
-        return Binding<MKCoordinateRegion>(.constant(self))
-    }
-}
+//extension MKCoordinateRegion {
+//    static func ClujCentralRegion() -> MKCoordinateRegion {
+//        MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 46.769484, longitude: 23.589884), latitudinalMeters: 4000, longitudinalMeters: 4000)
+//    }
+//
+//    func getBinding() -> Binding<MKCoordinateRegion>? {
+//        return Binding<MKCoordinateRegion>(.constant(self))
+//    }
+//}
 
 class FindScootersViewModel: ObservableObject{
-    @Published var selectedScooter: ScooterAnnotation?
+    @Published var selectedScooterAnnotation: ScooterAnnotation?
     var mapViewModel: ScooterMapViewModel = .init()
     
     init() {
         mapViewModel.onSelectedScooter = { scooter in
-            self.selectedScooter = scooter
+            self.selectedScooterAnnotation = scooter
+        }
+        mapViewModel.onDeselectedScooter = {
+            self.selectedScooterAnnotation = nil
         }
     }
     
+    func centerMapOnUserLocation() {
+        mapViewModel.centerMapOnUserLocation()
+    }
+    
     func loadScooters() {
-        mapViewModel.scooters = ScooterAnnotation.requestMockData()
+        mapViewModel.getAllScooters()
     }
 }
 
@@ -109,13 +116,25 @@ struct FindScootersView: View {
                 .onAppear {
                     viewModel.loadScooters()
                 }
-            MapHeaderView()
+            MapHeaderView {
+                print("go to menu")
+            } onLocationButtonPressed: {
+                viewModel.centerMapOnUserLocation()
+            }
+            if let selectedScooterAnnotation = viewModel.selectedScooterAnnotation {
+                ScooterDetailsView(scooterData: selectedScooterAnnotation.scooterData)
+            }
         }
     }
 }
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        FindScootersView()
+        Group {
+            ForEach(devices) { device in
+                FindScootersView()
+                    .previewDevice(device)
+            }
+        }
     }
 }

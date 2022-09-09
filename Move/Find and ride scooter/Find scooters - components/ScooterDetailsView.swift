@@ -15,7 +15,7 @@ struct ScooterDetailsView: View {
             VStack {
                 HStack {
                     Image("location-pin")
-                    Text(scooterData.location.address)
+                    Text(scooterData.location.address ?? "No address yet")
                         .lineLimit(2)
                         .multilineTextAlignment(.leading)
                         .font(.primary(type: .button2))
@@ -34,6 +34,11 @@ struct ScooterDetailsView: View {
 
 struct ScooterDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        ScooterDetailsView(scooterData: .init(_id: "alaal", scooterNumber: 1234, bookedStatus: "free", lockedStatus: "unlocked", battery: 100, location: .init(coordinates: [23.123456, 46.123456], address: "Strada Avram Iancu nr .26 Cladirea 2")))
+        Group {
+            ForEach(devices) { device in
+                ScooterDetailsView(scooterData: .init(_id: "alaal", scooterNumber: 1234, bookedStatus: "free", lockedStatus: "unlocked", battery: 100, location: .init(coordinates: [23.123456, 46.123456], address: "Strada Avram Iancu nr .26 Cladirea 2")))
+                    .previewDevice(device)
+            }
+        }
     }
 }
