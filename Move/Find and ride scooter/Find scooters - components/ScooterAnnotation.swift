@@ -17,6 +17,10 @@ class ScooterAnnotation: NSObject, MKAnnotation {
         self.coordinate = coordinate
     }
     
+    func getScooterData() -> ScooterData {
+        self.scooterData
+    }
+    
     static func requestMockData() -> [ScooterAnnotation] {
         return [
             ScooterAnnotation(scooterData: .init(_id: "hvg", scooterNumber: 1234, bookedStatus: "free", lockedStatus: "locked", battery: 87, location: .init(coordinates: [46.771541, 23.625207], address: nil)), coordinate: .init(latitude: 46.771541, longitude: 23.625207)),

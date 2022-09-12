@@ -17,7 +17,7 @@ class ScooterMapViewModel: NSObject, ObservableObject {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = kCLDistanceFilterNone
-        locationManager.startUpdatingLocation()
+//        locationManager.startUpdatingLocation()
     }
     
     override init() {
@@ -28,6 +28,13 @@ class ScooterMapViewModel: NSObject, ObservableObject {
     var scooters: [ScooterAnnotation] = [] {
         didSet {
             refreshScooterList()
+            
+            //TODO: is this okay for running functions repeatedly or is it better to use a timer?
+            //FIX: if a scooter card view is shown while refreshing the scooters, it will disappear
+            DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
+                print("refreshed scooters")
+                self.getAllScooters()
+            }
         }
     }
     
@@ -78,17 +85,35 @@ class ScooterMapViewModel: NSObject, ObservableObject {
 extension ScooterMapViewModel: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
-        annotationView.image = UIImage(named: "scooter-location-pin-purple")
-        //TODO: reuse annotations
         
         if annotation is MKUserLocation {
-            self.centerMapOnUserLocation()
-            return nil
+            //TODO: add a custom view to the user location annotation, as in figma
+            annotationView.image = UIImage(named: "navigation-fill-blue")
+            return annotationView
         }
+        //TODO: reuse annotations
         
-        // some more code
-        
+        annotationView.clusteringIdentifier = "scootersCluster"
+        annotationView.image = UIImage(named: "scooter-location-pin-purple")
+        if let clusterAnnotation = annotation as? MKClusterAnnotation {
+            let scootersCount = clusterAnnotation.memberAnnotations.count
+            if scootersCount > 1 {
+                let countLabel = UILabel()
+                annotationView.addSubview(countLabel)
+                countLabel.text = String(scootersCount)
+                countLabel.font = UIFont(name: "BaiJamjuree-Medium", size: 12)
+                countLabel.translatesAutoresizingMaskIntoConstraints = false
+                countLabel.adjustsFontSizeToFitWidth = true
+                NSLayoutConstraint.activate([
+                    countLabel.centerXAnchor.constraint(equalTo: annotationView.centerXAnchor, constant: 0.5),
+                    countLabel.centerYAnchor.constraint(equalTo: annotationView.centerYAnchor, constant: -3.5),
+                    countLabel.widthAnchor.constraint(equalTo: annotationView.widthAnchor, multiplier: 0.3),
+                    countLabel.heightAnchor.constraint(equalTo: annotationView.heightAnchor, multiplier: 0.4)
+                ])
+            }
+        }
         return annotationView
+
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -97,15 +122,24 @@ extension ScooterMapViewModel: MKMapViewDelegate {
             centerMapOnUserLocation()
             return
         }
+        view.image = UIImage(named: "scooter-location-pin-pink")
         
         // when selecting a scooter annotation
         if let scooterAnnotation = view.annotation as? ScooterAnnotation {
             self.onSelectedScooter(scooterAnnotation)
         }
+        
+        if let clusterAnnotation = view.annotation as? MKClusterAnnotation {
+            let memberScooterAnnotations = clusterAnnotation.memberAnnotations as! [ScooterAnnotation]
+            self.onSelectedScooter(memberScooterAnnotations[0])
+        }
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        self.onDeselectedScooter()
+        if view.annotation is ScooterAnnotation || view.annotation is MKClusterAnnotation {
+            view.image = UIImage(named: "scooter-location-pin-purple")
+            self.onDeselectedScooter()
+        }
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -140,6 +174,8 @@ extension ScooterMapViewModel: CLLocationManagerDelegate {
             centerMapOnClujCityCenter()
             print("Location is denied. go to settings")
         case .authorizedAlways, .authorizedWhenInUse:
+            //TODO: map is not centered on user location as soon as the app is launched, only after some location updates
+            
             locationManager.requestLocation()
             self.centerMapOnUserLocation()
             break
@@ -158,7 +194,7 @@ extension MKCoordinateRegion {
         MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 46.769484, longitude: 23.589884), latitudinalMeters: 4000, longitudinalMeters: 4000)
     }
     static func userCenteredRegion(userCoordinates: CLLocationCoordinate2D) -> MKCoordinateRegion {
-        MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude), latitudinalMeters: 4000, longitudinalMeters: 4000)
+        MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude), latitudinalMeters: 1000, longitudinalMeters: 1000)
     }
 }
 
