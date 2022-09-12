@@ -77,9 +77,9 @@ struct MapButtonModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(width: 36, height: 36)
-            .background(RoundedRectangle(cornerRadius: 16)
+            .background(RoundedRectangle(cornerRadius: 10)
                 .foregroundColor(.white))
-            .shadow(radius: 20, x: 7, y: 7)
+            .shadow(color: Color(red: 0.698, green: 0.667, blue: 0.761, opacity: 0.5), radius: 10, x: 7, y: 7)
     }
 }
 

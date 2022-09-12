@@ -91,10 +91,14 @@ class FindScootersViewModel: ObservableObject{
     
     init() {
         mapViewModel.onSelectedScooter = { scooter in
-            self.selectedScooterAnnotation = scooter
+            withAnimation {
+                self.selectedScooterAnnotation = scooter
+            }
         }
         mapViewModel.onDeselectedScooter = {
-            self.selectedScooterAnnotation = nil
+            withAnimation {
+                self.selectedScooterAnnotation = nil
+            }
         }
     }
     
@@ -123,6 +127,9 @@ struct FindScootersView: View {
             }
             if let selectedScooterAnnotation = viewModel.selectedScooterAnnotation {
                 ScooterDetailsView(scooterData: selectedScooterAnnotation.scooterData)
+                    .frame(maxHeight: .infinity, alignment: .bottom)
+                    .transition(.asymmetric(insertion: .scale, removal: .opacity))
+                //TODO: scooter detail view is not animated on dissappear
             }
         }
     }

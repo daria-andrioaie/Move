@@ -7,28 +7,84 @@
 
 import SwiftUI
 
+struct ScooterBatteryView: View {
+    let batteryPercentage: Int
+    
+    var body: some View {
+        HStack {
+            switch batteryPercentage {
+            case 0..<40:
+                Image("battery-0")
+            case 40..<60:
+                Image("battery-40")
+            case 60..<80:
+                Image("battery-60")
+            case 80..<100:
+                Image("battery-80")
+            case 100:
+                Image("battery-100")
+            default:
+                Text("error")
+            }
+            Text("\(batteryPercentage)%")
+                .font(.primary(type: .button2))
+                .foregroundColor(.primaryBlue)
+        }
+    }
+}
+
 struct ScooterDetailsView: View {
     let scooterData: ScooterData
     
     var body: some View {
-        ZStack {
-            VStack {
-                HStack {
-                    Image("location-pin")
-                    Text(scooterData.location.address ?? "No address yet")
-                        .lineLimit(2)
-                        .multilineTextAlignment(.leading)
-                        .font(.primary(type: .button2))
+        VStack(spacing: 30) {
+            HStack {
+                ZStack(alignment: .top) {
+                    Image("ScooterViewRectangleBackground")
+                        .resizable()
+                        .scaledToFit()
+                    Image("xiaomi-preview")
+                        .padding(.top, 10)
+                }
+                VStack(alignment: .trailing, spacing: 5) {
+                    Text("Scooter")
+                        .font(.primary(.light, size: 14))
                         .foregroundColor(.primaryBlue)
+                    Text("#\(scooterData.scooterNumber)")
+                        .font(.primary(.bold, size: 20))
+                        .foregroundColor(.primaryBlue)
+                    ScooterBatteryView(batteryPercentage: scooterData.battery)
+                    HStack(spacing: 30) {
+                        MapButtonView(imagePath: "bell-pink") {
+                            print("ring bell")
+                        }
+                        MapButtonView(imagePath: "navigation-pink") {
+                            print("open maps with directions to the scooter")
+                        }
+                    }
+                    .padding(.top, 15)
                 }
-                FormButton(title: "Unlock") {
-                    print("unlocked scooter")
-                }
+                .padding(.trailing, 30)
+                .padding(.top, 20)
+            }
+            HStack {
+                Image("location-pin")
+                Text(scooterData.location.address ?? "No address yet")
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                    .font(.primary(type: .button2))
+                    .foregroundColor(.primaryBlue)
+            }
+            .padding(.horizontal, 24)
+            FormButton(title: "Unlock") {
+                print("unlocked scooter")
             }
         }
         .background(RoundedRectangle(cornerRadius: 29)
-            .foregroundColor(.neutralPink))
-        .padding(70)
+            .foregroundColor(.white))
+        .padding(.horizontal, 65)
+        .padding(.bottom, 46)
+        .shadow(color: Color(red: 0.698, green: 0.667, blue: 0.761, opacity: 0.5), radius: 20, x: 7, y: 7)
     }
 }
 
