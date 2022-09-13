@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class FindScootersViewModel: ObservableObject{
     @Published var selectedScooterAnnotation: ScooterAnnotation?
