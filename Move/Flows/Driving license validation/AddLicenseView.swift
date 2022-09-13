@@ -128,7 +128,7 @@ struct AddLicenseView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                AddLicenseView(authenticationAPIService: AuthenticationAPIService(userDefaultsManager: UserDefaultsManager()), errorHandler: SwiftMessagesErrorHandler(), onValidationInProgress: {}, onValidationSuccessful: {}, onBack: {})
+                AddLicenseView(authenticationAPIService: AuthenticationAPIService(userDefaultsService: UserDefaultsService()), errorHandler: SwiftMessagesErrorHandler(), onValidationInProgress: {}, onValidationSuccessful: {}, onBack: {})
                     .previewDevice(device)
             }
         }

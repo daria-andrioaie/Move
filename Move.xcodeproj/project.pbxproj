@@ -18,7 +18,7 @@
 		B83DD40828BD1C1300F1F2F6 /* AuthenticationRequestResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83DD40728BD1C1200F1F2F6 /* AuthenticationRequestResponse.swift */; };
 		B83E8A6128CA06780064704C /* MapButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83E8A6028CA06780064704C /* MapButtonView.swift */; };
 		B83E8A6428CA10FA0064704C /* MapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83E8A6328CA10FA0064704C /* MapHeaderView.swift */; };
-		B83E8A6828CA29690064704C /* ScooterDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83E8A6728CA29690064704C /* ScooterDetailsView.swift */; };
+		B83E8A6828CA29690064704C /* ScooterCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83E8A6728CA29690064704C /* ScooterCardView.swift */; };
 		B83E8A6A28CA2B210064704C /* Scooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83E8A6928CA2B200064704C /* Scooter.swift */; };
 		B84DE57928C5D9AC0051311B /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84DE57828C5D9AC0051311B /* APIError.swift */; };
 		B84DE57C28C5DA7D0051311B /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84DE57B28C5DA7D0051311B /* ErrorHandler.swift */; };
@@ -37,12 +37,13 @@
 		B8A096E228C097B100F0BEFC /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A096E128C097B100F0BEFC /* AuthenticationViewModel.swift */; };
 		B8A096E628C0A17F00F0BEFC /* SingleOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A096E528C0A17F00F0BEFC /* SingleOnboardingView.swift */; };
 		B8A096E828C0A23100F0BEFC /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A096E728C0A23100F0BEFC /* OnboardingViewModel.swift */; };
-		B8A096EA28C0A7DE00F0BEFC /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A096E928C0A7DE00F0BEFC /* UserDefaultsManager.swift */; };
+		B8A096EA28C0A7DE00F0BEFC /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A096E928C0A7DE00F0BEFC /* UserDefaultsService.swift */; };
 		B8B14F2428BE49FC00979F01 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B14F2328BE49FC00979F01 /* ImagePickerView.swift */; };
 		B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B4B0C228A132AD00FD6B56 /* SplashView.swift */; };
 		B8D9111028A1188600D25454 /* MoveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9110F28A1188600D25454 /* MoveApp.swift */; };
 		B8D9111428A1188800D25454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D9111328A1188800D25454 /* Assets.xcassets */; };
 		B8D9111728A1188800D25454 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D9111628A1188800D25454 /* Preview Assets.xcassets */; };
+		B8D9B22428D053F7006966C7 /* FindScootersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B22328D053F7006966C7 /* FindScootersViewModel.swift */; };
 		B8D9B77D28A3A726003F0968 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B77C28A3A726003F0968 /* TextFields.swift */; };
 		B8D9B77F28A3C1AE003F0968 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B77E28A3C1AE003F0968 /* Buttons.swift */; };
 		B8D9B78128A3D0F8003F0968 /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B78028A3D0F8003F0968 /* AuthenticationCoordinator.swift */; };
@@ -85,7 +86,7 @@
 		B83DD40728BD1C1200F1F2F6 /* AuthenticationRequestResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRequestResponse.swift; sourceTree = "<group>"; };
 		B83E8A6028CA06780064704C /* MapButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButtonView.swift; sourceTree = "<group>"; };
 		B83E8A6328CA10FA0064704C /* MapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapHeaderView.swift; sourceTree = "<group>"; };
-		B83E8A6728CA29690064704C /* ScooterDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScooterDetailsView.swift; sourceTree = "<group>"; };
+		B83E8A6728CA29690064704C /* ScooterCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScooterCardView.swift; sourceTree = "<group>"; };
 		B83E8A6928CA2B200064704C /* Scooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scooter.swift; sourceTree = "<group>"; };
 		B84DE57828C5D9AC0051311B /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		B84DE57B28C5DA7D0051311B /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
@@ -104,13 +105,14 @@
 		B8A096E128C097B100F0BEFC /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		B8A096E528C0A17F00F0BEFC /* SingleOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleOnboardingView.swift; sourceTree = "<group>"; };
 		B8A096E728C0A23100F0BEFC /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
-		B8A096E928C0A7DE00F0BEFC /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		B8A096E928C0A7DE00F0BEFC /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		B8B14F2328BE49FC00979F01 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		B8B4B0C228A132AD00FD6B56 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		B8D9110C28A1188600D25454 /* Move.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Move.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D9110F28A1188600D25454 /* MoveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveApp.swift; sourceTree = "<group>"; };
 		B8D9111328A1188800D25454 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8D9111628A1188800D25454 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B8D9B22328D053F7006966C7 /* FindScootersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindScootersViewModel.swift; sourceTree = "<group>"; };
 		B8D9B77C28A3A726003F0968 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		B8D9B77E28A3C1AE003F0968 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		B8D9B78028A3D0F8003F0968 /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
@@ -187,10 +189,9 @@
 		B83DD40428BCDC6500F1F2F6 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				B83DD40728BD1C1200F1F2F6 /* AuthenticationRequestResponse.swift */,
-				B83DD40528BCDC7700F1F2F6 /* AuthenticationAPIService.swift */,
+				B8D9B22728D05744006966C7 /* API Services */,
+				B8D9B22628D05738006966C7 /* Responses */,
 				B84DE57828C5D9AC0051311B /* APIError.swift */,
-				B890F3BD28CB61B900435E9C /* ScootersAPIService.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -204,28 +205,28 @@
 			path = "Shared components";
 			sourceTree = "<group>";
 		};
-		B83E8A6528CA28F30064704C /* Find scooters - components */ = {
+		B83E8A6528CA28F30064704C /* Find scooters flow */ = {
 			isa = PBXGroup;
 			children = (
-				B8052FBD28C8C96500F3439B /* ScooterAnnotation.swift */,
+				B8D9B22528D054B6006966C7 /* Scooter components */,
 				B8052FBB28C8C4B000F3439B /* ScooterMapView.swift */,
 				B8E278F828C74CB300F6FB50 /* FindScootersView.swift */,
-				B83E8A6728CA29690064704C /* ScooterDetailsView.swift */,
+				B8D9B22328D053F7006966C7 /* FindScootersViewModel.swift */,
 			);
-			path = "Find scooters - components";
+			path = "Find scooters flow";
 			sourceTree = "<group>";
 		};
-		B83E8A6628CA29400064704C /* Ride scooter - components */ = {
+		B83E8A6628CA29400064704C /* Ride scooter flow */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = "Ride scooter - components";
+			path = "Ride scooter flow";
 			sourceTree = "<group>";
 		};
 		B84DE57A28C5DA680051311B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				B8A096E928C0A7DE00F0BEFC /* UserDefaultsManager.swift */,
+				B8A096E928C0A7DE00F0BEFC /* UserDefaultsService.swift */,
 				B84DE57B28C5DA7D0051311B /* ErrorHandler.swift */,
 			);
 			path = Services;
@@ -327,21 +328,17 @@
 		B8D9110E28A1188600D25454 /* Move */ = {
 			isa = PBXGroup;
 			children = (
-				B84DE57A28C5DA680051311B /* Services */,
-				B8DC508A28BF3CA200D9B2C6 /* Find and ride scooter */,
-				B83DD40428BCDC6500F1F2F6 /* Networking */,
-				B83DD3FB28BCBB3800F1F2F6 /* Models */,
-				B862BEFE28ACF66B002EF079 /* Extensions */,
-				B862BEFD28ACF642002EF079 /* Shared Components */,
-				B80979CF28A52EDC009B1C8D /* Driving license validation */,
-				B8D9B77B28A3A6FE003F0968 /* Utils */,
-				B8E5BB9A28A279460012DB66 /* Authentication */,
-				B8E5BB9928A25F930012DB66 /* Info.plist */,
-				B8E5BB8028A25EF40012DB66 /* Fonts */,
-				B8B4B0C128A1325A00FD6B56 /* Onboarding */,
-				B8B4B0C028A1325200FD6B56 /* Splash */,
 				B8D9110F28A1188600D25454 /* MoveApp.swift */,
 				B896D15928A66AD000BD7791 /* MainCoordinatorView.swift */,
+				B8D9B22828D05785006966C7 /* Flows */,
+				B862BEFD28ACF642002EF079 /* Shared Components */,
+				B83DD3FB28BCBB3800F1F2F6 /* Models */,
+				B84DE57A28C5DA680051311B /* Services */,
+				B83DD40428BCDC6500F1F2F6 /* Networking */,
+				B862BEFE28ACF66B002EF079 /* Extensions */,
+				B8E5BB8028A25EF40012DB66 /* Fonts */,
+				B8D9B77B28A3A6FE003F0968 /* Utils */,
+				B8E5BB9928A25F930012DB66 /* Info.plist */,
 				B8D9111328A1188800D25454 /* Assets.xcassets */,
 				B8D9111528A1188800D25454 /* Preview Content */,
 			);
@@ -356,6 +353,44 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		B8D9B22528D054B6006966C7 /* Scooter components */ = {
+			isa = PBXGroup;
+			children = (
+				B83E8A6728CA29690064704C /* ScooterCardView.swift */,
+				B8052FBD28C8C96500F3439B /* ScooterAnnotation.swift */,
+			);
+			path = "Scooter components";
+			sourceTree = "<group>";
+		};
+		B8D9B22628D05738006966C7 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				B83DD40728BD1C1200F1F2F6 /* AuthenticationRequestResponse.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		B8D9B22728D05744006966C7 /* API Services */ = {
+			isa = PBXGroup;
+			children = (
+				B890F3BD28CB61B900435E9C /* ScootersAPIService.swift */,
+				B83DD40528BCDC7700F1F2F6 /* AuthenticationAPIService.swift */,
+			);
+			path = "API Services";
+			sourceTree = "<group>";
+		};
+		B8D9B22828D05785006966C7 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				B8B4B0C028A1325200FD6B56 /* Splash */,
+				B8B4B0C128A1325A00FD6B56 /* Onboarding */,
+				B8E5BB9A28A279460012DB66 /* Authentication */,
+				B80979CF28A52EDC009B1C8D /* Driving license validation */,
+				B8DC508A28BF3CA200D9B2C6 /* Find and ride scooter */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
 		B8D9B77B28A3A6FE003F0968 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -368,8 +403,8 @@
 		B8DC508A28BF3CA200D9B2C6 /* Find and ride scooter */ = {
 			isa = PBXGroup;
 			children = (
-				B83E8A6628CA29400064704C /* Ride scooter - components */,
-				B83E8A6528CA28F30064704C /* Find scooters - components */,
+				B83E8A6628CA29400064704C /* Ride scooter flow */,
+				B83E8A6528CA28F30064704C /* Find scooters flow */,
 				B83E8A6228CA10DF0064704C /* Shared components */,
 				B8DC508B28BF3CD100D9B2C6 /* RideCoordinatorView.swift */,
 			);
@@ -548,7 +583,7 @@
 				B83E8A6128CA06780064704C /* MapButtonView.swift in Sources */,
 				B80979D128A53504009B1C8D /* AddLicenseView.swift in Sources */,
 				B8A096E028C0951A00F0BEFC /* RegisterViewModel.swift in Sources */,
-				B8A096EA28C0A7DE00F0BEFC /* UserDefaultsManager.swift in Sources */,
+				B8A096EA28C0A7DE00F0BEFC /* UserDefaultsService.swift in Sources */,
 				B83DD40628BCDC7700F1F2F6 /* AuthenticationAPIService.swift in Sources */,
 				B8D9B77F28A3C1AE003F0968 /* Buttons.swift in Sources */,
 				B8E5BB9E28A27F190012DB66 /* LoginView.swift in Sources */,
@@ -562,9 +597,10 @@
 				B861626328ABBAAA00BDE4CA /* LayoutExtensions.swift in Sources */,
 				B8E5BBA028A27F2D0012DB66 /* PurpleBackgroundView.swift in Sources */,
 				B84DE57928C5D9AC0051311B /* APIError.swift in Sources */,
-				B83E8A6828CA29690064704C /* ScooterDetailsView.swift in Sources */,
+				B83E8A6828CA29690064704C /* ScooterCardView.swift in Sources */,
 				B80979CE28A51A4E009B1C8D /* ResetPasswordView.swift in Sources */,
 				B896D15A28A66AD000BD7791 /* MainCoordinatorView.swift in Sources */,
+				B8D9B22428D053F7006966C7 /* FindScootersViewModel.swift in Sources */,
 				B8E278F928C74CB300F6FB50 /* FindScootersView.swift in Sources */,
 				B8E9752B28AE67A1004E83A4 /* ValidationSuccessView.swift in Sources */,
 				B83DD40828BD1C1300F1F2F6 /* AuthenticationRequestResponse.swift in Sources */,

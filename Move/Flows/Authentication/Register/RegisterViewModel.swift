@@ -8,7 +8,7 @@
 import Foundation
 
 class RegisterViewModel: ObservableObject {
-//    let userDefaultsManager: UserDefaultsManager
+//    let userDefaultsService: UserDefaultsService
     let authenticationAPIService: AuthenticationAPIService
 
     @Published var emailAddress = ""

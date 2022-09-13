@@ -19,11 +19,11 @@ enum AuthenticationRequestType {
 }
 
 class AuthenticationAPIService {
-    let userDefaultsManager: UserDefaultsManager
+    let userDefaultsService: UserDefaultsService
     static private let baseURL = "https://move-scooter.herokuapp.com/api/auth/"
     
-    init(userDefaultsManager: UserDefaultsManager) {
-        self.userDefaultsManager = userDefaultsManager
+    init(userDefaultsService: UserDefaultsService) {
+        self.userDefaultsService = userDefaultsService
     }
     
     func authenticationRequest(type: AuthenticationRequestType, parameters: Parameters, onRequestCompleted: @escaping (Result<AuthenticationRequestResponse, APIError>) -> Void) {
@@ -40,8 +40,8 @@ class AuthenticationAPIService {
             .responseDecodable(of: AuthenticationRequestResponse.self) { response in
                 switch response.result {
                 case .success(let authenticationResponse):
-                    try? self.userDefaultsManager.saveUser(authenticationResponse.user)
-                    self.userDefaultsManager.saveUserToken(authenticationResponse.token)
+                    try? self.userDefaultsService.saveUser(authenticationResponse.user)
+                    self.userDefaultsService.saveUserToken(authenticationResponse.token)
                     onRequestCompleted(.success(authenticationResponse))
                 case .failure(let error):
                     if let data = response.data, let APIerror = try? JSONDecoder().decode(APIError.self, from: data) {
@@ -57,7 +57,7 @@ class AuthenticationAPIService {
     
     func uploadDrivingLicenseRequest(image: UIImage, onRequestCompleted: @escaping (Result<User, APIError>) -> Void) {
         
-        guard let userToken = try? userDefaultsManager.getUserToken() else {
+        guard let userToken = try? userDefaultsService.getUserToken() else {
             onRequestCompleted(.failure(APIError(message: "Can't find token in User Defaults!")))
             return
         }
@@ -79,7 +79,7 @@ class AuthenticationAPIService {
         .responseDecodable(of: User.self) { response in
             switch response.result {
             case .success(let user):
-                try? self.userDefaultsManager.saveUser(user)
+                try? self.userDefaultsService.saveUser(user)
                 onRequestCompleted(.success(user))
             case .failure(let error):
                 if let data = response.data {

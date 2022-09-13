@@ -33,7 +33,7 @@ struct ScooterBatteryView: View {
     }
 }
 
-struct ScooterDetailsView: View {
+struct ScooterCardView: View {
     let scooterData: ScooterData
     
     var body: some View {
@@ -102,7 +102,7 @@ struct ScooterDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                ScooterDetailsView(scooterData: .init(_id: "alaal", scooterNumber: 1234, bookedStatus: "free", lockedStatus: "unlocked", battery: 100, location: .init(coordinates: [23.123456, 46.123456], address: "Strada Avram Iancu nr .26 Cladirea 2")))
+                ScooterCardView(scooterData: .init(_id: "alaal", scooterNumber: 1234, bookedStatus: "free", lockedStatus: "unlocked", battery: 100, location: .init(coordinates: [23.123456, 46.123456], address: "Strada Avram Iancu nr .26 Cladirea 2")))
                     .previewDevice(device)
             }
         }

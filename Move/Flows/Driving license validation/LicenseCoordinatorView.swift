@@ -66,7 +66,7 @@ struct LicenseCoordinatorView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                LicenseCoordinatorView(authenticationAPIService: AuthenticationAPIService(userDefaultsManager: UserDefaultsManager()), errorHandler: SwiftMessagesErrorHandler(), onFinished: {}, onBack: {})
+                LicenseCoordinatorView(authenticationAPIService: AuthenticationAPIService(userDefaultsService: UserDefaultsService()), errorHandler: SwiftMessagesErrorHandler(), onFinished: {}, onBack: {})
                     .previewDevice(device)
             }
         }

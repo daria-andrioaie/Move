@@ -11,7 +11,7 @@ import SwiftMessages
 
 extension LoginView {
     struct ServiceDependencies {
-        let userDefaultsManager: UserDefaultsManager
+        let userDefaultsService: UserDefaultsService
         let errorHandler: SwiftMessagesErrorHandler
     }
     
@@ -23,7 +23,7 @@ extension LoginView {
 }
 
 struct LoginView: View {
-//    let userDefaultsManager: UserDefaultsManager
+//    let userDefaultsService: UserDefaultsService
     let authenticationAPIService: AuthenticationAPIService
     let errorHandler: SwiftMessagesErrorHandler
     let onSwitch: () -> Void
@@ -105,7 +105,7 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                LoginView(authenticationAPIService: AuthenticationAPIService(userDefaultsManager: UserDefaultsManager()), errorHandler: SwiftMessagesErrorHandler(), onSwitch: {}, onForgotPassword: {}, onFinished: {})
+                LoginView(authenticationAPIService: AuthenticationAPIService(userDefaultsService: UserDefaultsService()), errorHandler: SwiftMessagesErrorHandler(), onSwitch: {}, onForgotPassword: {}, onFinished: {})
                     .previewDevice(device)
             }
         }

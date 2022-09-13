@@ -23,15 +23,15 @@ enum UserState {
 }
 
 class MainCoordinatorViewModel: ObservableObject {
-    private let userDefaultsManager: UserDefaultsManager
+    private let userDefaultsService: UserDefaultsService
     
-    init(userDefaultsManager: UserDefaultsManager) {
-        self.userDefaultsManager = userDefaultsManager
+    init(userDefaultsService: UserDefaultsService) {
+        self.userDefaultsService = userDefaultsService
     }
     
     var userState: UserState {
         do {
-            let currentUser = try userDefaultsManager.getUser()
+            let currentUser = try userDefaultsService.getUser()
             print("user \(currentUser.username) is logged in. He is \(currentUser.status)")
             // the user was successfully decoded
             if currentUser.status == "suspended" {
@@ -43,12 +43,12 @@ class MainCoordinatorViewModel: ObservableObject {
             print("Can't decode user")
             return .notLoggedIn
         }
-        catch UserDefaultsManagerError.cannotFindKey {
+        catch UserDefaultsServiceError.cannotFindKey {
             print("No user logged in")
             // no user saved in UserDefaults
             // determine if it's the first time launching the app or not
-            if userDefaultsManager.isAppOnFirstLaunch() {
-                userDefaultsManager.setAppAlreadyLanchedOnce()
+            if userDefaultsService.isAppOnFirstLaunch() {
+                userDefaultsService.setAppAlreadyLanchedOnce()
                 return .firstUseOfApplication
             }
             else {
@@ -66,16 +66,16 @@ class MainCoordinatorViewModel: ObservableObject {
 
 struct MainCoordinatorView: View {
     private let errorHandler: SwiftMessagesErrorHandler
-    private let userDefaultsManager: UserDefaultsManager
+    private let userDefaultsService: UserDefaultsService
     private let authenticationAPIService: AuthenticationAPIService
     @State private var currentState: MainCoordinatorState? = .splash
     @StateObject private var viewModel: MainCoordinatorViewModel
     
-    init(errorHandler: SwiftMessagesErrorHandler, userDefaultsManager: UserDefaultsManager, authenticationAPIService: AuthenticationAPIService) {
+    init(errorHandler: SwiftMessagesErrorHandler, userDefaultsService: UserDefaultsService, authenticationAPIService: AuthenticationAPIService) {
         self.errorHandler = errorHandler
-        self.userDefaultsManager = userDefaultsManager
+        self.userDefaultsService = userDefaultsService
         self.authenticationAPIService = authenticationAPIService
-        self._viewModel = StateObject(wrappedValue: MainCoordinatorViewModel(userDefaultsManager: userDefaultsManager))
+        self._viewModel = StateObject(wrappedValue: MainCoordinatorViewModel(userDefaultsService: userDefaultsService))
     }
     
     var body: some View {
@@ -149,6 +149,6 @@ struct MainCoordinatorView: View {
 
 struct MainCoordinatorView_Previews: PreviewProvider {
     static var previews: some View {
-        MainCoordinatorView(errorHandler: SwiftMessagesErrorHandler(), userDefaultsManager: UserDefaultsManager(), authenticationAPIService: AuthenticationAPIService(userDefaultsManager: UserDefaultsManager()))
+        MainCoordinatorView(errorHandler: SwiftMessagesErrorHandler(), userDefaultsService: UserDefaultsService(), authenticationAPIService: AuthenticationAPIService(userDefaultsService: UserDefaultsService()))
     }
 }

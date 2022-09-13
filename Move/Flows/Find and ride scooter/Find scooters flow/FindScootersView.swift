@@ -85,31 +85,7 @@ extension LocationManger: CLLocationManagerDelegate {
 //    }
 //}
 
-class FindScootersViewModel: ObservableObject{
-    @Published var selectedScooterAnnotation: ScooterAnnotation?
-    var mapViewModel: ScooterMapViewModel = .init()
-    
-    init() {
-        mapViewModel.onSelectedScooter = { scooter in
-            withAnimation {
-                self.selectedScooterAnnotation = scooter
-            }
-        }
-        mapViewModel.onDeselectedScooter = {
-            withAnimation {
-                self.selectedScooterAnnotation = nil
-            }
-        }
-    }
-    
-    func centerMapOnUserLocation() {
-        mapViewModel.centerMapOnUserLocation()
-    }
-    
-    func loadScooters() {
-        mapViewModel.getAllScooters()
-    }
-}
+
 
 struct FindScootersView: View {
     @StateObject private var viewModel = FindScootersViewModel()
@@ -126,7 +102,7 @@ struct FindScootersView: View {
                 viewModel.centerMapOnUserLocation()
             }
             if let selectedScooterAnnotation = viewModel.selectedScooterAnnotation {
-                ScooterDetailsView(scooterData: selectedScooterAnnotation.scooterData)
+                ScooterCardView(scooterData: selectedScooterAnnotation.scooterData)
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     .transition(.asymmetric(insertion: .scale, removal: .opacity))
                 //TODO: scooter detail view is not animated on dissappear
@@ -135,7 +111,7 @@ struct FindScootersView: View {
     }
 }
 
-struct MapView_Previews: PreviewProvider {
+struct FindScootersView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in

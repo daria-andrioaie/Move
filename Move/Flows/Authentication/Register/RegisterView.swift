@@ -9,15 +9,15 @@ import SwiftUI
 import SwiftMessages
 
 //class MockedRegisterViewModel: ObservableObject {
-//    let userDefaultsManager: UserDefaultsManager
+//    let userDefaultsService: UserDefaultsService
 ////    let errorHandler: SwiftMessagesErrorHandler
 ////    let onSwitch: () -> Void
 ////    let onFinished: () -> Void
 //
 //    @Published private var requestInProgress = false
 //
-//    init(userDefaultsManager: UserDefaultsManager){
-//        self.userDefaultsManager = userDefaultsManager
+//    init(userDefaultsService: UserDefaultsService){
+//        self.userDefaultsService = userDefaultsService
 //    }
 //
 //    @ViewBuilder
@@ -124,7 +124,7 @@ struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                RegisterView(authenticationAPIService: AuthenticationAPIService(userDefaultsManager: UserDefaultsManager()), errorHandler: SwiftMessagesErrorHandler(), onSwitch: {}, onFinished: {})
+                RegisterView(authenticationAPIService: AuthenticationAPIService(userDefaultsService: UserDefaultsService()), errorHandler: SwiftMessagesErrorHandler(), onSwitch: {}, onFinished: {})
                     .previewDevice(device)
             }
         }

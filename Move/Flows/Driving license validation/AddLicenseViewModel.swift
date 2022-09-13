@@ -19,7 +19,7 @@ class AddLicenseViewModel: ObservableObject {
     @Published var inputImage: UIImage?
     
     let authenticationAPIService: AuthenticationAPIService
-//    let userDefaultsManager: UserDefaultsManager
+//    let userDefaultsService: UserDefaultsService
     let errorHandler: SwiftMessagesErrorHandler
     let onValidationInProgress: () -> Void
     let onValidationSuccessful: () -> Void
@@ -78,7 +78,7 @@ class AddLicenseViewModel: ObservableObject {
             return
         }
         
-//        guard let userToken = try? userDefaultsManager.getUserToken() else {
+//        guard let userToken = try? userDefaultsService.getUserToken() else {
 //            errorHandler.handle(message: "Can't find token in User Defaults!", type: .error)
 //            return
 //        }

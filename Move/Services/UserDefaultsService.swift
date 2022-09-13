@@ -1,5 +1,5 @@
 //
-//  UserDefaultsManager.swift
+//  UserDefaultsService.swift
 //  Move
 //
 //  Created by Daria Andrioaie on 01.09.2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum UserDefaultsManagerError: Error {
+enum UserDefaultsServiceError: Error {
     case cannotFindKey
 }
 
@@ -17,8 +17,8 @@ enum CodingError: Error {
     case cannotDecodeUser
 }
 
-class UserDefaultsManager {
-    static let sharedInstance = UserDefaultsManager()
+class UserDefaultsService {
+    static let sharedInstance = UserDefaultsService()
     
     private let currentUserKey = "currentUser"
     private let currentUserTokenKey = "currentUserToken"
@@ -43,7 +43,7 @@ class UserDefaultsManager {
             }
         }
         else {
-            throw UserDefaultsManagerError.cannotFindKey
+            throw UserDefaultsServiceError.cannotFindKey
         }
     }
     
@@ -56,7 +56,7 @@ class UserDefaultsManager {
             return token
         }
         else {
-            throw UserDefaultsManagerError.cannotFindKey
+            throw UserDefaultsServiceError.cannotFindKey
         }
     }
     

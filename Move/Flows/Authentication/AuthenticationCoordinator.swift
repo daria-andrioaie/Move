@@ -19,7 +19,7 @@ enum AuthenticationState {
 
 struct AuthenticationView: View {
 //    @StateObject var viewModel = AuthenticationViewModel()
-//    let userDefaultsManager: UserDefaultsManager
+//    let userDefaultsService: UserDefaultsService
     let errorHandler: SwiftMessagesErrorHandler
     let authenticationAPIService: AuthenticationAPIService
     let onFinished: () -> Void
@@ -71,7 +71,7 @@ struct AuthenticationView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                AuthenticationView(errorHandler: SwiftMessagesErrorHandler(), authenticationAPIService: AuthenticationAPIService(userDefaultsManager: UserDefaultsManager()), onFinished: {})
+                AuthenticationView(errorHandler: SwiftMessagesErrorHandler(), authenticationAPIService: AuthenticationAPIService(userDefaultsService: UserDefaultsService()), onFinished: {})
                     .previewDevice(device)
             }
         }
