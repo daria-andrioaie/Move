@@ -44,6 +44,7 @@
 		B8D9111428A1188800D25454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D9111328A1188800D25454 /* Assets.xcassets */; };
 		B8D9111728A1188800D25454 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D9111628A1188800D25454 /* Preview Assets.xcassets */; };
 		B8D9B22428D053F7006966C7 /* FindScootersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B22328D053F7006966C7 /* FindScootersViewModel.swift */; };
+		B8D9B22A28D05A30006966C7 /* ScooterMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B22928D05A30006966C7 /* ScooterMapViewModel.swift */; };
 		B8D9B77D28A3A726003F0968 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B77C28A3A726003F0968 /* TextFields.swift */; };
 		B8D9B77F28A3C1AE003F0968 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B77E28A3C1AE003F0968 /* Buttons.swift */; };
 		B8D9B78128A3D0F8003F0968 /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B78028A3D0F8003F0968 /* AuthenticationCoordinator.swift */; };
@@ -113,6 +114,7 @@
 		B8D9111328A1188800D25454 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8D9111628A1188800D25454 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B8D9B22328D053F7006966C7 /* FindScootersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindScootersViewModel.swift; sourceTree = "<group>"; };
+		B8D9B22928D05A30006966C7 /* ScooterMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScooterMapViewModel.swift; sourceTree = "<group>"; };
 		B8D9B77C28A3A726003F0968 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		B8D9B77E28A3C1AE003F0968 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		B8D9B78028A3D0F8003F0968 /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			children = (
 				B8D9B22528D054B6006966C7 /* Scooter components */,
 				B8052FBB28C8C4B000F3439B /* ScooterMapView.swift */,
+				B8D9B22928D05A30006966C7 /* ScooterMapViewModel.swift */,
 				B8E278F828C74CB300F6FB50 /* FindScootersView.swift */,
 				B8D9B22328D053F7006966C7 /* FindScootersViewModel.swift */,
 			);
@@ -593,6 +596,7 @@
 				B896D15828A6422500BD7791 /* PreviewDevices.swift in Sources */,
 				B8E5BB9C28A27F0F0012DB66 /* RegisterView.swift in Sources */,
 				B8052FBC28C8C4B000F3439B /* ScooterMapView.swift in Sources */,
+				B8D9B22A28D05A30006966C7 /* ScooterMapViewModel.swift in Sources */,
 				B8E9752728AE6766004E83A4 /* ValidationInProgressView.swift in Sources */,
 				B861626328ABBAAA00BDE4CA /* LayoutExtensions.swift in Sources */,
 				B8E5BBA028A27F2D0012DB66 /* PurpleBackgroundView.swift in Sources */,

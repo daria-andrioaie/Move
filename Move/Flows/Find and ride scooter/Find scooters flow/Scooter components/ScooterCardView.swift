@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+struct ScooterDetailsView: View {
+    let scooterNumber: Int
+    let batteryPercentage: Int
+    
+    var body: some View {
+        Text("Scooter")
+            .font(.primary(.light, size: 14))
+            .foregroundColor(.primaryBlue)
+        Text("#\(scooterNumber)")
+            .font(.primary(.bold, size: 20))
+            .foregroundColor(.primaryBlue)
+        ScooterBatteryView(batteryPercentage: batteryPercentage)
+    }
+}
+
 struct ScooterBatteryView: View {
     let batteryPercentage: Int
     
@@ -33,59 +48,77 @@ struct ScooterBatteryView: View {
     }
 }
 
+struct AddressView: View {
+    let address: String?
+    
+    var body: some View {
+        HStack {
+            Image("location-pin")
+            Text(address ?? "No address yet")
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
+                .font(.primary(type: .button2))
+                .foregroundColor(.primaryBlue)
+        }
+        .padding(.horizontal, 24)
+    }
+}
+
+struct LocateScooterButtonsView: View {
+    let scooterLongitude: Double
+    let scooterLatitude: Double
+    
+    func openMaps() {
+        let url = URL(string: "comgooglemaps://?saddr=&daddr=\(scooterLatitude),\(scooterLongitude)&directionsmode=walking")
+        if UIApplication.shared.canOpenURL(url!) {
+            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+        }
+        else{
+            let urlBrowser = URL(string: "https://www.google.co.in/maps/dir/??saddr=&daddr=\(scooterLatitude),\(scooterLongitude)&directionsmode=walking")
+            UIApplication.shared.open(urlBrowser!, options: [:], completionHandler: nil)
+        }
+    }
+    
+    var body: some View {
+        HStack(spacing: 30) {
+            MapButtonView(imagePath: "bell-pink") {
+                print("ring bell")
+            }
+            MapButtonView(imagePath: "navigation-pink") {
+                openMaps()
+            }
+        }
+        .padding(.top, 15)
+    }
+}
+
+struct ScooterImageView: View {
+    var body: some View {
+        ZStack(alignment: .top) {
+            Image("ScooterViewRectangleBackground")
+                .resizable()
+                .scaledToFit()
+            Image("xiaomi-preview")
+                .padding(.top, 10)
+        }
+    }
+}
+
 struct ScooterCardView: View {
     let scooterData: ScooterData
     
     var body: some View {
         VStack(spacing: 30) {
             HStack {
-                ZStack(alignment: .top) {
-                    Image("ScooterViewRectangleBackground")
-                        .resizable()
-                        .scaledToFit()
-                    Image("xiaomi-preview")
-                        .padding(.top, 10)
-                }
+                ScooterImageView()
                 VStack(alignment: .trailing, spacing: 5) {
-                    Text("Scooter")
-                        .font(.primary(.light, size: 14))
-                        .foregroundColor(.primaryBlue)
-                    Text("#\(scooterData.scooterNumber)")
-                        .font(.primary(.bold, size: 20))
-                        .foregroundColor(.primaryBlue)
-                    ScooterBatteryView(batteryPercentage: scooterData.battery)
-                    HStack(spacing: 30) {
-                        MapButtonView(imagePath: "bell-pink") {
-                            print("ring bell")
-                        }
-                        MapButtonView(imagePath: "navigation-pink") {
-                            let longitude = scooterData.location.coordinates[0]
-                            let latitude = scooterData.location.coordinates[1]
-                            let url = URL(string: "comgooglemaps://?saddr=&daddr=\(latitude),\(longitude)&directionsmode=walking")
-                            if UIApplication.shared.canOpenURL(url!) {
-                                UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-                            }
-                            else{
-                                  let urlBrowser = URL(string: "https://www.google.co.in/maps/dir/??saddr=&daddr=\(latitude),\(longitude)&directionsmode=walking")
-                                            
-                                   UIApplication.shared.open(urlBrowser!, options: [:], completionHandler: nil)
-                            }
-                        }
-                    }
-                    .padding(.top, 15)
+                    ScooterDetailsView(scooterNumber: scooterData.scooterNumber, batteryPercentage: scooterData.battery)
+                    LocateScooterButtonsView(scooterLongitude: scooterData.location.coordinates[0], scooterLatitude: scooterData.location.coordinates[1])
                 }
                 .padding(.trailing, 30)
                 .padding(.top, 20)
             }
-            HStack {
-                Image("location-pin")
-                Text(scooterData.location.address ?? "No address yet")
-                    .lineLimit(2)
-                    .multilineTextAlignment(.leading)
-                    .font(.primary(type: .button2))
-                    .foregroundColor(.primaryBlue)
-            }
-            .padding(.horizontal, 24)
+            AddressView(address: scooterData.location.address)
             FormButton(title: "Unlock") {
                 print("unlocked scooter")
             }
