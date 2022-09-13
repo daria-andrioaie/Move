@@ -45,6 +45,7 @@
 		B8D9111728A1188800D25454 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D9111628A1188800D25454 /* Preview Assets.xcassets */; };
 		B8D9B22428D053F7006966C7 /* FindScootersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B22328D053F7006966C7 /* FindScootersViewModel.swift */; };
 		B8D9B22C28D089B9006966C7 /* ScooterMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B22B28D089B9006966C7 /* ScooterMapViewModel.swift */; };
+		B8D9B22F28D08D6C006966C7 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B22E28D08D6C006966C7 /* MenuView.swift */; };
 		B8D9B77D28A3A726003F0968 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B77C28A3A726003F0968 /* TextFields.swift */; };
 		B8D9B77F28A3C1AE003F0968 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B77E28A3C1AE003F0968 /* Buttons.swift */; };
 		B8D9B78128A3D0F8003F0968 /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9B78028A3D0F8003F0968 /* AuthenticationCoordinator.swift */; };
@@ -115,6 +116,7 @@
 		B8D9111628A1188800D25454 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B8D9B22328D053F7006966C7 /* FindScootersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindScootersViewModel.swift; sourceTree = "<group>"; };
 		B8D9B22B28D089B9006966C7 /* ScooterMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScooterMapViewModel.swift; sourceTree = "<group>"; };
+		B8D9B22E28D08D6C006966C7 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		B8D9B77C28A3A726003F0968 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		B8D9B77E28A3C1AE003F0968 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		B8D9B78028A3D0F8003F0968 /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
@@ -390,8 +392,17 @@
 				B8E5BB9A28A279460012DB66 /* Authentication */,
 				B80979CF28A52EDC009B1C8D /* Driving license validation */,
 				B8DC508A28BF3CA200D9B2C6 /* Find and ride scooter */,
+				B8D9B22D28D08C4D006966C7 /* User Menu */,
 			);
 			path = Flows;
+			sourceTree = "<group>";
+		};
+		B8D9B22D28D08C4D006966C7 /* User Menu */ = {
+			isa = PBXGroup;
+			children = (
+				B8D9B22E28D08D6C006966C7 /* MenuView.swift */,
+			);
+			path = "User Menu";
 			sourceTree = "<group>";
 		};
 		B8D9B77B28A3A6FE003F0968 /* Utils */ = {
@@ -617,6 +628,7 @@
 				B8A096E628C0A17F00F0BEFC /* SingleOnboardingView.swift in Sources */,
 				B8E9752D28AE7111004E83A4 /* ActivityIndicator.swift in Sources */,
 				B8A096DD28C094DD00F0BEFC /* LoginViewModel.swift in Sources */,
+				B8D9B22F28D08D6C006966C7 /* MenuView.swift in Sources */,
 				B8052FBE28C8C96500F3439B /* ScooterAnnotation.swift in Sources */,
 				B896D15628A63D6000BD7791 /* ColorExtensions.swift in Sources */,
 				B8D9B78328A3D8B6003F0968 /* FontsExtensions.swift in Sources */,
