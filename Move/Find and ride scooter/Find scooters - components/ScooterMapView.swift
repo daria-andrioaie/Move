@@ -30,7 +30,7 @@ class ScooterMapViewModel: NSObject, ObservableObject {
             refreshScooterList()
             
             //TODO: is this okay for running functions repeatedly or is it better to use a timer?
-            //FIX: if a scooter card view is shown while refreshing the scooters, it will disappear
+            //TODO: if a scooter card view is shown while refreshing the scooters, it will disappear
             DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
                 print("refreshed scooters")
                 self.getAllScooters()
@@ -44,7 +44,9 @@ class ScooterMapViewModel: NSObject, ObservableObject {
     lazy var mapView: MKMapView = {
         let mapView = MKMapView(frame: .zero)
         mapView.mapType = .mutedStandard
-        mapView.setRegion(MKCoordinateRegion.ClujCentralRegion(), animated: true)
+        mapView.setRegion(MKCoordinateRegion.AdamHome(), animated: true)
+
+//        mapView.setRegion(MKCoordinateRegion.ClujCentralRegion(), animated: true)
         
         mapView.showAnnotations(mapView.annotations, animated: true)
         mapView.showsUserLocation = true
@@ -53,8 +55,28 @@ class ScooterMapViewModel: NSObject, ObservableObject {
     }()
     
     func refreshScooterList() {
-        mapView.removeAnnotations(mapView.annotations)
-        mapView.addAnnotations(scooters)
+        // if one scooter is selected and it's card view is displayed
+        if mapView.selectedAnnotations.count >= 1{
+            if let selectedScooter = mapView.selectedAnnotations[0] as? ScooterAnnotation {
+                mapView.removeAnnotations(mapView.annotations)
+                mapView.addAnnotations(scooters)
+                
+//                mapView.addAnnotation(selectedScooter)
+//                mapView(self.mapView, didSelect: <#T##MKAnnotationView#>)
+                
+                onSelectedScooter(selectedScooter)
+            }
+            else if let selectedCluster = mapView.selectedAnnotations[0] as? MKClusterAnnotation {
+                mapView.removeAnnotations(mapView.annotations)
+                mapView.addAnnotations(scooters)
+                let memberScooterAnnotations = selectedCluster.memberAnnotations as! [ScooterAnnotation]
+                onSelectedScooter(memberScooterAnnotations[0])
+            }
+        }
+        else {
+            mapView.removeAnnotations(mapView.annotations)
+            mapView.addAnnotations(scooters)
+        }
     }
     
     func centerMapOnUserLocation() {
@@ -66,7 +88,8 @@ class ScooterMapViewModel: NSObject, ObservableObject {
     }
     
     func centerMapOnClujCityCenter() {
-        mapView.setRegion(MKCoordinateRegion.ClujCentralRegion(), animated: true)
+        mapView.setRegion(MKCoordinateRegion.AdamHome(), animated: true)
+//        mapView.setRegion(MKCoordinateRegion.ClujCentralRegion(), animated: true)
     }
     
     func getAllScooters() {
@@ -84,15 +107,15 @@ class ScooterMapViewModel: NSObject, ObservableObject {
 
 extension ScooterMapViewModel: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
+        
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "scooterAnnotationView") ?? MKAnnotationView(annotation: annotation, reuseIdentifier: "scooterAnnotationView")
         
         if annotation is MKUserLocation {
             //TODO: add a custom view to the user location annotation, as in figma
             annotationView.image = UIImage(named: "navigation-fill-blue")
             return annotationView
         }
-        //TODO: reuse annotations
-        
+  
         annotationView.clusteringIdentifier = "scootersCluster"
         annotationView.image = UIImage(named: "scooter-location-pin-purple")
         if let clusterAnnotation = annotation as? MKClusterAnnotation {
@@ -193,6 +216,11 @@ extension MKCoordinateRegion {
     static func ClujCentralRegion() -> MKCoordinateRegion {
         MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 46.769484, longitude: 23.589884), latitudinalMeters: 4000, longitudinalMeters: 4000)
     }
+    
+    static func AdamHome() -> MKCoordinateRegion {
+        MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 46.145129, longitude: 24.368676), latitudinalMeters: 1000, longitudinalMeters: 1000)
+    }
+    
     static func userCenteredRegion(userCoordinates: CLLocationCoordinate2D) -> MKCoordinateRegion {
         MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude), latitudinalMeters: 1000, longitudinalMeters: 1000)
     }

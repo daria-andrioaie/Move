@@ -87,8 +87,8 @@ struct MainCoordinatorView: View {
                     case .firstUseOfApplication:
                         currentState = .onboarding
                     case .notLoggedIn:
-                        currentState = .rideScooter
-//                        currentState = .authentication
+//                        currentState = .rideScooter
+                        currentState = .authentication
                     case .suspended:
                         currentState = .addLicense
                     case .active:

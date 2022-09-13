@@ -59,7 +59,17 @@ struct ScooterDetailsView: View {
                             print("ring bell")
                         }
                         MapButtonView(imagePath: "navigation-pink") {
-                            print("open maps with directions to the scooter")
+                            let longitude = scooterData.location.coordinates[0]
+                            let latitude = scooterData.location.coordinates[1]
+                            let url = URL(string: "comgooglemaps://?saddr=&daddr=\(latitude),\(longitude)&directionsmode=walking")
+                            if UIApplication.shared.canOpenURL(url!) {
+                                UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+                            }
+                            else{
+                                  let urlBrowser = URL(string: "https://www.google.co.in/maps/dir/??saddr=&daddr=\(latitude),\(longitude)&directionsmode=walking")
+                                            
+                                   UIApplication.shared.open(urlBrowser!, options: [:], completionHandler: nil)
+                            }
                         }
                     }
                     .padding(.top, 15)

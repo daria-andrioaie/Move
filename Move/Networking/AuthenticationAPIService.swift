@@ -20,7 +20,7 @@ enum AuthenticationRequestType {
 
 class AuthenticationAPIService {
     let userDefaultsManager: UserDefaultsManager
-    static private let baseURL = "https://move-scooter.herokuapp.com/user/"
+    static private let baseURL = "https://move-scooter.herokuapp.com/api/auth/"
     
     init(userDefaultsManager: UserDefaultsManager) {
         self.userDefaultsManager = userDefaultsManager
@@ -74,7 +74,7 @@ class AuthenticationAPIService {
 //                for(key, value) in parameters {
 //                    multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
 //                }
-        }, to: "https://move-scooter.herokuapp.com/user/upload", method: .put, headers: header)
+        }, to: "https://move-scooter.herokuapp.com/api/user/upload", method: .put, headers: header)
         .validate()
         .responseDecodable(of: User.self) { response in
             switch response.result {
