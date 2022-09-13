@@ -108,7 +108,9 @@ class ScooterMapViewModel: NSObject, ObservableObject {
 extension ScooterMapViewModel: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
-        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "scooterAnnotationView") ?? MKAnnotationView(annotation: annotation, reuseIdentifier: "scooterAnnotationView")
+//        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "scooterAnnotationView") ?? MKAnnotationView(annotation: annotation, reuseIdentifier: "scooterAnnotationView")
+        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "scooterAnnotationView")
+
         
         if annotation is MKUserLocation {
             //TODO: add a custom view to the user location annotation, as in figma
