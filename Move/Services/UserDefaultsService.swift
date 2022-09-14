@@ -24,6 +24,8 @@ class UserDefaultsService {
     private let currentUserTokenKey = "currentUserToken"
     private let isAppAlreadyLaunchedOnceKey = "isAppAlreadyLaunchedOnce"
     
+    
+    //TODO: only keep the id of the user, and not the whole user entity, because its data may change in the meantime
     func saveUser(_ user: User) throws {
         if let userData = try? JSONEncoder().encode(user) {
             UserDefaults.standard.set(userData, forKey: currentUserKey)
