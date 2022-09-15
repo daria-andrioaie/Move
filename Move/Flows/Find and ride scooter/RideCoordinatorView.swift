@@ -18,36 +18,47 @@ struct RideCoordinatorView: View {
     let onLogout: () -> Void
     
     @State private var state: RideCoordinatorState? = .findScooter
+    @State private var showingMenu = false
     
     var body: some View {
-        NavigationView {
-            VStack {
-                NavigationLink(destination: FindScootersView(onMenuButtonPressed: {
-                    state = .menuOverview
-                })
-                    .preferredColorScheme(.light)
-                    .navigationBarHidden(true)
-                    .ignoresSafeArea()
-                    .transition(.opacity.animation(.default))
-                    .navigationBarBackButtonHidden(true), tag: .findScooter, selection: $state) {
-                    EmptyView()
-                }
-                
-                NavigationLink(destination: MenuCoordinatorView(onBack: {
-                    state = .findScooter
-                }, onLogout: onLogout)
-                    .preferredColorScheme(.light)
-                    .navigationBarHidden(true)
-                    .ignoresSafeArea()
-                    .transition(.opacity.animation(.default))
-                    .navigationBarBackButtonHidden(true), tag: .menuOverview, selection: $state) {
-                    EmptyView()
+        ZStack {
+            NavigationView {
+                ZStack {
+                    VStack {
+                        NavigationLink(destination: FindScootersView(onMenuButtonPressed: {
+                            withAnimation {
+                                print("showing menu")
+                                showingMenu = true
+                            }
+                        })
+                            .preferredColorScheme(.light)
+                            .navigationBarHidden(true)
+                            .ignoresSafeArea()
+                            .transition(.opacity.animation(.default))
+                            .navigationBarBackButtonHidden(true), tag: .findScooter, selection: $state) {
+                            EmptyView()
+                        }
+                    }
+                    
                 }
             }
+            .navigationViewStyle(StackNavigationViewStyle())
+            
+            if showingMenu {
+                MenuCoordinatorView(onBack: {
+                    withAnimation {
+                        showingMenu = false
+                    }
+                }, onLogout: onLogout)
+                .transition(.move(edge: .leading))
+                .padding(.top, 15)
+                //TODO: prevent this view from enetering the safe area at the top
+            }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
+
+
 
 struct RideCoordinatorView_Previews: PreviewProvider {
     static var previews: some View {

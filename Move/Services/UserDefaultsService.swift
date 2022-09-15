@@ -49,6 +49,11 @@ class UserDefaultsService {
         }
     }
     
+    func removeCurrentUser() {
+        UserDefaults.standard.removeObject(forKey: currentUserKey)
+        UserDefaults.standard.removeObject(forKey: currentUserTokenKey)
+    }
+    
     func saveUserToken(_ token: String) {
         UserDefaults.standard.set(token, forKey: currentUserTokenKey)
     }

@@ -16,6 +16,7 @@
 		B82A3ADB28D31B11005F22A2 /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82A3ADA28D31B11005F22A2 /* EditAccountView.swift */; };
 		B82A3ADD28D32967005F22A2 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82A3ADC28D32967005F22A2 /* ChangePasswordView.swift */; };
 		B82A3ADF28D337E6005F22A2 /* MenuCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82A3ADE28D337E6005F22A2 /* MenuCoordinator.swift */; };
+		B82A3AE128D35E18005F22A2 /* LogoutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82A3AE028D35E18005F22A2 /* LogoutResponse.swift */; };
 		B83DD3FD28BCBB4D00F1F2F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83DD3FC28BCBB4D00F1F2F6 /* User.swift */; };
 		B83DD40628BCDC7700F1F2F6 /* AuthenticationAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83DD40528BCDC7700F1F2F6 /* AuthenticationAPIService.swift */; };
 		B83DD40828BD1C1300F1F2F6 /* AuthenticationRequestResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83DD40728BD1C1200F1F2F6 /* AuthenticationRequestResponse.swift */; };
@@ -91,6 +92,7 @@
 		B82A3ADA28D31B11005F22A2 /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		B82A3ADC28D32967005F22A2 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		B82A3ADE28D337E6005F22A2 /* MenuCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCoordinator.swift; sourceTree = "<group>"; };
+		B82A3AE028D35E18005F22A2 /* LogoutResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutResponse.swift; sourceTree = "<group>"; };
 		B83DD3FC28BCBB4D00F1F2F6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B83DD40528BCDC7700F1F2F6 /* AuthenticationAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationAPIService.swift; sourceTree = "<group>"; };
 		B83DD40728BD1C1200F1F2F6 /* AuthenticationRequestResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRequestResponse.swift; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 			isa = PBXGroup;
 			children = (
 				B83DD40728BD1C1200F1F2F6 /* AuthenticationRequestResponse.swift */,
+				B82A3AE028D35E18005F22A2 /* LogoutResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -640,6 +643,7 @@
 				B8D9111028A1188600D25454 /* MoveApp.swift in Sources */,
 				B854D2F828BE32DB006AA8EE /* ScannerView.swift in Sources */,
 				B8A096E828C0A23100F0BEFC /* OnboardingViewModel.swift in Sources */,
+				B82A3AE128D35E18005F22A2 /* LogoutResponse.swift in Sources */,
 				B8DC508C28BF3CD100D9B2C6 /* RideCoordinatorView.swift in Sources */,
 				B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */,
 				B8A096E628C0A17F00F0BEFC /* SingleOnboardingView.swift in Sources */,

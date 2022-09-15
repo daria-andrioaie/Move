@@ -15,8 +15,17 @@ class EditAccountViewModel: ObservableObject {
         
     }
     
-    func logout() {
-        
+    func logout(onRequestCompleted: @escaping (Result<String, APIError>) -> Void) {
+        let authenticationService = AuthenticationAPIService(userDefaultsService: UserDefaultsService())
+        authenticationService.logoutRequest { result in
+            switch result {
+            case .success(let userToken):
+                print("Logged out user")
+                onRequestCompleted(.success(userToken))
+            case .failure(let apiError):
+                onRequestCompleted(.failure(apiError))
+            }
+        }
     }
 }
 
@@ -80,8 +89,14 @@ struct EditAccountView: View {
             Spacer()
             
             LogoutView {
-                viewModel.logout()
-                onLogout()
+                viewModel.logout { result in
+                    switch result {
+                    case .success(_):
+                        onLogout()
+                    case .failure(let apiError):
+                        print("Logout error: \(apiError.message)")
+                    }
+                }
             }
             .padding(.bottom, 45)
             

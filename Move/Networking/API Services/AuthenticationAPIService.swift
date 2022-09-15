@@ -55,6 +55,35 @@ class AuthenticationAPIService {
             }
     }
     
+    func logoutRequest(onRequestCompleted: @escaping (Result<String, APIError>) -> Void) {
+        guard let userToken = try? userDefaultsService.getUserToken() else {
+            onRequestCompleted(.failure(APIError(message: "Can't find token in User Defaults!")))
+            return
+        }
+        
+        let header: HTTPHeaders = ["Authorization": "Bearer \(userToken)"]
+        
+        let requestPath = AuthenticationAPIService.baseURL + "logout"
+        AF.request(requestPath, method: .delete, headers: header)
+            .validate()
+            .responseDecodable(of: LogoutResponse.self) { response in
+                switch response.result {
+                case .success(let logoutResponse):
+                    self.userDefaultsService.removeCurrentUser()
+                    onRequestCompleted(.success(logoutResponse.token))
+                case .failure(let error):
+                    if let data = response.data, let APIerror = try? JSONDecoder().decode(APIError.self, from: data) {
+                        print("Error: \(APIerror.message)")
+                        onRequestCompleted(.failure(APIerror))
+                    }
+                    else {
+                        print("Unknown decoding error: \(error.localizedDescription)")
+                    }
+                }
+            }
+            
+    }
+    
     func uploadDrivingLicenseRequest(image: UIImage, onRequestCompleted: @escaping (Result<User, APIError>) -> Void) {
         
         guard let userToken = try? userDefaultsService.getUserToken() else {

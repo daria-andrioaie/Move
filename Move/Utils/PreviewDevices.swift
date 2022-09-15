@@ -19,8 +19,11 @@ extension PreviewProvider {
     static var iphone13: PreviewDevice {
         PreviewDevice(rawValue: "iPhone 13")
     }
+    static var iphone8plus: PreviewDevice {
+        PreviewDevice(rawValue: "iPhone 8 Plus")
+    }
     
     static var devices: [PreviewDevice] {
-        [iphone13, iphone8]
+        [iphone13, iphone8, iphone8plus]
     }
 }
