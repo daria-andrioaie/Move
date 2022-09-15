@@ -40,6 +40,8 @@ struct HeaderView: View {
 }
 
 struct HistoryPreview: View {
+    let onSeeHistoryButton: () -> Void
+    
     var body: some View {
         ZStack {
             Image("ScooterViewRectangleBackground")
@@ -57,7 +59,7 @@ struct HistoryPreview: View {
                 }
                 Spacer()
                 Button {
-                    print("see all rides")
+                    onSeeHistoryButton()
                 } label: {
                     HStack {
                         Text("See all")
@@ -79,6 +81,9 @@ struct HistoryPreview: View {
 }
 
 struct GeneralSettingsView: View {
+    let onEditAccountButton: () -> Void
+    let onChnagePasswordButton: () -> Void
+
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
             HStack {
@@ -89,14 +94,14 @@ struct GeneralSettingsView: View {
             }
             VStack(alignment: .leading, spacing: 30) {
                 Button {
-                    print("go to account")
+                    onEditAccountButton()
                 } label: {
                     Text("Account")
                         .foregroundColor(.primaryBlue)
                         .font(.primary(type: .button2))
                 }
                 Button {
-                    print("change password")
+                    onChnagePasswordButton()
                 } label: {
                     Text("Change password")
                         .foregroundColor(.primaryBlue)
@@ -160,6 +165,9 @@ struct RateUsView: View {
 
 struct MenuView: View {
     let onBack: () -> Void
+    let onSeeHistoryButton: () -> Void
+    let onEditAccountButton: () -> Void
+    let onChangePasswordButton: () -> Void
     
     func goToTapptitude() -> Void {
         let urlBrowser = URL(string: "https://tapptitude.com")
@@ -169,8 +177,8 @@ struct MenuView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
             HeaderView(onBack: onBack, headerTitle: "Hi conor!")
-            HistoryPreview()
-            GeneralSettingsView()
+            HistoryPreview(onSeeHistoryButton: onSeeHistoryButton)
+            GeneralSettingsView(onEditAccountButton: onEditAccountButton, onChnagePasswordButton: onChangePasswordButton)
             LegalLinksView(onTermsAndConditionsPressed: goToTapptitude, onPrivacyPolicyPressed: goToTapptitude)
             RateUsView(onButtonPressed: goToTapptitude)
             Spacer()
@@ -190,7 +198,7 @@ struct MenuView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                MenuView(onBack: {})
+                MenuView(onBack: {}, onSeeHistoryButton: {}, onEditAccountButton: {}, onChangePasswordButton: {})
                     .previewDevice(device)
             }
         }

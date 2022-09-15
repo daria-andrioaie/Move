@@ -7,6 +7,7 @@
 
 import Foundation
 import MapKit
+import SwiftUI
 
 class ScooterMapViewModel: NSObject, ObservableObject {
     
@@ -28,13 +29,6 @@ class ScooterMapViewModel: NSObject, ObservableObject {
     var scooters: [ScooterAnnotation] = [] {
         didSet {
             refreshScooterList()
-            
-            //TODO: is this okay for running functions repeatedly or is it better to use a timer?
-            //TODO: if a scooter card view is shown while refreshing the scooters, it will disappear
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
-//                print("refreshed scooters")
-//                self.getAllScooters()
-//            }
         }
     }
     
@@ -44,9 +38,9 @@ class ScooterMapViewModel: NSObject, ObservableObject {
     lazy var mapView: MKMapView = {
         let mapView = MKMapView(frame: .zero)
         mapView.mapType = .mutedStandard
-        mapView.setRegion(MKCoordinateRegion.AdamHome(), animated: true)
+//        mapView.setRegion(MKCoordinateRegion.AdamHome(), animated: true)
 
-//        mapView.setRegion(MKCoordinateRegion.ClujCentralRegion(), animated: true)
+        mapView.setRegion(MKCoordinateRegion.ClujCentralRegion(), animated: true)
         
         mapView.showAnnotations(mapView.annotations, animated: true)
         mapView.showsUserLocation = true
@@ -60,10 +54,6 @@ class ScooterMapViewModel: NSObject, ObservableObject {
             if let selectedScooter = mapView.selectedAnnotations[0] as? ScooterAnnotation {
                 mapView.removeAnnotations(mapView.annotations)
                 mapView.addAnnotations(scooters)
-                
-//                mapView.addAnnotation(selectedScooter)
-//                mapView(self.mapView, didSelect: <#T##MKAnnotationView#>)
-                
                 onSelectedScooter(selectedScooter)
             }
             else if let selectedCluster = mapView.selectedAnnotations[0] as? MKClusterAnnotation {
@@ -88,8 +78,8 @@ class ScooterMapViewModel: NSObject, ObservableObject {
     }
     
     func centerMapOnClujCityCenter() {
-        mapView.setRegion(MKCoordinateRegion.AdamHome(), animated: true)
-//        mapView.setRegion(MKCoordinateRegion.ClujCentralRegion(), animated: true)
+//        mapView.setRegion(MKCoordinateRegion.AdamHome(), animated: true)
+        mapView.setRegion(MKCoordinateRegion.ClujCentralRegion(), animated: true)
     }
     
     func getAllScooters() {
@@ -174,12 +164,19 @@ extension ScooterMapViewModel: MKMapViewDelegate {
 
 extension ScooterMapViewModel: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let shouldCenterOnUserLocation = self.userLocation == nil
+        
         guard let lastLocation = locations.last else {
             return
         }
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             self.userLocation = lastLocation
-        }
+            if shouldCenterOnUserLocation {
+                withAnimation {
+                    self.centerMapOnUserLocation()
+                }
+            }
+//        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -199,11 +196,9 @@ extension ScooterMapViewModel: CLLocationManagerDelegate {
             centerMapOnClujCityCenter()
             print("Location is denied. go to settings")
         case .authorizedAlways, .authorizedWhenInUse:
-            //TODO: map is not centered on user location as soon as the app is launched, only after some location updates
-            
             locationManager.requestLocation()
-            self.centerMapOnUserLocation()
-            break
+//            self.centerMapOnUserLocation()
+//            locationManager.startUpdatingLocation()
         @unknown default:
             break
         }

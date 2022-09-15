@@ -88,6 +88,7 @@ extension LocationManger: CLLocationManagerDelegate {
 
 
 struct FindScootersView: View {
+    let onMenuButtonPressed: () -> Void
     @StateObject private var viewModel = FindScootersViewModel()
     
     var body: some View {
@@ -95,9 +96,10 @@ struct FindScootersView: View {
             ScooterMapView(viewModel: viewModel.mapViewModel)
                 .onAppear {
                     viewModel.loadScooters()
+                    viewModel.refreshScootersEvery30Seconds()
                 }
             MapHeaderView {
-                print("go to menu")
+                onMenuButtonPressed()
             } onLocationButtonPressed: {
                 viewModel.centerMapOnUserLocation()
             }
@@ -115,7 +117,7 @@ struct FindScootersView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                FindScootersView()
+                FindScootersView(onMenuButtonPressed: {})
                     .previewDevice(device)
             }
         }

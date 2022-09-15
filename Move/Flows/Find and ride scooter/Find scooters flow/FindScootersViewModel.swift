@@ -32,4 +32,11 @@ class FindScootersViewModel: ObservableObject{
     func loadScooters() {
         mapViewModel.getAllScooters()
     }
+    
+    func refreshScootersEvery30Seconds() {
+        _ = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+            print("refreshed scooters")
+            self.mapViewModel.getAllScooters()
+        }
+    }
 }

@@ -53,7 +53,7 @@ struct RideCoordinatorView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                RideCoordinatorView()
+                RideCoordinatorView(onLogout: {})
                     .previewDevice(device)
             }
         }

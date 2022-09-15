@@ -22,7 +22,13 @@ struct MenuCoordinatorView: View {
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: MenuView(onBack: onBack)
+                NavigationLink(destination: MenuView(onBack: onBack, onSeeHistoryButton: {
+                    menuState = .historyOfRidesOverview
+                }, onEditAccountButton: {
+                    menuState = .editAccount
+                }, onChangePasswordButton: {
+                    menuState = .changePassword
+                })
                     .navigationBarHidden(true)
                     .ignoresSafeArea()
                     .navigationBarBackButtonHidden(true), tag: .menuOverview, selection: $menuState) {
