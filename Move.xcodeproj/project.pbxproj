@@ -14,6 +14,7 @@
 		B80979CE28A51A4E009B1C8D /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */; };
 		B80979D128A53504009B1C8D /* AddLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979D028A53504009B1C8D /* AddLicenseView.swift */; };
 		B82A3ADB28D31B11005F22A2 /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82A3ADA28D31B11005F22A2 /* EditAccountView.swift */; };
+		B82A3ADD28D32967005F22A2 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82A3ADC28D32967005F22A2 /* ChangePasswordView.swift */; };
 		B83DD3FD28BCBB4D00F1F2F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83DD3FC28BCBB4D00F1F2F6 /* User.swift */; };
 		B83DD40628BCDC7700F1F2F6 /* AuthenticationAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83DD40528BCDC7700F1F2F6 /* AuthenticationAPIService.swift */; };
 		B83DD40828BD1C1300F1F2F6 /* AuthenticationRequestResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83DD40728BD1C1200F1F2F6 /* AuthenticationRequestResponse.swift */; };
@@ -87,6 +88,7 @@
 		B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		B80979D028A53504009B1C8D /* AddLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLicenseView.swift; sourceTree = "<group>"; };
 		B82A3ADA28D31B11005F22A2 /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
+		B82A3ADC28D32967005F22A2 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		B83DD3FC28BCBB4D00F1F2F6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B83DD40528BCDC7700F1F2F6 /* AuthenticationAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationAPIService.swift; sourceTree = "<group>"; };
 		B83DD40728BD1C1200F1F2F6 /* AuthenticationRequestResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRequestResponse.swift; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 				B8D9B22E28D08D6C006966C7 /* MenuView.swift */,
 				B889B60A28D216590016BEFB /* HistoryOfRidesView.swift */,
 				B82A3ADA28D31B11005F22A2 /* EditAccountView.swift */,
+				B82A3ADC28D32967005F22A2 /* ChangePasswordView.swift */,
 			);
 			path = "User Menu";
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				B80979CC28A51861009B1C8D /* ForgotPasswordView.swift in Sources */,
 				B862BF0028AD0148002EF079 /* ButtonStylesExtensions.swift in Sources */,
 				B84DE57C28C5DA7D0051311B /* ErrorHandler.swift in Sources */,
+				B82A3ADD28D32967005F22A2 /* ChangePasswordView.swift in Sources */,
 				B890F3BE28CB61B900435E9C /* ScootersAPIService.swift in Sources */,
 				B8D9B77D28A3A726003F0968 /* TextFields.swift in Sources */,
 				B84DE57E28C5FD3A0051311B /* LicenseCoordinatorView.swift in Sources */,

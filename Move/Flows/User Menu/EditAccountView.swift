@@ -20,7 +20,7 @@ class EditAccountViewModel: ObservableObject {
     }
 }
 
-struct FieldsView: View {
+struct EditAccountFieldsView: View {
     var username: Binding<String>
     var emailAddress: Binding<String>
     let colorScheme: ColorScheme
@@ -28,8 +28,6 @@ struct FieldsView: View {
     var body: some View {
         VStack {
             SimpleUnderlinedTextField(placeholder: "Username", inputValue: username, colorScheme: .light)
-                .foregroundColor(.primaryBlue)
-                .padding(.top, 30)
             SimpleUnderlinedTextField(placeholder: "Email address", inputValue: emailAddress, colorScheme: colorScheme)
         }
     }
@@ -75,7 +73,7 @@ struct EditAccountView: View {
             }, headerTitle: "Account")
             .padding(.horizontal, 24)
             
-            FieldsView(username: $viewModel.username, emailAddress: $viewModel.emailAddress, colorScheme: colorScheme)
+            EditAccountFieldsView(username: $viewModel.username, emailAddress: $viewModel.emailAddress, colorScheme: colorScheme)
                 .padding(.top, 30)
             
             Spacer()

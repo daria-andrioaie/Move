@@ -28,7 +28,7 @@ struct FieldModifier: ViewModifier {
         content
             .frame(maxWidth: .infinity)
             .placeholder(when: inputValue.isEmpty) {
-                Text(placeholder).foregroundColor(colorScheme == .light ? .neutralCement : .white)
+                Text(placeholder).foregroundColor(colorScheme == .light ? .black : .white)
                     .opacity(0.6)
                     .font(.primary(type: .body1))
             }

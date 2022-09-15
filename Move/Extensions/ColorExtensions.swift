@@ -12,6 +12,7 @@ extension Color {
     static let neutralPurple = Color("NeutralPurple")
     static let neutralPink = Color("NeutralPink")
     static let neutralCement = Color("NeutralCement")
+    static let fieldGray = Color("FieldGray")
     
     static let primaryPurple = Color("PrimaryPurple")
     static let primaryBlue = Color("PrimaryBlue")
@@ -19,4 +20,5 @@ extension Color {
     static let accentPink = Color("AccentPink")
     
     static let washedWhite = Color("WashedWhite")
+    
 }
