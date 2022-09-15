@@ -32,6 +32,8 @@ struct LoginView: View {
     
     @StateObject var viewModel: LoginViewModel
     
+    @Environment(\.colorScheme) var colorScheme
+    
     init(authenticationAPIService: AuthenticationAPIService, errorHandler: SwiftMessagesErrorHandler, onSwitch: @escaping () -> Void, onForgotPassword: @escaping () -> Void, onFinished: @escaping () -> Void) {
         self.authenticationAPIService = authenticationAPIService
         self.errorHandler = errorHandler
@@ -54,9 +56,9 @@ struct LoginView: View {
             VStack {
                 AuthenticationHeaderView(title: "Login", caption: "Enter your account credentials and start riding away")
                 
-                SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress)
+                SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress, colorScheme: colorScheme)
 
-                SecureUnderlinedTextField(placeholder: "Password", inputValue: $viewModel.password)
+                SecureUnderlinedTextField(placeholder: "Password", inputValue: $viewModel.password, colorScheme: colorScheme)
                 
                 Button {
                     onForgotPassword()
@@ -106,6 +108,7 @@ struct LoginView_Previews: PreviewProvider {
         Group {
             ForEach(devices) { device in
                 LoginView(authenticationAPIService: AuthenticationAPIService(userDefaultsService: UserDefaultsService()), errorHandler: SwiftMessagesErrorHandler(), onSwitch: {}, onForgotPassword: {}, onFinished: {})
+                    .preferredColorScheme(.dark)
                     .previewDevice(device)
             }
         }

@@ -16,6 +16,8 @@ class ForgotPasswordViewModel: ObservableObject {
 }
 
 struct ForgotPasswordView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     @StateObject var viewModel = ForgotPasswordViewModel()
     
     let onBack: () -> Void
@@ -68,7 +70,7 @@ struct ForgotPasswordView: View {
                     .padding(.bottom, 32)
      
                 
-                SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress)
+                SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress, colorScheme: colorScheme)
                 
                 FormButton(title: "Send reset link", isEnabled: formIsCompleted) {
                     viewModel.sendResetLink()
@@ -85,6 +87,7 @@ struct ForgotPasswordView_Previews: PreviewProvider {
         Group {
             ForEach(devices) { device in
                 ForgotPasswordView {}
+                    .preferredColorScheme(.dark)
                     .previewDevice(device)
             }
         }

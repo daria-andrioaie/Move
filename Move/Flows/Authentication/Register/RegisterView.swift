@@ -46,6 +46,8 @@ struct RegisterView: View {
     
     @StateObject var viewModel: RegisterViewModel
     
+    @Environment(\.colorScheme) var colorScheme
+
     init(authenticationAPIService: AuthenticationAPIService, errorHandler: SwiftMessagesErrorHandler, onSwitch: @escaping () -> Void, onFinished: @escaping () -> Void) {
         self.authenticationAPIService = authenticationAPIService
         self.errorHandler = errorHandler
@@ -69,11 +71,11 @@ struct RegisterView: View {
                 VStack() {
                     AuthenticationHeaderView(title: "Let's get started", caption: "Sign up or login and start riding right away")
 
-                    SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress)
+                    SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress, colorScheme: colorScheme)
 
-                    SimpleUnderlinedTextField(placeholder: "Username", inputValue: $viewModel.username)
+                    SimpleUnderlinedTextField(placeholder: "Username", inputValue: $viewModel.username, colorScheme: colorScheme)
 
-                    SecureUnderlinedTextField(placeholder: "Password", inputValue: $viewModel.password)
+                    SecureUnderlinedTextField(placeholder: "Password", inputValue: $viewModel.password, colorScheme: colorScheme)
 
                     TermsAndConditionsNote()
 
@@ -125,6 +127,7 @@ struct RegisterView_Previews: PreviewProvider {
         Group {
             ForEach(devices) { device in
                 RegisterView(authenticationAPIService: AuthenticationAPIService(userDefaultsService: UserDefaultsService()), errorHandler: SwiftMessagesErrorHandler(), onSwitch: {}, onFinished: {})
+                    .preferredColorScheme(.dark)
                     .previewDevice(device)
             }
         }

@@ -21,6 +21,7 @@ class ResetPasswordViewModel: ObservableObject {
 
 struct ResetPasswordView: View {
     @StateObject var viewModel = ResetPasswordViewModel()
+    @Environment(\.colorScheme) var colorScheme
     
     private var formIsCompleted: Bool {
         if !viewModel.password.isEmpty && !viewModel.confirmedPassword.isEmpty {
@@ -45,8 +46,8 @@ struct ResetPasswordView: View {
                     .padding(.bottom, 20)
 
 
-                SecureUnderlinedTextField(placeholder: "New password", inputValue: $viewModel.password)
-                SecureUnderlinedTextField(placeholder: "Confirm new password", inputValue: $viewModel.confirmedPassword)
+                SecureUnderlinedTextField(placeholder: "New password", inputValue: $viewModel.password, colorScheme: colorScheme)
+                SecureUnderlinedTextField(placeholder: "Confirm new password", inputValue: $viewModel.confirmedPassword, colorScheme: colorScheme)
 
                 FormButton(title: "Reset password", isEnabled: formIsCompleted) {
                     viewModel.resetPassword()
@@ -63,6 +64,7 @@ struct ResetPasswordView_Previews: PreviewProvider {
         Group {
             ForEach(devices) { device in
                 ResetPasswordView()
+                    .preferredColorScheme(.dark)
                     .previewDevice(device)
             }
         }

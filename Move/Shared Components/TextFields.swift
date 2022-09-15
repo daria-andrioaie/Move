@@ -22,12 +22,13 @@ struct FieldModifier: ViewModifier {
 
     @Binding var inputValue: String
     @FocusState var fieldIsFocused: Bool
+    let colorScheme: ColorScheme
     
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity)
             .placeholder(when: inputValue.isEmpty) {
-                Text(placeholder).foregroundColor(.white)
+                Text(placeholder).foregroundColor(colorScheme == .light ? .neutralCement : .white)
                     .opacity(0.6)
                     .font(.primary(type: .body1))
             }
@@ -35,7 +36,7 @@ struct FieldModifier: ViewModifier {
             .disableAutocorrection(true)
             .focused($fieldIsFocused)
             .overlay(Rectangle().frame(height: fieldIsFocused ? 2 : 1).padding(.top, 45))
-            .foregroundColor(.white)
+            .foregroundColor(colorScheme == .light ? .primaryBlue : .white)
             .font(.primary(type: .body1))
             .opacity(fieldIsFocused ? 1 : 0.6)
             .padding(.bottom, 50)
@@ -44,8 +45,8 @@ struct FieldModifier: ViewModifier {
 }
 
 extension View {
-    func fieldModifier(placeholder: String, inputValue: Binding<String>, fieldIsFocused: FocusState<Bool>) -> some View {
-        modifier(FieldModifier(placeholder: placeholder, inputValue: inputValue, fieldIsFocused: fieldIsFocused))
+    func fieldModifier(placeholder: String, inputValue: Binding<String>, fieldIsFocused: FocusState<Bool>, colorScheme: ColorScheme) -> some View {
+        modifier(FieldModifier(placeholder: placeholder, inputValue: inputValue, fieldIsFocused: fieldIsFocused, colorScheme: colorScheme))
     }
 }
 
@@ -70,13 +71,15 @@ struct SecureUnderlinedTextField: View {
     
     @Binding var inputValue: String
     @FocusState var fieldIsFocused: Bool
+    let colorScheme: ColorScheme
+
     @State private var showText = false
     
     var body: some View {
         ZStack {
             if !showText {
                 SecureField("", text: $inputValue)
-                    .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused)
+                    .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused, colorScheme: colorScheme)
                 
                 if fieldIsFocused {
                     FieldIconView(onClick: {
@@ -87,7 +90,7 @@ struct SecureUnderlinedTextField: View {
             }
             else {
                 TextField("", text: $inputValue)
-                    .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused)
+                    .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused, colorScheme: colorScheme)
                 
                 if fieldIsFocused {
                     FieldIconView(onClick: {
@@ -106,11 +109,12 @@ struct SimpleUnderlinedTextField: View {
     
     @Binding var inputValue: String
     @FocusState var fieldIsFocused: Bool
+    let colorScheme: ColorScheme
     
     var body: some View {
         ZStack {
             TextField("", text: $inputValue)
-                .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused)
+                .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused, colorScheme: colorScheme)
             
             if fieldIsFocused {
                 FieldIconView(onClick: {

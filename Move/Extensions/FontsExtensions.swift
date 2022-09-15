@@ -27,6 +27,7 @@ struct Fonts {
             case button2
             case smallText
             case navbarTitle
+            case boldedDetails
         }
     }
 }
@@ -54,6 +55,8 @@ extension Font {
             return .custom(Fonts.Primary.Weights.regular.rawValue, size: 12)
         case .navbarTitle:
             return .custom(Fonts.Primary.Weights.semiBold.rawValue, size: 17)
+        case .boldedDetails:
+            return .custom(Fonts.Primary.Weights.bold.rawValue, size: 14)
         }
     }
 }
