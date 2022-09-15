@@ -74,6 +74,7 @@ struct HistoryPreview: View {
         .padding(.vertical, 4)
         .background(RoundedRectangle(cornerRadius: 29)
             .foregroundColor(.primaryPurple))
+        .shadow(radius: 10)
     }
 }
 
@@ -108,6 +109,9 @@ struct GeneralSettingsView: View {
 }
 
 struct LegalLinksView: View {
+    let onTermsAndConditionsPressed: () -> Void
+    let onPrivacyPolicyPressed: () -> Void
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
             HStack {
@@ -118,14 +122,14 @@ struct LegalLinksView: View {
             }
             VStack(alignment: .leading, spacing: 30) {
                 Button {
-                    print("go to tapptitude")
+                    onTermsAndConditionsPressed()
                 } label: {
                     Text("Terms and Conditions")
                         .foregroundColor(.primaryBlue)
                         .font(.primary(type: .button2))
                 }
                 Button {
-                    print("go to tapptitude")
+                    onPrivacyPolicyPressed()
                 } label: {
                     Text("Privacy Policy")
                         .foregroundColor(.primaryBlue)
@@ -138,11 +142,13 @@ struct LegalLinksView: View {
 }
 
 struct RateUsView: View {
+    let onButtonPressed: () -> Void
+    
     var body: some View {
         HStack {
             Image("star")
             Button {
-                    print("rate Move")
+                onButtonPressed()
             } label: {
                 Text("Rate us")
                     .foregroundColor(.primaryBlue)
@@ -155,13 +161,18 @@ struct RateUsView: View {
 struct MenuView: View {
     let onBack: () -> Void
     
+    func goToTapptitude() -> Void {
+        let urlBrowser = URL(string: "https://tapptitude.com")
+        UIApplication.shared.open(urlBrowser!, options: [:], completionHandler: nil)
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
             HeaderView(onBack: onBack, headerTitle: "Hi conor!")
             HistoryPreview()
             GeneralSettingsView()
-            LegalLinksView()
-            RateUsView()
+            LegalLinksView(onTermsAndConditionsPressed: goToTapptitude, onPrivacyPolicyPressed: goToTapptitude)
+            RateUsView(onButtonPressed: goToTapptitude)
             Spacer()
         }
         .frame(maxHeight: .infinity)

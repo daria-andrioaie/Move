@@ -53,6 +53,7 @@ struct LogoutView: View {
 struct EditAccountView: View {
     @StateObject var viewModel = EditAccountViewModel()
     let onBack: () -> Void
+    let onLogout: () -> Void
     
     @Environment(\.colorScheme) var colorScheme
 
@@ -80,6 +81,7 @@ struct EditAccountView: View {
             
             LogoutView {
                 viewModel.logout()
+                onLogout()
             }
             .padding(.bottom, 45)
             
@@ -94,7 +96,7 @@ struct EditAccountView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                EditAccountView(onBack: {})
+                EditAccountView(onBack: {}, onLogout: {})
                     .preferredColorScheme(.light)
                     .previewDevice(device)
             }
