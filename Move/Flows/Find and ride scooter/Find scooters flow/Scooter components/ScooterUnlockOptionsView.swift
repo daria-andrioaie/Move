@@ -105,9 +105,9 @@ struct ScooterUnlockOptionsView: View {
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 30)
-        .background(RoundedRectangle(cornerRadius: 29)
-            .foregroundColor(.white)
-            .shadow(color: Color(red: 33/255, green: 11/255, blue: 80/255, opacity: 0.15), radius: 20, x: 0, y: 0))
+//        .background(RoundedRectangle(cornerRadius: 29)
+//            .foregroundColor(.white)
+//            .shadow(color: Color(red: 33/255, green: 11/255, blue: 80/255, opacity: 0.15), radius: 20, x: 0, y: 0))
         
     }
 }

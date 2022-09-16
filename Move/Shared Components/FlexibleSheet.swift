@@ -10,6 +10,7 @@ import SwiftUI
 enum SheetDisplayMode {
     case none
     case third
+    case half
 }
 
 struct FlexibleSheet<Content: View>: View {
@@ -25,7 +26,7 @@ struct FlexibleSheet<Content: View>: View {
     var body: some View {
         content()
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .padding(45)
+//            .padding(45)
             .background(.white)
             .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
             .shadow(radius: 25)
@@ -40,6 +41,9 @@ struct FlexibleSheet<Content: View>: View {
             return UIScreen.main.bounds.height
         case .third:
             return UIScreen.main.bounds.height * 3/4
+        case .half:
+            return UIScreen.main.bounds.height * 1/2
+
         }
     }
 }

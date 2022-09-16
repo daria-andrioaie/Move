@@ -107,6 +107,8 @@ struct ScooterImageCardView: View {
 struct ScooterCardView: View {
     let scooterData: ScooterData
     
+    let onUnlock: () -> Void
+    
     var body: some View {
         VStack(spacing: 30) {
             HStack {
@@ -120,7 +122,7 @@ struct ScooterCardView: View {
             }
             AddressView(address: scooterData.location.address)
             FormButton(title: "Unlock") {
-                print("unlocked scooter")
+                onUnlock()
             }
         }
         .background(RoundedRectangle(cornerRadius: 29)
@@ -135,7 +137,7 @@ struct ScooterDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                ScooterCardView(scooterData: .init(_id: "alaal", scooterNumber: 1234, bookedStatus: "free", lockedStatus: "unlocked", battery: 100, location: .init(coordinates: [23.123456, 46.123456], address: "Strada Avram Iancu nr .26 Cladirea 2")))
+                ScooterCardView(scooterData: .init(_id: "alaal", scooterNumber: 1234, bookedStatus: "free", lockedStatus: "unlocked", battery: 100, location: .init(coordinates: [23.123456, 46.123456], address: "Strada Avram Iancu nr .26 Cladirea 2")), onUnlock: {})
                     .previewDevice(device)
             }
         }

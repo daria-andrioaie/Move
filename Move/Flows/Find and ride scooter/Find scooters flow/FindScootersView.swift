@@ -91,6 +91,9 @@ struct FindScootersView: View {
     let onMenuButtonPressed: () -> Void
     @StateObject private var viewModel = FindScootersViewModel()
     
+    @State private var unlockOptionsSheetDisplayMode = SheetDisplayMode.none
+
+    
     var body: some View {
         ZStack(alignment: .top) {
             ScooterMapView(viewModel: viewModel.mapViewModel)
@@ -104,10 +107,24 @@ struct FindScootersView: View {
                 viewModel.centerMapOnUserLocation()
             }
             if let selectedScooterAnnotation = viewModel.selectedScooterAnnotation {
-                ScooterCardView(scooterData: selectedScooterAnnotation.scooterData)
+                ScooterCardView(scooterData: selectedScooterAnnotation.scooterData, onUnlock: {
+                    unlockOptionsSheetDisplayMode = .half
+                })
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     .transition(.asymmetric(insertion: .scale, removal: .opacity))
                 //TODO: scooter detail view is not animated on dissappear
+                
+                FlexibleSheet(sheetMode: $unlockOptionsSheetDisplayMode) {
+                    ScooterUnlockOptionsView(scooterData: selectedScooterAnnotation.scooterData)
+                }
+                .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
+                    .onEnded{ value in
+                        // swipe down gesture on the action sheet
+                        if (-100...100).contains(value.translation.width) &&
+                            (0...).contains(value.translation.height) {
+                            unlockOptionsSheetDisplayMode = .none
+                        }
+                    })
             }
         }
     }
