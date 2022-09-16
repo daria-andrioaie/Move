@@ -42,7 +42,7 @@ struct ScooterBatteryView: View {
                 Text("error")
             }
             Text("\(batteryPercentage)%")
-                .font(.primary(type: .button2))
+                .font(.primary(type: .body1))
                 .foregroundColor(.primaryBlue)
         }
     }
@@ -92,13 +92,13 @@ struct LocateScooterButtonsView: View {
     }
 }
 
-struct ScooterImageView: View {
+struct ScooterImageCardView: View {
     var body: some View {
         ZStack(alignment: .top) {
-            Image("ScooterViewRectangleBackground")
+            Image("rectangleBackground-cardView")
                 .resizable()
                 .scaledToFit()
-            Image("xiaomi-preview")
+            Image("xiaomi-cardView")
                 .padding(.top, 10)
         }
     }
@@ -110,7 +110,7 @@ struct ScooterCardView: View {
     var body: some View {
         VStack(spacing: 30) {
             HStack {
-                ScooterImageView()
+                ScooterImageCardView()
                 VStack(alignment: .trailing, spacing: 5) {
                     ScooterDetailsView(scooterNumber: scooterData.scooterNumber, batteryPercentage: scooterData.battery)
                     LocateScooterButtonsView(scooterLongitude: scooterData.location.coordinates[0], scooterLatitude: scooterData.location.coordinates[1])

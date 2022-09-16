@@ -16,10 +16,25 @@ struct MapButtonView: View {
             onTap()
         } label: {
             Image(imagePath)
+                .mapButton()
+        }
+    }
+}
+
+struct ShadowedMapButtonView: View {
+    let imagePath: String
+    let onTap: () -> Void
+    
+    var body: some View {
+        Button {
+            onTap()
+        } label: {
+            Image(imagePath)
                 .mapShadowedButton()
         }
     }
 }
+
 
 struct MapButtonView_Previews: PreviewProvider {
     static var previews: some View {

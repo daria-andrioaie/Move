@@ -59,9 +59,9 @@ struct LightActiveButtonModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .foregroundColor(.accentPink)
-            .font(.primary(.regular, size: 16))
+            .font(.primary(type: .button1SemiBold))
             .frame(height: 56)
-            .background(RoundedRectangle(cornerRadius: 16).stroke(Color.accentPink, lineWidth: 0.5))
+            .background(RoundedRectangle(cornerRadius: 16).stroke(Color.accentPink, lineWidth: 1))
     }
 }
 
@@ -77,6 +77,17 @@ struct MapButtonModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(width: 36, height: 36)
+            .overlay(content: {
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.neutralCement, lineWidth: 0.5)
+            })
+    }
+}
+
+struct MapShadowedButtonModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .frame(width: 36, height: 36)
             .background(RoundedRectangle(cornerRadius: 10)
                 .foregroundColor(.white))
             .shadow(color: Color(red: 0.698, green: 0.667, blue: 0.761, opacity: 0.5), radius: 10, x: 7, y: 7)
@@ -85,6 +96,10 @@ struct MapButtonModifier: ViewModifier {
 
 extension View {
     func mapShadowedButton() -> some View {
+        modifier(MapShadowedButtonModifier())
+    }
+    
+    func mapButton() -> some View {
         modifier(MapButtonModifier())
     }
 }

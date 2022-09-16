@@ -13,11 +13,11 @@ struct MapHeaderView: View {
     
     var body: some View {
         HStack {
-            MapButtonView(imagePath: "menu-button", onTap: {
+            ShadowedMapButtonView(imagePath: "menu-button", onTap: {
                 onMenuButtonPressed()
             })
             Spacer()
-            MapButtonView(imagePath: "location-button", onTap: {
+            ShadowedMapButtonView(imagePath: "location-button", onTap: {
                 onLocationButtonPressed()
             })
         }
