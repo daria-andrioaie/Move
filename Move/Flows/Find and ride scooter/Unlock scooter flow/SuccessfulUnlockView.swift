@@ -9,12 +9,44 @@ import SwiftUI
 
 struct SuccessfulUnlockView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            PurpleBackgroundView()
+            VStack {
+                Text("Unlock")
+                    .foregroundColor(.white)
+                    .font(.primary(type: .heading1))
+                    .padding(.top, 133)
+                    
+                Text("sucessful")
+                    .foregroundColor(.white)
+                    .font(.primary(type: .heading1))
+                    .padding(.bottom, 97)
+                
+                Image("check-circle")
+                    .padding(.bottom, 36)
+                Text("Please respect all the driving regulations and other participants in traffic while using our scooters.")
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .font(.primary(type: .body1))
+                    .opacity(0.7)
+                    .padding(.horizontal, 24)
+
+                Spacer()
+            }
+            .frame(maxHeight: .infinity)
+            
+        }
     }
 }
 
 struct SuccessfulUnlockView_Previews: PreviewProvider {
     static var previews: some View {
-        SuccessfulUnlockView()
+        Group {
+            ForEach(devices) { device in
+                SuccessfulUnlockView()
+                    .previewDevice(device)
+            }
+        }
+        
     }
 }
