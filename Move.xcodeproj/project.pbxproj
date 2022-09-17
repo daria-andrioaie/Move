@@ -47,6 +47,7 @@
 		B8B14F2428BE49FC00979F01 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B14F2328BE49FC00979F01 /* ImagePickerView.swift */; };
 		B8B43AD328D44AA700F06507 /* ScooterUnlockOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B43AD228D44AA700F06507 /* ScooterUnlockOptionsView.swift */; };
 		B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B4B0C228A132AD00FD6B56 /* SplashView.swift */; };
+		B8D05DFD28D59F4C00DB83AE /* PINUnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D05DFC28D59F4B00DB83AE /* PINUnlockView.swift */; };
 		B8D9111028A1188600D25454 /* MoveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9110F28A1188600D25454 /* MoveApp.swift */; };
 		B8D9111428A1188800D25454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D9111328A1188800D25454 /* Assets.xcassets */; };
 		B8D9111728A1188800D25454 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D9111628A1188800D25454 /* Preview Assets.xcassets */; };
@@ -124,6 +125,7 @@
 		B8B14F2328BE49FC00979F01 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		B8B43AD228D44AA700F06507 /* ScooterUnlockOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScooterUnlockOptionsView.swift; sourceTree = "<group>"; };
 		B8B4B0C228A132AD00FD6B56 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		B8D05DFC28D59F4B00DB83AE /* PINUnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PINUnlockView.swift; sourceTree = "<group>"; };
 		B8D9110C28A1188600D25454 /* Move.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Move.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D9110F28A1188600D25454 /* MoveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveApp.swift; sourceTree = "<group>"; };
 		B8D9111328A1188800D25454 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -327,6 +329,14 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		B8D05DFB28D59F2000DB83AE /* Unlock scooter flow */ = {
+			isa = PBXGroup;
+			children = (
+				B8D05DFC28D59F4B00DB83AE /* PINUnlockView.swift */,
+			);
+			path = "Unlock scooter flow";
+			sourceTree = "<group>";
+		};
 		B8D9110328A1188600D25454 = {
 			isa = PBXGroup;
 			children = (
@@ -438,6 +448,7 @@
 		B8DC508A28BF3CA200D9B2C6 /* Find and ride scooter */ = {
 			isa = PBXGroup;
 			children = (
+				B8D05DFB28D59F2000DB83AE /* Unlock scooter flow */,
 				B83E8A6628CA29400064704C /* Ride scooter flow */,
 				B83E8A6528CA28F30064704C /* Find scooters flow */,
 				B83E8A6228CA10DF0064704C /* Shared components */,
@@ -662,6 +673,7 @@
 				B83E8A6A28CA2B210064704C /* Scooter.swift in Sources */,
 				B84DE58028C604910051311B /* FlexibleSheet.swift in Sources */,
 				B8B14F2428BE49FC00979F01 /* ImagePickerView.swift in Sources */,
+				B8D05DFD28D59F4C00DB83AE /* PINUnlockView.swift in Sources */,
 				B80979CC28A51861009B1C8D /* ForgotPasswordView.swift in Sources */,
 				B82A3ADF28D337E6005F22A2 /* MenuCoordinator.swift in Sources */,
 				B862BF0028AD0148002EF079 /* ButtonStylesExtensions.swift in Sources */,

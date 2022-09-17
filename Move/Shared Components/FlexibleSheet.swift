@@ -26,10 +26,17 @@ struct FlexibleSheet<Content: View>: View {
     var body: some View {
         content()
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-//            .padding(45)
-            .background(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
-            .shadow(radius: 25)
+            .overlay(alignment: .top, content: {
+                RoundedRectangle(cornerRadius: 30)
+                    .frame(width: 72, height: 8)
+                    .foregroundColor(.accentPink)
+                    .offset(y: -4)
+                    .clipped()
+            })
+        
+            .background(RoundedRectangle(cornerRadius: 25)
+            .foregroundColor(.white)
+            .shadow(color: Color(red: 33/255, green: 11/255, blue: 80/255, opacity: 0.15), radius: 20, x: 0, y: 0))
             .offset(y: calculateOffset())
             .animation(.spring())
             .edgesIgnoringSafeArea(.all)

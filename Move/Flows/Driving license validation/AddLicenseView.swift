@@ -96,6 +96,7 @@ struct AddLicenseView: View {
                     .activeButton()
                     .padding(.horizontal, 24)
                 }
+                .padding(45)
             }
             .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
                 .onEnded{ value in

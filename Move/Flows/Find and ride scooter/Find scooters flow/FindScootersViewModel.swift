@@ -10,6 +10,7 @@ import SwiftUI
 
 class FindScootersViewModel: ObservableObject{
     @Published var selectedScooterAnnotation: ScooterAnnotation?
+    @Published var unlockOptionsSheetDisplayMode = SheetDisplayMode.none
     var mapViewModel: ScooterMapViewModel = .init()
     
     init() {
@@ -21,6 +22,7 @@ class FindScootersViewModel: ObservableObject{
         mapViewModel.onDeselectedScooter = {
             withAnimation {
                 self.selectedScooterAnnotation = nil
+                unlockOptionsSheetDisplayMode = SheetDisplayMode.none
             }
         }
     }
