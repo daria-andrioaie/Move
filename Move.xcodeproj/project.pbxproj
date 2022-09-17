@@ -48,6 +48,9 @@
 		B8B43AD328D44AA700F06507 /* ScooterUnlockOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B43AD228D44AA700F06507 /* ScooterUnlockOptionsView.swift */; };
 		B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B4B0C228A132AD00FD6B56 /* SplashView.swift */; };
 		B8D05DFD28D59F4C00DB83AE /* PINUnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D05DFC28D59F4B00DB83AE /* PINUnlockView.swift */; };
+		B8D05DFF28D59FC000DB83AE /* SuccessfulUnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D05DFE28D59FC000DB83AE /* SuccessfulUnlockView.swift */; };
+		B8D05E0228D5A05B00DB83AE /* UnlockHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D05E0128D5A05B00DB83AE /* UnlockHeaderView.swift */; };
+		B8D05E0428D5A06B00DB83AE /* AlternativeUnlockOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D05E0328D5A06B00DB83AE /* AlternativeUnlockOptionsView.swift */; };
 		B8D9111028A1188600D25454 /* MoveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9110F28A1188600D25454 /* MoveApp.swift */; };
 		B8D9111428A1188800D25454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D9111328A1188800D25454 /* Assets.xcassets */; };
 		B8D9111728A1188800D25454 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D9111628A1188800D25454 /* Preview Assets.xcassets */; };
@@ -126,6 +129,9 @@
 		B8B43AD228D44AA700F06507 /* ScooterUnlockOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScooterUnlockOptionsView.swift; sourceTree = "<group>"; };
 		B8B4B0C228A132AD00FD6B56 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		B8D05DFC28D59F4B00DB83AE /* PINUnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PINUnlockView.swift; sourceTree = "<group>"; };
+		B8D05DFE28D59FC000DB83AE /* SuccessfulUnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulUnlockView.swift; sourceTree = "<group>"; };
+		B8D05E0128D5A05B00DB83AE /* UnlockHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockHeaderView.swift; sourceTree = "<group>"; };
+		B8D05E0328D5A06B00DB83AE /* AlternativeUnlockOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativeUnlockOptionsView.swift; sourceTree = "<group>"; };
 		B8D9110C28A1188600D25454 /* Move.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Move.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D9110F28A1188600D25454 /* MoveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveApp.swift; sourceTree = "<group>"; };
 		B8D9111328A1188800D25454 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -332,9 +338,20 @@
 		B8D05DFB28D59F2000DB83AE /* Unlock scooter flow */ = {
 			isa = PBXGroup;
 			children = (
+				B8D05E0028D5A04500DB83AE /* Shared components */,
 				B8D05DFC28D59F4B00DB83AE /* PINUnlockView.swift */,
+				B8D05DFE28D59FC000DB83AE /* SuccessfulUnlockView.swift */,
 			);
 			path = "Unlock scooter flow";
+			sourceTree = "<group>";
+		};
+		B8D05E0028D5A04500DB83AE /* Shared components */ = {
+			isa = PBXGroup;
+			children = (
+				B8D05E0128D5A05B00DB83AE /* UnlockHeaderView.swift */,
+				B8D05E0328D5A06B00DB83AE /* AlternativeUnlockOptionsView.swift */,
+			);
+			path = "Shared components";
 			sourceTree = "<group>";
 		};
 		B8D9110328A1188600D25454 = {
@@ -666,11 +683,13 @@
 				B8A096DD28C094DD00F0BEFC /* LoginViewModel.swift in Sources */,
 				B8D9B22F28D08D6C006966C7 /* MenuView.swift in Sources */,
 				B8052FBE28C8C96500F3439B /* ScooterAnnotation.swift in Sources */,
+				B8D05E0228D5A05B00DB83AE /* UnlockHeaderView.swift in Sources */,
 				B896D15628A63D6000BD7791 /* ColorExtensions.swift in Sources */,
 				B8D9B78328A3D8B6003F0968 /* FontsExtensions.swift in Sources */,
 				B8B43AD328D44AA700F06507 /* ScooterUnlockOptionsView.swift in Sources */,
 				B8A096E228C097B100F0BEFC /* AuthenticationViewModel.swift in Sources */,
 				B83E8A6A28CA2B210064704C /* Scooter.swift in Sources */,
+				B8D05DFF28D59FC000DB83AE /* SuccessfulUnlockView.swift in Sources */,
 				B84DE58028C604910051311B /* FlexibleSheet.swift in Sources */,
 				B8B14F2428BE49FC00979F01 /* ImagePickerView.swift in Sources */,
 				B8D05DFD28D59F4C00DB83AE /* PINUnlockView.swift in Sources */,
@@ -678,6 +697,7 @@
 				B82A3ADF28D337E6005F22A2 /* MenuCoordinator.swift in Sources */,
 				B862BF0028AD0148002EF079 /* ButtonStylesExtensions.swift in Sources */,
 				B84DE57C28C5DA7D0051311B /* ErrorHandler.swift in Sources */,
+				B8D05E0428D5A06B00DB83AE /* AlternativeUnlockOptionsView.swift in Sources */,
 				B82A3ADD28D32967005F22A2 /* ChangePasswordView.swift in Sources */,
 				B890F3BE28CB61B900435E9C /* ScootersAPIService.swift in Sources */,
 				B8D9B77D28A3A726003F0968 /* TextFields.swift in Sources */,
