@@ -137,9 +137,14 @@ struct MainCoordinatorView: View {
                     .navigationBarBackButtonHidden(true), tag: .addLicense, selection: $currentState, label: { EmptyView() })
                 
                 //TODO: set the color scheme of views on this flow
-                NavigationLink(destination: RideCoordinatorView(onLogout: {
-                    currentState = .authentication
-                })
+//                NavigationLink(destination: RideCoordinatorView(onLogout: {
+//                    currentState = .authentication
+//                })
+//                    .navigationBarHidden(true)
+//                    .transition(.opacity.animation(.default))
+//                    .navigationBarBackButtonHidden(true), tag: .rideScooter, selection: $currentState) { EmptyView() }
+                NavigationLink(destination:
+                    PINUnlockView(onCancelUnlock: {})
                     .navigationBarHidden(true)
                     .transition(.opacity.animation(.default))
                     .navigationBarBackButtonHidden(true), tag: .rideScooter, selection: $currentState) { EmptyView() }

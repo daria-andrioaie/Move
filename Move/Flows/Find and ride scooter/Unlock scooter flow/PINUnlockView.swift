@@ -7,8 +7,81 @@
 
 import SwiftUI
 
+class PINUnlockViewModel: ObservableObject {
+    @Published var pin: String = ""
+    
+    func sendUnlockRequest() -> Void {
+        
+    }
+}
+
+struct DigitField: View {
+    @Binding var digit: String
+    @FocusState var fieldIsFocused: Bool
+    let whenFilled: () -> Void
+    
+    
+    var body: some View {
+        TextField("", text: $digit)
+            .focused($fieldIsFocused)
+            .keyboardType(.numberPad)
+            .tint(.primaryBlue)
+            .offset(x: 24)
+            .foregroundColor(.primaryBlue)
+            .font(.primary(type: .heading2))
+            .background(RoundedRectangle(cornerRadius: 18)
+                .frame(width: 52, height: 52, alignment: .center)
+                .foregroundColor(fieldIsFocused ? .white : .neutralPurple))
+            .onChange(of: digit) { newValue in
+                if newValue.count == 1 {
+                    whenFilled()
+                }
+            }
+            .onTapGesture {
+                if digit.count == 1 {
+                    digit = ""
+                }
+            }
+    }
+}
+
+struct PINFieldsSequence: View {
+    @Binding var finalValue: String
+    
+    @State private var digit1 = ""
+    @State private var digit2 = ""
+    @State private var digit3 = ""
+    @State private var digit4 = ""
+
+    @FocusState var fieldOneIsFocused: Bool
+    @FocusState var fieldTwoIsFocused: Bool
+    @FocusState var fieldThreeIsFocused: Bool
+    @FocusState var fieldFourIsFocused: Bool
+        
+    var body: some View {
+        HStack(spacing: 16) {
+            DigitField(digit: $digit1, fieldIsFocused: _fieldOneIsFocused) {
+                fieldTwoIsFocused = true
+            }
+            DigitField(digit: $digit2, fieldIsFocused: _fieldTwoIsFocused) {
+                fieldThreeIsFocused = true
+            }
+            DigitField(digit: $digit3, fieldIsFocused: _fieldThreeIsFocused) {
+                fieldFourIsFocused = true
+            }
+            DigitField(digit: $digit4, fieldIsFocused: _fieldFourIsFocused) {
+                fieldFourIsFocused = false
+                finalValue = digit1 + digit2 + digit3 + digit4
+            }
+        }
+        .padding(.horizontal, 60)
+    }
+}
+
 struct PINUnlockView: View {
     let onCancelUnlock: () -> Void
+    @StateObject var viewModel = PINUnlockViewModel()
+    
     var body: some View {
         ZStack {
             PurpleBackgroundView()
@@ -26,8 +99,16 @@ struct PINUnlockView: View {
                     .opacity(0.7)
                     .foregroundColor(.white)
                     .padding(.top, 16)
+                    .padding(.bottom, 104)
 
-                Spacer()
+                PINFieldsSequence(finalValue: $viewModel.pin)
+                    .onChange(of: viewModel.pin) { newPin in
+                        if newPin.count == 4 {
+                            viewModel.sendUnlockRequest()
+                        }
+                    }
+                    .padding(.bottom, 155)
+                               
                 AlternativeUnlockOptionsView(alternative1: "QR", onAlternaive1: {
                     print("go to QR")
                 }, alternative2: "NFC") {

@@ -45,7 +45,7 @@ struct FieldModifier: ViewModifier {
 }
 
 extension View {
-    func fieldModifier(placeholder: String, inputValue: Binding<String>, fieldIsFocused: FocusState<Bool>, colorScheme: ColorScheme) -> some View {
+     func fieldModifier(placeholder: String, inputValue: Binding<String>, fieldIsFocused: FocusState<Bool>, colorScheme: ColorScheme) -> some View {
         modifier(FieldModifier(placeholder: placeholder, inputValue: inputValue, fieldIsFocused: fieldIsFocused, colorScheme: colorScheme))
     }
 }

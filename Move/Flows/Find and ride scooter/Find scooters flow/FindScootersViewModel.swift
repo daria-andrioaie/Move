@@ -22,7 +22,7 @@ class FindScootersViewModel: ObservableObject{
         mapViewModel.onDeselectedScooter = {
             withAnimation {
                 self.selectedScooterAnnotation = nil
-                unlockOptionsSheetDisplayMode = SheetDisplayMode.none
+                self.unlockOptionsSheetDisplayMode = SheetDisplayMode.none
             }
         }
     }
