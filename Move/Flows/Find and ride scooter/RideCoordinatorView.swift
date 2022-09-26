@@ -9,6 +9,7 @@ import SwiftUI
 
 enum RideCoordinatorState {
     case findScooter
+    case unlockScooter
     case menuOverview
     case rideInProgress
     case payRide
@@ -18,6 +19,7 @@ struct RideCoordinatorView: View {
     let onLogout: () -> Void
     
     @State private var state: RideCoordinatorState? = .findScooter
+    @State private var unlockMethod: UnlockCoordinatorState? = .PINUnlock
     @State private var showingMenu = false
     
     var body: some View {
@@ -30,6 +32,15 @@ struct RideCoordinatorView: View {
                                 print("showing menu")
                                 showingMenu = true
                             }
+                        }, onPinUnlockButton: {
+                            unlockMethod = .PINUnlock
+                            state = .unlockScooter
+                        }, onQRUnlockButton: {
+                            unlockMethod = .QRUnlock
+                            state = .unlockScooter
+                        }, onNFCUnlockButton: {
+                            unlockMethod = .NFCUnlock
+                            state = .unlockScooter
                         })
                             .preferredColorScheme(.light)
                             .navigationBarHidden(true)
@@ -38,8 +49,26 @@ struct RideCoordinatorView: View {
                             .navigationBarBackButtonHidden(true), tag: .findScooter, selection: $state) {
                             EmptyView()
                         }
+                        NavigationLink(destination: UnlockCoordinator(state: $unlockMethod, onCancelUnlock: {
+                            state = .findScooter
+                        }, onUnlockFinished: {
+                            state = .rideInProgress
+                        })
+                            .preferredColorScheme(.dark)
+                            .navigationBarHidden(true)
+                            .ignoresSafeArea()
+                            .navigationBarBackButtonHidden(true), tag: .unlockScooter, selection: $state) {
+                            EmptyView()
+                        }
+                        
+                        NavigationLink(destination: RideScooterView()
+                            .preferredColorScheme(.light)
+                            .navigationBarHidden(true)
+                            .ignoresSafeArea()
+                            .navigationBarBackButtonHidden(true), tag: .rideInProgress, selection: $state) {
+                            EmptyView()
+                        }
                     }
-                    
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())

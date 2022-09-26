@@ -10,7 +10,7 @@ import Alamofire
 import CoreLocation
 
 class ScootersAPIService {
-    private let baseURL = "https://move-scooter.herokuapp.com/api/scooter/near"
+    private let baseURL = "https://move-scooter.herokuapp.com/api/scooters/near"
     
     func getScootersInArea(center: CLLocationCoordinate2D, radius: Int, onRequestCompleted: @escaping (Result<[ScooterData], APIError>) -> Void) {
         

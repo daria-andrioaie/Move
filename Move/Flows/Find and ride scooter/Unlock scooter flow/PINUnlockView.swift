@@ -10,8 +10,10 @@ import SwiftUI
 class PINUnlockViewModel: ObservableObject {
     @Published var pin: String = ""
     
-    func sendUnlockRequest() -> Void {
-        
+    func sendUnlockRequest(onUnlockSuccessful: @escaping () -> Void) -> Void {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+            onUnlockSuccessful()
+        })
     }
 }
 
@@ -31,7 +33,7 @@ struct DigitField: View {
             .font(.primary(type: .heading2))
             .background(RoundedRectangle(cornerRadius: 18)
                 .frame(width: 52, height: 52, alignment: .center)
-                .foregroundColor(fieldIsFocused ? .white : .neutralPurple))
+                .foregroundColor(fieldIsFocused || digit.count == 1 ? .white : .neutralPurple))
             .onChange(of: digit) { newValue in
                 if newValue.count == 1 {
                     whenFilled()
@@ -79,7 +81,12 @@ struct PINFieldsSequence: View {
 }
 
 struct PINUnlockView: View {
+    @State private var isUnlockInProgress: Bool = false
     let onCancelUnlock: () -> Void
+    let onUnlockSuccessful: () -> Void
+    let onSwitchToNFC: () -> Void
+    let onSwitchToQR: () -> Void
+
     @StateObject var viewModel = PINUnlockViewModel()
     
     var body: some View {
@@ -101,18 +108,27 @@ struct PINUnlockView: View {
                     .padding(.top, 16)
                     .padding(.bottom, 104)
 
-                PINFieldsSequence(finalValue: $viewModel.pin)
-                    .onChange(of: viewModel.pin) { newPin in
-                        if newPin.count == 4 {
-                            viewModel.sendUnlockRequest()
+                if isUnlockInProgress {
+                    ActivityIndicator()
+                        .frame(width: 50, height: 50)
+                        .padding(.bottom, 155)
+                }
+                else {
+                    PINFieldsSequence(finalValue: $viewModel.pin)
+                        .onChange(of: viewModel.pin) { newPin in
+                            if newPin.count == 4 {
+                                self.isUnlockInProgress = true
+                                viewModel.sendUnlockRequest {
+                                    onUnlockSuccessful()
+                                }
+                            }
                         }
-                    }
-                    .padding(.bottom, 155)
-                               
+                        .padding(.bottom, 155)
+                }
                 AlternativeUnlockOptionsView(alternative1: "QR", onAlternaive1: {
-                    print("go to QR")
+                    onSwitchToQR()
                 }, alternative2: "NFC") {
-                    print("go to NFC")
+                    onSwitchToNFC()
                 }
                 
                 Spacer()
@@ -127,7 +143,7 @@ struct PINUnlockView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                PINUnlockView(onCancelUnlock: {})
+                PINUnlockView(onCancelUnlock: {}, onUnlockSuccessful: {}, onSwitchToNFC: {}, onSwitchToQR: {})
                     .previewDevice(device)
             }
         }

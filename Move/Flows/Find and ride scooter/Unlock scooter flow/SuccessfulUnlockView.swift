@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SuccessfulUnlockView: View {
+    let onUnlockFinished: () -> Void
     var body: some View {
         ZStack {
             PurpleBackgroundView()
@@ -36,6 +37,11 @@ struct SuccessfulUnlockView: View {
             .frame(maxHeight: .infinity)
             
         }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                onUnlockFinished()
+            })
+        }
     }
 }
 
@@ -43,7 +49,7 @@ struct SuccessfulUnlockView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                SuccessfulUnlockView()
+                SuccessfulUnlockView(onUnlockFinished: {})
                     .previewDevice(device)
             }
         }
