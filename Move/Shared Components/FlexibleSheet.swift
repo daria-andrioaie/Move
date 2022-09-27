@@ -30,7 +30,6 @@ struct FlexibleSheet<Content: View>: View {
     
     let content: () -> Content
     @Binding var sheetDisplayMode: SheetDisplayMode
-    
     var minimumVerticalDrag: CGFloat
     
     
@@ -42,7 +41,7 @@ struct FlexibleSheet<Content: View>: View {
     
     var body: some View {
         content()
-            .frame(maxWidth: .infinity) //, maxHeight: .infinity, alignment: .top)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .overlay(alignment: .top, content: {
                 GrabberView()
             })
@@ -53,6 +52,9 @@ struct FlexibleSheet<Content: View>: View {
             )
             .offset(y: self.calculateOffset() + verticalTranslation)
             .gesture(dragGesture)
+//            .transition(.move(edge: .bottom))
+//            .animation(.linear(duration: 1), value: verticalTranslation)
+            .zIndex(1)
             .animation(.easeInOut, value: verticalTranslation)
             .ignoresSafeArea(.container, edges: .bottom)
     }
@@ -86,7 +88,7 @@ struct FlexibleSheet<Content: View>: View {
         case .none:
             return UIScreen.main.bounds.height
         case .third:
-            return UIScreen.main.bounds.height * 3/4
+            return UIScreen.main.bounds.height * 3/4 - 45
         case .half:
             return UIScreen.main.bounds.height * 1/2 - 45
         }
@@ -95,8 +97,8 @@ struct FlexibleSheet<Content: View>: View {
 
 struct FlexibleSheet_Previews: PreviewProvider {
     static var previews: some View {
-        FlexibleSheet(sheetMode: .constant(.half)) {
-            VStack { Color.black }
+        FlexibleSheet(sheetMode: .constant(.third)) {
+            VStack { Color.blue }
         }
     }
 }

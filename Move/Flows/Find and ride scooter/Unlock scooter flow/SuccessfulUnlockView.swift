@@ -24,7 +24,7 @@ struct SuccessfulUnlockView: View {
                     .padding(.bottom, 97)
                 
                 Image("check-circle")
-                    .padding(.bottom, 36)
+                    .padding(.bottom, 46)
                 Text("Please respect all the driving regulations and other participants in traffic while using our scooters.")
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
@@ -37,11 +37,11 @@ struct SuccessfulUnlockView: View {
             .frame(maxHeight: .infinity)
             
         }
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-                onUnlockFinished()
-            })
-        }
+//        .onAppear {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+//                onUnlockFinished()
+//            })
+//        }
     }
 }
 

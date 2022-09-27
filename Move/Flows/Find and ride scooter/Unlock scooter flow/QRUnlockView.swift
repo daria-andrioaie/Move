@@ -7,24 +7,14 @@
 
 import SwiftUI
 
-class QRUnlockViewModel: ObservableObject {
-    
-    func sendUnlockRequest(onUnlockSuccessful: @escaping () -> Void) -> Void {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-            onUnlockSuccessful()
-        })
-    }
-}
-
-
 struct QRUnlockView: View {
     let onCancelUnlock: () -> Void
     let onUnlockSuccessful: () -> Void
     let onSwitchToPIN: () -> Void
     let onSwitchToNFC: () -> Void
     
-    @StateObject var viewModel = QRUnlockViewModel()
-    @State private var isUnlockInProgress: Bool = false
+//    @ObservedObject var viewModel:
+//    @State private var isUnlockInProgress: Bool = false
 
     var body: some View {
         ZStack {

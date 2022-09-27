@@ -7,16 +7,6 @@
 
 import SwiftUI
 
-class PINUnlockViewModel: ObservableObject {
-    @Published var pin: String = ""
-    
-    func sendUnlockRequest(onUnlockSuccessful: @escaping () -> Void) -> Void {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-            onUnlockSuccessful()
-        })
-    }
-}
-
 struct DigitField: View {
     @Binding var digit: String
     @FocusState var fieldIsFocused: Bool
@@ -82,13 +72,15 @@ struct PINFieldsSequence: View {
 
 struct PINUnlockView: View {
     @State private var isUnlockInProgress: Bool = false
+    @State private var pin: String = ""
+
     let onCancelUnlock: () -> Void
     let onUnlockSuccessful: () -> Void
     let onSwitchToNFC: () -> Void
     let onSwitchToQR: () -> Void
 
-    @StateObject var viewModel = PINUnlockViewModel()
-    
+    @ObservedObject var viewModel: UnlockViewModel
+
     var body: some View {
         ZStack {
             PurpleBackgroundView()
@@ -114,11 +106,11 @@ struct PINUnlockView: View {
                         .padding(.bottom, 155)
                 }
                 else {
-                    PINFieldsSequence(finalValue: $viewModel.pin)
-                        .onChange(of: viewModel.pin) { newPin in
+                    PINFieldsSequence(finalValue: $pin)
+                        .onChange(of: pin) { newPin in
                             if newPin.count == 4 {
                                 self.isUnlockInProgress = true
-                                viewModel.sendUnlockRequest {
+                                viewModel.sendUnlockRequest(scooterNumber: newPin) {
                                     onUnlockSuccessful()
                                 }
                             }
@@ -143,7 +135,7 @@ struct PINUnlockView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                PINUnlockView(onCancelUnlock: {}, onUnlockSuccessful: {}, onSwitchToNFC: {}, onSwitchToQR: {})
+                PINUnlockView(onCancelUnlock: {}, onUnlockSuccessful: {}, onSwitchToNFC: {}, onSwitchToQR: {}, viewModel: UnlockViewModel())
                     .previewDevice(device)
             }
         }

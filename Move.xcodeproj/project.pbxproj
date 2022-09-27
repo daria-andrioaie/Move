@@ -38,6 +38,7 @@
 		B896D15628A63D6000BD7791 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B896D15528A63D6000BD7791 /* ColorExtensions.swift */; };
 		B896D15828A6422500BD7791 /* PreviewDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B896D15728A6422500BD7791 /* PreviewDevices.swift */; };
 		B896D15A28A66AD000BD7791 /* MainCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B896D15928A66AD000BD7791 /* MainCoordinatorView.swift */; };
+		B899247F28E2E57500AE0EDD /* UnlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B899247E28E2E57500AE0EDD /* UnlockViewModel.swift */; };
 		B8A096DD28C094DD00F0BEFC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A096DC28C094DD00F0BEFC /* LoginViewModel.swift */; };
 		B8A096E028C0951A00F0BEFC /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A096DF28C0951A00F0BEFC /* RegisterViewModel.swift */; };
 		B8A096E228C097B100F0BEFC /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A096E128C097B100F0BEFC /* AuthenticationViewModel.swift */; };
@@ -85,6 +86,7 @@
 		B8E5BB9C28A27F0F0012DB66 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9B28A27F0F0012DB66 /* RegisterView.swift */; };
 		B8E5BB9E28A27F190012DB66 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9D28A27F190012DB66 /* LoginView.swift */; };
 		B8E5BBA028A27F2D0012DB66 /* PurpleBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9F28A27F2D0012DB66 /* PurpleBackgroundView.swift */; };
+		B8E909BF28E2DD67000DD93F /* RidesAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E909BE28E2DD67000DD93F /* RidesAPIService.swift */; };
 		B8E9752728AE6766004E83A4 /* ValidationInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E9752628AE6766004E83A4 /* ValidationInProgressView.swift */; };
 		B8E9752B28AE67A1004E83A4 /* ValidationSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E9752A28AE67A1004E83A4 /* ValidationSuccessView.swift */; };
 		B8E9752D28AE7111004E83A4 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E9752C28AE7111004E83A4 /* ActivityIndicator.swift */; };
@@ -124,6 +126,7 @@
 		B896D15528A63D6000BD7791 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		B896D15728A6422500BD7791 /* PreviewDevices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDevices.swift; sourceTree = "<group>"; };
 		B896D15928A66AD000BD7791 /* MainCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorView.swift; sourceTree = "<group>"; };
+		B899247E28E2E57500AE0EDD /* UnlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockViewModel.swift; sourceTree = "<group>"; };
 		B8A096DC28C094DD00F0BEFC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		B8A096DF28C0951A00F0BEFC /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		B8A096E128C097B100F0BEFC /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
@@ -173,6 +176,7 @@
 		B8E5BB9B28A27F0F0012DB66 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B8E5BB9D28A27F190012DB66 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B8E5BB9F28A27F2D0012DB66 /* PurpleBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleBackgroundView.swift; sourceTree = "<group>"; };
+		B8E909BE28E2DD67000DD93F /* RidesAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesAPIService.swift; sourceTree = "<group>"; };
 		B8E9752628AE6766004E83A4 /* ValidationInProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationInProgressView.swift; sourceTree = "<group>"; };
 		B8E9752A28AE67A1004E83A4 /* ValidationSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationSuccessView.swift; sourceTree = "<group>"; };
 		B8E9752C28AE7111004E83A4 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
@@ -356,6 +360,7 @@
 				B8DCB04E28E1A5E70032C973 /* UnlockCoordinator.swift */,
 				B8DCB05628E1DDFF0032C973 /* QRUnlockView.swift */,
 				B8DCB05828E1E8580032C973 /* NFCUnlockView.swift */,
+				B899247E28E2E57500AE0EDD /* UnlockViewModel.swift */,
 			);
 			path = "Unlock scooter flow";
 			sourceTree = "<group>";
@@ -439,6 +444,7 @@
 			children = (
 				B890F3BD28CB61B900435E9C /* ScootersAPIService.swift */,
 				B83DD40528BCDC7700F1F2F6 /* AuthenticationAPIService.swift */,
+				B8E909BE28E2DD67000DD93F /* RidesAPIService.swift */,
 			);
 			path = "API Services";
 			sourceTree = "<group>";
@@ -696,6 +702,7 @@
 				B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */,
 				B8A096E628C0A17F00F0BEFC /* SingleOnboardingView.swift in Sources */,
 				B8E9752D28AE7111004E83A4 /* ActivityIndicator.swift in Sources */,
+				B8E909BF28E2DD67000DD93F /* RidesAPIService.swift in Sources */,
 				B82A3ADB28D31B11005F22A2 /* EditAccountView.swift in Sources */,
 				B8A096DD28C094DD00F0BEFC /* LoginViewModel.swift in Sources */,
 				B8DCB05128E1B6F10032C973 /* RideScooterView.swift in Sources */,
@@ -708,6 +715,7 @@
 				B8A096E228C097B100F0BEFC /* AuthenticationViewModel.swift in Sources */,
 				B83E8A6A28CA2B210064704C /* Scooter.swift in Sources */,
 				B8D05DFF28D59FC000DB83AE /* SuccessfulUnlockView.swift in Sources */,
+				B899247F28E2E57500AE0EDD /* UnlockViewModel.swift in Sources */,
 				B84DE58028C604910051311B /* FlexibleSheet.swift in Sources */,
 				B8DCB05728E1DDFF0032C973 /* QRUnlockView.swift in Sources */,
 				B8B14F2428BE49FC00979F01 /* ImagePickerView.swift in Sources */,

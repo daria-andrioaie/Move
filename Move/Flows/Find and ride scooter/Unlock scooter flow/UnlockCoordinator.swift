@@ -20,6 +20,8 @@ struct UnlockCoordinator: View {
     let onCancelUnlock: () -> Void
     let onUnlockFinished: () -> Void
     
+    @StateObject var viewModel = UnlockViewModel()
+    
     var body: some View {
         NavigationView {
             List {
@@ -29,7 +31,7 @@ struct UnlockCoordinator: View {
                     state = .NFCUnlock
                 }, onSwitchToQR: {
                     state = .QRUnlock
-                })
+                }, viewModel: viewModel)
                     .navigationBarHidden(true)
                     .ignoresSafeArea()
                     .navigationBarBackButtonHidden(true), tag: .PINUnlock, selection: $state) {
@@ -70,6 +72,7 @@ struct UnlockCoordinator: View {
                 }
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

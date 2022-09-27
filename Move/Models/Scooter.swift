@@ -19,10 +19,12 @@ class Location: Codable {
 
 class ScooterData: Codable {
     var _id: String
+//    var internalId: String
     var scooterNumber: Int
     var bookedStatus: String
     var lockedStatus: String
     var battery: Int
+//    var chargingStatus: String
     var location: Location
     
     required init(_id: String, scooterNumber: Int, bookedStatus: String, lockedStatus: String, battery: Int, location: Location) {

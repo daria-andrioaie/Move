@@ -73,39 +73,43 @@ struct AddLicenseView: View {
                     
                     
                     FormButton(title: "Add driving license", isEnabled: true, action: {
-                        actionSheetDisplayMode = .third
+                        withAnimation {
+                            actionSheetDisplayMode = .third
+                        }
                     })
                     .padding(.top, 31)
                 }
             }
-            FlexibleSheet(sheetMode: $actionSheetDisplayMode) {
-                VStack {
-                    Button("Upload from gallery", action: {
-                        actionSheetDisplayMode = .none
-                        viewModel.showImagePicker = true
-                    })
-                    .frame(maxWidth: .infinity)
-                    .lightActiveButton()
-                    .padding(.horizontal, 24)
-                    
-                    Button("Take picture now", action: {
-                        actionSheetDisplayMode = .none
-                        viewModel.scanLicense()
-                    })
-                    .frame(maxWidth: .infinity)
-                    .activeButton()
-                    .padding(.horizontal, 24)
-                }
-                .padding(45)
-            }
-            .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
-                .onEnded{ value in
-                    // swipe down gesture on the action sheet
-                    if (-100...100).contains(value.translation.width) &&
-                        (0...).contains(value.translation.height) {
-                        actionSheetDisplayMode = .none
+            if actionSheetDisplayMode != .none {
+                FlexibleSheet(sheetMode: $actionSheetDisplayMode) {
+                    VStack {
+                        Button("Upload from gallery", action: {
+                            actionSheetDisplayMode = .none
+                            viewModel.showImagePicker = true
+                        })
+                        .frame(maxWidth: .infinity)
+                        .lightActiveButton()
+                        .padding(.horizontal, 24)
+
+                        Button("Take picture now", action: {
+                            actionSheetDisplayMode = .none
+                            viewModel.scanLicense()
+                        })
+                        .frame(maxWidth: .infinity)
+                        .activeButton()
+                        .padding(.horizontal, 24)
                     }
-                })
+                    .padding(45)
+                }
+    //            .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
+    //                .onEnded{ value in
+    //                    // swipe down gesture on the action sheet
+    //                    if (-100...100).contains(value.translation.width) &&
+    //                        (0...).contains(value.translation.height) {
+    //                        actionSheetDisplayMode = .none
+    //                    }
+    //                })
+            }
         }
         .sheet(isPresented: $viewModel.showScanner) {
             ScannerView { result in
