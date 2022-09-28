@@ -8,8 +8,10 @@
 import Foundation
 import SwiftUI
 
-class FindScootersViewModel: ObservableObject{
+class FindScootersViewModel: ObservableObject {
     @Published var selectedScooterAnnotation: ScooterAnnotation?
+    @Published var startRideSheetDisplayMode = SheetDisplayMode.none
+
     @Published var unlockOptionsSheetDisplayMode = SheetDisplayMode.none
     var mapViewModel: ScooterMapViewModel = .init()
     

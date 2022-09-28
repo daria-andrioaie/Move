@@ -13,6 +13,8 @@ struct NFCUnlockView: View {
     let onSwitchToPIN: () -> Void
     let onSwitchToQR: () -> Void
     
+    @ObservedObject var viewModel: UnlockViewModel
+    
     @State private var isUnlockInProgress: Bool = false
     
     var body: some View {
@@ -59,7 +61,7 @@ struct NFCUnlockView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                NFCUnlockView(onCancelUnlock: {}, onUnlockSuccessful: {}, onSwitchToPIN: {}, onSwitchToQR: {})
+                NFCUnlockView(onCancelUnlock: {}, onUnlockSuccessful: {}, onSwitchToPIN: {}, onSwitchToQR: {}, viewModel: UnlockViewModel())
                     .previewDevice(device)
             }
         }

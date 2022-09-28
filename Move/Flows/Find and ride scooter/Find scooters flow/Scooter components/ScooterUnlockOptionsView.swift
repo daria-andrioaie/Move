@@ -8,26 +8,24 @@
 import SwiftUI
 
 struct UnlockOptionsButtons: View {
-    let onPinUnlockButton: () -> Void
-    let onQRUnlockButton: () -> Void
-    let onNFCUnlockButton: () -> Void
+    let onUnlock: (UnlockMethod) -> Void
     
     var body: some View {
         HStack(spacing: 20) {
             Button("NFC") {
-                onPinUnlockButton()
+                onUnlock(.NFCUnlock)
             }
             .frame(maxWidth: .infinity)
             .lightActiveButton()
             
             Button("QR") {
-                onQRUnlockButton()
+                onUnlock(.QRUnlock)
             }
             .frame(maxWidth: .infinity)
             .lightActiveButton()
             
             Button("123") {
-                onPinUnlockButton()
+                onUnlock(.PINUnlock)
             }
             .frame(maxWidth: .infinity)
             .lightActiveButton()
@@ -64,11 +62,8 @@ struct ScooterDetailsUnlockView: View {
 
 struct ScooterUnlockOptionsView: View {
     let scooterData: ScooterData
-    
-    let onPinUnlockButton: () -> Void
-    let onQRUnlockButton: () -> Void
-    let onNFCUnlockButton: () -> Void
-    
+    let onUnlock: (UnlockMethod) -> Void
+
     var body: some View {
         
         VStack(spacing: 25) {
@@ -110,7 +105,7 @@ struct ScooterUnlockOptionsView: View {
             }
             .frame(maxWidth: .infinity)
             
-            UnlockOptionsButtons(onPinUnlockButton: onPinUnlockButton, onQRUnlockButton: onQRUnlockButton, onNFCUnlockButton: onNFCUnlockButton)
+            UnlockOptionsButtons(onUnlock: onUnlock)
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 30)
@@ -125,7 +120,7 @@ struct ScooterUnlockOptionsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                ScooterUnlockOptionsView(scooterData: .init(_id: "alaal", scooterNumber: 1234, bookedStatus: "free", lockedStatus: "unlocked", battery: 100, location: .init(coordinates: [23.123456, 46.123456], address: "Strada Avram Iancu nr .26 Cladirea 2")), onPinUnlockButton: {}, onQRUnlockButton: {}, onNFCUnlockButton: {})
+                ScooterUnlockOptionsView(scooterData: .init(_id: "alaal", scooterNumber: 1234, bookedStatus: "free", lockedStatus: "unlocked", battery: 100, location: .init(coordinates: [23.123456, 46.123456], address: "Strada Avram Iancu nr .26 Cladirea 2")), onUnlock: {_ in })
                     .previewDevice(device)
             }
         }

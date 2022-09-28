@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RideScooterView: View {
     var body: some View {
-        Text("You are riding a scooter")
+        Text("vg")
     }
 }
 

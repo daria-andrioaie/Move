@@ -7,19 +7,30 @@
 
 import SwiftUI
 
-enum RideCoordinatorState {
+enum RideCoordinatorState: IdentifiableHashable {
     case findScooter
     case unlockScooter
-    case menuOverview
+//    case menuOverview
     case rideInProgress
     case payRide
+    
+    var id: String {
+        switch self {
+        case .findScooter: return "findScooter"
+        case .unlockScooter: return "unlockScooter"
+//        case .menuOverview:
+        case .rideInProgress: return "rideScooter"
+        case .payRide: return "payRide"
+        }
+    }
+    
 }
 
 struct RideCoordinatorView: View {
     let onLogout: () -> Void
     
     @State private var state: RideCoordinatorState? = .findScooter
-    @State private var unlockMethod: UnlockCoordinatorState? = .PINUnlock
+    @State private var unlockMethod: UnlockMethod? = .PINUnlock
     @State private var showingMenu = false
     
     var body: some View {
@@ -32,14 +43,8 @@ struct RideCoordinatorView: View {
                                 print("showing menu")
                                 showingMenu = true
                             }
-                        }, onPinUnlockButton: {
-                            unlockMethod = .PINUnlock
-                            state = .unlockScooter
-                        }, onQRUnlockButton: {
-                            unlockMethod = .QRUnlock
-                            state = .unlockScooter
-                        }, onNFCUnlockButton: {
-                            unlockMethod = .NFCUnlock
+                        }, onUnlock: { unlockMethod in
+                            self.unlockMethod = unlockMethod
                             state = .unlockScooter
                         })
                             .preferredColorScheme(.light)
@@ -49,15 +54,7 @@ struct RideCoordinatorView: View {
                             .navigationBarBackButtonHidden(true), tag: .findScooter, selection: $state) {
                             EmptyView()
                         }
-                        NavigationLink(destination: UnlockCoordinator(state: $unlockMethod, onCancelUnlock: {
-                            state = .findScooter
-                        }, onUnlockFinished: {
-                            state = .rideInProgress
-                        })
-                            .preferredColorScheme(.dark)
-                            .navigationBarHidden(true)
-                            .ignoresSafeArea()
-                            .navigationBarBackButtonHidden(true), tag: .unlockScooter, selection: $state) {
+                        NavigationLink(destination: unlockCoordinator, tag: .unlockScooter, selection: $state) {
                             EmptyView()
                         }
                         
@@ -84,6 +81,27 @@ struct RideCoordinatorView: View {
                 //TODO: prevent this view from enetering the safe area at the top
             }
         }
+    }
+    
+    @ViewBuilder
+    var unlockCoordinator: some View {
+        if case .unlockScooter = state {
+            UnlockCoordinator(initialUnlock: unlockMethod!, onCancelUnlock: {
+                state = .findScooter
+            }, onUnlockFinished: {
+                state = .rideInProgress
+            })
+                .preferredColorScheme(.dark)
+                .navigationBarHidden(true)
+                .ignoresSafeArea()
+                .navigationBarBackButtonHidden(true)
+                
+        }
+        else {
+            Color.red
+        }
+        
+        
     }
 }
 

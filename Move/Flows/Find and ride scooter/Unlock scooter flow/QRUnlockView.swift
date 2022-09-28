@@ -13,7 +13,7 @@ struct QRUnlockView: View {
     let onSwitchToPIN: () -> Void
     let onSwitchToNFC: () -> Void
     
-//    @ObservedObject var viewModel:
+    @ObservedObject var viewModel: UnlockViewModel
 //    @State private var isUnlockInProgress: Bool = false
 
     var body: some View {
@@ -68,7 +68,7 @@ struct QRUnlockView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                QRUnlockView(onCancelUnlock: {}, onUnlockSuccessful: {}, onSwitchToPIN: {}, onSwitchToNFC: {})
+                QRUnlockView(onCancelUnlock: {}, onUnlockSuccessful: {}, onSwitchToPIN: {}, onSwitchToNFC: {}, viewModel: UnlockViewModel())
                     .previewDevice(device)
             }
         }

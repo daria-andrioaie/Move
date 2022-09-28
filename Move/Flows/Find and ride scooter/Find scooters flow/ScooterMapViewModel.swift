@@ -12,6 +12,7 @@ import SwiftUI
 class ScooterMapViewModel: NSObject, ObservableObject {
     
     private var userLocation: CLLocation?
+    
     private var locationManager = CLLocationManager()
     
     private func configureLocationManager() {
@@ -87,6 +88,9 @@ class ScooterMapViewModel: NSObject, ObservableObject {
         service.getScootersInArea(center: mapView.centerCoordinate, radius: 4000) { result in
             switch result {
             case .success(let scooters):
+                for scooter in scooters {
+                    print(scooter.toString())
+                }
                 self.scooters = scooters.getAnnotations()
             case .failure(let error):
                 print("\(error.message)")
@@ -183,6 +187,7 @@ extension ScooterMapViewModel: CLLocationManagerDelegate {
         print(error.localizedDescription)
     }
     
+    
     func checkLocationAuthorization() {
         switch locationManager.authorizationStatus {
         case .notDetermined:
@@ -198,7 +203,7 @@ extension ScooterMapViewModel: CLLocationManagerDelegate {
         case .authorizedAlways, .authorizedWhenInUse:
             locationManager.requestLocation()
 //            self.centerMapOnUserLocation()
-//            locationManager.startUpdatingLocation()
+            locationManager.startUpdatingLocation()
         @unknown default:
             break
         }

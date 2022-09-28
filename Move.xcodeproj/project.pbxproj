@@ -48,6 +48,7 @@
 		B8B14F2428BE49FC00979F01 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B14F2328BE49FC00979F01 /* ImagePickerView.swift */; };
 		B8B43AD328D44AA700F06507 /* ScooterUnlockOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B43AD228D44AA700F06507 /* ScooterUnlockOptionsView.swift */; };
 		B8B4B0C328A132AD00FD6B56 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B4B0C228A132AD00FD6B56 /* SplashView.swift */; };
+		B8CDA1CD28E458A50079D157 /* Indentifiable + Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CDA1CC28E458A50079D157 /* Indentifiable + Hashable.swift */; };
 		B8D05DFD28D59F4C00DB83AE /* PINUnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D05DFC28D59F4B00DB83AE /* PINUnlockView.swift */; };
 		B8D05DFF28D59FC000DB83AE /* SuccessfulUnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D05DFE28D59FC000DB83AE /* SuccessfulUnlockView.swift */; };
 		B8D05E0228D5A05B00DB83AE /* UnlockHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D05E0128D5A05B00DB83AE /* UnlockHeaderView.swift */; };
@@ -90,6 +91,7 @@
 		B8E9752728AE6766004E83A4 /* ValidationInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E9752628AE6766004E83A4 /* ValidationInProgressView.swift */; };
 		B8E9752B28AE67A1004E83A4 /* ValidationSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E9752A28AE67A1004E83A4 /* ValidationSuccessView.swift */; };
 		B8E9752D28AE7111004E83A4 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E9752C28AE7111004E83A4 /* ActivityIndicator.swift */; };
+		B8EB8DF328E3258000E0134D /* RideScooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EB8DF228E3258000E0134D /* RideScooterViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -136,6 +138,7 @@
 		B8B14F2328BE49FC00979F01 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		B8B43AD228D44AA700F06507 /* ScooterUnlockOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScooterUnlockOptionsView.swift; sourceTree = "<group>"; };
 		B8B4B0C228A132AD00FD6B56 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		B8CDA1CC28E458A50079D157 /* Indentifiable + Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Indentifiable + Hashable.swift"; sourceTree = "<group>"; };
 		B8D05DFC28D59F4B00DB83AE /* PINUnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PINUnlockView.swift; sourceTree = "<group>"; };
 		B8D05DFE28D59FC000DB83AE /* SuccessfulUnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulUnlockView.swift; sourceTree = "<group>"; };
 		B8D05E0128D5A05B00DB83AE /* UnlockHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockHeaderView.swift; sourceTree = "<group>"; };
@@ -180,6 +183,7 @@
 		B8E9752628AE6766004E83A4 /* ValidationInProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationInProgressView.swift; sourceTree = "<group>"; };
 		B8E9752A28AE67A1004E83A4 /* ValidationSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationSuccessView.swift; sourceTree = "<group>"; };
 		B8E9752C28AE7111004E83A4 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		B8EB8DF228E3258000E0134D /* RideScooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideScooterViewModel.swift; sourceTree = "<group>"; };
 		BF3D1FBCE5C048B8A060E965 /* Pods-Move.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move.debug.xcconfig"; path = "Target Support Files/Pods-Move/Pods-Move.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -262,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				B8DCB05028E1B6F10032C973 /* RideScooterView.swift */,
+				B8EB8DF228E3258000E0134D /* RideScooterViewModel.swift */,
 			);
 			path = "Ride scooter flow";
 			sourceTree = "<group>";
@@ -479,6 +484,7 @@
 			children = (
 				B896D15728A6422500BD7791 /* PreviewDevices.swift */,
 				B8052FBA28C88EE000F3439B /* Location.gpx */,
+				B8CDA1CC28E458A50079D157 /* Indentifiable + Hashable.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -688,6 +694,7 @@
 				B84DE57928C5D9AC0051311B /* APIError.swift in Sources */,
 				B83E8A6828CA29690064704C /* ScooterCardView.swift in Sources */,
 				B80979CE28A51A4E009B1C8D /* ResetPasswordView.swift in Sources */,
+				B8EB8DF328E3258000E0134D /* RideScooterViewModel.swift in Sources */,
 				B896D15A28A66AD000BD7791 /* MainCoordinatorView.swift in Sources */,
 				B8D9B22428D053F7006966C7 /* FindScootersViewModel.swift in Sources */,
 				B8E278F928C74CB300F6FB50 /* FindScootersView.swift in Sources */,
@@ -714,6 +721,7 @@
 				B8B43AD328D44AA700F06507 /* ScooterUnlockOptionsView.swift in Sources */,
 				B8A096E228C097B100F0BEFC /* AuthenticationViewModel.swift in Sources */,
 				B83E8A6A28CA2B210064704C /* Scooter.swift in Sources */,
+				B8CDA1CD28E458A50079D157 /* Indentifiable + Hashable.swift in Sources */,
 				B8D05DFF28D59FC000DB83AE /* SuccessfulUnlockView.swift in Sources */,
 				B899247F28E2E57500AE0EDD /* UnlockViewModel.swift in Sources */,
 				B84DE58028C604910051311B /* FlexibleSheet.swift in Sources */,

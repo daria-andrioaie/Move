@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+//TODO: change model classes with structs
 class User: Codable {
     var _id: String
     var username: String

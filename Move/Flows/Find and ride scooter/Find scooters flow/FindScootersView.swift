@@ -75,23 +75,49 @@ extension LocationManger: CLLocationManagerDelegate {
     }
 }
 
-//extension MKCoordinateRegion {
-//    static func ClujCentralRegion() -> MKCoordinateRegion {
-//        MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 46.769484, longitude: 23.589884), latitudinalMeters: 4000, longitudinalMeters: 4000)
-//    }
-//
-//    func getBinding() -> Binding<MKCoordinateRegion>? {
-//        return Binding<MKCoordinateRegion>(.constant(self))
-//    }
-//}
+struct SelectedScooterSheetView: View {
+    var selectedScooterAnnotation: ScooterAnnotation
+    @Binding var unlockOptionsSheetDisplayMode: SheetDisplayMode
+    let onUnlock: (UnlockMethod) -> Void
 
-
+    var body: some View {
+        switch selectedScooterAnnotation.getScooterData().lockedStatus {
+        case .locked:
+            ScooterCardView(scooterData: selectedScooterAnnotation.scooterData, onUnlock: {
+                unlockOptionsSheetDisplayMode = .half
+            })
+                .frame(maxHeight: .infinity, alignment: .bottom)
+                .transition(.move(edge: .bottom))
+                .animation(.linear(duration: 1), value: selectedScooterAnnotation != nil)
+                .zIndex(1)
+            
+            if unlockOptionsSheetDisplayMode != .none {
+                FlexibleSheet(sheetMode: $unlockOptionsSheetDisplayMode) {
+                    ScooterUnlockOptionsView(scooterData: selectedScooterAnnotation.scooterData, onUnlock: onUnlock)
+                    
+                }
+                .zIndex(2)
+            }
+        case .unlocked:
+            FlexibleSheet(sheetMode: $unlockOptionsSheetDisplayMode) {
+                ZStack {
+                    Color.accentPink
+                    Text("Start ride")
+                        .foregroundColor(.white)
+                        .font(.primary(type: .button1))
+                }
+            }
+            .zIndex(3)
+        }
+    }
+}
 
 struct FindScootersView: View {
     let onMenuButtonPressed: () -> Void
-    let onPinUnlockButton: () -> Void
-    let onQRUnlockButton: () -> Void
-    let onNFCUnlockButton: () -> Void
+    let onUnlock: (UnlockMethod) -> Void
+//    let onPinUnlockButton: () -> Void
+//    let onQRUnlockButton: () -> Void
+//    let onNFCUnlockButton: () -> Void
     
     @StateObject private var viewModel = FindScootersViewModel()
     
@@ -108,20 +134,7 @@ struct FindScootersView: View {
                 viewModel.centerMapOnUserLocation()
             }
             if let selectedScooterAnnotation = viewModel.selectedScooterAnnotation {
-                ScooterCardView(scooterData: selectedScooterAnnotation.scooterData, onUnlock: {
-                    viewModel.unlockOptionsSheetDisplayMode = .half
-                })
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .transition(.move(edge: .bottom))
-                    .animation(.linear(duration: 1), value: viewModel.selectedScooterAnnotation != nil)
-                    .zIndex(1)
-                
-                if viewModel.unlockOptionsSheetDisplayMode != .none {
-                    FlexibleSheet(sheetMode: $viewModel.unlockOptionsSheetDisplayMode) {
-                        ScooterUnlockOptionsView(scooterData: selectedScooterAnnotation.scooterData, onPinUnlockButton: onPinUnlockButton, onQRUnlockButton: onQRUnlockButton, onNFCUnlockButton: onNFCUnlockButton)
-                    }
-                    .zIndex(2)
-                }
+                SelectedScooterSheetView(selectedScooterAnnotation: selectedScooterAnnotation, unlockOptionsSheetDisplayMode: $viewModel.unlockOptionsSheetDisplayMode, onUnlock: onUnlock)
             }
         }
     }
@@ -131,7 +144,7 @@ struct FindScootersView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                FindScootersView(onMenuButtonPressed: {}, onPinUnlockButton: {}, onQRUnlockButton: {}, onNFCUnlockButton: {})
+                FindScootersView(onMenuButtonPressed: {}, onUnlock: {_ in })
                     .previewDevice(device)
             }
         }

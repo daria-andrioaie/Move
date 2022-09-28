@@ -17,12 +17,22 @@ class Location: Codable {
     }
 }
 
+enum LockStatus: String, Codable {
+    case locked
+    case unlocked
+}
+
+enum BookStatus: String, Codable {
+    case free = "free"
+    case booked = "booked"
+}
+
 class ScooterData: Codable {
     var _id: String
 //    var internalId: String
     var scooterNumber: Int
-    var bookedStatus: String
-    var lockedStatus: String
+    var bookedStatus: BookStatus
+    var lockedStatus: LockStatus
     var battery: Int
 //    var chargingStatus: String
     var location: Location
@@ -30,10 +40,14 @@ class ScooterData: Codable {
     required init(_id: String, scooterNumber: Int, bookedStatus: String, lockedStatus: String, battery: Int, location: Location) {
         self._id = _id
         self.scooterNumber = scooterNumber
-        self.bookedStatus = bookedStatus
-        self.lockedStatus = lockedStatus
+        self.bookedStatus = .init(rawValue: bookedStatus) ?? .free
+        self.lockedStatus = .init(rawValue: lockedStatus) ?? .locked
         self.battery = battery
         self.location = location
+    }
+    
+    func toString() -> String {
+        return "\(scooterNumber)" + " " + bookedStatus.rawValue + " " + lockedStatus.rawValue + "\n"
     }
     
     static func mock_getScootersNearTapp() -> [ScooterData] {

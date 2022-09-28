@@ -112,6 +112,10 @@ struct PINUnlockView: View {
                                 self.isUnlockInProgress = true
                                 viewModel.sendUnlockRequest(scooterNumber: newPin) {
                                     onUnlockSuccessful()
+                                } onAPIError: { error in
+                                    isUnlockInProgress = false
+                                    let errorHandler = SwiftMessagesErrorHandler()
+                                    errorHandler.handle(message: error.message, type: .error)
                                 }
                             }
                         }

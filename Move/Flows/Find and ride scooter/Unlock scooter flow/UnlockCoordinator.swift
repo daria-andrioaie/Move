@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum UnlockCoordinatorState {
+enum UnlockMethod {
     case PINUnlock
     case QRUnlock
     case NFCUnlock
@@ -15,12 +15,18 @@ enum UnlockCoordinatorState {
 }
 
 struct UnlockCoordinator: View {
-    @Binding var state: UnlockCoordinatorState?
+    @State var state: UnlockMethod?
     
     let onCancelUnlock: () -> Void
     let onUnlockFinished: () -> Void
     
     @StateObject var viewModel = UnlockViewModel()
+    
+    init(initialUnlock: UnlockMethod, onCancelUnlock: @escaping () -> Void, onUnlockFinished: @escaping () -> Void) {
+        self.state = initialUnlock
+        self.onCancelUnlock = onCancelUnlock
+        self.onUnlockFinished = onUnlockFinished
+    }
     
     var body: some View {
         NavigationView {
@@ -44,7 +50,7 @@ struct UnlockCoordinator: View {
                     state = .PINUnlock
                 }, onSwitchToNFC: {
                     state = .NFCUnlock
-                })
+                }, viewModel: viewModel)
                     .navigationBarHidden(true)
                     .ignoresSafeArea()
                     .navigationBarBackButtonHidden(true), tag: .QRUnlock, selection: $state) {
@@ -57,7 +63,7 @@ struct UnlockCoordinator: View {
                     state = .PINUnlock
                 }, onSwitchToQR: {
                     state = .QRUnlock
-                })
+                }, viewModel: viewModel)
                     .navigationBarHidden(true)
                     .ignoresSafeArea()
                     .navigationBarBackButtonHidden(true), tag: .NFCUnlock, selection: $state) {
@@ -78,6 +84,6 @@ struct UnlockCoordinator: View {
 
 struct UnlockCoordinator_Previews: PreviewProvider {
     static var previews: some View {
-        UnlockCoordinator(state: .constant(.PINUnlock), onCancelUnlock: {}, onUnlockFinished: {})
+        UnlockCoordinator(initialUnlock: .PINUnlock, onCancelUnlock: {}, onUnlockFinished: {})
     }
 }

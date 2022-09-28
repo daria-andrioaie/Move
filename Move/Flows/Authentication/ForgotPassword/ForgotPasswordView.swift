@@ -45,7 +45,6 @@ struct ForgotPasswordView: View {
                         .overlay(Rectangle().opacity(0))
                 }
 
-                
 //                Image("chevron-left")
 //                    .alignLeadingWithHorizontalPadding()
 //                    .padding(.top, 45)
@@ -56,7 +55,6 @@ struct ForgotPasswordView: View {
 //                        onBack()
 //                    }
 //
-                
                 Text("Forgot password")
                     .font(.primary(type: .heading1))
                     .foregroundColor(.white)
