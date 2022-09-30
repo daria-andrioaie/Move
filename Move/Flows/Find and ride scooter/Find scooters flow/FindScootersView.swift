@@ -78,10 +78,11 @@ extension LocationManger: CLLocationManagerDelegate {
 struct SelectedScooterSheetView: View {
     var selectedScooterAnnotation: ScooterAnnotation
     @Binding var unlockOptionsSheetDisplayMode: SheetDisplayMode
+    @Binding var startRideSheetDisplayMode: SheetDisplayMode
     let onUnlock: (UnlockMethod) -> Void
 
     var body: some View {
-        switch selectedScooterAnnotation.getScooterData().lockedStatus {
+        switch selectedScooterAnnotation.getScooterData().lockStatus {
         case .locked:
             ScooterCardView(scooterData: selectedScooterAnnotation.scooterData, onUnlock: {
                 unlockOptionsSheetDisplayMode = .half
@@ -99,7 +100,7 @@ struct SelectedScooterSheetView: View {
                 .zIndex(2)
             }
         case .unlocked:
-            FlexibleSheet(sheetMode: $unlockOptionsSheetDisplayMode) {
+            FlexibleSheet(sheetMode: $startRideSheetDisplayMode) {
                 ZStack {
                     Color.accentPink
                     Text("Start ride")
@@ -113,14 +114,19 @@ struct SelectedScooterSheetView: View {
 }
 
 struct FindScootersView: View {
+    @Binding var selectedScooterAnnotation: ScooterAnnotation?
     let onMenuButtonPressed: () -> Void
     let onUnlock: (UnlockMethod) -> Void
-//    let onPinUnlockButton: () -> Void
-//    let onQRUnlockButton: () -> Void
-//    let onNFCUnlockButton: () -> Void
     
-    @StateObject private var viewModel = FindScootersViewModel()
+    @StateObject var viewModel: FindScootersViewModel
     
+    init(selectedScooterAnnotation: Binding<ScooterAnnotation?>, onMenuButtonPressed: @escaping () -> Void, onUnlock: @escaping (UnlockMethod) -> Void) {
+        self._selectedScooterAnnotation = selectedScooterAnnotation
+        self.onMenuButtonPressed = onMenuButtonPressed
+        self.onUnlock = onUnlock
+        self._viewModel = StateObject(wrappedValue: FindScootersViewModel(selectedScooterAnnotation: selectedScooterAnnotation))
+    }
+
     var body: some View {
         ZStack(alignment: .top) {
             ScooterMapView(viewModel: viewModel.mapViewModel)
@@ -134,7 +140,10 @@ struct FindScootersView: View {
                 viewModel.centerMapOnUserLocation()
             }
             if let selectedScooterAnnotation = viewModel.selectedScooterAnnotation {
-                SelectedScooterSheetView(selectedScooterAnnotation: selectedScooterAnnotation, unlockOptionsSheetDisplayMode: $viewModel.unlockOptionsSheetDisplayMode, onUnlock: onUnlock)
+                Text(selectedScooterAnnotation.scooterData.toString())
+                    .foregroundColor(.black)
+                    .font(.primary(type: .heading1))
+//                SelectedScooterSheetView(selectedScooterAnnotation: selectedScooterAnnotation, unlockOptionsSheetDisplayMode: $viewModel.unlockOptionsSheetDisplayMode, startRideSheetDisplayMode: $viewModel.startRideSheetDisplayMode, onUnlock: onUnlock)
             }
         }
     }
@@ -144,7 +153,7 @@ struct FindScootersView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                FindScootersView(onMenuButtonPressed: {}, onUnlock: {_ in })
+                FindScootersView(selectedScooterAnnotation: .constant(nil), onMenuButtonPressed: {}, onUnlock: {_ in })
                     .previewDevice(device)
             }
         }

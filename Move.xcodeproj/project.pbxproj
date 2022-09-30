@@ -13,6 +13,7 @@
 		B80979CC28A51861009B1C8D /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979CB28A51861009B1C8D /* ForgotPasswordView.swift */; };
 		B80979CE28A51A4E009B1C8D /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */; };
 		B80979D128A53504009B1C8D /* AddLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979D028A53504009B1C8D /* AddLicenseView.swift */; };
+		B828174B28E6D4BA00DF3C63 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B828174A28E6D4B900DF3C63 /* Buttons.swift */; };
 		B82A3ADB28D31B11005F22A2 /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82A3ADA28D31B11005F22A2 /* EditAccountView.swift */; };
 		B82A3ADD28D32967005F22A2 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82A3ADC28D32967005F22A2 /* ChangePasswordView.swift */; };
 		B82A3ADF28D337E6005F22A2 /* MenuCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82A3ADE28D337E6005F22A2 /* MenuCoordinator.swift */; };
@@ -53,6 +54,7 @@
 		B8D05DFF28D59FC000DB83AE /* SuccessfulUnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D05DFE28D59FC000DB83AE /* SuccessfulUnlockView.swift */; };
 		B8D05E0228D5A05B00DB83AE /* UnlockHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D05E0128D5A05B00DB83AE /* UnlockHeaderView.swift */; };
 		B8D05E0428D5A06B00DB83AE /* AlternativeUnlockOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D05E0328D5A06B00DB83AE /* AlternativeUnlockOptionsView.swift */; };
+		B8D5117D28E4AD7D009C264C /* StartRideCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D5117C28E4AD7D009C264C /* StartRideCardView.swift */; };
 		B8D9111028A1188600D25454 /* MoveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9110F28A1188600D25454 /* MoveApp.swift */; };
 		B8D9111428A1188800D25454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D9111328A1188800D25454 /* Assets.xcassets */; };
 		B8D9111728A1188800D25454 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D9111628A1188800D25454 /* Preview Assets.xcassets */; };
@@ -87,6 +89,9 @@
 		B8E5BB9C28A27F0F0012DB66 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9B28A27F0F0012DB66 /* RegisterView.swift */; };
 		B8E5BB9E28A27F190012DB66 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9D28A27F190012DB66 /* LoginView.swift */; };
 		B8E5BBA028A27F2D0012DB66 /* PurpleBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E5BB9F28A27F2D0012DB66 /* PurpleBackgroundView.swift */; };
+		B8E633C228E5943600C0A6F0 /* TripDetailsMinimisedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E633C128E5943600C0A6F0 /* TripDetailsMinimisedView.swift */; };
+		B8E633C428E5944800C0A6F0 /* TripDetailsFullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E633C328E5944800C0A6F0 /* TripDetailsFullView.swift */; };
+		B8E633C628E5A6C200C0A6F0 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E633C528E5A6C200C0A6F0 /* IntExtensions.swift */; };
 		B8E909BF28E2DD67000DD93F /* RidesAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E909BE28E2DD67000DD93F /* RidesAPIService.swift */; };
 		B8E9752728AE6766004E83A4 /* ValidationInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E9752628AE6766004E83A4 /* ValidationInProgressView.swift */; };
 		B8E9752B28AE67A1004E83A4 /* ValidationSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E9752A28AE67A1004E83A4 /* ValidationSuccessView.swift */; };
@@ -103,6 +108,7 @@
 		B80979CB28A51861009B1C8D /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		B80979D028A53504009B1C8D /* AddLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLicenseView.swift; sourceTree = "<group>"; };
+		B828174A28E6D4B900DF3C63 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		B82A3ADA28D31B11005F22A2 /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		B82A3ADC28D32967005F22A2 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		B82A3ADE28D337E6005F22A2 /* MenuCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCoordinator.swift; sourceTree = "<group>"; };
@@ -143,6 +149,7 @@
 		B8D05DFE28D59FC000DB83AE /* SuccessfulUnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulUnlockView.swift; sourceTree = "<group>"; };
 		B8D05E0128D5A05B00DB83AE /* UnlockHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockHeaderView.swift; sourceTree = "<group>"; };
 		B8D05E0328D5A06B00DB83AE /* AlternativeUnlockOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativeUnlockOptionsView.swift; sourceTree = "<group>"; };
+		B8D5117C28E4AD7D009C264C /* StartRideCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRideCardView.swift; sourceTree = "<group>"; };
 		B8D9110C28A1188600D25454 /* Move.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Move.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D9110F28A1188600D25454 /* MoveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveApp.swift; sourceTree = "<group>"; };
 		B8D9111328A1188800D25454 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -179,6 +186,9 @@
 		B8E5BB9B28A27F0F0012DB66 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B8E5BB9D28A27F190012DB66 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B8E5BB9F28A27F2D0012DB66 /* PurpleBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleBackgroundView.swift; sourceTree = "<group>"; };
+		B8E633C128E5943600C0A6F0 /* TripDetailsMinimisedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailsMinimisedView.swift; sourceTree = "<group>"; };
+		B8E633C328E5944800C0A6F0 /* TripDetailsFullView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailsFullView.swift; sourceTree = "<group>"; };
+		B8E633C528E5A6C200C0A6F0 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		B8E909BE28E2DD67000DD93F /* RidesAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesAPIService.swift; sourceTree = "<group>"; };
 		B8E9752628AE6766004E83A4 /* ValidationInProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationInProgressView.swift; sourceTree = "<group>"; };
 		B8E9752A28AE67A1004E83A4 /* ValidationSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationSuccessView.swift; sourceTree = "<group>"; };
@@ -219,6 +229,14 @@
 				B8E278F628C72CAD00F6FB50 /* AddLicenseViewModel.swift */,
 			);
 			path = "Driving license validation";
+			sourceTree = "<group>";
+		};
+		B828174928E6D49100DF3C63 /* Shared componnets */ = {
+			isa = PBXGroup;
+			children = (
+				B828174A28E6D4B900DF3C63 /* Buttons.swift */,
+			);
+			path = "Shared componnets";
 			sourceTree = "<group>";
 		};
 		B83DD3FB28BCBB3800F1F2F6 /* Models */ = {
@@ -265,8 +283,11 @@
 		B83E8A6628CA29400064704C /* Ride scooter flow */ = {
 			isa = PBXGroup;
 			children = (
+				B828174928E6D49100DF3C63 /* Shared componnets */,
 				B8DCB05028E1B6F10032C973 /* RideScooterView.swift */,
 				B8EB8DF228E3258000E0134D /* RideScooterViewModel.swift */,
+				B8E633C128E5943600C0A6F0 /* TripDetailsMinimisedView.swift */,
+				B8E633C328E5944800C0A6F0 /* TripDetailsFullView.swift */,
 			);
 			path = "Ride scooter flow";
 			sourceTree = "<group>";
@@ -300,6 +321,7 @@
 				B896D15528A63D6000BD7791 /* ColorExtensions.swift */,
 				B8D9B78228A3D8B6003F0968 /* FontsExtensions.swift */,
 				B862BEFF28AD0148002EF079 /* ButtonStylesExtensions.swift */,
+				B8E633C528E5A6C200C0A6F0 /* IntExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -431,6 +453,7 @@
 				B83E8A6728CA29690064704C /* ScooterCardView.swift */,
 				B8052FBD28C8C96500F3439B /* ScooterAnnotation.swift */,
 				B8B43AD228D44AA700F06507 /* ScooterUnlockOptionsView.swift */,
+				B8D5117C28E4AD7D009C264C /* StartRideCardView.swift */,
 			);
 			path = "Scooter components";
 			sourceTree = "<group>";
@@ -670,6 +693,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B83E8A6428CA10FA0064704C /* MapHeaderView.swift in Sources */,
+				B8E633C628E5A6C200C0A6F0 /* IntExtensions.swift in Sources */,
 				B83E8A6128CA06780064704C /* MapButtonView.swift in Sources */,
 				B80979D128A53504009B1C8D /* AddLicenseView.swift in Sources */,
 				B8A096E028C0951A00F0BEFC /* RegisterViewModel.swift in Sources */,
@@ -701,6 +725,7 @@
 				B8E9752B28AE67A1004E83A4 /* ValidationSuccessView.swift in Sources */,
 				B83DD40828BD1C1300F1F2F6 /* AuthenticationRequestResponse.swift in Sources */,
 				B8D9B78128A3D0F8003F0968 /* AuthenticationCoordinator.swift in Sources */,
+				B8E633C228E5943600C0A6F0 /* TripDetailsMinimisedView.swift in Sources */,
 				B8D9111028A1188600D25454 /* MoveApp.swift in Sources */,
 				B854D2F828BE32DB006AA8EE /* ScannerView.swift in Sources */,
 				B8A096E828C0A23100F0BEFC /* OnboardingViewModel.swift in Sources */,
@@ -712,6 +737,7 @@
 				B8E909BF28E2DD67000DD93F /* RidesAPIService.swift in Sources */,
 				B82A3ADB28D31B11005F22A2 /* EditAccountView.swift in Sources */,
 				B8A096DD28C094DD00F0BEFC /* LoginViewModel.swift in Sources */,
+				B828174B28E6D4BA00DF3C63 /* Buttons.swift in Sources */,
 				B8DCB05128E1B6F10032C973 /* RideScooterView.swift in Sources */,
 				B8D9B22F28D08D6C006966C7 /* MenuView.swift in Sources */,
 				B8052FBE28C8C96500F3439B /* ScooterAnnotation.swift in Sources */,
@@ -736,8 +762,10 @@
 				B8D05E0428D5A06B00DB83AE /* AlternativeUnlockOptionsView.swift in Sources */,
 				B82A3ADD28D32967005F22A2 /* ChangePasswordView.swift in Sources */,
 				B890F3BE28CB61B900435E9C /* ScootersAPIService.swift in Sources */,
+				B8D5117D28E4AD7D009C264C /* StartRideCardView.swift in Sources */,
 				B8D9B77D28A3A726003F0968 /* TextFields.swift in Sources */,
 				B84DE57E28C5FD3A0051311B /* LicenseCoordinatorView.swift in Sources */,
+				B8E633C428E5944800C0A6F0 /* TripDetailsFullView.swift in Sources */,
 				B83DD3FD28BCBB4D00F1F2F6 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

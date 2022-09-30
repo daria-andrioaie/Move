@@ -44,41 +44,20 @@ struct RouteView: View {
 
 struct MetricsView: View {
     let travelTimeInSeconds: Int
-    let distanceInKilometers: Double
-    
-    var travelTimeAsString: String {
-        let hour: String
-        if (travelTimeInSeconds / 3600) / 10 == 0 {
-            hour = "0\((travelTimeInSeconds / 3600))"
-        }
-        else {
-            hour = "\((travelTimeInSeconds / 3600))"
-        }
-        
-        let minute: String
-        if ((travelTimeInSeconds % 3600) / 60) / 10 == 0 {
-            minute = "0\((travelTimeInSeconds % 3600) / 60)"
-        }
-        else {
-            minute = "\((travelTimeInSeconds % 3600) / 60)"
-        }
-        
-        return "\(hour):\(minute) min"
-    }
-    
+    let distanceInMeters: Double
     
     var body: some View {
         VStack(alignment: .leading) {
             Text("Travel time")
                 .font(.primary(type: .smallText))
                 .foregroundColor(.neutralCement)
-            Text(travelTimeAsString)
+            Text(travelTimeInSeconds.convertToHoursAndMinutesFormat() + " min")
                 .font(.primary(type: .boldedDetails))
                 .foregroundColor(.primaryBlue)
             Text("Distance")
                 .font(.primary(type: .smallText))
                 .foregroundColor(.neutralCement)
-            Text("\(distanceInKilometers.formatted()) km")
+            Text("\(distanceInMeters.formatted()) km")
                 .font(.primary(type: .boldedDetails))
                 .foregroundColor(.primaryBlue)
         }
@@ -94,7 +73,7 @@ struct RideView: View {
             HStack {
                 RouteView(source: rideData.source, destination: rideData.destination)
                 
-                MetricsView(travelTimeInSeconds: rideData.travelTimeInSeconds, distanceInKilometers: rideData.distanceInKilometers)
+                MetricsView(travelTimeInSeconds: rideData.travelTimeInSeconds, distanceInMeters: rideData.distanceInMeters)
             }
             .frame(maxWidth: .infinity)
             .overlay {
@@ -110,7 +89,7 @@ struct HistoryOfRidesView: View {
     let onBack: () -> Void
     var body: some View {
         VStack {
-            HeaderView(onBack: onBack, headerTitle: "History")
+            HeaderView(buttonAction: .slideBack, onButtonPressed: onBack, headerTitle: "History")
             if rides.count == 0 {
                 Text("You have no rides yet. :(")
                     .frame(maxHeight: .infinity, alignment: .center)
@@ -143,8 +122,8 @@ struct HistoryOfRidesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                HistoryOfRidesView(rides: [.init(id: 1, source: "9776 Gutkowski Shores Suite 420", destination: "980 Scarlett Brook Apt. 233", travelTimeInSeconds: 1000, distanceInKilometers: 100)
-                    , .init(id: 2, source: "256 Osvaldo Camp", destination: "06 Gerhold Valleys", travelTimeInSeconds: 765, distanceInKilometers: 12.3)
+                HistoryOfRidesView(rides: [.init(id: 1, source: "9776 Gutkowski Shores Suite 420", destination: "980 Scarlett Brook Apt. 233", travelTimeInSeconds: 1000, distanceInMeters: 100)
+                    , .init(id: 2, source: "256 Osvaldo Camp", destination: "06 Gerhold Valleys", travelTimeInSeconds: 765, distanceInMeters: 12.3)
 //                                           , .init(id: 3, source: "267 Quitzon Gateway", destination: "980 Scarlett Brook Apt. 233", travelTimeInSeconds: 345, distanceInKilometers: 7.0)
                                           ], onBack: {})
                     .previewDevice(device)

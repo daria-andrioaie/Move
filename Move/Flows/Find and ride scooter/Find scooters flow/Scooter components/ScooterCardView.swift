@@ -22,31 +22,41 @@ struct ScooterDetailsView: View {
     }
 }
 
+struct ScooterBatteryIcon: View {
+    let batteryPercentage: Int
+    
+    var body: some View {
+        switch batteryPercentage {
+        case 0..<40:
+            Image("battery-0")
+        case 40..<60:
+            Image("battery-40")
+        case 60..<80:
+            Image("battery-60")
+        case 80..<100:
+            Image("battery-80")
+        case 100:
+            Image("battery-100")
+        default:
+            Text("error")
+        }
+    }
+}
+
 struct ScooterBatteryView: View {
     let batteryPercentage: Int
     
     var body: some View {
         HStack {
-            switch batteryPercentage {
-            case 0..<40:
-                Image("battery-0")
-            case 40..<60:
-                Image("battery-40")
-            case 60..<80:
-                Image("battery-60")
-            case 80..<100:
-                Image("battery-80")
-            case 100:
-                Image("battery-100")
-            default:
-                Text("error")
-            }
+            ScooterBatteryIcon(batteryPercentage: batteryPercentage)
             Text("\(batteryPercentage)%")
                 .font(.primary(type: .body1))
                 .foregroundColor(.primaryBlue)
         }
     }
 }
+
+
 
 struct AddressView: View {
     let address: String?
@@ -137,7 +147,7 @@ struct ScooterDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                ScooterCardView(scooterData: .init(_id: "alaal", scooterNumber: 1234, bookedStatus: "free", lockedStatus: "unlocked", battery: 100, location: .init(coordinates: [23.123456, 46.123456], address: "Strada Avram Iancu nr .26 Cladirea 2")), onUnlock: {})
+                ScooterCardView(scooterData: .mockedScooter(), onUnlock: {})
                     .previewDevice(device)
             }
         }

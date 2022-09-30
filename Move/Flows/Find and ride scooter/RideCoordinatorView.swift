@@ -32,13 +32,14 @@ struct RideCoordinatorView: View {
     @State private var state: RideCoordinatorState? = .findScooter
     @State private var unlockMethod: UnlockMethod? = .PINUnlock
     @State private var showingMenu = false
+    @State private var selectedScooterAnnotation: ScooterAnnotation? = .init(scooterData: .mockedScooter(), coordinate: .init(latitude: 46.123456, longitude: 23.123456))
     
     var body: some View {
         ZStack {
             NavigationView {
                 ZStack {
                     VStack {
-                        NavigationLink(destination: FindScootersView(onMenuButtonPressed: {
+                        NavigationLink(destination: FindScootersView(selectedScooterAnnotation: $selectedScooterAnnotation, onMenuButtonPressed: {
                             withAnimation {
                                 print("showing menu")
                                 showingMenu = true
@@ -58,7 +59,9 @@ struct RideCoordinatorView: View {
                             EmptyView()
                         }
                         
-                        NavigationLink(destination: RideScooterView()
+                        NavigationLink(destination: RideScooterView(onMenuButtonPressed: {
+                            showingMenu = true
+                        })
                             .preferredColorScheme(.light)
                             .navigationBarHidden(true)
                             .ignoresSafeArea()
@@ -88,8 +91,8 @@ struct RideCoordinatorView: View {
         if case .unlockScooter = state {
             UnlockCoordinator(initialUnlock: unlockMethod!, onCancelUnlock: {
                 state = .findScooter
-            }, onUnlockFinished: {
-                state = .rideInProgress
+            }, onUnlockFinished: { 
+                state = .findScooter
             })
                 .preferredColorScheme(.dark)
                 .navigationBarHidden(true)

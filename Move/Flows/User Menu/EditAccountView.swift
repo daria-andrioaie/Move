@@ -77,7 +77,7 @@ struct EditAccountView: View {
     
     var body: some View {
         VStack {
-            HeaderView(onBack: {
+            HeaderView(buttonAction: .slideBack, onButtonPressed: {
                 print("Go back to menu")
                 onBack()
             }, headerTitle: "Account")

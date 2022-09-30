@@ -8,13 +8,39 @@
 import SwiftUI
 
 struct RideScooterView: View {
+    @StateObject var viewModel = RideScooterViewModel(scooterData: .mockedScooter())
+    
+    let onMenuButtonPressed: () -> Void
+    
     var body: some View {
-        Text("vg")
+        ZStack(alignment: .top) {
+            ScooterMapView(viewModel: viewModel.mapViewModel)
+            MapHeaderView {
+                onMenuButtonPressed()
+            } onLocationButtonPressed: {
+                viewModel.centerMapOnUserLocation()
+            }
+            if viewModel.tripDetailsSheetMode != .none {
+                FlexibleSheet(sheetMode: $viewModel.tripDetailsSheetMode) {
+                    if viewModel.tripDetailsSheetMode == .half {
+                        TripDetailsMinimisedView(scooterData: viewModel.scooterData)
+                    }
+                    else if viewModel.tripDetailsSheetMode == .full {
+                        
+                    }
+                }
+            }
+        }
     }
 }
 
 struct RideScooterView_Previews: PreviewProvider {
     static var previews: some View {
-        RideScooterView()
+        Group {
+            ForEach(devices) { device in
+                RideScooterView(onMenuButtonPressed: {})
+            }
+        }
+        
     }
 }

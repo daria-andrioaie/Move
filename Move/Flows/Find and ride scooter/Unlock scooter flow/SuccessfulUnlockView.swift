@@ -37,11 +37,11 @@ struct SuccessfulUnlockView: View {
             .frame(maxHeight: .infinity)
             
         }
-//        .onAppear {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-//                onUnlockFinished()
-//            })
-//        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                onUnlockFinished()
+            })
+        }
     }
 }
 

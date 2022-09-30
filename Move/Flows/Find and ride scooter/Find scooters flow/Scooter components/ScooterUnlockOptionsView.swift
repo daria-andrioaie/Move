@@ -51,6 +51,7 @@ struct ScooterDetailsUnlockView: View {
     var body: some View {
         Text("Scooter")
             .font(.primary(.medium, size: 16))
+            .opacity(0.6)
             .foregroundColor(.primaryBlue)
         Text("#\(scooterNumber)")
             .font(.primary(.bold, size: 32))
@@ -120,7 +121,7 @@ struct ScooterUnlockOptionsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                ScooterUnlockOptionsView(scooterData: .init(_id: "alaal", scooterNumber: 1234, bookedStatus: "free", lockedStatus: "unlocked", battery: 100, location: .init(coordinates: [23.123456, 46.123456], address: "Strada Avram Iancu nr .26 Cladirea 2")), onUnlock: {_ in })
+                ScooterUnlockOptionsView(scooterData: .mockedScooter(), onUnlock: {_ in })
                     .previewDevice(device)
             }
         }

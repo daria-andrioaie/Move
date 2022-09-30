@@ -7,17 +7,23 @@
 
 import SwiftUI
 
+enum HeaderButtonActionType {
+    case slideBack
+    case slideDown
+}
+
 struct HeaderView: View {
-    let onBack: () -> Void
+    let buttonAction: HeaderButtonActionType
+    let onButtonPressed: () -> Void
     let headerTitle: String
     
     var body: some View {
         HStack {
             Button {
                 // TODO: add slide animation when returning to map screen
-                onBack()
+                onButtonPressed()
             } label: {
-                Image(systemName: "chevron.left")
+                Image(systemName: buttonAction == .slideBack ? "chevron.left" : "chevron.down")
                     .foregroundColor(.primaryPurple)
                     .frame(width: 36, height: 36)
 
@@ -176,7 +182,9 @@ struct MenuView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
-            HeaderView(onBack: onBack, headerTitle: "Hi conor!")
+            HeaderView(buttonAction: .slideBack, onButtonPressed: {
+                onBack()
+            }, headerTitle: "Hi conor!")
             HistoryPreview(onSeeHistoryButton: onSeeHistoryButton)
             GeneralSettingsView(onEditAccountButton: onEditAccountButton, onChnagePasswordButton: onChangePasswordButton)
             LegalLinksView(onTermsAndConditionsPressed: goToTapptitude, onPrivacyPolicyPressed: goToTapptitude)

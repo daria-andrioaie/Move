@@ -84,18 +84,19 @@ class ScooterMapViewModel: NSObject, ObservableObject {
     }
     
     func getAllScooters() {
-        let service = ScootersAPIService()
-        service.getScootersInArea(center: mapView.centerCoordinate, radius: 4000) { result in
-            switch result {
-            case .success(let scooters):
-                for scooter in scooters {
-                    print(scooter.toString())
-                }
-                self.scooters = scooters.getAnnotations()
-            case .failure(let error):
-                print("\(error.message)")
-            }
-        }
+//        let service = ScootersAPIService()
+//        service.getScootersInArea(center: mapView.centerCoordinate, radius: 4000) { result in
+//            switch result {
+//            case .success(let scooters):
+//                for scooter in scooters {
+//                    print(scooter.toString())
+//                }
+//                self.scooters = scooters.getAnnotations()
+//            case .failure(let error):
+//                print("\(error.message)")
+//            }
+//        }
+        self.scooters = ScooterAnnotation.requestMockData()
     }
 }
 

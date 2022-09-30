@@ -11,6 +11,7 @@ enum SheetDisplayMode {
     case none
     case third
     case half
+    case full
 }
 
 struct GrabberView: View {
@@ -91,6 +92,8 @@ struct FlexibleSheet<Content: View>: View {
             return UIScreen.main.bounds.height * 3/4 - 45
         case .half:
             return UIScreen.main.bounds.height * 1/2 - 45
+        case .full:
+            return 0
         }
     }
 }

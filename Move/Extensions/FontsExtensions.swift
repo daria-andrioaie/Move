@@ -19,6 +19,7 @@ struct Fonts {
         }
         
         enum Types: CGFloat {
+            case title
             case heading1
             case heading2
             case body1
@@ -40,6 +41,8 @@ extension Font {
     
     static func primary(type: Fonts.Primary.Types) -> Font {
         switch type {
+        case .title:
+            return .custom(Fonts.Primary.Weights.bold.rawValue, size: 44)
         case .heading1:
             return .custom(Fonts.Primary.Weights.bold.rawValue, size: 32)
         case .heading2:
