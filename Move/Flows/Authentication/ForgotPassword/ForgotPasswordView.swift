@@ -22,6 +22,8 @@ struct ForgotPasswordView: View {
     
     let onBack: () -> Void
     
+    @FocusState var emailFieldIsFocused: Bool
+    
     private var formIsCompleted: Bool {
         if !viewModel.emailAddress.isEmpty {
             return true
@@ -68,7 +70,11 @@ struct ForgotPasswordView: View {
                     .padding(.bottom, 32)
      
                 
-                SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress, colorScheme: colorScheme)
+                SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress, fieldIsFocused: _emailFieldIsFocused, colorScheme: colorScheme, returnType: .done) {
+                    if formIsCompleted {
+                        viewModel.sendResetLink()
+                    }
+                }
                 
                 FormButton(title: "Send reset link", isEnabled: formIsCompleted) {
                     viewModel.sendResetLink()

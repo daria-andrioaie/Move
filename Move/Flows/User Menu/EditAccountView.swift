@@ -33,11 +33,19 @@ struct EditAccountFieldsView: View {
     var username: Binding<String>
     var emailAddress: Binding<String>
     let colorScheme: ColorScheme
+    let onAllFieldsCompleted: () -> Void
+    
+    @FocusState var emailFieldIsFocused: Bool
+    @FocusState var usernameFieldIsFocused: Bool
     
     var body: some View {
         VStack {
-            SimpleUnderlinedTextField(placeholder: "Username", inputValue: username, colorScheme: .light)
-            SimpleUnderlinedTextField(placeholder: "Email address", inputValue: emailAddress, colorScheme: colorScheme)
+            SimpleUnderlinedTextField(placeholder: "Username", inputValue: username, fieldIsFocused: _emailFieldIsFocused, colorScheme: .light, returnType: .next) {
+                emailFieldIsFocused = true
+            }
+            SimpleUnderlinedTextField(placeholder: "Email address", inputValue: emailAddress, fieldIsFocused: _usernameFieldIsFocused, colorScheme: colorScheme, returnType: .done) {
+                onAllFieldsCompleted()
+            }
         }
     }
 }
@@ -83,7 +91,11 @@ struct EditAccountView: View {
             }, headerTitle: "Account")
             .padding(.horizontal, 24)
             
-            EditAccountFieldsView(username: $viewModel.username, emailAddress: $viewModel.emailAddress, colorScheme: colorScheme)
+            EditAccountFieldsView(username: $viewModel.username, emailAddress: $viewModel.emailAddress, colorScheme: colorScheme, onAllFieldsCompleted: {
+                if formIsCompleted {
+                    viewModel.saveEdits()
+                }
+            })
                 .padding(.top, 30)
             
             Spacer()

@@ -50,10 +50,9 @@ struct HistoryPreview: View {
     
     var body: some View {
         ZStack {
-            Image("ScooterViewRectangleBackground")
+            Image("rectangleBackground-cardView")
                 .opacity(0.7)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                
             HStack {
                 VStack(alignment: .leading, spacing: 7) {
                     Text("History")
@@ -77,9 +76,8 @@ struct HistoryPreview: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal, 30)
-//            .padding(.vertical, 15)
+            .padding(.vertical, 27)
         }
-        .padding(.vertical, 4)
         .background(RoundedRectangle(cornerRadius: 29)
             .foregroundColor(.primaryPurple))
         .shadow(radius: 10)

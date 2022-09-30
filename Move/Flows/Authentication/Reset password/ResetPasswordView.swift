@@ -23,6 +23,9 @@ struct ResetPasswordView: View {
     @StateObject var viewModel = ResetPasswordViewModel()
     @Environment(\.colorScheme) var colorScheme
     
+    @FocusState var newPassowrdFieldIsFocused: Bool
+    @FocusState var confirmedPasswordFieldIsFocused: Bool
+    
     private var formIsCompleted: Bool {
         if !viewModel.password.isEmpty && !viewModel.confirmedPassword.isEmpty {
             return true
@@ -46,8 +49,14 @@ struct ResetPasswordView: View {
                     .padding(.bottom, 20)
 
 
-                SecureUnderlinedTextField(placeholder: "New password", inputValue: $viewModel.password, colorScheme: colorScheme)
-                SecureUnderlinedTextField(placeholder: "Confirm new password", inputValue: $viewModel.confirmedPassword, colorScheme: colorScheme)
+                SecureUnderlinedTextField(placeholder: "New password", inputValue: $viewModel.password, fieldIsFocused: _newPassowrdFieldIsFocused, colorScheme: colorScheme, returnType: .next) {
+                    confirmedPasswordFieldIsFocused = true
+                }
+                SecureUnderlinedTextField(placeholder: "Confirm new password", inputValue: $viewModel.confirmedPassword, fieldIsFocused: _confirmedPasswordFieldIsFocused, colorScheme: colorScheme, returnType: .done) {
+                    if formIsCompleted {
+                        viewModel.resetPassword()
+                    }
+                }
 
                 FormButton(title: "Reset password", isEnabled: formIsCompleted) {
                     viewModel.resetPassword()

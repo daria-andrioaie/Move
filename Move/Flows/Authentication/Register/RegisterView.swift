@@ -38,6 +38,8 @@ import SwiftMessages
 //    }
 //}
 
+
+
 struct RegisterView: View {
     let authenticationAPIService: AuthenticationAPIService
     let errorHandler: SwiftMessagesErrorHandler
@@ -45,6 +47,9 @@ struct RegisterView: View {
     let onFinished: () -> Void
     
     @StateObject var viewModel: RegisterViewModel
+    @FocusState var emailFieldIsFocused: Bool
+    @FocusState var usernameFieldIsFocused: Bool
+    @FocusState var passwordFieldIsFocused: Bool
     
     @Environment(\.colorScheme) var colorScheme
 
@@ -71,30 +76,27 @@ struct RegisterView: View {
                 VStack() {
                     AuthenticationHeaderView(title: "Let's get started", caption: "Sign up or login and start riding right away")
 
-                    SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress, colorScheme: colorScheme)
+                    SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress, fieldIsFocused: _emailFieldIsFocused, colorScheme: colorScheme, returnType: .next) {
+                        usernameFieldIsFocused = true
+                    }
+                    
+                    SimpleUnderlinedTextField(placeholder: "Username", inputValue: $viewModel.username, fieldIsFocused: _usernameFieldIsFocused, colorScheme: colorScheme, returnType: .next) {
+                        passwordFieldIsFocused = true
+                    }
 
-                    SimpleUnderlinedTextField(placeholder: "Username", inputValue: $viewModel.username, colorScheme: colorScheme)
-
-                    SecureUnderlinedTextField(placeholder: "Password", inputValue: $viewModel.password, colorScheme: colorScheme)
+                    SecureUnderlinedTextField(placeholder: "Password", inputValue: $viewModel.password, fieldIsFocused: _passwordFieldIsFocused, colorScheme: colorScheme, returnType: .done) {
+                        if formIsCompleted {
+                            manageRequest()
+                        }
+                    }
 
                     TermsAndConditionsNote()
 
                     //TODO: duplicate block ( also present in LoginView), break it into a separatecomponent and make an AuthenticationViewModelProtocol to pass as a variable
                     switch viewModel.requestInProgress {
-                    case false:
+                    case false: 
                         FormButton(title: "Get started", isEnabled: formIsCompleted) {
-                            viewModel.requestInProgress = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                                viewModel.register { fieldName in
-                                    viewModel.requestInProgress = false
-                                    errorHandler.handle(message: "The \(fieldName) you entered is invalid", type: .warning)
-                                } onAPIError: { error in
-                                    viewModel.requestInProgress = false
-                                    errorHandler.handle(message: error.message, type: .error)
-                                } onRegisterCompleted: {
-                                    onFinished()
-                                }
-                            })
+                            manageRequest()
                         }
                     case true:
                         LoadingDisabledButton()
@@ -107,6 +109,21 @@ struct RegisterView: View {
                 }
             }
         }
+    }
+    
+    func manageRequest() {
+        viewModel.requestInProgress = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            viewModel.register { fieldName in
+                viewModel.requestInProgress = false
+                errorHandler.handle(message: "The \(fieldName) you entered is invalid", type: .warning)
+            } onAPIError: { error in
+                viewModel.requestInProgress = false
+                errorHandler.handle(message: error.message, type: .error)
+            } onRegisterCompleted: {
+                onFinished()
+            }
+        })
     }
 }
 

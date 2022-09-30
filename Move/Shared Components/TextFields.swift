@@ -8,6 +8,11 @@
 import Foundation
 import SwiftUI
 
+enum TextFieldReturnType {
+    case next
+    case done
+}
+
 extension View {
     func placeholder<Content: View>(when shouldShow: Bool, @ViewBuilder placeholder: () -> Content) -> some View {
         ZStack(alignment: .leading) {
@@ -24,8 +29,15 @@ struct FieldModifier: ViewModifier {
     @FocusState var fieldIsFocused: Bool
     let colorScheme: ColorScheme
     
+    let returnType: TextFieldReturnType
+    let onReturnKeyPressed: () -> Void
+    
     func body(content: Content) -> some View {
         content
+            .submitLabel(returnType == .next ? .next : .done)
+            .onSubmit {
+                onReturnKeyPressed()
+            }
             .frame(maxWidth: .infinity)
             .placeholder(when: inputValue.isEmpty) {
                 Text(placeholder).foregroundColor(colorScheme == .light ? .black : .white)
@@ -45,8 +57,8 @@ struct FieldModifier: ViewModifier {
 }
 
 extension View {
-     func fieldModifier(placeholder: String, inputValue: Binding<String>, fieldIsFocused: FocusState<Bool>, colorScheme: ColorScheme) -> some View {
-        modifier(FieldModifier(placeholder: placeholder, inputValue: inputValue, fieldIsFocused: fieldIsFocused, colorScheme: colorScheme))
+    func fieldModifier(placeholder: String, inputValue: Binding<String>, fieldIsFocused: FocusState<Bool>, colorScheme: ColorScheme, returnType: TextFieldReturnType, onReturnKeyPressed: @escaping () -> Void) -> some View {
+        modifier(FieldModifier(placeholder: placeholder, inputValue: inputValue, fieldIsFocused: fieldIsFocused, colorScheme: colorScheme, returnType: returnType, onReturnKeyPressed: onReturnKeyPressed))
     }
 }
 
@@ -72,6 +84,9 @@ struct SecureUnderlinedTextField: View {
     @Binding var inputValue: String
     @FocusState var fieldIsFocused: Bool
     let colorScheme: ColorScheme
+    
+    let returnType: TextFieldReturnType
+    let onReturnKeyPressed: () -> Void
 
     @State private var showText = false
     
@@ -79,7 +94,7 @@ struct SecureUnderlinedTextField: View {
         ZStack {
             if !showText {
                 SecureField("", text: $inputValue)
-                    .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused, colorScheme: colorScheme)
+                    .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused, colorScheme: colorScheme, returnType: returnType, onReturnKeyPressed: onReturnKeyPressed)
                 
                 if fieldIsFocused {
                     FieldIconView(onClick: {
@@ -90,7 +105,7 @@ struct SecureUnderlinedTextField: View {
             }
             else {
                 TextField("", text: $inputValue)
-                    .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused, colorScheme: colorScheme)
+                    .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused, colorScheme: colorScheme, returnType: returnType, onReturnKeyPressed: onReturnKeyPressed)
                 
                 if fieldIsFocused {
                     FieldIconView(onClick: {
@@ -111,10 +126,14 @@ struct SimpleUnderlinedTextField: View {
     @FocusState var fieldIsFocused: Bool
     let colorScheme: ColorScheme
     
+    let returnType: TextFieldReturnType
+    let onReturnKeyPressed: () -> Void
+    
+    
     var body: some View {
         ZStack {
             TextField("", text: $inputValue)
-                .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused, colorScheme: colorScheme)
+                .fieldModifier(placeholder: placeholder, inputValue: $inputValue, fieldIsFocused: _fieldIsFocused, colorScheme: colorScheme, returnType: returnType, onReturnKeyPressed: onReturnKeyPressed)
             
             if fieldIsFocused {
                 FieldIconView(onClick: {

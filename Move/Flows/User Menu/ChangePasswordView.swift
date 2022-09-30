@@ -24,12 +24,23 @@ struct ChangePasswordFieldsView: View {
     var newPassword: Binding<String>
     var confirmedPassword: Binding<String>
     let colorScheme: ColorScheme
+    let onAllFieldsCompleted: () -> Void
+    
+    @FocusState var oldPassowrdFieldIsFocused: Bool
+    @FocusState var newPassowrdFieldIsFocused: Bool
+    @FocusState var confirmedPasswordFieldIsFocused: Bool
     
     var body: some View {
         VStack {
-            SecureUnderlinedTextField(placeholder: "Old password", inputValue: oldPassword, colorScheme: colorScheme)
-            SecureUnderlinedTextField(placeholder: "New password", inputValue: newPassword, colorScheme: colorScheme)
-            SecureUnderlinedTextField(placeholder: "Confirm new password", inputValue: confirmedPassword, colorScheme: colorScheme)
+            SecureUnderlinedTextField(placeholder: "Old password", inputValue: oldPassword, fieldIsFocused: _oldPassowrdFieldIsFocused, colorScheme: colorScheme, returnType: .next) {
+                newPassowrdFieldIsFocused = true
+            }
+            SecureUnderlinedTextField(placeholder: "New password", inputValue: newPassword, fieldIsFocused: _newPassowrdFieldIsFocused, colorScheme: colorScheme, returnType: .next) {
+                confirmedPasswordFieldIsFocused = true
+            }
+            SecureUnderlinedTextField(placeholder: "Confirm new password", inputValue: confirmedPassword, fieldIsFocused: _confirmedPasswordFieldIsFocused, colorScheme: colorScheme, returnType: .done) {
+                
+            }
         }
     }
 }
@@ -56,7 +67,11 @@ struct ChangePasswordView: View {
             }, headerTitle: "Change password")
             .padding(.horizontal, 24)
             
-            ChangePasswordFieldsView(oldPassword: $viewModel.oldPassword, newPassword: $viewModel.newPassword, confirmedPassword: $viewModel.confirmedPassword, colorScheme: colorScheme)
+            ChangePasswordFieldsView(oldPassword: $viewModel.oldPassword, newPassword: $viewModel.newPassword, confirmedPassword: $viewModel.confirmedPassword, colorScheme: colorScheme, onAllFieldsCompleted: {
+                if formIsCompleted {
+                    viewModel.saveEdits()
+                }
+            })
                 .padding(.top, 30)
 
             Spacer()

@@ -32,6 +32,9 @@ struct LoginView: View {
     
     @StateObject var viewModel: LoginViewModel
     
+    @FocusState var emailFieldIsFocused: Bool
+    @FocusState var passwordFieldIsFocused: Bool
+    
     @Environment(\.colorScheme) var colorScheme
     
     init(authenticationAPIService: AuthenticationAPIService, errorHandler: SwiftMessagesErrorHandler, onSwitch: @escaping () -> Void, onForgotPassword: @escaping () -> Void, onFinished: @escaping () -> Void) {
@@ -56,9 +59,15 @@ struct LoginView: View {
             VStack {
                 AuthenticationHeaderView(title: "Login", caption: "Enter your account credentials and start riding away")
                 
-                SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress, colorScheme: colorScheme)
+                SimpleUnderlinedTextField(placeholder: "Email address", inputValue: $viewModel.emailAddress, fieldIsFocused: _emailFieldIsFocused, colorScheme: colorScheme, returnType: .next) {
+                    passwordFieldIsFocused = true
+                }
 
-                SecureUnderlinedTextField(placeholder: "Password", inputValue: $viewModel.password, colorScheme: colorScheme)
+                SecureUnderlinedTextField(placeholder: "Password", inputValue: $viewModel.password, fieldIsFocused: _passwordFieldIsFocused, colorScheme: colorScheme, returnType: .done) {
+                    if formIsCompleted {
+                        manageRequest()
+                    }
+                }
                 
                 Button {
                     onForgotPassword()
@@ -76,20 +85,7 @@ struct LoginView: View {
                 switch viewModel.requestInProgress {
                 case false:
                     FormButton(title: "Login", isEnabled: formIsCompleted) {
-                        viewModel.requestInProgress = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                            viewModel.login { fieldName in
-                                viewModel.requestInProgress = false
-                                errorHandler.handle(message: "The \(fieldName) you entered is invalid", type: .warning)
-//                                showInvalidFieldWarning(fieldName: fieldName)
-                            } onAPIError: { error in
-                                viewModel.requestInProgress = false
-                                errorHandler.handle(message: error.message, type: .error)
-//                                showAPIError(message: error.message)
-                            } onLoginCompleted: {
-                                onFinished()
-                            }
-                        })
+                        manageRequest()
                     }
                 case true:
                     LoadingDisabledButton()
@@ -100,6 +96,23 @@ struct LoginView: View {
                 Spacer()
             }
         }
+    }
+    
+    func manageRequest() {
+        viewModel.requestInProgress = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            viewModel.login { fieldName in
+                viewModel.requestInProgress = false
+                errorHandler.handle(message: "The \(fieldName) you entered is invalid", type: .warning)
+//                                showInvalidFieldWarning(fieldName: fieldName)
+            } onAPIError: { error in
+                viewModel.requestInProgress = false
+                errorHandler.handle(message: error.message, type: .error)
+//                                showAPIError(message: error.message)
+            } onLoginCompleted: {
+                onFinished()
+            }
+        })
     }
 }
 
