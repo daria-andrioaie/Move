@@ -116,7 +116,8 @@ struct ScooterImageCardView: View {
 
 struct ScooterCardView: View {
     let scooterData: ScooterData
-    
+    var userCanUnlockScooter: Bool
+
     let onUnlock: () -> Void
     
     var body: some View {
@@ -131,7 +132,7 @@ struct ScooterCardView: View {
                 .padding(.top, 20)
             }
             AddressView(address: scooterData.location.address)
-            FormButton(title: "Unlock") {
+            FormButton(title: "Unlock", isEnabled: userCanUnlockScooter) {
                 onUnlock()
             }
         }
@@ -147,7 +148,7 @@ struct ScooterDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                ScooterCardView(scooterData: .mockedScooter(), onUnlock: {})
+                ScooterCardView(scooterData: .mockedScooter(), userCanUnlockScooter: true, onUnlock: {})
                     .previewDevice(device)
             }
         }

@@ -11,6 +11,7 @@ enum SheetDisplayMode {
     case none
     case third
     case half
+    case custom
     case full
 }
 
@@ -32,8 +33,8 @@ struct FlexibleSheet<Content: View>: View {
     let content: () -> Content
     @Binding var sheetDisplayMode: SheetDisplayMode
     var minimumVerticalDrag: CGFloat
-    
-    
+    @State private var contentSize: CGSize = .zero
+
     init(sheetMode: Binding<SheetDisplayMode>, minimumVerticalDrag: CGFloat = 100, @ViewBuilder content: @escaping () -> Content) {
         self._sheetDisplayMode = sheetMode
         self.minimumVerticalDrag = minimumVerticalDrag
@@ -42,15 +43,22 @@ struct FlexibleSheet<Content: View>: View {
     
     var body: some View {
         content()
+            .background(
+                GeometryReader { geometryProxy in
+                    RoundedRectangle(cornerRadius: 25)
+                        .foregroundColor(.white)
+                        .shadow(color: Color(red: 33/255, green: 11/255, blue: 80/255, opacity: 0.15), radius: 20, x: 0, y: 0)
+                        .preference(key: SizePreferenceKey.self, value: geometryProxy.size)
+                }
+            )
+            .onPreferenceChange(SizePreferenceKey.self) { newSize in
+                print("The new child height is: \(newSize.height)")
+                self.contentSize = newSize
+            }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .overlay(alignment: .top, content: {
                 GrabberView()
             })
-            .background(
-                RoundedRectangle(cornerRadius: 25)
-                    .foregroundColor(.white)
-                    .shadow(color: Color(red: 33/255, green: 11/255, blue: 80/255, opacity: 0.15), radius: 20, x: 0, y: 0)
-            )
             .offset(y: self.calculateOffset() + verticalTranslation)
             .gesture(dragGesture)
 //            .transition(.move(edge: .bottom))
@@ -92,6 +100,8 @@ struct FlexibleSheet<Content: View>: View {
             return UIScreen.main.bounds.height * 3/4 - 45
         case .half:
             return UIScreen.main.bounds.height * 1/2 - 45
+        case .custom:
+            return UIScreen.main.bounds.height - self.contentSize.height
         case .full:
             return 0
         }
@@ -101,7 +111,12 @@ struct FlexibleSheet<Content: View>: View {
 struct FlexibleSheet_Previews: PreviewProvider {
     static var previews: some View {
         FlexibleSheet(sheetMode: .constant(.third)) {
-            VStack { Color.blue }
+            ZStack {
+                Color.green
+                Text("Hello")
+            }
+            .frame(height: 100)
+            
         }
     }
 }

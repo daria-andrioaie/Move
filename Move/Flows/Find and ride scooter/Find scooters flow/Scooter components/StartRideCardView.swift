@@ -37,7 +37,9 @@ struct StartRideCardView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                StartRideCardView(scooterData: .mockedScooter())
+                FlexibleSheet(sheetMode: .constant(.half)) {
+                    StartRideCardView(scooterData: .mockedScooter())
+                }
                     .previewDevice(device)
             }
         }
