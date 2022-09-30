@@ -184,7 +184,7 @@ struct MenuView: View {
         VStack(alignment: .leading, spacing: 30) {
             HeaderView(buttonAction: .slideBack, onButtonPressed: {
                 onBack()
-            }, headerTitle: "Hi conor!")
+            }, headerTitle: "Hi \(username)!")
             HistoryPreview(onSeeHistoryButton: onSeeHistoryButton)
             GeneralSettingsView(onEditAccountButton: onEditAccountButton, onChnagePasswordButton: onChangePasswordButton)
             LegalLinksView(onTermsAndConditionsPressed: goToTapptitude, onPrivacyPolicyPressed: goToTapptitude)
@@ -198,6 +198,16 @@ struct MenuView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(height: UIScreen.main.bounds.height * 4/7)
+        }
+    }
+    
+    var username: String {
+        let userDefaultsService = UserDefaultsService()
+        if let username = try? userDefaultsService.getUser().username {
+            return username
+        }
+        else {
+            return "nil"
         }
     }
 }
