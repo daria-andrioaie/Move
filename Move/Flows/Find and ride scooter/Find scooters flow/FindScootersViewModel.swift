@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import MapKit
 
 class FindScootersViewModel: ObservableObject {
     var selectedScooter: SelectedScooterViewModel
@@ -14,7 +15,7 @@ class FindScootersViewModel: ObservableObject {
     var mapViewModel: ScooterMapViewModel = .init()
     
     init(selectedScooter: SelectedScooterViewModel) {
-        print("view model instantiated")
+        print("find scooters view model instantiated")
         self.selectedScooter = selectedScooter
         mapViewModel.onSelectedScooter = { scooter in
             withAnimation {
@@ -25,6 +26,13 @@ class FindScootersViewModel: ObservableObject {
             withAnimation {
                 self.selectedScooter.value = nil
                 self.unlockOptionsSheetDisplayMode = SheetDisplayMode.none
+            }
+        }
+        
+        if let unlockedScooter = self.selectedScooter.value {
+            if unlockedScooter.scooterData.lockedStatus == .unlocked {
+                mapViewModel.mapView.addAnnotation(unlockedScooter as MKAnnotation)
+                mapViewModel.mapView.setRegion(.init(center: unlockedScooter.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000), animated: true)
             }
         }
     }

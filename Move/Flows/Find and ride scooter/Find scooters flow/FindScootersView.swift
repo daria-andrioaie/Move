@@ -12,6 +12,7 @@ import CoreLocation
 
 
 struct SelectedScooterSheetView: View {
+    var userCanUnlockScooter: Bool
     var selectedScooterAnnotation: ScooterAnnotation
     @Binding var unlockOptionsSheetDisplayMode: SheetDisplayMode
     @Binding var startRideSheetDisplayMode: SheetDisplayMode
@@ -20,7 +21,7 @@ struct SelectedScooterSheetView: View {
     var body: some View {
         switch selectedScooterAnnotation.getScooterData().lockedStatus {
         case .locked:
-            ScooterCardView(scooterData: selectedScooterAnnotation.scooterData, onUnlock: {
+            ScooterCardView(scooterData: selectedScooterAnnotation.scooterData, userCanUnlockScooter: userCanUnlockScooter, onUnlock: {
                 unlockOptionsSheetDisplayMode = .half
             })
                 .frame(maxHeight: .infinity, alignment: .bottom)
@@ -37,12 +38,7 @@ struct SelectedScooterSheetView: View {
             }
         case .unlocked:
             FlexibleSheet(sheetMode: $startRideSheetDisplayMode) {
-                ZStack {
-                    Color.accentPink
-                    Text("Start ride")
-                        .foregroundColor(.white)
-                        .font(.primary(type: .button1))
-                }
+                StartRideCardView(scooterData: selectedScooterAnnotation.scooterData)
             }
             .zIndex(3)
         }
@@ -75,12 +71,10 @@ struct FindScootersView: View {
                 viewModel.centerMapOnUserLocation()
             }
             if let selectedScooterAnnotation = viewModel.selectedScooter.value {
-                Text(selectedScooterAnnotation.scooterData.toString())
-                    .foregroundColor(.black)
-                    .font(.primary(type: .heading1))
-                SelectedScooterSheetView(selectedScooterAnnotation: selectedScooterAnnotation, unlockOptionsSheetDisplayMode: $viewModel.unlockOptionsSheetDisplayMode, startRideSheetDisplayMode: $viewModel.selectedScooter.startRideSheetDisplayMode, onUnlock: onUnlock)
+                SelectedScooterSheetView(userCanUnlockScooter: viewModel.mapViewModel.isUserLocationAvailable(), selectedScooterAnnotation: selectedScooterAnnotation, unlockOptionsSheetDisplayMode: $viewModel.unlockOptionsSheetDisplayMode, startRideSheetDisplayMode: $viewModel.selectedScooter.startRideSheetDisplayMode, onUnlock: onUnlock)
             }
         }
+        .ignoresSafeArea()
     }
 }
 

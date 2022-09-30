@@ -104,7 +104,7 @@ struct RideCoordinatorView: View {
                 state = .findScooter
             }, onUnlockFinished: {
                 selectedScooter.value?.scooterData.lockedStatus = .unlocked
-                selectedScooter.startRideSheetDisplayMode = .half
+                selectedScooter.startRideSheetDisplayMode = .custom
                 state = .findScooter
             })
                 .preferredColorScheme(.dark)

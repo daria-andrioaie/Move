@@ -13,6 +13,7 @@
 		B80979CC28A51861009B1C8D /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979CB28A51861009B1C8D /* ForgotPasswordView.swift */; };
 		B80979CE28A51A4E009B1C8D /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */; };
 		B80979D128A53504009B1C8D /* AddLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80979D028A53504009B1C8D /* AddLicenseView.swift */; };
+		B822E83428E779AD00908C0E /* SizePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B822E83328E779AD00908C0E /* SizePreferenceKey.swift */; };
 		B828174B28E6D4BA00DF3C63 /* RideButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B828174A28E6D4B900DF3C63 /* RideButtons.swift */; };
 		B82A3ADB28D31B11005F22A2 /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82A3ADA28D31B11005F22A2 /* EditAccountView.swift */; };
 		B82A3ADD28D32967005F22A2 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82A3ADC28D32967005F22A2 /* ChangePasswordView.swift */; };
@@ -108,6 +109,7 @@
 		B80979CB28A51861009B1C8D /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		B80979CD28A51A4E009B1C8D /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		B80979D028A53504009B1C8D /* AddLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLicenseView.swift; sourceTree = "<group>"; };
+		B822E83328E779AD00908C0E /* SizePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizePreferenceKey.swift; sourceTree = "<group>"; };
 		B828174A28E6D4B900DF3C63 /* RideButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideButtons.swift; sourceTree = "<group>"; };
 		B82A3ADA28D31B11005F22A2 /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		B82A3ADC28D32967005F22A2 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
@@ -508,6 +510,7 @@
 				B896D15728A6422500BD7791 /* PreviewDevices.swift */,
 				B8052FBA28C88EE000F3439B /* Location.gpx */,
 				B8CDA1CC28E458A50079D157 /* Indentifiable + Hashable.swift */,
+				B822E83328E779AD00908C0E /* SizePreferenceKey.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -745,6 +748,7 @@
 				B896D15628A63D6000BD7791 /* ColorExtensions.swift in Sources */,
 				B8D9B78328A3D8B6003F0968 /* FontsExtensions.swift in Sources */,
 				B8B43AD328D44AA700F06507 /* ScooterUnlockOptionsView.swift in Sources */,
+				B822E83428E779AD00908C0E /* SizePreferenceKey.swift in Sources */,
 				B8A096E228C097B100F0BEFC /* AuthenticationViewModel.swift in Sources */,
 				B83E8A6A28CA2B210064704C /* Scooter.swift in Sources */,
 				B8CDA1CD28E458A50079D157 /* Indentifiable + Hashable.swift in Sources */,

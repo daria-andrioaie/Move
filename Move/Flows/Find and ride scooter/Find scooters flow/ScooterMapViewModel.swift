@@ -23,6 +23,7 @@ class ScooterMapViewModel: NSObject, ObservableObject {
     }
     
     override init() {
+        print("scooter map view model instantiated")
         super.init()
         configureLocationManager()
     }
@@ -51,7 +52,7 @@ class ScooterMapViewModel: NSObject, ObservableObject {
     
     func refreshScooterList() {
         // if one scooter is selected and it's card view is displayed
-        if mapView.selectedAnnotations.count >= 1{
+        if mapView.selectedAnnotations.count >= 1 {
             if let selectedScooter = mapView.selectedAnnotations[0] as? ScooterAnnotation {
                 mapView.removeAnnotations(mapView.annotations)
                 mapView.addAnnotations(scooters)
@@ -65,7 +66,14 @@ class ScooterMapViewModel: NSObject, ObservableObject {
             }
         }
         else {
-            mapView.removeAnnotations(mapView.annotations)
+            mapView.removeAnnotations(mapView.annotations.filter({ annotation in
+                if let scooterAnnotation = annotation as? ScooterAnnotation {
+                    return scooterAnnotation.scooterData.lockedStatus == .locked
+                }
+                else {
+                    return true
+                }
+            }))
             mapView.addAnnotations(scooters)
         }
     }
@@ -88,9 +96,9 @@ class ScooterMapViewModel: NSObject, ObservableObject {
         service.getScootersInArea(center: mapView.centerCoordinate, radius: 4000) { result in
             switch result {
             case .success(let scooters):
-                for scooter in scooters {
-                    print(scooter.toString())
-                }
+//                for scooter in scooters {
+//                    print(scooter.toString())
+//                }
                 self.scooters = scooters.getAnnotations()
             case .failure(let error):
                 print("\(error.message)")
@@ -188,6 +196,9 @@ extension ScooterMapViewModel: CLLocationManagerDelegate {
         print(error.localizedDescription)
     }
     
+    func isUserLocationAvailable() -> Bool {
+        return self.userLocation != nil
+    }
     
     func checkLocationAuthorization() {
         switch locationManager.authorizationStatus {
@@ -196,10 +207,12 @@ extension ScooterMapViewModel: CLLocationManagerDelegate {
         case .restricted:
             //TODO: show an alert
             centerMapOnClujCityCenter()
+            self.userLocation = nil
             print("Location is restricted")
         case .denied:
             //TODO: show an alert
             centerMapOnClujCityCenter()
+            self.userLocation = nil
             print("Location is denied. go to settings")
         case .authorizedAlways, .authorizedWhenInUse:
             locationManager.requestLocation()
