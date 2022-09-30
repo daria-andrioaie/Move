@@ -52,7 +52,7 @@ struct LeftSection: View {
         VStack(alignment: .leading, spacing: 36) {
             GenericTravelMetricsView(metricsType: .time, metricsValue: 720)
             
-            LockUnlockButton(scooterLockStatus: scooterData.lockStatus)
+            LockUnlockButton(scooterLockStatus: scooterData.lockedStatus)
         }
     }
 }

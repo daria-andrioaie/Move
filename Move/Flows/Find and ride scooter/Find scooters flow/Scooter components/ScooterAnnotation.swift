@@ -24,7 +24,7 @@ class ScooterAnnotation: NSObject, MKAnnotation {
     static func requestMockData() -> [ScooterAnnotation] {
         return [
             ScooterAnnotation(scooterData: .mockedScooter(), coordinate: .init(latitude: 46.771541, longitude: 23.625207)),
-            ScooterAnnotation(scooterData: .init(_id: "ddwsx", scooterNumber: 1237, bookStatus: "free", lockStatus: "unlocked", battery: 87, location: .init(coordinates: [46.775831, 23.604520], address: nil)), coordinate: .init(latitude: 46.775831, longitude: 23.604520))
+            ScooterAnnotation(scooterData: .init(_id: "ddwsx", scooterNumber: 1237, bookedStatus: "free", lockedStatus: "locked", battery: 87, location: .init(coordinates: [46.775831, 23.604520], address: nil)), coordinate: .init(latitude: 46.775831, longitude: 23.604520))
         ]
     }
 }

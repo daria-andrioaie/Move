@@ -26,20 +26,31 @@ enum RideCoordinatorState: IdentifiableHashable {
     
 }
 
+class SelectedScooterViewModel: ObservableObject {
+    @Published var value: ScooterAnnotation?
+    @Published var startRideSheetDisplayMode = SheetDisplayMode.none
+    
+    static var constant: SelectedScooterViewModel {
+        SelectedScooterViewModel()
+    }
+}
+
 struct RideCoordinatorView: View {
     let onLogout: () -> Void
     
     @State private var state: RideCoordinatorState? = .findScooter
     @State private var unlockMethod: UnlockMethod? = .PINUnlock
     @State private var showingMenu = false
-    @State private var selectedScooterAnnotation: ScooterAnnotation? = .init(scooterData: .mockedScooter(), coordinate: .init(latitude: 46.123456, longitude: 23.123456))
+//    @State private var selectedScooterAnnotation: ScooterAnnotation? = .init(scooterData: .mockedScooter(), coordinate: .init(latitude: 46.123456, longitude: 23.123456))
+    @StateObject var selectedScooter: SelectedScooterViewModel = .init()
+    
     
     var body: some View {
         ZStack {
             NavigationView {
                 ZStack {
                     VStack {
-                        NavigationLink(destination: FindScootersView(selectedScooterAnnotation: $selectedScooterAnnotation, onMenuButtonPressed: {
+                        NavigationLink(destination: FindScootersView(selectedScooter: selectedScooter, onMenuButtonPressed: {
                             withAnimation {
                                 print("showing menu")
                                 showingMenu = true
@@ -91,7 +102,9 @@ struct RideCoordinatorView: View {
         if case .unlockScooter = state {
             UnlockCoordinator(initialUnlock: unlockMethod!, onCancelUnlock: {
                 state = .findScooter
-            }, onUnlockFinished: { 
+            }, onUnlockFinished: {
+                selectedScooter.value?.scooterData.lockedStatus = .unlocked
+                selectedScooter.startRideSheetDisplayMode = .half
                 state = .findScooter
             })
                 .preferredColorScheme(.dark)

@@ -9,26 +9,21 @@ import Foundation
 import SwiftUI
 
 class FindScootersViewModel: ObservableObject {
-    @Binding var selectedScooterAnnotation: ScooterAnnotation? {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-    @Published var startRideSheetDisplayMode = SheetDisplayMode.none
-
+    var selectedScooter: SelectedScooterViewModel
     @Published var unlockOptionsSheetDisplayMode = SheetDisplayMode.none
     var mapViewModel: ScooterMapViewModel = .init()
     
-    init(selectedScooterAnnotation: Binding<ScooterAnnotation?>) {
-        self._selectedScooterAnnotation = selectedScooterAnnotation
+    init(selectedScooter: SelectedScooterViewModel) {
+        print("view model instantiated")
+        self.selectedScooter = selectedScooter
         mapViewModel.onSelectedScooter = { scooter in
             withAnimation {
-                self.selectedScooterAnnotation = scooter
+                self.selectedScooter.value = scooter
             }
         }
         mapViewModel.onDeselectedScooter = {
             withAnimation {
-                self.selectedScooterAnnotation = nil
+                self.selectedScooter.value = nil
                 self.unlockOptionsSheetDisplayMode = SheetDisplayMode.none
             }
         }

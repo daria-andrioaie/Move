@@ -10,70 +10,6 @@ import Foundation
 import MapKit
 import CoreLocation
 
-final class LocationManger: NSObject, ObservableObject {
-    @Published var userLocation: CLLocation?
-    
-    private let locationManager = CLLocationManager()
-//    var currentRegion: Binding<MKCoordinateRegion>? {
-//        guard let location = userLocation else {
-//            return MKCoordinateRegion.ClujCentralRegion().getBinding()
-//        }
-//        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
-//        return region.getBinding()
-//    }
-  
-    override init() {
-        super.init()
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-        locationManager.delegate = self
-    }
-    
-    func checkIfLocationServicesIsEnabled() {
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            
-            // this is the default value anyway
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        }
-        else {
-            // TODO: alert the user
-        }
-    }
-    
-    func checkLocationAuthorization() {
-        switch locationManager.authorizationStatus {
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-        case .restricted:
-            //TODO: show an alert
-            print("Location is restricted")
-        case .denied:
-            //TODO: show an alert
-            print("Location is denied. go to settings")
-        case .authorizedAlways, .authorizedWhenInUse:
-            // update the ui to show the current user location
-            break
-        @unknown default:
-            break
-        }
-    }
-}
-
-extension LocationManger: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let lastLocation = locations.last else {
-            return
-        }
-        DispatchQueue.main.async {
-            self.userLocation = lastLocation
-        }
-    }
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        checkLocationAuthorization()
-    }
-}
 
 struct SelectedScooterSheetView: View {
     var selectedScooterAnnotation: ScooterAnnotation
@@ -82,7 +18,7 @@ struct SelectedScooterSheetView: View {
     let onUnlock: (UnlockMethod) -> Void
 
     var body: some View {
-        switch selectedScooterAnnotation.getScooterData().lockStatus {
+        switch selectedScooterAnnotation.getScooterData().lockedStatus {
         case .locked:
             ScooterCardView(scooterData: selectedScooterAnnotation.scooterData, onUnlock: {
                 unlockOptionsSheetDisplayMode = .half
@@ -114,17 +50,16 @@ struct SelectedScooterSheetView: View {
 }
 
 struct FindScootersView: View {
-    @Binding var selectedScooterAnnotation: ScooterAnnotation?
     let onMenuButtonPressed: () -> Void
     let onUnlock: (UnlockMethod) -> Void
     
-    @StateObject var viewModel: FindScootersViewModel
+    @StateObject private var viewModel: FindScootersViewModel
     
-    init(selectedScooterAnnotation: Binding<ScooterAnnotation?>, onMenuButtonPressed: @escaping () -> Void, onUnlock: @escaping (UnlockMethod) -> Void) {
-        self._selectedScooterAnnotation = selectedScooterAnnotation
+    init(selectedScooter: SelectedScooterViewModel, onMenuButtonPressed: @escaping () -> Void, onUnlock: @escaping (UnlockMethod) -> Void) {
+        print("view instantiated")
         self.onMenuButtonPressed = onMenuButtonPressed
         self.onUnlock = onUnlock
-        self._viewModel = StateObject(wrappedValue: FindScootersViewModel(selectedScooterAnnotation: selectedScooterAnnotation))
+        self._viewModel = StateObject(wrappedValue: FindScootersViewModel(selectedScooter: selectedScooter))
     }
 
     var body: some View {
@@ -139,11 +74,11 @@ struct FindScootersView: View {
             } onLocationButtonPressed: {
                 viewModel.centerMapOnUserLocation()
             }
-            if let selectedScooterAnnotation = viewModel.selectedScooterAnnotation {
+            if let selectedScooterAnnotation = viewModel.selectedScooter.value {
                 Text(selectedScooterAnnotation.scooterData.toString())
                     .foregroundColor(.black)
                     .font(.primary(type: .heading1))
-//                SelectedScooterSheetView(selectedScooterAnnotation: selectedScooterAnnotation, unlockOptionsSheetDisplayMode: $viewModel.unlockOptionsSheetDisplayMode, startRideSheetDisplayMode: $viewModel.startRideSheetDisplayMode, onUnlock: onUnlock)
+                SelectedScooterSheetView(selectedScooterAnnotation: selectedScooterAnnotation, unlockOptionsSheetDisplayMode: $viewModel.unlockOptionsSheetDisplayMode, startRideSheetDisplayMode: $viewModel.selectedScooter.startRideSheetDisplayMode, onUnlock: onUnlock)
             }
         }
     }
@@ -153,7 +88,7 @@ struct FindScootersView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                FindScootersView(selectedScooterAnnotation: .constant(nil), onMenuButtonPressed: {}, onUnlock: {_ in })
+                FindScootersView(selectedScooter: .constant, onMenuButtonPressed: {}, onUnlock: {_ in })
                     .previewDevice(device)
             }
         }

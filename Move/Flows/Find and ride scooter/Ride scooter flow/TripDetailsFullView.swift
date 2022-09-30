@@ -82,7 +82,7 @@ struct TripDetailsFullView: View {
                 GenericTravelMetricsTitle(metricsType: .distance)
             }
             
-            ButtonsTripDetailsFullView(scooterLockStatus: scooterData.lockStatus)
+            ButtonsTripDetailsFullView(scooterLockStatus: scooterData.lockedStatus)
         }
         .padding(.horizontal, 24)
     }
