@@ -34,8 +34,14 @@ class ScooterMapViewModel: NSObject, ObservableObject {
         }
     }
     
+    var isUserLocationAvailable: Bool {
+        return self.userLocation != nil
+    }
+    
     var onSelectedScooter: (ScooterAnnotation) -> Void = { _ in }
     var onDeselectedScooter: () -> Void = {}
+    var onMapRegionChanged: (String) -> Void = { _ in }
+    
     
     lazy var mapView: MKMapView = {
         let mapView = MKMapView(frame: .zero)
@@ -172,6 +178,35 @@ extension ScooterMapViewModel: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         getAllScooters()
+        refreshAddressOfMapCenter()
+    }
+    
+    func refreshAddressOfMapCenter() {
+        CLGeocoder().reverseGeocodeLocation(.init(latitude: mapView.region.center.latitude, longitude: mapView.region.center.longitude)) { placemarks, error in
+            if let error = error {
+                print("Reverse geocoder failed with error: " + error.localizedDescription)
+                return
+            }
+            
+            if let placemarks = placemarks {
+                if placemarks.count > 0 {
+                    let mapCenterPlacemark = placemarks[0] as CLPlacemark
+                    
+                    if let cityName = mapCenterPlacemark.locality {
+                        var addressOfMapCenter = cityName
+                        if let additionalCityInformation = mapCenterPlacemark.subLocality {
+                            addressOfMapCenter += ", \(additionalCityInformation)"
+                        }
+                        self.onMapRegionChanged(addressOfMapCenter)
+                    }
+                    else {
+                        self.onMapRegionChanged("No address detected")
+                    }
+                } else {
+                    print("Problem with the data received from geocoder")
+                }
+            }
+        }
     }
 }
 
@@ -194,10 +229,6 @@ extension ScooterMapViewModel: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
-    }
-    
-    func isUserLocationAvailable() -> Bool {
-        return self.userLocation != nil
     }
     
     func checkLocationAuthorization() {

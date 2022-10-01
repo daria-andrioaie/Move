@@ -65,13 +65,20 @@ struct FindScootersView: View {
                     viewModel.loadScooters()
                     viewModel.refreshScootersEvery30Seconds()
                 }
-            MapHeaderView {
+            MapHeaderView(address: viewModel.mapCenterAddress, isUserLocationAvailable: viewModel.mapViewModel.isUserLocationAvailable) {
                 onMenuButtonPressed()
             } onLocationButtonPressed: {
-                viewModel.centerMapOnUserLocation()
+                if viewModel.mapViewModel.isUserLocationAvailable {
+                    viewModel.centerMapOnUserLocation()
+                }
+                else {
+                    SwiftMessagesErrorHandler().handle(message: "To center the map on your current location, you need to allow Move to access your location.", buttonLabel: "Go to settings", type: .warning, onScreenDuration: 4) {
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                    }
+                }
             }
             if let selectedScooterAnnotation = viewModel.selectedScooter.value {
-                SelectedScooterSheetView(userCanUnlockScooter: viewModel.mapViewModel.isUserLocationAvailable(), selectedScooterAnnotation: selectedScooterAnnotation, unlockOptionsSheetDisplayMode: $viewModel.unlockOptionsSheetDisplayMode, startRideSheetDisplayMode: $viewModel.selectedScooter.startRideSheetDisplayMode, onUnlock: onUnlock)
+                SelectedScooterSheetView(userCanUnlockScooter: viewModel.mapViewModel.isUserLocationAvailable, selectedScooterAnnotation: selectedScooterAnnotation, unlockOptionsSheetDisplayMode: $viewModel.unlockOptionsSheetDisplayMode, startRideSheetDisplayMode: $viewModel.selectedScooter.startRideSheetDisplayMode, onUnlock: onUnlock)
             }
         }
         .ignoresSafeArea()

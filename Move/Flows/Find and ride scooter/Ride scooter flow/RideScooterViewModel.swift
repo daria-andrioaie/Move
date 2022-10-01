@@ -11,13 +11,20 @@ import SwiftUI
 class RideScooterViewModel: ObservableObject {
     @Published var tripDetailsSheetMode = SheetDisplayMode.half
     @Published var scooterData: ScooterData
+    var mapViewModel: ScooterMapViewModel = .init()
+    @Published var mapCenterAddress: String? = nil
 
     init(scooterData: ScooterData) {
         self.scooterData = scooterData
+        
+        mapViewModel.onMapRegionChanged = { mapCenterAddress in
+            withAnimation {
+                self.mapCenterAddress = mapCenterAddress
+            }
+        }
     }
     
-    var mapViewModel: ScooterMapViewModel = .init()
-
+    
     func centerMapOnUserLocation() {
         mapViewModel.centerMapOnUserLocation()
     }

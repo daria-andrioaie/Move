@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapKit
 
 class Location: Codable {
     var coordinates: [Double]
@@ -48,6 +49,31 @@ class ScooterData: Codable {
     
     func toString() -> String {
         return "\(scooterNumber)" + " " + bookedStatus.rawValue + " " + lockedStatus.rawValue + "\n"
+    }
+    
+    func computeAddressBasedOnLocationCoordinates() {
+        CLGeocoder().reverseGeocodeLocation(.init(latitude: self.location.coordinates[0], longitude: self.location.coordinates[1])) { placemarks, error in
+            if let error = error {
+                print("Reverse geocoder failed with error" + error.localizedDescription)
+                return
+            }
+            
+            if let placemarks = placemarks {
+                if placemarks.count > 0 {
+                    let scooterPlacemark = placemarks[0] as CLPlacemark
+                    
+                    if let streetName = scooterPlacemark.thoroughfare {
+                        var addressOfScooter = streetName
+                        if let streetNumber = scooterPlacemark.subLocality {
+                            addressOfScooter += ", \(streetNumber)"
+                        }
+                        self.location.address = addressOfScooter
+                    }
+                } else {
+                    print("Problem with the data received from geocoder")
+                }
+            }
+        }
     }
     
     static func mock_getScootersNearTapp() -> [ScooterData] {

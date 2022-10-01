@@ -15,7 +15,7 @@ struct RideScooterView: View {
     var body: some View {
         ZStack(alignment: .top) {
             ScooterMapView(viewModel: viewModel.mapViewModel)
-            MapHeaderView {
+            MapHeaderView(address: viewModel.mapCenterAddress, isUserLocationAvailable: viewModel.mapViewModel.isUserLocationAvailable) {
                 onMenuButtonPressed()
             } onLocationButtonPressed: {
                 viewModel.centerMapOnUserLocation()

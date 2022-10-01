@@ -21,6 +21,9 @@ class ScootersAPIService {
             .responseDecodable(of: [ScooterData].self) { response in
                 switch response.result {
                 case .success(let scooters):
+//                    scooters.forEach { scooter in
+//                        scooter.computeAddressBasedOnLocationCoordinates()
+//                    }
                     onRequestCompleted(.success(scooters))
                 case .failure(let error):
                     if let data = response.data, let APIerror = try? JSONDecoder().decode(APIError.self, from: data) {

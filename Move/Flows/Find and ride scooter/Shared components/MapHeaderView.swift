@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MapHeaderView: View {
+    let address: String?
+    let isUserLocationAvailable: Bool
     let onMenuButtonPressed: () -> Void
     let onLocationButtonPressed: () -> Void
     
@@ -17,7 +19,12 @@ struct MapHeaderView: View {
                 onMenuButtonPressed()
             })
             Spacer()
-            ShadowedMapButtonView(imagePath: "location-button", onTap: {
+            Text(isUserLocationAvailable ? (address ?? "no address detected") : "Allow location")
+                .foregroundColor(.primaryPurple)
+                .font(.primary(type: .navbarTitle))
+            
+            Spacer()
+            ShadowedMapButtonView(imagePath: isUserLocationAvailable ? "user-location-button" : "user-location-disabled-button", onTap: {
                 onLocationButtonPressed()
             })
         }
@@ -29,7 +36,7 @@ struct MapHeaderView: View {
 
 struct MapHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        MapHeaderView {
+        MapHeaderView(address: "Cluj Napoca", isUserLocationAvailable: true){
             print("go to menu")
         } onLocationButtonPressed: {
             print("center map")

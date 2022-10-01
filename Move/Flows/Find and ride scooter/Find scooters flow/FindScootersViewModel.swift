@@ -11,6 +11,7 @@ import MapKit
 
 class FindScootersViewModel: ObservableObject {
     var selectedScooter: SelectedScooterViewModel
+    @Published var mapCenterAddress: String? = nil
     @Published var unlockOptionsSheetDisplayMode = SheetDisplayMode.none
     var mapViewModel: ScooterMapViewModel = .init()
     
@@ -26,6 +27,12 @@ class FindScootersViewModel: ObservableObject {
             withAnimation {
                 self.selectedScooter.value = nil
                 self.unlockOptionsSheetDisplayMode = SheetDisplayMode.none
+            }
+        }
+        
+        mapViewModel.onMapRegionChanged = { mapCenterAddress in
+            withAnimation {
+                self.mapCenterAddress = mapCenterAddress
             }
         }
         

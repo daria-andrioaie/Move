@@ -64,7 +64,7 @@ struct AddressView: View {
     var body: some View {
         HStack {
             Image("location-pin")
-            Text(address ?? "No address yet")
+            Text(address ?? "No address")
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
                 .font(.primary(type: .button2))
