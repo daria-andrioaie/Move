@@ -132,6 +132,9 @@ struct PINUnlockView: View {
             }
             .frame(maxHeight: .infinity)
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
 }
 

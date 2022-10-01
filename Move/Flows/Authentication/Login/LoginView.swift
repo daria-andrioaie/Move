@@ -96,6 +96,10 @@ struct LoginView: View {
                 Spacer()
             }
         }
+        .onTapGesture {
+            print("fknf")
+            hideKeyboard()
+        }
     }
     
     func manageRequest() {

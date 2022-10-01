@@ -40,10 +40,10 @@ struct EditAccountFieldsView: View {
     
     var body: some View {
         VStack {
-            SimpleUnderlinedTextField(placeholder: "Username", inputValue: username, fieldIsFocused: _emailFieldIsFocused, colorScheme: .light, returnType: .next) {
+            SimpleUnderlinedTextField(placeholder: "Username", inputValue: username, fieldIsFocused: _usernameFieldIsFocused, colorScheme: .light, returnType: .next) {
                 emailFieldIsFocused = true
             }
-            SimpleUnderlinedTextField(placeholder: "Email address", inputValue: emailAddress, fieldIsFocused: _usernameFieldIsFocused, colorScheme: colorScheme, returnType: .done) {
+            SimpleUnderlinedTextField(placeholder: "Email address", inputValue: emailAddress, fieldIsFocused: _emailFieldIsFocused, colorScheme: colorScheme, returnType: .done) {
                 onAllFieldsCompleted()
             }
         }
@@ -115,6 +115,10 @@ struct EditAccountView: View {
             FormButton(title: "Save edits", isEnabled: formIsCompleted) {
                 viewModel.saveEdits()
             }
+        }
+        .onTapGesture {
+            //TODO: I think this doesn't work because the fields are in a child view of this one. Similar behaviour is in ChangePasswordView
+            hideKeyboard()
         }
     }
 }

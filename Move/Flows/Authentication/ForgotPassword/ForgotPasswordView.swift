@@ -83,6 +83,9 @@ struct ForgotPasswordView: View {
                 Spacer()
             }
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
 }
 

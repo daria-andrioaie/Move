@@ -109,6 +109,9 @@ struct RegisterView: View {
                 }
             }
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
     
     func manageRequest() {
@@ -124,6 +127,12 @@ struct RegisterView: View {
                 onFinished()
             }
         })
+    }
+    
+    func unfocusFields() {
+        self.emailFieldIsFocused = false
+        self.usernameFieldIsFocused = false
+        self.passwordFieldIsFocused = false
     }
 }
 

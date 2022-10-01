@@ -34,6 +34,7 @@
 		B861626128ABB73300BDE4CA /* Shared view components.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861626028ABB73300BDE4CA /* Shared view components.swift */; };
 		B861626328ABBAAA00BDE4CA /* LayoutExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861626228ABBAAA00BDE4CA /* LayoutExtensions.swift */; };
 		B862BF0028AD0148002EF079 /* ButtonStylesExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B862BEFF28AD0148002EF079 /* ButtonStylesExtensions.swift */; };
+		B870275528E8746500DDDF88 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870275428E8746500DDDF88 /* ViewExtensions.swift */; };
 		B889B60B28D216590016BEFB /* HistoryOfRidesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B889B60A28D216590016BEFB /* HistoryOfRidesView.swift */; };
 		B889B60D28D216920016BEFB /* Ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = B889B60C28D216920016BEFB /* Ride.swift */; };
 		B890F3BE28CB61B900435E9C /* ScootersAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890F3BD28CB61B900435E9C /* ScootersAPIService.swift */; };
@@ -130,6 +131,7 @@
 		B861626028ABB73300BDE4CA /* Shared view components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shared view components.swift"; sourceTree = "<group>"; };
 		B861626228ABBAAA00BDE4CA /* LayoutExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutExtensions.swift; sourceTree = "<group>"; };
 		B862BEFF28AD0148002EF079 /* ButtonStylesExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStylesExtensions.swift; sourceTree = "<group>"; };
+		B870275428E8746500DDDF88 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		B889B60A28D216590016BEFB /* HistoryOfRidesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryOfRidesView.swift; sourceTree = "<group>"; };
 		B889B60C28D216920016BEFB /* Ride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ride.swift; sourceTree = "<group>"; };
 		B890F3BD28CB61B900435E9C /* ScootersAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScootersAPIService.swift; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 				B8D9B78228A3D8B6003F0968 /* FontsExtensions.swift */,
 				B862BEFF28AD0148002EF079 /* ButtonStylesExtensions.swift */,
 				B8E633C528E5A6C200C0A6F0 /* IntExtensions.swift */,
+				B870275428E8746500DDDF88 /* ViewExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -717,6 +720,7 @@
 				B8E9752728AE6766004E83A4 /* ValidationInProgressView.swift in Sources */,
 				B8DCB05528E1CA5E0032C973 /* RoundedCornerPath.swift in Sources */,
 				B861626328ABBAAA00BDE4CA /* LayoutExtensions.swift in Sources */,
+				B870275528E8746500DDDF88 /* ViewExtensions.swift in Sources */,
 				B8E5BBA028A27F2D0012DB66 /* PurpleBackgroundView.swift in Sources */,
 				B84DE57928C5D9AC0051311B /* APIError.swift in Sources */,
 				B83E8A6828CA29690064704C /* ScooterCardView.swift in Sources */,

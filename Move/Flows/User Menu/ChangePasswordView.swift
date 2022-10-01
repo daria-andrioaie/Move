@@ -80,6 +80,9 @@ struct ChangePasswordView: View {
                 viewModel.saveEdits()
             }
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
 }
 
