@@ -52,7 +52,7 @@ class ScooterData: Codable {
     }
     
     func computeAddressBasedOnLocationCoordinates() {
-        CLGeocoder().reverseGeocodeLocation(.init(latitude: self.location.coordinates[0], longitude: self.location.coordinates[1])) { placemarks, error in
+        CLGeocoder().reverseGeocodeLocation(.init(latitude: self.location.coordinates[1], longitude: self.location.coordinates[0])) { placemarks, error in
             if let error = error {
                 print("Reverse geocoder failed with error" + error.localizedDescription)
                 return

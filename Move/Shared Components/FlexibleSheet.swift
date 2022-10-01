@@ -52,7 +52,6 @@ struct FlexibleSheet<Content: View>: View {
                 }
             )
             .onPreferenceChange(SizePreferenceKey.self) { newSize in
-                print("The new child height is: \(newSize.height)")
                 self.contentSize = newSize
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

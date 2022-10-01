@@ -11,7 +11,7 @@ import SwiftUI
 
 class ScooterMapViewModel: NSObject, ObservableObject {
     
-    private var userLocation: CLLocation?
+    var userLocation: CLLocation?
     
     private var locationManager = CLLocationManager()
     
@@ -23,7 +23,6 @@ class ScooterMapViewModel: NSObject, ObservableObject {
     }
     
     override init() {
-        print("scooter map view model instantiated")
         super.init()
         configureLocationManager()
     }

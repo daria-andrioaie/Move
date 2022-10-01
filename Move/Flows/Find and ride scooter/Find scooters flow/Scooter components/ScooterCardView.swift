@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct ScooterDetailsView: View {
     let scooterNumber: Int
@@ -77,6 +78,8 @@ struct AddressView: View {
 struct LocateScooterButtonsView: View {
     let scooterLongitude: Double
     let scooterLatitude: Double
+    let onRingButton: () -> Void
+    let isUserLocationAvailable: Bool
     
     func openMaps() {
         let url = URL(string: "comgooglemaps://?saddr=&daddr=\(scooterLatitude),\(scooterLongitude)&directionsmode=walking")
@@ -91,8 +94,8 @@ struct LocateScooterButtonsView: View {
     
     var body: some View {
         HStack(spacing: 30) {
-            MapButtonView(imagePath: "bell-pink") {
-                print("ring bell")
+            MapButtonView(imagePath: "bell-pink", isEnabled: isUserLocationAvailable) {
+                onRingButton()
             }
             MapButtonView(imagePath: "navigation-pink") {
                 openMaps()
@@ -114,11 +117,50 @@ struct ScooterImageCardView: View {
     }
 }
 
+class ScooterCardViewModel: ObservableObject {
+    let scooterData: ScooterData
+    let userLocationCoordinates: CLLocationCoordinate2D?
+    let tcpAPIService = TcpAPIService()
+
+    init(scooterData: ScooterData, userLocationCoordinates: CLLocationCoordinate2D?) {
+        self.scooterData = scooterData
+        self.userLocationCoordinates = userLocationCoordinates
+    }
+    
+    func pingScooter() {
+        guard let userLocationCoordinates = userLocationCoordinates else {
+            return
+        }
+        
+        let userLocationParameters = ["longitude": userLocationCoordinates.longitude, "latitude": userLocationCoordinates.latitude]
+        
+        tcpAPIService.pingScooter(scooterNumber: String(scooterData.scooterNumber), userLocationCoordinates: userLocationParameters) { result in
+            switch result {
+            case .success(_):
+                print("successfully pinged scooter")
+                return
+            case .failure(let apiError):
+                SwiftMessagesErrorHandler().handle(message: "Couldn't ping scooter. \(apiError.message)", type: .warning)
+            }
+        }
+    }
+}
+
 struct ScooterCardView: View {
     let scooterData: ScooterData
     var userCanUnlockScooter: Bool
+    let userLocationCoordinates: CLLocationCoordinate2D?
 
     let onUnlock: () -> Void
+    @StateObject var viewModel: ScooterCardViewModel
+    
+    init(scooterData: ScooterData, userCanUnlockScooter: Bool, userLocationCoordinates: CLLocationCoordinate2D?, onUnlock: @escaping () -> Void) {
+        self.scooterData = scooterData
+        self.userCanUnlockScooter = userCanUnlockScooter
+        self.userLocationCoordinates = userLocationCoordinates
+        self.onUnlock = onUnlock
+        self._viewModel = StateObject(wrappedValue: ScooterCardViewModel(scooterData: scooterData, userLocationCoordinates: userLocationCoordinates))
+    }
     
     var body: some View {
         VStack(spacing: 30) {
@@ -126,7 +168,7 @@ struct ScooterCardView: View {
                 ScooterImageCardView()
                 VStack(alignment: .trailing, spacing: 5) {
                     ScooterDetailsView(scooterNumber: scooterData.scooterNumber, batteryPercentage: scooterData.battery)
-                    LocateScooterButtonsView(scooterLongitude: scooterData.location.coordinates[0], scooterLatitude: scooterData.location.coordinates[1])
+                    LocateScooterButtonsView(scooterLongitude: scooterData.location.coordinates[0], scooterLatitude: scooterData.location.coordinates[1], onRingButton: viewModel.pingScooter, isUserLocationAvailable: userLocationCoordinates != nil)
                 }
                 .padding(.trailing, 30)
                 .padding(.top, 20)
@@ -148,7 +190,7 @@ struct ScooterDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                ScooterCardView(scooterData: .mockedScooter(), userCanUnlockScooter: true, onUnlock: {})
+                ScooterCardView(scooterData: .mockedScooter(), userCanUnlockScooter: true, userLocationCoordinates: .init(latitude: 46.245632, longitude: 23.456789), onUnlock: {})
                     .previewDevice(device)
             }
         }

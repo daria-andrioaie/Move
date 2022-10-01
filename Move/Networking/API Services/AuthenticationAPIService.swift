@@ -19,7 +19,7 @@ enum AuthenticationRequestType {
 }
 
 class AuthenticationAPIService {
-    let userDefaultsService: UserDefaultsService
+    private let userDefaultsService: UserDefaultsService
     static private let baseURL = "https://move-scooter.herokuapp.com/api/auth/"
     
     init(userDefaultsService: UserDefaultsService) {

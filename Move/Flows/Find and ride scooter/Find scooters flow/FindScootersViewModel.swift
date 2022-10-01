@@ -16,7 +16,6 @@ class FindScootersViewModel: ObservableObject {
     var mapViewModel: ScooterMapViewModel = .init()
     
     init(selectedScooter: SelectedScooterViewModel) {
-        print("find scooters view model instantiated")
         self.selectedScooter = selectedScooter
         mapViewModel.onSelectedScooter = { scooter in
             withAnimation {

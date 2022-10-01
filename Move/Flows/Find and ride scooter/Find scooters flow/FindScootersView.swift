@@ -16,12 +16,13 @@ struct SelectedScooterSheetView: View {
     var selectedScooterAnnotation: ScooterAnnotation
     @Binding var unlockOptionsSheetDisplayMode: SheetDisplayMode
     @Binding var startRideSheetDisplayMode: SheetDisplayMode
+    let userLocationCoordinates: CLLocationCoordinate2D?
     let onUnlock: (UnlockMethod) -> Void
 
     var body: some View {
         switch selectedScooterAnnotation.getScooterData().lockedStatus {
         case .locked:
-            ScooterCardView(scooterData: selectedScooterAnnotation.scooterData, userCanUnlockScooter: userCanUnlockScooter, onUnlock: {
+            ScooterCardView(scooterData: selectedScooterAnnotation.scooterData, userCanUnlockScooter: userCanUnlockScooter, userLocationCoordinates: userLocationCoordinates, onUnlock: {
                 unlockOptionsSheetDisplayMode = .half
             })
                 .frame(maxHeight: .infinity, alignment: .bottom)
@@ -52,7 +53,6 @@ struct FindScootersView: View {
     @StateObject private var viewModel: FindScootersViewModel
     
     init(selectedScooter: SelectedScooterViewModel, onMenuButtonPressed: @escaping () -> Void, onUnlock: @escaping (UnlockMethod) -> Void) {
-        print("view instantiated")
         self.onMenuButtonPressed = onMenuButtonPressed
         self.onUnlock = onUnlock
         self._viewModel = StateObject(wrappedValue: FindScootersViewModel(selectedScooter: selectedScooter))
@@ -78,7 +78,7 @@ struct FindScootersView: View {
                 }
             }
             if let selectedScooterAnnotation = viewModel.selectedScooter.value {
-                SelectedScooterSheetView(userCanUnlockScooter: viewModel.mapViewModel.isUserLocationAvailable, selectedScooterAnnotation: selectedScooterAnnotation, unlockOptionsSheetDisplayMode: $viewModel.unlockOptionsSheetDisplayMode, startRideSheetDisplayMode: $viewModel.selectedScooter.startRideSheetDisplayMode, onUnlock: onUnlock)
+                SelectedScooterSheetView(userCanUnlockScooter: viewModel.mapViewModel.isUserLocationAvailable, selectedScooterAnnotation: selectedScooterAnnotation, unlockOptionsSheetDisplayMode: $viewModel.unlockOptionsSheetDisplayMode, startRideSheetDisplayMode: $viewModel.selectedScooter.startRideSheetDisplayMode, userLocationCoordinates: viewModel.mapViewModel.userLocation?.coordinate, onUnlock: onUnlock)
             }
         }
         .ignoresSafeArea()

@@ -9,7 +9,14 @@ import SwiftUI
 
 struct MapButtonView: View {
     let imagePath: String
+    let isEnabled: Bool
     let onTap: () -> Void
+    
+    init(imagePath: String, isEnabled: Bool = true, onTap: @escaping () -> Void) {
+        self.imagePath = imagePath
+        self.isEnabled = isEnabled
+        self.onTap = onTap
+    }
     
     var body: some View {
         Button {
@@ -18,6 +25,7 @@ struct MapButtonView: View {
             Image(imagePath)
                 .mapButton()
         }
+        .disabled(!isEnabled)
     }
 }
 

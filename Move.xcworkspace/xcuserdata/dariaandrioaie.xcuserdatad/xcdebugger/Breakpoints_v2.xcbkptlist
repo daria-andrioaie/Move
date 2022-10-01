@@ -7,47 +7,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4964F7E9-3CFE-4FAB-91DA-86B85B119A5E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Move/Flows/Find and ride scooter/Find scooters flow/FindScootersView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4FD19F7D-EA44-477D-8571-5AC1219F2293"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Move/Flows/Find and ride scooter/Find scooters flow/FindScootersViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "init(selectedScooter:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "66E943B1-9444-43EF-9978-2AE1EACC744C"
+            uuid = "192834CD-B278-4FA7-8D90-0ACD0CD3F657"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Move/Flows/Find and ride scooter/Find scooters flow/FindScootersViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
             landmarkName = "init(selectedScooter:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -55,17 +23,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E326D60D-FA52-415E-BA91-F24C80EA4B20"
-            shouldBeEnabled = "No"
+            uuid = "1C29572F-C929-455E-B365-4E9D1BB8B0F9"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Move/Flows/Find and ride scooter/Find scooters flow/ScooterMapViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
-            landmarkName = "refreshScooterList()"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
+            landmarkName = "refreshAddressOfMapCenter()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1C29572F-C929-455E-B365-4E9D1BB8B0F9 - b3db659ca1af5875"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Array&lt;__C.CLPlacemark&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Move.ScooterMapViewModel.refreshAddressOfMapCenter() -&gt; ()"
+                  moduleName = "Move"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dariaandrioaie/Documents/Move/Move/Flows/Find%20and%20ride%20scooter/Find%20scooters%20flow/ScooterMapViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "191"
+                  endingLineNumber = "191"
+                  offsetFromSymbolStart = "892">
+               </Location>
+               <Location
+                  uuid = "1C29572F-C929-455E-B365-4E9D1BB8B0F9 - b3db659ca1af5875"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Array&lt;__C.CLPlacemark&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Move.ScooterMapViewModel.refreshAddressOfMapCenter() -&gt; ()"
+                  moduleName = "Move"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dariaandrioaie/Documents/Move/Move/Flows/Find%20and%20ride%20scooter/Find%20scooters%20flow/ScooterMapViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "191"
+                  endingLineNumber = "191"
+                  offsetFromSymbolStart = "960">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
