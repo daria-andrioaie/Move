@@ -14,9 +14,9 @@ class Ride: Identifiable {
     let source: String
     let destination: String
     let travelTimeInSeconds: Int
-    let distanceInMeters: Double
+    let distanceInMeters: Int
     
-    init(id: ID, source: String, destination: String, travelTimeInSeconds: Int, distanceInMeters: Double) {
+    init(id: ID, source: String, destination: String, travelTimeInSeconds: Int, distanceInMeters: Int) {
         self.id = id
         self.source = source
         self.destination = destination

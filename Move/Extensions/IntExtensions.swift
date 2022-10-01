@@ -58,6 +58,7 @@ extension Int {
     
     func convertToKilometersFormat() -> String {
         let kilometers = Double(self) / 1000.0
-        return "\(kilometers.formatted())"
+//        return "\(kilometers.formatted())"
+        return String(format: "%.1f", kilometers)
     }
 }
