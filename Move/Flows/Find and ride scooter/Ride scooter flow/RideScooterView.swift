@@ -10,6 +10,7 @@ import SwiftUI
 struct RideScooterView: View {
     @StateObject var viewModel = RideScooterViewModel(scooterData: .mockedScooter())
     
+
     let onMenuButtonPressed: () -> Void
     
     var body: some View {
@@ -21,16 +22,23 @@ struct RideScooterView: View {
                 viewModel.centerMapOnUserLocation()
             }
             if viewModel.tripDetailsSheetMode != .none {
-                FlexibleSheet(sheetMode: $viewModel.tripDetailsSheetMode) {
-                    if viewModel.tripDetailsSheetMode == .half {
-                        TripDetailsMinimisedView(scooterData: viewModel.scooterData)
+                FlexibleSheet(sheetMode: $viewModel.tripDetailsSheetMode, onDismiss: {
+                    viewModel.tripDetailsSheetMode = .custom
+                }) {
+                    if viewModel.tripDetailsSheetMode == .custom {
+                        TripDetailsMinimisedView(scooterData: viewModel.scooterData, timeInSeconds: viewModel.timeElapsed, distanceInMeters: viewModel.distanceCovered)
                     }
                     else if viewModel.tripDetailsSheetMode == .full {
-                        
+                        TripDetailsFullView(scooterData: viewModel.scooterData, timeInSeconds: viewModel.timeElapsed, distanceInMeters: viewModel.distanceCovered, onDismiss: {
+                            withAnimation {
+                                viewModel.tripDetailsSheetMode = .custom
+                            }
+                        })
                     }
                 }
             }
         }
+        .ignoresSafeArea()
     }
 }
 

@@ -60,12 +60,12 @@ struct ScooterBatteryView: View {
 
 
 struct AddressView: View {
-    let address: String?
+    let address: String
     
     var body: some View {
         HStack {
             Image("location-pin")
-            Text(address ?? "No address")
+            Text(address)
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
                 .font(.primary(type: .button2))
@@ -173,7 +173,7 @@ struct ScooterCardView: View {
                 .padding(.trailing, 30)
                 .padding(.top, 20)
             }
-            AddressView(address: scooterData.location.address)
+            AddressView(address: scooterData.computeAddressBasedOnLocationCoordinates())
             FormButton(title: "Unlock", isEnabled: userCanUnlockScooter) {
                 onUnlock()
             }

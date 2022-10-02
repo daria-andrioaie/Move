@@ -33,12 +33,14 @@ struct FlexibleSheet<Content: View>: View {
     let content: () -> Content
     @Binding var sheetDisplayMode: SheetDisplayMode
     var minimumVerticalDrag: CGFloat
+    let onDragUp: () -> Void
     let onDismiss: () -> Void
     @State private var contentSize: CGSize = .zero
 
-    init(sheetMode: Binding<SheetDisplayMode>, onDismiss: @escaping () -> Void = {}, minimumVerticalDrag: CGFloat = 100, @ViewBuilder content: @escaping () -> Content) {
+    init(sheetMode: Binding<SheetDisplayMode>, onDismiss: @escaping () -> Void = {}, onDragUp: @escaping () -> Void = {}, minimumVerticalDrag: CGFloat = 100, @ViewBuilder content: @escaping () -> Content) {
         self._sheetDisplayMode = sheetMode
         self.onDismiss = onDismiss
+        self.onDragUp = onDragUp
         self.minimumVerticalDrag = minimumVerticalDrag
         self.content = content
     }
@@ -73,13 +75,19 @@ struct FlexibleSheet<Content: View>: View {
         DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
             .onChanged({ value in
                 let draggedHeight = value.translation.height
-                guard draggedHeight > 0 else {
-                    return
-                }
+//                guard draggedHeight > 0 else {
+//                    return
+//                }
                 verticalTranslation = draggedHeight
                 
             })
             .onEnded{ value in
+                if value.translation.height < -100 {
+                    withAnimation {
+                        onDragUp()
+                        sheetDisplayMode = .full
+                    }
+                }
                 if value.translation.height > minimumVerticalDrag {
                     withAnimation {
                         onDismiss()

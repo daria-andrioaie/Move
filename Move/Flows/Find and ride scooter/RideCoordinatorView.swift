@@ -38,7 +38,7 @@ class SelectedScooterViewModel: ObservableObject {
 struct RideCoordinatorView: View {
     let onLogout: () -> Void
     
-    @State private var state: RideCoordinatorState? = .findScooter
+    @State private var state: RideCoordinatorState? = .rideInProgress
     @State private var unlockMethod: UnlockMethod? = .PINUnlock
     @State private var showingMenu = false
 //    @State private var selectedScooterAnnotation: ScooterAnnotation? = .init(scooterData: .mockedScooter(), coordinate: .init(latitude: 46.123456, longitude: 23.123456))

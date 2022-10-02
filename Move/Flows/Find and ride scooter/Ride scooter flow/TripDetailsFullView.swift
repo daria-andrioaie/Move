@@ -19,7 +19,7 @@ struct GenericTravelMetricsRectangleView<Content>: View where Content: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             titleView
                 .padding(.bottom, 12)
             Text(metricsValue)
@@ -31,11 +31,11 @@ struct GenericTravelMetricsRectangleView<Content>: View where Content: View {
                     .font(.primary(type: .body1))
             }
         }
-        .padding(.vertical, 40)
+        .padding(.vertical, 35)
         .frame(maxWidth: .infinity)
         .overlay(
             RoundedRectangle(cornerRadius: 29)
-                .stroke(Color.neutralCement, lineWidth: 1)
+                .stroke(Color.neutralCement, lineWidth: 0.5)
         )
     }
 }
@@ -52,35 +52,41 @@ struct ButtonsTripDetailsFullView: View {
 }
 
 struct TripDetailsFullView: View {
-    @Binding var tripDetailsSheetMode: SheetDisplayMode
-    
     var scooterData: ScooterData
     var timeInSeconds: Int
     var distanceInMeters: Int
     
+    let onDismiss: () -> Void
+    
     var body: some View {
         VStack {
             HeaderView(buttonAction: .slideDown, onButtonPressed: {
-                tripDetailsSheetMode = .half
+                onDismiss()
             }, headerTitle: "Trip details")
+            Spacer()
             
-            GenericTravelMetricsRectangleView(metricsValue: "\(scooterData.battery)%") {
-                HStack{
-                    ScooterBatteryIcon(batteryPercentage: scooterData.battery)
-                    Text("Battery")
-                        .foregroundColor(.primaryBlue)
-                        .opacity(0.6)
-                        .font(.primary(type: .body1))
+            VStack(spacing: 24) {
+                GenericTravelMetricsRectangleView(metricsValue: "\(scooterData.battery)%") {
+                    HStack{
+                        ScooterBatteryIcon(batteryPercentage: scooterData.battery)
+                        Text("Battery")
+                            .foregroundColor(.primaryBlue)
+                            .opacity(0.6)
+                            .font(.primary(type: .body1))
+                    }
+                }
+                
+                GenericTravelMetricsRectangleView(metricsValue: timeInSeconds.convertToHoursMinutesSecondsFormat()) {
+                    GenericTravelMetricsTitle(metricsType: .time)
+                }
+                
+                GenericTravelMetricsRectangleView(metricsValue: distanceInMeters.convertToKilometersFormat(), metricsDescription: "km") {
+                    GenericTravelMetricsTitle(metricsType: .distance)
                 }
             }
             
-            GenericTravelMetricsRectangleView(metricsValue: timeInSeconds.convertToHoursMinutesSecondsFormat()) {
-                GenericTravelMetricsTitle(metricsType: .time)
-            }
             
-            GenericTravelMetricsRectangleView(metricsValue: distanceInMeters.convertToKilometersFormat(), metricsDescription: "km") {
-                GenericTravelMetricsTitle(metricsType: .distance)
-            }
+            Spacer()
             
             ButtonsTripDetailsFullView(scooterLockStatus: scooterData.lockedStatus)
         }
@@ -93,7 +99,7 @@ struct TripDetailsFullView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                TripDetailsFullView(tripDetailsSheetMode: .constant(.full), scooterData: .mockedScooter(), timeInSeconds: 776, distanceInMeters: 2700)
+                TripDetailsFullView(scooterData: .mockedScooter(), timeInSeconds: 776, distanceInMeters: 2700, onDismiss: {})
                     .previewDevice(device)
             }
         }

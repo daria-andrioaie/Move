@@ -47,10 +47,11 @@ struct GenericTravelMetricsView: View {
 
 struct LeftSection: View {
     var scooterData: ScooterData
+    let timeInSeconds: Int
     
     var body: some View {
         VStack(alignment: .leading, spacing: 36) {
-            GenericTravelMetricsView(metricsType: .time, metricsValue: 720)
+            GenericTravelMetricsView(metricsType: .time, metricsValue: timeInSeconds)
             
             LockUnlockButton(scooterLockStatus: scooterData.lockedStatus)
         }
@@ -58,10 +59,11 @@ struct LeftSection: View {
 }
 
 struct RightSection: View {
+    let distanceInMeters: Int
     
     var body: some View {
         VStack(alignment: .leading, spacing: 36) {
-            GenericTravelMetricsView(metricsType: .distance, metricsValue: 2700)
+            GenericTravelMetricsView(metricsType: .distance, metricsValue: distanceInMeters)
             EndRideButton()
         }
     }
@@ -69,6 +71,8 @@ struct RightSection: View {
 
 struct TripDetailsMinimisedView: View {
     var scooterData: ScooterData
+    let timeInSeconds: Int
+    let distanceInMeters: Int
     
     var body: some View {
         VStack(spacing: 25) {
@@ -78,8 +82,8 @@ struct TripDetailsMinimisedView: View {
             ScooterBatteryView(batteryPercentage: scooterData.battery)
                 .frame(maxWidth: .infinity, alignment: .leading)
             HStack(spacing: 20) {
-                LeftSection(scooterData: scooterData)
-                RightSection()
+                LeftSection(scooterData: scooterData, timeInSeconds: timeInSeconds)
+                RightSection(distanceInMeters: distanceInMeters)
             }
         }
         .padding(.horizontal, 24)
@@ -91,7 +95,7 @@ struct TripDetailsMinimisedView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                TripDetailsMinimisedView(scooterData: .mockedScooter())
+                TripDetailsMinimisedView(scooterData: .mockedScooter(), timeInSeconds: 720, distanceInMeters: 2700)
                     .previewDevice(device)
             }
         }

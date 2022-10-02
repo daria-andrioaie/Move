@@ -52,7 +52,6 @@ class RidesAPIService {
             .responseDecodable(of: Ride.self) { response in
                 switch response.result {
                 case .success(let ride):
-                    //TODO: save ride in user defaults
                     onRequestCompleted(.success(ride))
                 case .failure(let error):
                     if let data = response.data, let APIerror = try? JSONDecoder().decode(APIError.self, from: data) {

@@ -94,6 +94,7 @@ class FindScootersViewModel: ObservableObject {
         ridesService.startRide(startRideParameters: startRideParameters) { result in
             switch result {
             case .success(let ride):
+                // save current scooter and ride to user defaults
                 onRequestCompleted(.success(ride))
             case .failure(let error):
                 onRequestCompleted(.failure(APIError(message: error.message)))
