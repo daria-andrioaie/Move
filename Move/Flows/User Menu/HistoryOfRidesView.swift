@@ -60,14 +60,14 @@ struct RideView: View {
     var body: some View {
         VStack {
             HStack(alignment: .top) {
-                RouteView(locationType: .source, address: rideData.source)
+                RouteView(locationType: .source, address: rideData.source ?? "no source address")
                 Spacer()
-                RideHistoryTravelMetricsView(metricsType: .time, metricsValue: rideData.travelTimeInSeconds)
+                RideHistoryTravelMetricsView(metricsType: .time, metricsValue: rideData.duration)
             }
             HStack(alignment: .top) {
-                RouteView(locationType: .destination, address: rideData.destination)
+                RouteView(locationType: .destination, address: rideData.destination ?? "no destination address")
                 Spacer()
-                RideHistoryTravelMetricsView(metricsType: .distance, metricsValue: rideData.distanceInMeters)
+                RideHistoryTravelMetricsView(metricsType: .distance, metricsValue: rideData.distance)
                     .padding(.trailing, 18)
             }
         }
@@ -101,7 +101,7 @@ struct HistoryOfRidesView: View {
             else {
                 ScrollView(.vertical) {
                     VStack(spacing: 12) {
-                        ForEach(rides) { ride in
+                        ForEach(rides, id: \.self) { ride in
                             RideView(rideData: ride)
                         }
                     }
@@ -117,10 +117,8 @@ struct HistoryOfRidesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                HistoryOfRidesView(rides: [.init(id: 1, source: "9776 Gutkowski Shores Suite 420", destination: "980 Scarlett Brook Apt. 233", travelTimeInSeconds: 1000, distanceInMeters: 100)
-                    , .init(id: 2, source: "256 Osvaldo Camp", destination: "06 Gerhold Valleys", travelTimeInSeconds: 765, distanceInMeters: 7200)
-//                                           , .init(id: 3, source: "267 Quitzon Gateway", destination: "980 Scarlett Brook Apt. 233", travelTimeInSeconds: 345, distanceInKilometers: 7.0)
-                                          ], onBack: {})
+                HistoryOfRidesView(rides: [.init(_id: "1", scooterNumber: 2455, startMode: "PIN", userId: "alalalidbn", source: "9776 Gutkowski Shores Suite 420", destination: "980 Scarlett Brook Apt. 233", duration: 1000, distance: 100, price: 12, status: "completed"),
+                                           .init(_id: "2", scooterNumber: 1234, startMode: "QR", userId: "dhedd", source: "256 Osvaldo Camp", destination: "06 Gerhold Valleys", duration: 765, distance: 7200, price: 300, status: "completed")], onBack: {})
                     .previewDevice(device)
             }
         }

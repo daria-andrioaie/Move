@@ -58,6 +58,8 @@ struct RideCoordinatorView: View {
                         }, onUnlock: { unlockMethod in
                             self.unlockMethod = unlockMethod
                             state = .unlockScooter
+                        }, onStartedRideSuccessfully: { ride in
+                            state = .rideInProgress
                         })
                             .preferredColorScheme(.light)
                             .navigationBarHidden(true)

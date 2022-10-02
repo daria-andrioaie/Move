@@ -52,20 +52,54 @@ class FindScootersViewModel: ObservableObject {
     }
     
     func lockUnlockedScooter() {
+        if self.selectedScooter.value == nil {
+            return
+        }
+        
         self.selectedScooter.value?.scooterData.lockedStatus = .locked
         guard let selectedScooterData = self.selectedScooter.value?.scooterData else {
             return
         }
         
-        let service = ScootersAPIService()
-        service.lockScooter(scooterNumber: String(selectedScooterData.scooterNumber)) { result in
+        let scootersService = ScootersAPIService()
+        scootersService.lockScooter(scooterNumber: String(selectedScooterData.scooterNumber)) { result in
             switch result {
-            case .success(let scooter):
+            case .success(_):
                 print("locked scooter")
             case .failure(let error):
                 print("\(error.message)")
             }
         }
+        self.selectedScooter.value = nil
+    }
+    
+    func startRideOnCurrentUnlockedScooter(onRequestCompleted: @escaping (Result<Ride, APIError>) -> Void) {
+        if self.selectedScooter.value == nil {
+            onRequestCompleted(.failure(APIError(message: "Cannot start ride without a scooter currently selected")))
+            return
+        }
+        
+        guard let userLocation = mapViewModel.userLocation else {
+            onRequestCompleted(.failure(APIError(message: "Cannot start ride without access to user location")))
+            return
+        }
+        
+        self.selectedScooter.value?.scooterData.bookedStatus = .booked
+        let scooterNumber = self.selectedScooter.value!.scooterData.scooterNumber
+        
+        let ridesService = RidesAPIService()
+        let startRideParameters = ["longitude": 23.584109, "latitude": 46.753302, "scooterNumber": scooterNumber, "startMode": "PIN"] as [String: Any]
+        print(startRideParameters)
+        
+        ridesService.startRide(startRideParameters: startRideParameters) { result in
+            switch result {
+            case .success(let ride):
+                onRequestCompleted(.success(ride))
+            case .failure(let error):
+                onRequestCompleted(.failure(APIError(message: error.message)))
+            }
+        }
+        
     }
     
     func refreshScootersEvery30Seconds() {

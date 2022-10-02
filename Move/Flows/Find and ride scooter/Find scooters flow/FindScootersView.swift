@@ -18,6 +18,7 @@ struct SelectedScooterSheetView: View {
     @Binding var startRideSheetDisplayMode: SheetDisplayMode
     let userLocationCoordinates: CLLocationCoordinate2D?
     let onUnlock: (UnlockMethod) -> Void
+    let onStartRide: () -> Void
     let onDismissStartRideSheet: () -> Void
 
     var body: some View {
@@ -42,7 +43,7 @@ struct SelectedScooterSheetView: View {
             FlexibleSheet(sheetMode: $startRideSheetDisplayMode, onDismiss: {
                 onDismissStartRideSheet()
             }) {
-                StartRideCardView(scooterData: selectedScooterAnnotation.scooterData)
+                StartRideCardView(scooterData: selectedScooterAnnotation.scooterData, onStartRide: onStartRide)
             }
             .zIndex(3)
         }
@@ -52,12 +53,14 @@ struct SelectedScooterSheetView: View {
 struct FindScootersView: View {
     let onMenuButtonPressed: () -> Void
     let onUnlock: (UnlockMethod) -> Void
+    let onStartedRideSuccessfully: (Ride) -> Void
     
     @StateObject private var viewModel: FindScootersViewModel
     
-    init(selectedScooter: SelectedScooterViewModel, onMenuButtonPressed: @escaping () -> Void, onUnlock: @escaping (UnlockMethod) -> Void) {
+    init(selectedScooter: SelectedScooterViewModel, onMenuButtonPressed: @escaping () -> Void, onUnlock: @escaping (UnlockMethod) -> Void, onStartedRideSuccessfully: @escaping (Ride) -> Void) {
         self.onMenuButtonPressed = onMenuButtonPressed
         self.onUnlock = onUnlock
+        self.onStartedRideSuccessfully = onStartedRideSuccessfully
         self._viewModel = StateObject(wrappedValue: FindScootersViewModel(selectedScooter: selectedScooter))
     }
 
@@ -81,7 +84,18 @@ struct FindScootersView: View {
                 }
             }
             if let selectedScooterAnnotation = viewModel.selectedScooter.value {
-                SelectedScooterSheetView(userCanUnlockScooter: viewModel.mapViewModel.isUserLocationAvailable, selectedScooterAnnotation: selectedScooterAnnotation, unlockOptionsSheetDisplayMode: $viewModel.unlockOptionsSheetDisplayMode, startRideSheetDisplayMode: $viewModel.selectedScooter.startRideSheetDisplayMode, userLocationCoordinates: viewModel.mapViewModel.userLocation?.coordinate, onUnlock: onUnlock, onDismissStartRideSheet: {
+                SelectedScooterSheetView(userCanUnlockScooter: viewModel.mapViewModel.isUserLocationAvailable, selectedScooterAnnotation: selectedScooterAnnotation, unlockOptionsSheetDisplayMode: $viewModel.unlockOptionsSheetDisplayMode, startRideSheetDisplayMode: $viewModel.selectedScooter.startRideSheetDisplayMode, userLocationCoordinates: viewModel.mapViewModel.userLocation?.coordinate, onUnlock: onUnlock, onStartRide: {
+                    viewModel.startRideOnCurrentUnlockedScooter { result in
+                        switch result {
+                        case .success(let ride):
+                            SwiftMessagesErrorHandler().handle(message: "successfully started ride with id: \(ride._id)", type: .error)
+                            onStartedRideSuccessfully(ride)
+                        case .failure(let apiError):
+                            viewModel.lockUnlockedScooter()
+                            SwiftMessagesErrorHandler().handle(message: apiError.message, type: .error)
+                        }
+                    }
+                }, onDismissStartRideSheet: {
                     viewModel.lockUnlockedScooter()
                 })
             }
@@ -94,7 +108,7 @@ struct FindScootersView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                FindScootersView(selectedScooter: .constant, onMenuButtonPressed: {}, onUnlock: {_ in })
+                FindScootersView(selectedScooter: .constant, onMenuButtonPressed: {}, onUnlock: { _ in }, onStartedRideSuccessfully: { _ in })
                     .previewDevice(device)
             }
         }

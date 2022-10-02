@@ -9,6 +9,7 @@ import SwiftUI
 
 struct StartRideCardView: View {
     let scooterData: ScooterData
+    let onStartRide: () -> Void
     
     var body: some View {
         VStack(spacing: 25) {
@@ -22,7 +23,7 @@ struct StartRideCardView: View {
             }
             .frame(maxWidth: .infinity)
             Button("Start ride") {
-                print("start ride")
+                onStartRide()
             }
             .frame(maxWidth: .infinity)
             .activeButton()
@@ -38,7 +39,7 @@ struct StartRideCardView_Previews: PreviewProvider {
         Group {
             ForEach(devices) { device in
                 FlexibleSheet(sheetMode: .constant(.half)) {
-                    StartRideCardView(scooterData: .mockedScooter())
+                    StartRideCardView(scooterData: .mockedScooter(), onStartRide: {})
                 }
                     .previewDevice(device)
             }
