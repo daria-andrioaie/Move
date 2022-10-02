@@ -51,6 +51,23 @@ class FindScootersViewModel: ObservableObject {
         mapViewModel.getAllScooters()
     }
     
+    func lockUnlockedScooter() {
+        self.selectedScooter.value?.scooterData.lockedStatus = .locked
+        guard let selectedScooterData = self.selectedScooter.value?.scooterData else {
+            return
+        }
+        
+        let service = ScootersAPIService()
+        service.lockScooter(scooterNumber: String(selectedScooterData.scooterNumber)) { result in
+            switch result {
+            case .success(let scooter):
+                print("locked scooter")
+            case .failure(let error):
+                print("\(error.message)")
+            }
+        }
+    }
+    
     func refreshScootersEvery30Seconds() {
         _ = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
             print("refreshed scooters")

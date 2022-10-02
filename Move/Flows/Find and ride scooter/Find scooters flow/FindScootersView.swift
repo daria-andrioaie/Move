@@ -18,6 +18,7 @@ struct SelectedScooterSheetView: View {
     @Binding var startRideSheetDisplayMode: SheetDisplayMode
     let userLocationCoordinates: CLLocationCoordinate2D?
     let onUnlock: (UnlockMethod) -> Void
+    let onDismissStartRideSheet: () -> Void
 
     var body: some View {
         switch selectedScooterAnnotation.getScooterData().lockedStatus {
@@ -38,7 +39,9 @@ struct SelectedScooterSheetView: View {
                 .zIndex(2)
             }
         case .unlocked:
-            FlexibleSheet(sheetMode: $startRideSheetDisplayMode) {
+            FlexibleSheet(sheetMode: $startRideSheetDisplayMode, onDismiss: {
+                onDismissStartRideSheet()
+            }) {
                 StartRideCardView(scooterData: selectedScooterAnnotation.scooterData)
             }
             .zIndex(3)
@@ -78,7 +81,9 @@ struct FindScootersView: View {
                 }
             }
             if let selectedScooterAnnotation = viewModel.selectedScooter.value {
-                SelectedScooterSheetView(userCanUnlockScooter: viewModel.mapViewModel.isUserLocationAvailable, selectedScooterAnnotation: selectedScooterAnnotation, unlockOptionsSheetDisplayMode: $viewModel.unlockOptionsSheetDisplayMode, startRideSheetDisplayMode: $viewModel.selectedScooter.startRideSheetDisplayMode, userLocationCoordinates: viewModel.mapViewModel.userLocation?.coordinate, onUnlock: onUnlock)
+                SelectedScooterSheetView(userCanUnlockScooter: viewModel.mapViewModel.isUserLocationAvailable, selectedScooterAnnotation: selectedScooterAnnotation, unlockOptionsSheetDisplayMode: $viewModel.unlockOptionsSheetDisplayMode, startRideSheetDisplayMode: $viewModel.selectedScooter.startRideSheetDisplayMode, userLocationCoordinates: viewModel.mapViewModel.userLocation?.coordinate, onUnlock: onUnlock, onDismissStartRideSheet: {
+                    viewModel.lockUnlockedScooter()
+                })
             }
         }
         .ignoresSafeArea()

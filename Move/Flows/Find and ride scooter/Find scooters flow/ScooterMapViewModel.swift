@@ -101,9 +101,6 @@ class ScooterMapViewModel: NSObject, ObservableObject {
         service.getScootersInArea(center: mapView.centerCoordinate, radius: 4000) { result in
             switch result {
             case .success(let scooters):
-//                for scooter in scooters {
-//                    print(scooter.toString())
-//                }
                 self.scooters = scooters.getAnnotations()
             case .failure(let error):
                 print("\(error.message)")
@@ -174,6 +171,7 @@ extension ScooterMapViewModel: MKMapViewDelegate {
             self.onDeselectedScooter()
         }
     }
+
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         getAllScooters()
