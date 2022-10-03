@@ -50,6 +50,7 @@ class AuthenticationAPIService {
                     }
                     else {
                         print("Unknown decoding error: \(error.localizedDescription)")
+                        onRequestCompleted(.failure(.defaultServerError))
                     }
                 }
             }
@@ -70,6 +71,7 @@ class AuthenticationAPIService {
                 switch response.result {
                 case .success(let logoutResponse):
                     self.userDefaultsService.removeCurrentUser()
+                    self.userDefaultsService.removeCurrentUserToken()
                     onRequestCompleted(.success(logoutResponse.token))
                 case .failure(let error):
                     if let data = response.data, let APIerror = try? JSONDecoder().decode(APIError.self, from: data) {
@@ -78,6 +80,7 @@ class AuthenticationAPIService {
                     }
                     else {
                         print("Unknown decoding error: \(error.localizedDescription)")
+                        onRequestCompleted(.failure(.defaultServerError))
                     }
                 }
             }
@@ -119,10 +122,12 @@ class AuthenticationAPIService {
                     }
                     else {
                         print("Unknown decoding error of APIError: \(error.localizedDescription)")
+                        onRequestCompleted(.failure(.defaultServerError))
                     }
                 }
                 else {
                     print("Nothing in response.data: \(error.localizedDescription)")
+                    onRequestCompleted(.failure(.defaultServerError))
                 }
                 
                 

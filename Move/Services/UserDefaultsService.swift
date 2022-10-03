@@ -15,15 +15,19 @@ enum UserDefaultsServiceError: Error {
 enum CodingError: Error {
     case cannotEncodeUser
     case cannotDecodeUser
+    case cannotEncodeRide
+    case cannotDecodeRide
 }
 
 class UserDefaultsService {
     static let sharedInstance = UserDefaultsService()
     
     private let currentUserKey = "currentUser"
+    private let currentRideKey = "currentRide"
     private let currentUserTokenKey = "currentUserToken"
     private let isAppAlreadyLaunchedOnceKey = "isAppAlreadyLaunchedOnce"
     
+    //TODO: make a generic method for saving, getting and removing an object
     
     //TODO: only keep the id of the user, and not the whole user entity, because its data may change in the meantime
     func saveUser(_ user: User) throws {
@@ -51,8 +55,8 @@ class UserDefaultsService {
     
     func removeCurrentUser() {
         UserDefaults.standard.removeObject(forKey: currentUserKey)
-        UserDefaults.standard.removeObject(forKey: currentUserTokenKey)
     }
+    
     
     func saveUserToken(_ token: String) {
         UserDefaults.standard.set(token, forKey: currentUserTokenKey)
@@ -65,6 +69,37 @@ class UserDefaultsService {
         else {
             throw UserDefaultsServiceError.cannotFindKey
         }
+    }
+    
+    func removeCurrentUserToken() {
+        UserDefaults.standard.removeObject(forKey: currentUserTokenKey)
+    }
+    
+    func saveRide(_ ride: Ride) throws {
+        if let rideData = try? JSONEncoder().encode(ride) {
+            UserDefaults.standard.set(rideData, forKey: currentRideKey)
+        }
+        else {
+            throw CodingError.cannotEncodeRide
+        }
+    }
+    
+    func getRide() throws -> Ride {
+        if let rideData = UserDefaults.standard.value(forKey: currentRideKey) as? Data {
+            if let decodedRide = try? JSONDecoder().decode(Ride.self, from: rideData) {
+                return decodedRide
+            }
+            else {
+                throw CodingError.cannotDecodeRide
+            }
+        }
+        else {
+            throw UserDefaultsServiceError.cannotFindKey
+        }
+    }
+    
+    func removeCurrentRide() {
+        UserDefaults.standard.removeObject(forKey: currentRideKey)
     }
     
     func isAppOnFirstLaunch() -> Bool {

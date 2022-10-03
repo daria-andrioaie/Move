@@ -48,23 +48,25 @@ struct GenericTravelMetricsView: View {
 struct LeftSection: View {
     var scooterData: ScooterData
     let timeInSeconds: Int
+    let onLockUnlock: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 36) {
             GenericTravelMetricsView(metricsType: .time, metricsValue: timeInSeconds)
             
-            LockUnlockButton(scooterLockStatus: scooterData.lockedStatus)
+            LockUnlockButton(scooterLockStatus: scooterData.lockedStatus, onLockUnlock: onLockUnlock)
         }
     }
 }
 
 struct RightSection: View {
     let distanceInMeters: Int
+    let onEndRide: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 36) {
             GenericTravelMetricsView(metricsType: .distance, metricsValue: distanceInMeters)
-            EndRideButton()
+            EndRideButton(onEndRide: onEndRide)
         }
     }
 }
@@ -73,6 +75,8 @@ struct TripDetailsMinimisedView: View {
     var scooterData: ScooterData
     let timeInSeconds: Int
     let distanceInMeters: Int
+    let onLockUnlock: () -> Void
+    let onEndRide: () -> Void
     
     var body: some View {
         VStack(spacing: 25) {
@@ -82,8 +86,8 @@ struct TripDetailsMinimisedView: View {
             ScooterBatteryView(batteryPercentage: scooterData.battery)
                 .frame(maxWidth: .infinity, alignment: .leading)
             HStack(spacing: 20) {
-                LeftSection(scooterData: scooterData, timeInSeconds: timeInSeconds)
-                RightSection(distanceInMeters: distanceInMeters)
+                LeftSection(scooterData: scooterData, timeInSeconds: timeInSeconds, onLockUnlock: onLockUnlock)
+                RightSection(distanceInMeters: distanceInMeters, onEndRide: onEndRide)
             }
         }
         .padding(.horizontal, 24)
@@ -95,7 +99,7 @@ struct TripDetailsMinimisedView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                TripDetailsMinimisedView(scooterData: .mockedScooter(), timeInSeconds: 720, distanceInMeters: 2700)
+                TripDetailsMinimisedView(scooterData: .mockedScooter(), timeInSeconds: 720, distanceInMeters: 2700, onLockUnlock: {}, onEndRide: {})
                     .previewDevice(device)
             }
         }

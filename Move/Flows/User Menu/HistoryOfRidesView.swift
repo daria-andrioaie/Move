@@ -117,8 +117,8 @@ struct HistoryOfRidesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                HistoryOfRidesView(rides: [.init(_id: "1", scooterNumber: 2455, startMode: "PIN", userId: "alalalidbn", source: "9776 Gutkowski Shores Suite 420", destination: "980 Scarlett Brook Apt. 233", duration: 1000, distance: 100, price: 12, status: "completed"),
-                                           .init(_id: "2", scooterNumber: 1234, startMode: "QR", userId: "dhedd", source: "256 Osvaldo Camp", destination: "06 Gerhold Valleys", duration: 765, distance: 7200, price: 300, status: "completed")], onBack: {})
+                HistoryOfRidesView(rides: [.init(_id: "1", scooterNumber: 2455, startMode: "PIN", userId: "alalalidbn", source: "9776 Gutkowski Shores Suite 420", destination: "980 Scarlett Brook Apt. 233", duration: 1000, startTime: 0, endTime: 10, distance: 100, price: 12, status: "completed"),
+                                           .init(_id: "2", scooterNumber: 1234, startMode: "QR", userId: "dhedd", source: "256 Osvaldo Camp", destination: "06 Gerhold Valleys", duration: 765, startTime: 1, endTime: 10, distance: 7200, price: 300, status: "completed")], onBack: {})
                     .previewDevice(device)
             }
         }

@@ -38,7 +38,7 @@ class SwiftMessagesErrorHandler {
         var config = SwiftMessages.Config()
         
         //TODO: configure the colors based on the type of the message
-        errorView.configureTheme(backgroundColor: UIColor(red: 229.0/255.0, green: 48.0/255.0, blue: 98.0/255.0, alpha: 1.0), foregroundColor: .white)
+        errorView.configureTheme(backgroundColor: .white, foregroundColor: UIColor(red: 33/255, green: 11/255, blue: 80/255, alpha: 1))
 
         errorView.button?.isHidden = true
         errorView.configureDropShadow()
@@ -56,7 +56,7 @@ class SwiftMessagesErrorHandler {
         var config = SwiftMessages.Config()
         
         //TODO: configure the colors based on the type of the message
-        errorView.configureTheme(backgroundColor: UIColor(red: 229.0/255.0, green: 48.0/255.0, blue: 98.0/255.0, alpha: 1.0), foregroundColor: .white)
+        errorView.configureTheme(backgroundColor: .white, foregroundColor: UIColor(red: 33/255, green: 11/255, blue: 80/255, alpha: 1))
 
         errorView.configureDropShadow()
         errorView.configureContent(title: "Oops!", body: message, iconImage: nil, iconText: nil, buttonImage: nil, buttonTitle: buttonLabel) { button in

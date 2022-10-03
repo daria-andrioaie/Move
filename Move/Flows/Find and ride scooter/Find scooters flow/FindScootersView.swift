@@ -88,7 +88,7 @@ struct FindScootersView: View {
                     viewModel.startRideOnCurrentUnlockedScooter { result in
                         switch result {
                         case .success(let ride):
-                            SwiftMessagesErrorHandler().handle(message: "successfully started ride with id: \(ride._id)", type: .error)
+                            print("successfully started ride with id: \(ride._id)")
                             onStartedRideSuccessfully(ride)
                         case .failure(let apiError):
                             viewModel.lockUnlockedScooter()

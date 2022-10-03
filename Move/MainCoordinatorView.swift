@@ -32,7 +32,10 @@ class MainCoordinatorViewModel: ObservableObject {
     var userState: UserState {
         do {
             let currentUser = try userDefaultsService.getUser()
-            print("user \(currentUser.username) is logged in. He is \(currentUser.status)")
+            if let userToken = try? userDefaultsService.getUserToken() {
+                print(userToken)
+            }
+            print("user \(currentUser.username) with is logged in. He is \(currentUser.status)")
             // the user was successfully decoded
             if currentUser.status == "suspended" {
                 return .suspended

@@ -10,10 +10,11 @@ import SwiftUI
 
 struct LockUnlockButton: View {
     var scooterLockStatus: LockStatus
+    let onLockUnlock: () -> Void
     
     var body: some View {
         Button(action: {
-            print("lock scooter")
+            onLockUnlock()
         }, label: {
             HStack {
                 Image(scooterLockStatus == .locked ? "unlock" : "lock")
@@ -27,9 +28,11 @@ struct LockUnlockButton: View {
 
 
 struct EndRideButton: View {
+    let onEndRide: () -> Void
+    
     var body: some View {
         Button("End ride") {
-            print("end ride")
+            onEndRide()
         }
         .frame(maxWidth: .infinity)
         .activeButton()

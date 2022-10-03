@@ -34,6 +34,7 @@ class TcpAPIService {
                     }
                     else {
                         print("Unknown decoding error: \(error.localizedDescription)")
+                        onRequestCompleted(.failure(.defaultServerError))
                     }
                 }
             })

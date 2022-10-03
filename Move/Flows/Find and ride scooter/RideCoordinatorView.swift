@@ -35,15 +35,49 @@ class SelectedScooterViewModel: ObservableObject {
     }
 }
 
+class RideCoordinatorViewModel: ObservableObject {
+    @Published var state: RideCoordinatorState? = .rideInProgress
+    @Published var unlockMethod: UnlockMethod? = .PINUnlock
+    @Published var showingMenu = false
+    
+    var currentStateBasedOnOngoingRide: RideCoordinatorState {
+        do {
+            let currentRide = try UserDefaultsService().getRide()
+            print("Ride \(currentRide._id) is \(currentRide.status)")
+            // the ride was successfully decoded
+            if currentRide.status == .inProgress {
+                return .rideInProgress
+            }
+            else {
+//                return .payRide
+                return .findScooter
+            }
+        }
+        catch CodingError.cannotDecodeRide {
+            print("Can't decode ride")
+            return .findScooter
+        }
+        catch UserDefaultsServiceError.cannotFindKey {
+            print("No ride ongoing")
+            return .findScooter
+        }
+        catch {
+            print("Unexpected error: \(error)")
+            return .findScooter
+        }
+    }
+    
+    init() {
+        state = currentStateBasedOnOngoingRide
+    }
+    
+}
+
 struct RideCoordinatorView: View {
     let onLogout: () -> Void
     
-    @State private var state: RideCoordinatorState? = .rideInProgress
-    @State private var unlockMethod: UnlockMethod? = .PINUnlock
-    @State private var showingMenu = false
-//    @State private var selectedScooterAnnotation: ScooterAnnotation? = .init(scooterData: .mockedScooter(), coordinate: .init(latitude: 46.123456, longitude: 23.123456))
+    @StateObject var coordinatorViewModel: RideCoordinatorViewModel = .init()
     @StateObject var selectedScooter: SelectedScooterViewModel = .init()
-    
     
     var body: some View {
         ZStack {
@@ -53,43 +87,54 @@ struct RideCoordinatorView: View {
                         NavigationLink(destination: FindScootersView(selectedScooter: selectedScooter, onMenuButtonPressed: {
                             withAnimation {
                                 print("showing menu")
-                                showingMenu = true
+                                coordinatorViewModel.showingMenu = true
                             }
                         }, onUnlock: { unlockMethod in
-                            self.unlockMethod = unlockMethod
-                            state = .unlockScooter
+                            coordinatorViewModel.unlockMethod = unlockMethod
+                            coordinatorViewModel.state = .unlockScooter
                         }, onStartedRideSuccessfully: { ride in
-                            state = .rideInProgress
+                            coordinatorViewModel.state = .rideInProgress
                         })
                             .preferredColorScheme(.light)
                             .navigationBarHidden(true)
                             .ignoresSafeArea()
                             .transition(.opacity.animation(.default))
-                            .navigationBarBackButtonHidden(true), tag: .findScooter, selection: $state) {
+                            .navigationBarBackButtonHidden(true), tag: .findScooter, selection: $coordinatorViewModel.state) {
                             EmptyView()
                         }
-                        NavigationLink(destination: unlockCoordinator, tag: .unlockScooter, selection: $state) {
+                        NavigationLink(destination: unlockCoordinator, tag: .unlockScooter, selection: $coordinatorViewModel.state) {
                             EmptyView()
                         }
                         
-                        NavigationLink(destination: RideScooterView(onMenuButtonPressed: {
-                            showingMenu = true
+                        NavigationLink(destination: RideScooterView(onSuccessfullyEndedRide: {
+//                            coordinatorViewModel.state = .payRide
+                            coordinatorViewModel.state = .findScooter
+                        }, onMenuButtonPressed: {
+                            coordinatorViewModel.showingMenu = true
                         })
                             .preferredColorScheme(.light)
                             .navigationBarHidden(true)
                             .ignoresSafeArea()
-                            .navigationBarBackButtonHidden(true), tag: .rideInProgress, selection: $state) {
+                            .navigationBarBackButtonHidden(true), tag: .rideInProgress, selection: $coordinatorViewModel.state) {
                             EmptyView()
                         }
+                        
+                        NavigationLink(destination: PayRideView()
+                            .preferredColorScheme(.light)
+                            .navigationBarHidden(true)
+                            .ignoresSafeArea()
+                            .navigationBarBackButtonHidden(true), tag: .payRide, selection: $coordinatorViewModel.state) {
+                                EmptyView()
+                            }
                     }
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())
             
-            if showingMenu {
+            if coordinatorViewModel.showingMenu {
                 MenuCoordinatorView(onBack: {
                     withAnimation {
-                        showingMenu = false
+                        coordinatorViewModel.showingMenu = false
                     }
                 }, onLogout: onLogout)
                 .transition(.move(edge: .leading))
@@ -101,25 +146,22 @@ struct RideCoordinatorView: View {
     
     @ViewBuilder
     var unlockCoordinator: some View {
-        if case .unlockScooter = state {
-            UnlockCoordinator(initialUnlock: unlockMethod!, onCancelUnlock: {
-                state = .findScooter
+        if case .unlockScooter = coordinatorViewModel.state {
+            UnlockCoordinator(initialUnlock: coordinatorViewModel.unlockMethod!, onCancelUnlock: {
+                coordinatorViewModel.state = .findScooter
             }, onUnlockFinished: {
                 selectedScooter.value?.scooterData.lockedStatus = .unlocked
                 selectedScooter.startRideSheetDisplayMode = .custom
-                state = .findScooter
+                coordinatorViewModel.state = .findScooter
             })
                 .preferredColorScheme(.dark)
                 .navigationBarHidden(true)
                 .ignoresSafeArea()
                 .navigationBarBackButtonHidden(true)
-                
         }
         else {
             Color.red
         }
-        
-        
     }
 }
 

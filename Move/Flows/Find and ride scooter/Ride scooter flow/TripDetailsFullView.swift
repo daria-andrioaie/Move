@@ -42,11 +42,13 @@ struct GenericTravelMetricsRectangleView<Content>: View where Content: View {
 
 struct ButtonsTripDetailsFullView: View {
     var scooterLockStatus: LockStatus
+    let onLockUnlock: () -> Void
+    let onEndRide: () -> Void
 
     var body: some View {
         HStack {
-            LockUnlockButton(scooterLockStatus: scooterLockStatus)
-            EndRideButton()
+            LockUnlockButton(scooterLockStatus: scooterLockStatus, onLockUnlock: onLockUnlock)
+            EndRideButton(onEndRide: onEndRide)
         }
     }
 }
@@ -57,6 +59,8 @@ struct TripDetailsFullView: View {
     var distanceInMeters: Int
     
     let onDismiss: () -> Void
+    let onLockUnlock: () -> Void
+    let onEndRide: () -> Void
     
     var body: some View {
         VStack {
@@ -88,7 +92,7 @@ struct TripDetailsFullView: View {
             
             Spacer()
             
-            ButtonsTripDetailsFullView(scooterLockStatus: scooterData.lockedStatus)
+            ButtonsTripDetailsFullView(scooterLockStatus: scooterData.lockedStatus, onLockUnlock: onLockUnlock, onEndRide: onEndRide)
         }
         .padding(.horizontal, 24)
     }
@@ -99,7 +103,7 @@ struct TripDetailsFullView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                TripDetailsFullView(scooterData: .mockedScooter(), timeInSeconds: 776, distanceInMeters: 2700, onDismiss: {})
+                TripDetailsFullView(scooterData: .mockedScooter(), timeInSeconds: 776, distanceInMeters: 2700, onDismiss: {}, onLockUnlock: {}, onEndRide: {})
                     .previewDevice(device)
             }
         }

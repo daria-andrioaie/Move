@@ -62,7 +62,7 @@ class FindScootersViewModel: ObservableObject {
         }
         
         let scootersService = ScootersAPIService()
-        scootersService.lockScooter(scooterNumber: String(selectedScooterData.scooterNumber)) { result in
+        scootersService.changeLockStatus(scooterNumber: String(selectedScooterData.scooterNumber), newLockStatus: .locked) { result in
             switch result {
             case .success(_):
                 print("locked scooter")
@@ -88,24 +88,25 @@ class FindScootersViewModel: ObservableObject {
         let scooterNumber = self.selectedScooter.value!.scooterData.scooterNumber
         
         let ridesService = RidesAPIService()
-        let startRideParameters = ["longitude": 23.584109, "latitude": 46.753302, "scooterNumber": scooterNumber, "startMode": "PIN"] as [String: Any]
-        print(startRideParameters)
+        
+        //TODO: here there should be the user location instead of the hardcoded values
+        let address = mapViewModel.getAddressBasedOnCoordinates(latitude: 46.753302, longitude: 23.584109)
+        let startRideParameters = ["longitude": 23.584109, "latitude": 46.753302, "scooterNumber": scooterNumber, "startMode": "PIN", "startAddress": address] as [String: Any]
         
         ridesService.startRide(startRideParameters: startRideParameters) { result in
             switch result {
             case .success(let ride):
-                // save current scooter and ride to user defaults
+                // save current ride to user defaults
+                try? UserDefaultsService().saveRide(ride)
                 onRequestCompleted(.success(ride))
             case .failure(let error):
                 onRequestCompleted(.failure(APIError(message: error.message)))
             }
         }
-        
     }
     
     func refreshScootersEvery30Seconds() {
         _ = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
-            print("refreshed scooters")
             self.mapViewModel.getAllScooters()
         }
     }

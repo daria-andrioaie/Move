@@ -33,19 +33,55 @@ class ScootersAPIService {
                     }
                     else {
                         print("Unknown decoding error: \(error.localizedDescription)")
+                        onRequestCompleted(.failure(.defaultServerError))
+
                     }
                 }
             }
     }
     
-    func lockScooter(scooterNumber: String, onRequestCompleted: @escaping (Result<ScooterData, APIError>) -> Void) {
+    func getScooterByNumber(scooterNumber: String, onRequestCompleted: @escaping (Result<ScooterData, APIError>) -> Void) {
         guard let userToken = try? userDefaultsService.getUserToken() else {
             onRequestCompleted(.failure(APIError(message: "Can't find token in User Defaults!")))
             return
         }
         
         let header: HTTPHeaders = ["Authorization": "Bearer \(userToken)"]
-        let path = baseURL + "/lock/\(scooterNumber)"
+        let requestPath = self.baseURL + "/\(scooterNumber)"
+        
+        AF.request(requestPath, method: .get, headers: header)
+            .validate()
+            .responseDecodable(of: ScooterData.self) { response in
+                switch response.result {
+                case .success(let scooter):
+                    onRequestCompleted(.success(scooter))
+                case .failure(let error):
+                    if let data = response.data, let APIerror = try? JSONDecoder().decode(APIError.self, from: data) {
+                        onRequestCompleted(.failure(APIerror))
+                    }
+                    else {
+                        print("Unknown decoding error: \(error.localizedDescription)")
+                        onRequestCompleted(.failure(.defaultServerError))
+                    }
+                }
+            }
+    }
+    
+    func changeLockStatus(scooterNumber: String, newLockStatus: LockStatus, onRequestCompleted: @escaping (Result<ScooterData, APIError>) -> Void) {
+        guard let userToken = try? userDefaultsService.getUserToken() else {
+            onRequestCompleted(.failure(APIError(message: "Can't find token in User Defaults!")))
+            return
+        }
+        
+        let header: HTTPHeaders = ["Authorization": "Bearer \(userToken)"]
+        
+        let path: String
+        switch newLockStatus {
+        case .locked:
+            path = baseURL + "/lock/\(scooterNumber)"
+        case .unlocked:
+            path = baseURL + "/unlock/\(scooterNumber)"
+        }
         
         AF.request(path, method: .put, headers: header)
             .validate()
@@ -59,6 +95,7 @@ class ScootersAPIService {
                     }
                     else {
                         print("Unknown decoding error: \(error.localizedDescription)")
+                        onRequestCompleted(.failure(.defaultServerError))
                     }
                 }
             }

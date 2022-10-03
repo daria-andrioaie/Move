@@ -36,6 +36,7 @@
 		B862BF0028AD0148002EF079 /* ButtonStylesExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B862BEFF28AD0148002EF079 /* ButtonStylesExtensions.swift */; };
 		B870275528E8746500DDDF88 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870275428E8746500DDDF88 /* ViewExtensions.swift */; };
 		B870275728E8B9E600DDDF88 /* TcpAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870275628E8B9E600DDDF88 /* TcpAPIService.swift */; };
+		B882D91C28EB12C10003D4FE /* PayRideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882D91B28EB12C10003D4FE /* PayRideView.swift */; };
 		B889B60B28D216590016BEFB /* HistoryOfRidesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B889B60A28D216590016BEFB /* HistoryOfRidesView.swift */; };
 		B889B60D28D216920016BEFB /* Ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = B889B60C28D216920016BEFB /* Ride.swift */; };
 		B890F3BE28CB61B900435E9C /* ScootersAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890F3BD28CB61B900435E9C /* ScootersAPIService.swift */; };
@@ -134,6 +135,7 @@
 		B862BEFF28AD0148002EF079 /* ButtonStylesExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStylesExtensions.swift; sourceTree = "<group>"; };
 		B870275428E8746500DDDF88 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		B870275628E8B9E600DDDF88 /* TcpAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TcpAPIService.swift; sourceTree = "<group>"; };
+		B882D91B28EB12C10003D4FE /* PayRideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayRideView.swift; sourceTree = "<group>"; };
 		B889B60A28D216590016BEFB /* HistoryOfRidesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryOfRidesView.swift; sourceTree = "<group>"; };
 		B889B60C28D216920016BEFB /* Ride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ride.swift; sourceTree = "<group>"; };
 		B890F3BD28CB61B900435E9C /* ScootersAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScootersAPIService.swift; sourceTree = "<group>"; };
@@ -333,6 +335,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		B882D91A28EB12AB0003D4FE /* Pay ride */ = {
+			isa = PBXGroup;
+			children = (
+				B882D91B28EB12C10003D4FE /* PayRideView.swift */,
+			);
+			path = "Pay ride";
+			sourceTree = "<group>";
+		};
 		B8A096DB28C094B800F0BEFC /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -524,6 +534,7 @@
 		B8DC508A28BF3CA200D9B2C6 /* Find and ride scooter */ = {
 			isa = PBXGroup;
 			children = (
+				B882D91A28EB12AB0003D4FE /* Pay ride */,
 				B8D05DFB28D59F2000DB83AE /* Unlock scooter flow */,
 				B83E8A6628CA29400064704C /* Ride scooter flow */,
 				B83E8A6528CA28F30064704C /* Find scooters flow */,
@@ -770,6 +781,7 @@
 				B82A3ADF28D337E6005F22A2 /* MenuCoordinator.swift in Sources */,
 				B862BF0028AD0148002EF079 /* ButtonStylesExtensions.swift in Sources */,
 				B8DCB04F28E1A5E70032C973 /* UnlockCoordinator.swift in Sources */,
+				B882D91C28EB12C10003D4FE /* PayRideView.swift in Sources */,
 				B84DE57C28C5DA7D0051311B /* ErrorHandler.swift in Sources */,
 				B8D05E0428D5A06B00DB83AE /* AlternativeUnlockOptionsView.swift in Sources */,
 				B82A3ADD28D32967005F22A2 /* ChangePasswordView.swift in Sources */,
