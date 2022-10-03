@@ -126,4 +126,58 @@ class RidesAPIService {
                 }
             }
     }
+    
+    func getRidesOfUser(pageNumber: Int, pageSize: Int, onRequestCompleted: @escaping (Result<[Ride], APIError>) -> Void) -> Void {
+        
+        guard let userToken = try? userDefaultsService.getUserToken() else {
+            return
+        }
+        let header: HTTPHeaders = ["Authorization": "Bearer \(userToken)"]
+        let parameters = ["pageSize": pageSize, "pageNumber": pageNumber]
+        
+        AF.request(baseURL, method: .get, parameters: parameters, encoding: URLEncoding.queryString, headers: header)
+            .validate()
+            .responseDecodable(of: [Ride].self) { response in
+                switch response.result {
+                case .success(let rides):
+                    onRequestCompleted(.success(rides))
+                case .failure(let error):
+                    if let data = response.data, let APIerror = try? JSONDecoder().decode(APIError.self, from: data) {
+                        onRequestCompleted(.failure(APIerror))
+                    }
+                    else {
+                        print("Unknown decoding error: \(error.localizedDescription)")
+                        onRequestCompleted(.failure(.defaultServerError))
+
+                    }
+                }
+            }
+    }
+    
+    func getNumberOfRidesOfUser(onRequestCompleted: @escaping (Result<Int, APIError>) -> Void) -> Void {
+        guard let userToken = try? userDefaultsService.getUserToken() else {
+            return
+        }
+        let header: HTTPHeaders = ["Authorization": "Bearer \(userToken)"]
+        
+        let url = "https://move-scooter.herokuapp.com/api/users/me"
+        
+        AF.request(url, method: .get, headers: header)
+            .validate()
+            .responseDecodable(of: User.self) { response in
+                switch response.result {
+                case .success(let user):
+                    onRequestCompleted(.success(user.numberRides ?? 0))
+                case .failure(let error):
+                    if let data = response.data, let APIerror = try? JSONDecoder().decode(APIError.self, from: data) {
+                        print(APIerror.message)
+                        onRequestCompleted(.failure(APIerror))
+                    }
+                    else {
+                        print("Unknown decoding error: \(error.localizedDescription)")
+                    }
+                }
+            }
+
+    }
  }

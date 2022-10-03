@@ -125,7 +125,7 @@ class ScooterCardViewModel: ObservableObject {
     init(scooterData: ScooterData, userLocationCoordinates: CLLocationCoordinate2D?) {
         self.scooterData = scooterData
         self.userLocationCoordinates = userLocationCoordinates
-    }
+            }
     
     func pingScooter() {
         guard let userLocationCoordinates = userLocationCoordinates else {
@@ -156,6 +156,7 @@ struct ScooterCardView: View {
     
     init(scooterData: ScooterData, userCanUnlockScooter: Bool, userLocationCoordinates: CLLocationCoordinate2D?, onUnlock: @escaping () -> Void) {
         self.scooterData = scooterData
+        scooterData.getAddress()
         self.userCanUnlockScooter = userCanUnlockScooter
         self.userLocationCoordinates = userLocationCoordinates
         self.onUnlock = onUnlock
@@ -173,7 +174,7 @@ struct ScooterCardView: View {
                 .padding(.trailing, 30)
                 .padding(.top, 20)
             }
-            AddressView(address: scooterData.computeAddressBasedOnLocationCoordinates())
+            AddressView(address: scooterData.location.address ?? "no address detected")
             FormButton(title: "Unlock", isEnabled: userCanUnlockScooter) {
                 onUnlock()
             }

@@ -34,7 +34,7 @@ struct MenuCoordinatorView: View {
                     .navigationBarBackButtonHidden(true), tag: .menuOverview, selection: $menuState) {
                     EmptyView()
                 }
-                NavigationLink(destination: HistoryOfRidesView(rides: [], onBack: {
+                NavigationLink(destination: HistoryOfRidesView(onBack: {
                     menuState = .menuOverview
                 })
                     .navigationBarHidden(true)

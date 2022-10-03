@@ -7,14 +7,152 @@
 
 import SwiftUI
 
-struct PayRideView: View {
+struct RouteSummaryView: View {
+    let locationType: LocationType
+    let address: String
+    
     var body: some View {
-        Text("Here you will pay your ride")
+        VStack(alignment: .leading, spacing: 0) {
+            Text(locationType == .source ? "From" : "To")
+                .font(.primary(type: .button2))
+                .foregroundColor(.neutralCement)
+            Text(address)
+                .lineLimit(nil)
+                .font(.primary(type: .button1))
+                .foregroundColor(.primaryBlue)
+                .frame(height: 40, alignment: .top)
+        }
     }
+}
+
+struct TripMetricsSummaryView: View {
+    let travelTime: Int
+    let distance: Int
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                GenericTravelMetricsTitle(metricsType: .time)
+                HStack(alignment: .firstTextBaseline) {
+                    Text(travelTime.convertToHoursAndMinutesFormat() + " min")
+                        .font(.primary(type: .button1))
+                        .foregroundColor(.primaryBlue)
+                }
+                .padding(.leading, 30)
+            }
+            .padding(.trailing, 50)
+            VStack(alignment: .leading) {
+                GenericTravelMetricsTitle(metricsType: .distance)
+                HStack(alignment: .firstTextBaseline) {
+                    Text(distance.convertToKilometersFormat() + " km")
+                        .font(.primary(type: .button1))
+                        .foregroundColor(.primaryBlue)
+                }
+                .padding(.leading, 30)
+            }
+            .padding(.trailing, 50)
+        }
+        .frame(maxWidth: .infinity)
+    }
+}
+
+struct TripSourceAndDestinationView: View {
+    let source: String
+    let destination: String
+    
+    var body: some View {
+        VStack {
+            RouteSummaryView(locationType: .source, address: source)
+            RouteSummaryView(locationType: .destination, address: destination)
+        }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(RoundedRectangle(cornerRadius: 16)
+            .foregroundColor(.neutralPurple)
+            .opacity(0.15)
+        )
+    }
+}
+
+class PayRideViewModel: ObservableObject {
+    @Published var rideData: Ride
+    @Published var paymentSuccessfulAlertIsShowing: Bool = false
+
+    init() {
+        do {
+            let ride = try UserDefaultsService().getRide()
+            self.rideData = ride
+        }
+        catch {
+            rideData = Ride.mockedRide()
+            print("unexpected error occured")
+        }
+    }
+    
+    func removeRideFromUserDefaults() {
+        UserDefaultsService().removeCurrentRide()
+    }
+}
+
+struct PayRideView: View {
+    let onSuccessfullyPaidRide: () -> Void
+    @StateObject var payRideViewModel = PayRideViewModel()
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            HeaderView(buttonAction: nil, onButtonPressed: {}, headerTitle: "Trip Summary")
+                .padding(.bottom, 40)
+            mapSnapshot
+                .padding(.bottom, 40)
+            TripSourceAndDestinationView(source: payRideViewModel.rideData.source ?? "no source", destination: payRideViewModel.rideData.destination ?? "no destination")
+                .padding(.bottom, 36)
+            TripMetricsSummaryView(travelTime: payRideViewModel.rideData.duration, distance: payRideViewModel.rideData.distance)
+            Spacer()
+            ApplePayButton {
+                payRideViewModel.paymentSuccessfulAlertIsShowing = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                    payRideViewModel.paymentSuccessfulAlertIsShowing = false
+                    payRideViewModel.removeRideFromUserDefaults()
+                    onSuccessfullyPaidRide()
+                })
+                
+            } label: {
+                HStack {
+                    Text("Pay with ")
+                        .font(.primary(.semiBold, size: 20))
+                    Text("Pay")
+                        .font(.primary(.semiBold, size: 25))
+                }
+            }
+
+        }
+        .padding(.horizontal, 24)
+        .alert(isPresented: $payRideViewModel.paymentSuccessfulAlertIsShowing) {
+            Alert(title: Text("Payment was successful"), message: Text("You can find your receipt on your email"), dismissButton: .default(Text("OK")))
+        }
+    }
+    
+    var mapSnapshot: some View {
+        ZStack {
+            Image("mapSnapshot")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .cornerRadius(29)
+            Text("No route yet. :(")
+                .font(.primary(type: .heading2))
+                .foregroundColor(.accentPink)
+        }
+    }
+    
 }
 
 struct PayRideView_Previews: PreviewProvider {
     static var previews: some View {
-        PayRideView()
+        Group {
+            ForEach(devices) { device in
+                PayRideView(onSuccessfullyPaidRide: {})
+            }
+        }
     }
 }

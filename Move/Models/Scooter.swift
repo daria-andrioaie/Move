@@ -51,7 +51,13 @@ class ScooterData: Codable {
         return "\(scooterNumber)" + " " + bookedStatus.rawValue + " " + lockedStatus.rawValue + "\n"
     }
     
-    func computeAddressBasedOnLocationCoordinates() -> String {
+    func getAddress() {
+        computeAddressBasedOnLocationCoordinates { detectedAddress in
+            self.location.address = detectedAddress
+        }
+    }
+    
+    func computeAddressBasedOnLocationCoordinates(onRequestCompleted: @escaping (String) -> Void) {
         CLGeocoder().reverseGeocodeLocation(.init(latitude: self.location.coordinates[1], longitude: self.location.coordinates[0])) { placemarks, error in
             if let error = error {
                 print("Reverse geocoder failed with error" + error.localizedDescription)
@@ -67,17 +73,16 @@ class ScooterData: Codable {
                         if let streetNumber = scooterPlacemark.subLocality {
                             addressOfScooter += ", \(streetNumber)"
                         }
-                        self.location.address = addressOfScooter
+                        onRequestCompleted(addressOfScooter)
+                        return
                     }
+                    onRequestCompleted("no address detected")
                 } else {
                     print("Problem with the data received from geocoder")
+                    onRequestCompleted("no address detected")
                 }
             }
         }
-        if let scooterAddress = self.location.address {
-            return scooterAddress
-        }
-        return "no address detected"
     }
     
     static func mock_getScootersNearTapp() -> [ScooterData] {

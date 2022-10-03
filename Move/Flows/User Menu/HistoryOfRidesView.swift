@@ -17,7 +17,7 @@ struct RouteView: View {
     let address: String
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             Text(locationType == .source ? "From" : "To")
                 .font(.primary(type: .smallText))
                 .foregroundColor(.neutralCement)
@@ -27,7 +27,6 @@ struct RouteView: View {
                 .foregroundColor(.primaryBlue)
                 .frame(height: 40, alignment: .top)
         }
-        .frame(width: UIScreen.main.bounds.width * 3/7, alignment: .leading)
 //        .padding(.leading, 20)
 //        .padding(.vertical,  20)
 //        .background(RoundedRectangle(cornerRadius: 29)
@@ -61,11 +60,13 @@ struct RideView: View {
         VStack {
             HStack(alignment: .top) {
                 RouteView(locationType: .source, address: rideData.source ?? "no source address")
+                    .frame(width: UIScreen.main.bounds.width * 3/7, alignment: .leading)
                 Spacer()
                 RideHistoryTravelMetricsView(metricsType: .time, metricsValue: rideData.duration)
             }
             HStack(alignment: .top) {
                 RouteView(locationType: .destination, address: rideData.destination ?? "no destination address")
+                    .frame(width: UIScreen.main.bounds.width * 3/7, alignment: .leading)
                 Spacer()
                 RideHistoryTravelMetricsView(metricsType: .distance, metricsValue: rideData.distance)
                     .padding(.trailing, 18)
@@ -86,13 +87,15 @@ struct RideView: View {
     }
 }
 
+
 struct HistoryOfRidesView: View {
-    let rides: [Ride]
+    @StateObject var viewModel: HistoryOfRidesViewModel = .init()
+    
     let onBack: () -> Void
     var body: some View {
         VStack {
             HeaderView(buttonAction: .slideBack, onButtonPressed: onBack, headerTitle: "History")
-            if rides.count == 0 {
+            if viewModel.rides.count == 0 {
                 Text("You have no rides yet. :(")
                     .frame(maxHeight: .infinity, alignment: .center)
                     .font(.primary(type: .heading2))
@@ -101,7 +104,7 @@ struct HistoryOfRidesView: View {
             else {
                 ScrollView(.vertical) {
                     VStack(spacing: 12) {
-                        ForEach(rides, id: \.self) { ride in
+                        ForEach(viewModel.rides, id: \.self) { ride in
                             RideView(rideData: ride)
                         }
                     }
@@ -117,8 +120,7 @@ struct HistoryOfRidesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(devices) { device in
-                HistoryOfRidesView(rides: [.init(_id: "1", scooterNumber: 2455, startMode: "PIN", userId: "alalalidbn", source: "9776 Gutkowski Shores Suite 420", destination: "980 Scarlett Brook Apt. 233", duration: 1000, startTime: 0, endTime: 10, distance: 100, price: 12, status: "completed"),
-                                           .init(_id: "2", scooterNumber: 1234, startMode: "QR", userId: "dhedd", source: "256 Osvaldo Camp", destination: "06 Gerhold Valleys", duration: 765, startTime: 1, endTime: 10, distance: 7200, price: 300, status: "completed")], onBack: {})
+                HistoryOfRidesView(onBack: {})
                     .previewDevice(device)
             }
         }

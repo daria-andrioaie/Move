@@ -49,8 +49,7 @@ class RideCoordinatorViewModel: ObservableObject {
                 return .rideInProgress
             }
             else {
-//                return .payRide
-                return .findScooter
+                return .payRide
             }
         }
         catch CodingError.cannotDecodeRide {
@@ -107,8 +106,7 @@ struct RideCoordinatorView: View {
                         }
                         
                         NavigationLink(destination: RideScooterView(onSuccessfullyEndedRide: {
-//                            coordinatorViewModel.state = .payRide
-                            coordinatorViewModel.state = .findScooter
+                            coordinatorViewModel.state = .payRide
                         }, onMenuButtonPressed: {
                             coordinatorViewModel.showingMenu = true
                         })
@@ -119,7 +117,10 @@ struct RideCoordinatorView: View {
                             EmptyView()
                         }
                         
-                        NavigationLink(destination: PayRideView()
+                        NavigationLink(destination: PayRideView(onSuccessfullyPaidRide: {
+                            selectedScooter.value = nil
+                            coordinatorViewModel.state = .findScooter
+                        })
                             .preferredColorScheme(.light)
                             .navigationBarHidden(true)
                             .ignoresSafeArea()

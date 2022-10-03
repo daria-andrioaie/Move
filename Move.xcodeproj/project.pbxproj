@@ -37,6 +37,7 @@
 		B870275528E8746500DDDF88 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870275428E8746500DDDF88 /* ViewExtensions.swift */; };
 		B870275728E8B9E600DDDF88 /* TcpAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870275628E8B9E600DDDF88 /* TcpAPIService.swift */; };
 		B882D91C28EB12C10003D4FE /* PayRideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882D91B28EB12C10003D4FE /* PayRideView.swift */; };
+		B882D91E28EB84360003D4FE /* HistoryOfRidesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882D91D28EB84360003D4FE /* HistoryOfRidesViewModel.swift */; };
 		B889B60B28D216590016BEFB /* HistoryOfRidesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B889B60A28D216590016BEFB /* HistoryOfRidesView.swift */; };
 		B889B60D28D216920016BEFB /* Ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = B889B60C28D216920016BEFB /* Ride.swift */; };
 		B890F3BE28CB61B900435E9C /* ScootersAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890F3BD28CB61B900435E9C /* ScootersAPIService.swift */; };
@@ -136,6 +137,7 @@
 		B870275428E8746500DDDF88 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		B870275628E8B9E600DDDF88 /* TcpAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TcpAPIService.swift; sourceTree = "<group>"; };
 		B882D91B28EB12C10003D4FE /* PayRideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayRideView.swift; sourceTree = "<group>"; };
+		B882D91D28EB84360003D4FE /* HistoryOfRidesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryOfRidesViewModel.swift; sourceTree = "<group>"; };
 		B889B60A28D216590016BEFB /* HistoryOfRidesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryOfRidesView.swift; sourceTree = "<group>"; };
 		B889B60C28D216920016BEFB /* Ride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ride.swift; sourceTree = "<group>"; };
 		B890F3BD28CB61B900435E9C /* ScootersAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScootersAPIService.swift; sourceTree = "<group>"; };
@@ -516,6 +518,7 @@
 				B82A3ADA28D31B11005F22A2 /* EditAccountView.swift */,
 				B82A3ADC28D32967005F22A2 /* ChangePasswordView.swift */,
 				B82A3ADE28D337E6005F22A2 /* MenuCoordinator.swift */,
+				B882D91D28EB84360003D4FE /* HistoryOfRidesViewModel.swift */,
 			);
 			path = "User Menu";
 			sourceTree = "<group>";
@@ -762,6 +765,7 @@
 				B8DCB05128E1B6F10032C973 /* RideScooterView.swift in Sources */,
 				B8D9B22F28D08D6C006966C7 /* MenuView.swift in Sources */,
 				B8052FBE28C8C96500F3439B /* ScooterAnnotation.swift in Sources */,
+				B882D91E28EB84360003D4FE /* HistoryOfRidesViewModel.swift in Sources */,
 				B8D05E0228D5A05B00DB83AE /* UnlockHeaderView.swift in Sources */,
 				B896D15628A63D6000BD7791 /* ColorExtensions.swift in Sources */,
 				B8D9B78328A3D8B6003F0968 /* FontsExtensions.swift in Sources */,

@@ -30,6 +30,30 @@ struct FormButton: View {
     }
 }
 
+struct ApplePayButton<Content: View>: View {
+    let action: () -> Void
+    let label: () -> Content
+    
+    init(action: @escaping () -> Void, @ViewBuilder label: @escaping () -> Content) {
+        self.action = action
+        self.label = label
+    }
+    
+    var body: some View {
+        Button(action: {
+            action()
+        }, label: {
+            label()
+        })
+        .frame(maxWidth: .infinity)
+        .foregroundColor(.white)
+        .frame(height: 56)
+        .background(RoundedRectangle(cornerRadius: 16).foregroundColor(.black))
+        .padding(.horizontal, 24)
+        .padding(.bottom, 32)
+    }
+}
+
 struct LoadingDisabledButton: View {
     var body: some View {
         Button {}

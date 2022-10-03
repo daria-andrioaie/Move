@@ -206,7 +206,7 @@ extension ScooterMapViewModel: MKMapViewDelegate {
         }
     }
     
-    func getAddressBasedOnCoordinates(latitude: Double, longitude: Double) -> String {
+    func getAddressBasedOnCoordinates(latitude: Double, longitude: Double, onRequestCompleted: @escaping (String) -> Void) {
         var address: String = "dummy address"
         CLGeocoder().reverseGeocodeLocation(.init(latitude: latitude, longitude: longitude)) { placemarks, error in
             if let error = error {
@@ -218,8 +218,8 @@ extension ScooterMapViewModel: MKMapViewDelegate {
                 if placemarks.count > 0 {
                     let pointPlacemark = placemarks[0] as CLPlacemark
                     
-                    if let cityName = pointPlacemark.thoroughfare {
-                        address = cityName
+                    if let streetName = pointPlacemark.thoroughfare {
+                        address = streetName
                         if let additionalStreetInformation = pointPlacemark.subThoroughfare {
                             address += ", \(additionalStreetInformation)"
                         }
@@ -227,12 +227,12 @@ extension ScooterMapViewModel: MKMapViewDelegate {
                     else {
                         address = "No address detected"
                     }
+                    onRequestCompleted(address)
                 } else {
                     print("Problem with the data received from geocoder")
                 }
             }
         }
-        return address
     }
     
 }

@@ -15,6 +15,7 @@ class User: Codable {
     var email: String
     var status: String
     var driverLicenseKey: String? = nil
+    var numberRides: Int? = nil
     
     required init(_id: String, username: String, email: String, status: String) {
         self._id = _id

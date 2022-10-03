@@ -11,7 +11,7 @@ import SwiftUI
 class RideScooterViewModel: ObservableObject {
     @Published var tripDetailsSheetMode = SheetDisplayMode.custom
     @Published var rideData: Ride
-    @Published var scooterData: ScooterData
+    @Published var scooterData: ScooterData = ScooterData.mockedScooter()
     @Published var timeElapsed: Int
     @Published var distanceCovered: Int
     @Published var mapCenterAddress: String? = nil
@@ -25,18 +25,16 @@ class RideScooterViewModel: ObservableObject {
         self.distanceCovered = 0
         do {
             let ride = try UserDefaultsService().getRide()
-            rideData = ride
-            scooterData = RideScooterViewModel.getScooterByNumber(scooterNumber: ride.scooterNumber)
+            self.rideData = ride
+            RideScooterViewModel.getScooterByNumber(scooterNumber: ride.scooterNumber, onRequestCompleted: { returnedScooter in
+                self.scooterData = returnedScooter
+            })
         }
         catch {
             rideData = Ride.mockedRide()
             scooterData = ScooterData.mockedScooter()
             print("unexpected error occured")
         }
-
-        startUpdatingElapsedTime()
-        startUpdatingCoveredDistance()
-        
         mapViewModel.onMapRegionChanged = { mapCenterAddress in
             withAnimation {
                 self.mapCenterAddress = mapCenterAddress
@@ -46,14 +44,17 @@ class RideScooterViewModel: ObservableObject {
     
     func startUpdatingElapsedTime() {
         _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            self.timeElapsed = self.timeElapsed + 1
+            if self.scooterData.lockedStatus == .unlocked {
+                self.timeElapsed = self.timeElapsed + 1
+            }
         }
     }
 
-    
     func startUpdatingCoveredDistance() {
         _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
-            self.distanceCovered += 100
+            if self.scooterData.lockedStatus == .unlocked {
+                self.distanceCovered += 100
+            }
         }
     }
     
@@ -92,7 +93,10 @@ class RideScooterViewModel: ObservableObject {
         let userLocationLatitude = userLocation.coordinate.latitude
         let userLocationLongitude = userLocation.coordinate.longitude
 
-        let address = mapViewModel.getAddressBasedOnCoordinates(latitude: userLocationLatitude, longitude: userLocationLongitude)
+        var address = "dummy address"
+        mapViewModel.getAddressBasedOnCoordinates(latitude: userLocationLatitude, longitude: userLocationLongitude, onRequestCompleted: { detectedAddress in
+            address = detectedAddress
+        })
         let endRideParameters = ["longitude": userLocationLongitude, "latitude": userLocationLatitude, "endAddress": address] as [String: Any]
 
         ridesService.endRide(rideId: self.rideData._id, endRideParameters: endRideParameters) { result in
@@ -111,17 +115,16 @@ class RideScooterViewModel: ObservableObject {
         }
     }
     
-    static func getScooterByNumber(scooterNumber: Int) -> ScooterData {
-        var returnedScooter: ScooterData?
+    static func getScooterByNumber(scooterNumber: Int, onRequestCompleted: @escaping (ScooterData) -> Void){
         ScootersAPIService().getScooterByNumber(scooterNumber: String(scooterNumber)) { result in
             switch result {
             case .success(let scooter):
-                returnedScooter = scooter
+                onRequestCompleted(scooter)
             case .failure(let error):
                 SwiftMessagesErrorHandler().handle(message: error.message)
+                onRequestCompleted(ScooterData.mockedScooter())
             }
         }
-        return returnedScooter ?? ScooterData.mockedScooter()
     }
     
     func centerMapOnUserLocation() {

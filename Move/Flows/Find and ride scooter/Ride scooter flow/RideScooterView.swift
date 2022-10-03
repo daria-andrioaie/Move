@@ -61,6 +61,10 @@ struct RideScooterView: View {
             }
         }
         .ignoresSafeArea()
+        .onAppear {
+            viewModel.startUpdatingElapsedTime()
+            viewModel.startUpdatingCoveredDistance()
+        }
     }
 }
 
@@ -71,6 +75,6 @@ struct RideScooterView_Previews: PreviewProvider {
                 RideScooterView(onSuccessfullyEndedRide: {}, onMenuButtonPressed: {})
             }
         }
-        
+    
     }
 }

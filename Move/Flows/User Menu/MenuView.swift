@@ -13,21 +13,29 @@ enum HeaderButtonActionType {
 }
 
 struct HeaderView: View {
-    let buttonAction: HeaderButtonActionType
+    let buttonAction: HeaderButtonActionType?
     let onButtonPressed: () -> Void
     let headerTitle: String
     
     var body: some View {
         HStack {
-            Button {
-                // TODO: add slide animation when returning to map screen
-                onButtonPressed()
-            } label: {
-                Image(systemName: buttonAction == .slideBack ? "chevron.left" : "chevron.down")
-                    .foregroundColor(.primaryPurple)
-                    .frame(width: 36, height: 36)
+            if buttonAction != nil {
+                Button {
+                    // TODO: add slide animation when returning to map screen
+                    onButtonPressed()
+                } label: {
+                    Image(systemName: buttonAction == .slideBack ? "chevron.left" : "chevron.down")
+                        .foregroundColor(.primaryPurple)
+                        .frame(width: 36, height: 36)
 
+                }
             }
+            else {
+                Image(systemName: "chevron.left")
+                    .frame(width: 36, height: 36)
+                    .opacity(0)
+            }
+            
             Spacer()
             Text(headerTitle)
                 .foregroundColor(.primaryPurple)
@@ -48,6 +56,8 @@ struct HeaderView: View {
 struct HistoryPreview: View {
     let onSeeHistoryButton: () -> Void
     
+    @StateObject var historyOfRidesViewModel: HistoryOfRidesViewModel = .init()
+    
     var body: some View {
         ZStack {
             Image("rectangleBackground-cardView")
@@ -58,7 +68,7 @@ struct HistoryPreview: View {
                     Text("History")
                         .font(.primary(type: .button1))
                         .foregroundColor(.white)
-                    Text("Total rides: 12")
+                    Text("Total rides: \(historyOfRidesViewModel.numberOfRides)")
                         .font(.primary(type: .body1))
                         .foregroundColor(.neutralPurple)
                 }

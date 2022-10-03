@@ -90,7 +90,11 @@ class FindScootersViewModel: ObservableObject {
         let ridesService = RidesAPIService()
         
         //TODO: here there should be the user location instead of the hardcoded values
-        let address = mapViewModel.getAddressBasedOnCoordinates(latitude: 46.753302, longitude: 23.584109)
+        var address = "dummy address"
+        mapViewModel.getAddressBasedOnCoordinates(latitude: 46.753302, longitude: 23.584109, onRequestCompleted: { detectedAddress in
+            address = detectedAddress
+        })
+        
         let startRideParameters = ["longitude": 23.584109, "latitude": 46.753302, "scooterNumber": scooterNumber, "startMode": "PIN", "startAddress": address] as [String: Any]
         
         ridesService.startRide(startRideParameters: startRideParameters) { result in
