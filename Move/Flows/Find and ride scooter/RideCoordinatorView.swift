@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum RideCoordinatorState: IdentifiableHashable {
+enum RideCoordinatorState: String, IdentifiableHashable {
     case findScooter
     case unlockScooter
 //    case menuOverview
@@ -15,23 +15,27 @@ enum RideCoordinatorState: IdentifiableHashable {
     case payRide
     
     var id: String {
-        switch self {
-        case .findScooter: return "findScooter"
-        case .unlockScooter: return "unlockScooter"
-//        case .menuOverview:
-        case .rideInProgress: return "rideScooter"
-        case .payRide: return "payRide"
-        }
+        return self.rawValue
     }
-    
 }
 
 class SelectedScooterViewModel: ObservableObject {
-    @Published var value: ScooterAnnotation?
+    @Published var value: ScooterAnnotation? {
+        didSet {
+            computeAddress()
+        }
+    }
+    @Published var scooterAddress: String = "loading.."
     @Published var startRideSheetDisplayMode = SheetDisplayMode.none
     
     static var constant: SelectedScooterViewModel {
         SelectedScooterViewModel()
+    }
+    
+    func computeAddress() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.scooterAddress = "Calea Turzii"
+        }
     }
 }
 

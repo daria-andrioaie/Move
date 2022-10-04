@@ -10,10 +10,11 @@ import SwiftUI
 
 class RideScooterViewModel: ObservableObject {
     @Published var tripDetailsSheetMode = SheetDisplayMode.custom
-    @Published var rideData: Ride
+    @Published var rideData: Ride = Ride.mockedRide()
     @Published var scooterData: ScooterData = ScooterData.mockedScooter()
-    @Published var timeElapsed: Int
-    @Published var distanceCovered: Int
+    @Published var timeElapsed: Int = 0
+    
+    @Published var distanceCovered: Int = 0
     @Published var mapCenterAddress: String? = nil
     var mapViewModel: ScooterMapViewModel = .init()
     let scootersService = ScootersAPIService()
@@ -21,11 +22,11 @@ class RideScooterViewModel: ObservableObject {
 
     init() {
         print("ride scooter view model instantiated")
-        self.timeElapsed = 0
-        self.distanceCovered = 0
         do {
             let ride = try UserDefaultsService().getRide()
-            self.rideData = ride
+            RideScooterViewModel.getRideById(rideId: ride._id) { returnedRide in
+                self.rideData = returnedRide
+            }
             RideScooterViewModel.getScooterByNumber(scooterNumber: ride.scooterNumber, onRequestCompleted: { returnedScooter in
                 self.scooterData = returnedScooter
             })
@@ -35,6 +36,10 @@ class RideScooterViewModel: ObservableObject {
             scooterData = ScooterData.mockedScooter()
             print("unexpected error occured")
         }
+        
+        self.timeElapsed = getElapsedSecondsFromTheStartOfTheRide()
+        self.distanceCovered = rideData.distance
+        
         mapViewModel.onMapRegionChanged = { mapCenterAddress in
             withAnimation {
                 self.mapCenterAddress = mapCenterAddress
@@ -42,11 +47,14 @@ class RideScooterViewModel: ObservableObject {
         }
     }
     
+    func getElapsedSecondsFromTheStartOfTheRide() -> Int {
+        let timeInterval = Date(milliseconds: Int64(rideData.startTime)).timeIntervalSinceNow
+        return -Int(timeInterval.rounded())
+    }
+    
     func startUpdatingElapsedTime() {
         _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            if self.scooterData.lockedStatus == .unlocked {
-                self.timeElapsed = self.timeElapsed + 1
-            }
+            self.timeElapsed = self.getElapsedSecondsFromTheStartOfTheRide()
         }
     }
 
@@ -84,6 +92,18 @@ class RideScooterViewModel: ObservableObject {
         }
     }
     
+    static func getRideById(rideId: String, onRequestCompleted: @escaping (Ride) -> Void) {
+        RidesAPIService().getRideById(rideId: rideId) { result in
+            switch result {
+            case .success(let ride):
+                onRequestCompleted(ride)
+            case .failure(let error):
+                SwiftMessagesErrorHandler().handle(message: error.message)
+                onRequestCompleted(Ride.mockedRide())
+            }
+        }
+    }
+    
     func endRide(onRequestCompleted: @escaping (Result<Ride, APIError>) -> Void) {
         guard let userLocation = mapViewModel.userLocation else {
             onRequestCompleted(.failure(APIError(message: "Cannot end ride without access to user location")))
@@ -96,23 +116,24 @@ class RideScooterViewModel: ObservableObject {
         var address = "dummy address"
         mapViewModel.getAddressBasedOnCoordinates(latitude: userLocationLatitude, longitude: userLocationLongitude, onRequestCompleted: { detectedAddress in
             address = detectedAddress
-        })
-        let endRideParameters = ["longitude": userLocationLongitude, "latitude": userLocationLatitude, "endAddress": address] as [String: Any]
+            let endRideParameters = ["longitude": userLocationLongitude, "latitude": userLocationLatitude, "endAddress": address] as [String: Any]
 
-        ridesService.endRide(rideId: self.rideData._id, endRideParameters: endRideParameters) { result in
-            switch result {
-            case .success(let ride):
-                print("ended ride with id : \(ride._id)")
-                // save current ride to user defaults
-                try? UserDefaultsService().saveRide(ride)
-                if self.scooterData.lockedStatus == .unlocked {
-                    self.toggleLockStatusOfScooter()
+            self.ridesService.endRide(rideId: self.rideData._id, endRideParameters: endRideParameters) { result in
+                switch result {
+                case .success(let ride):
+                    print("ended ride with id : \(ride._id)")
+                    // save current ride to user defaults
+                    try? UserDefaultsService().saveRide(ride)
+                    if self.scooterData.lockedStatus == .unlocked {
+                        self.toggleLockStatusOfScooter()
+                    }
+                    self.ridesService.updateCurrentUserInUserDefaults()
+                    onRequestCompleted(.success(ride))
+                case .failure(let error):
+                    onRequestCompleted(.failure(APIError(message: error.message)))
                 }
-                onRequestCompleted(.success(ride))
-            case .failure(let error):
-                onRequestCompleted(.failure(APIError(message: error.message)))
             }
-        }
+        })
     }
     
     static func getScooterByNumber(scooterNumber: Int, onRequestCompleted: @escaping (ScooterData) -> Void){

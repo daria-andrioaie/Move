@@ -9,16 +9,12 @@ import Foundation
 
 class HistoryOfRidesViewModel: ObservableObject {
     @Published var rides: [Ride] = []
-    @Published var numberOfRides: Int = 0
-    
+
     init() {
         getRidesOfUser { returnedRides in
             self.rides = returnedRides
         }
         
-        getNumberOfRidesOfUser { returnedNumberOfRides in
-            self.numberOfRides = returnedNumberOfRides
-        }
     }
     
     func getRidesOfUser(onRequestCompleted: @escaping ([Ride]) -> Void) {
@@ -32,14 +28,4 @@ class HistoryOfRidesViewModel: ObservableObject {
         }
     }
     
-    func getNumberOfRidesOfUser(onRequestCompleted: @escaping (Int) -> Void) {
-        RidesAPIService().getNumberOfRidesOfUser(onRequestCompleted: { result in
-            switch result {
-            case .success(let returnedNumberOfRides):
-                onRequestCompleted(returnedNumberOfRides)
-            case .failure(let apiError):
-                SwiftMessagesErrorHandler().handle(message: apiError.message)
-            }
-        })
-    }
 }

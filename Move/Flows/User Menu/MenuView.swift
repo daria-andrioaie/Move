@@ -53,10 +53,13 @@ struct HeaderView: View {
     }
 }
 
+
+
+
 struct HistoryPreview: View {
     let onSeeHistoryButton: () -> Void
     
-    @StateObject var historyOfRidesViewModel: HistoryOfRidesViewModel = .init()
+    @StateObject var menuViewModel: MenuViewModel = .init()
     
     var body: some View {
         ZStack {
@@ -68,7 +71,7 @@ struct HistoryPreview: View {
                     Text("History")
                         .font(.primary(type: .button1))
                         .foregroundColor(.white)
-                    Text("Total rides: \(historyOfRidesViewModel.numberOfRides)")
+                    Text("Total rides: \(menuViewModel.numberOfRides)")
                         .font(.primary(type: .body1))
                         .foregroundColor(.neutralPurple)
                 }

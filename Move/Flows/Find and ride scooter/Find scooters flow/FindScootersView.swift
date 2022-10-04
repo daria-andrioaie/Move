@@ -31,6 +31,7 @@ struct SelectedScooterSheetView: View {
                 .transition(.move(edge: .bottom))
                 .animation(.linear(duration: 1), value: selectedScooterAnnotation != nil)
                 .zIndex(1)
+                .id(selectedScooterAnnotation.scooterData._id)
             
             if unlockOptionsSheetDisplayMode != .none {
                 FlexibleSheet(sheetMode: $unlockOptionsSheetDisplayMode) {

@@ -24,14 +24,14 @@ struct GenericTravelMetricsRectangleView<Content>: View where Content: View {
                 .padding(.bottom, 12)
             Text(metricsValue)
                 .foregroundColor(.primaryBlue)
-                .font(.primary(type: .title))
+                .font(.primary(type: .heading1))
             if let metricsDescription = metricsDescription {
                 Text(metricsDescription)
                     .foregroundColor(.primaryBlue)
                     .font(.primary(type: .body1))
             }
         }
-        .padding(.vertical, 35)
+        .padding(.vertical, 30)
         .frame(maxWidth: .infinity)
         .overlay(
             RoundedRectangle(cornerRadius: 29)
@@ -67,6 +67,7 @@ struct TripDetailsFullView: View {
             HeaderView(buttonAction: .slideDown, onButtonPressed: {
                 onDismiss()
             }, headerTitle: "Trip details")
+            .padding(.top, 18)
             Spacer()
             
             VStack(spacing: 24) {
@@ -93,6 +94,7 @@ struct TripDetailsFullView: View {
             Spacer()
             
             ButtonsTripDetailsFullView(scooterLockStatus: scooterData.lockedStatus, onLockUnlock: onLockUnlock, onEndRide: onEndRide)
+                .padding(.bottom, 34)
         }
         .padding(.horizontal, 24)
     }

@@ -178,6 +178,30 @@ class RidesAPIService {
                     }
                 }
             }
-
+    }
+    
+    func updateCurrentUserInUserDefaults() {
+        guard let userToken = try? userDefaultsService.getUserToken() else {
+            return
+        }
+        let header: HTTPHeaders = ["Authorization": "Bearer \(userToken)"]
+        
+        let url = "https://move-scooter.herokuapp.com/api/users/me"
+        
+        AF.request(url, method: .get, headers: header)
+            .validate()
+            .responseDecodable(of: User.self) { response in
+                switch response.result {
+                case .success(let user):
+                    try? self.userDefaultsService.saveUser(user)
+                case .failure(let error):
+                    if let data = response.data, let APIerror = try? JSONDecoder().decode(APIError.self, from: data) {
+                        print(APIerror.message)
+                    }
+                    else {
+                        print("Unknown decoding error: \(error.localizedDescription)")
+                    }
+                }
+            }
     }
  }

@@ -59,13 +59,13 @@ struct RideView: View {
     var body: some View {
         VStack {
             HStack(alignment: .top) {
-                RouteView(locationType: .source, address: rideData.source ?? "no source address")
+                RouteView(locationType: .source, address: rideData.startAddress ?? "no source address")
                     .frame(width: UIScreen.main.bounds.width * 3/7, alignment: .leading)
                 Spacer()
                 RideHistoryTravelMetricsView(metricsType: .time, metricsValue: rideData.duration)
             }
             HStack(alignment: .top) {
-                RouteView(locationType: .destination, address: rideData.destination ?? "no destination address")
+                RouteView(locationType: .destination, address: rideData.endAddress ?? "no destination address")
                     .frame(width: UIScreen.main.bounds.width * 3/7, alignment: .leading)
                 Spacer()
                 RideHistoryTravelMetricsView(metricsType: .distance, metricsValue: rideData.distance)
@@ -102,7 +102,7 @@ struct HistoryOfRidesView: View {
                     .foregroundColor(.primaryPurple)
             }
             else {
-                ScrollView(.vertical) {
+                ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 12) {
                         ForEach(viewModel.rides, id: \.self) { ride in
                             RideView(rideData: ride)

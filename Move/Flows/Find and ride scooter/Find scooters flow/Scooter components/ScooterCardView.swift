@@ -125,7 +125,7 @@ class ScooterCardViewModel: ObservableObject {
     init(scooterData: ScooterData, userLocationCoordinates: CLLocationCoordinate2D?) {
         self.scooterData = scooterData
         self.userLocationCoordinates = userLocationCoordinates
-            }
+    }
     
     func pingScooter() {
         guard let userLocationCoordinates = userLocationCoordinates else {

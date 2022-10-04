@@ -102,10 +102,11 @@ struct PayRideView: View {
     var body: some View {
         VStack(spacing: 0) {
             HeaderView(buttonAction: nil, onButtonPressed: {}, headerTitle: "Trip Summary")
+                .padding(.top, 18)
                 .padding(.bottom, 40)
             mapSnapshot
                 .padding(.bottom, 40)
-            TripSourceAndDestinationView(source: payRideViewModel.rideData.source ?? "no source", destination: payRideViewModel.rideData.destination ?? "no destination")
+            TripSourceAndDestinationView(source: payRideViewModel.rideData.startAddress ?? "no source", destination: payRideViewModel.rideData.endAddress ?? "no destination")
                 .padding(.bottom, 36)
             TripMetricsSummaryView(travelTime: payRideViewModel.rideData.duration, distance: payRideViewModel.rideData.distance)
             Spacer()
@@ -119,10 +120,12 @@ struct PayRideView: View {
                 
             } label: {
                 HStack {
-                    Text("Pay with ")
+                    Text("Pay with")
                         .font(.primary(.semiBold, size: 20))
-                    Text("Pay")
-                        .font(.primary(.semiBold, size: 25))
+                    Image("appleLogo")
+                    Text("Pay")
+                        .font(.primary(.semiBold, size: 23))
+                        .offset(x: -6)
                 }
             }
 

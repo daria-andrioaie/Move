@@ -30,9 +30,9 @@ class FindScootersViewModel: ObservableObject {
         }
         
         mapViewModel.onMapRegionChanged = { mapCenterAddress in
-            withAnimation {
+//            withAnimation {
                 self.mapCenterAddress = mapCenterAddress
-            }
+//            }
         }
         
         if let unlockedScooter = self.selectedScooter.value {
@@ -93,20 +93,19 @@ class FindScootersViewModel: ObservableObject {
         var address = "dummy address"
         mapViewModel.getAddressBasedOnCoordinates(latitude: 46.753302, longitude: 23.584109, onRequestCompleted: { detectedAddress in
             address = detectedAddress
-        })
-        
-        let startRideParameters = ["longitude": 23.584109, "latitude": 46.753302, "scooterNumber": scooterNumber, "startMode": "PIN", "startAddress": address] as [String: Any]
-        
-        ridesService.startRide(startRideParameters: startRideParameters) { result in
-            switch result {
-            case .success(let ride):
-                // save current ride to user defaults
-                try? UserDefaultsService().saveRide(ride)
-                onRequestCompleted(.success(ride))
-            case .failure(let error):
-                onRequestCompleted(.failure(APIError(message: error.message)))
+            let startRideParameters = ["longitude": 23.584109, "latitude": 46.753302, "scooterNumber": scooterNumber, "startMode": "PIN", "startAddress": address] as [String: Any]
+            
+            ridesService.startRide(startRideParameters: startRideParameters) { result in
+                switch result {
+                case .success(let ride):
+                    // save current ride to user defaults
+                    try? UserDefaultsService().saveRide(ride)
+                    onRequestCompleted(.success(ride))
+                case .failure(let error):
+                    onRequestCompleted(.failure(APIError(message: error.message)))
+                }
             }
-        }
+        })
     }
     
     func refreshScootersEvery30Seconds() {

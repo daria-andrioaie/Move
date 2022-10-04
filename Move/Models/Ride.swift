@@ -31,8 +31,8 @@ class Ride: Codable, Hashable {
     let scooterNumber: Int
     let startMode: StartRideType
     let userId: String
-    let source: String?
-    let destination: String?
+    let startAddress: String?
+    let endAddress: String?
     let duration: Int
     let startTime: Int
     let endTime: Int?
@@ -46,8 +46,8 @@ class Ride: Codable, Hashable {
         self.scooterNumber = scooterNumber
         self.startMode = StartRideType(rawValue: startMode) ?? .PIN
         self.userId = userId
-        self.source = source
-        self.destination = destination
+        self.startAddress = source
+        self.endAddress = destination
         self.duration = duration
         self.startTime = startTime
         self.endTime = endTime
