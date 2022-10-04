@@ -83,6 +83,8 @@ class FindScootersViewModel: ObservableObject {
             onRequestCompleted(.failure(APIError(message: "Cannot start ride without access to user location")))
             return
         }
+        let userLocationLatitude = userLocation.coordinate.latitude
+        let userLocationLongitude = userLocation.coordinate.longitude
         
         self.selectedScooter.value?.scooterData.bookedStatus = .booked
         let scooterNumber = self.selectedScooter.value!.scooterData.scooterNumber
@@ -91,9 +93,9 @@ class FindScootersViewModel: ObservableObject {
         
         //TODO: here there should be the user location instead of the hardcoded values
         var address = "dummy address"
-        mapViewModel.getAddressBasedOnCoordinates(latitude: 46.753302, longitude: 23.584109, onRequestCompleted: { detectedAddress in
+        mapViewModel.getAddressBasedOnCoordinates(latitude: userLocationLatitude, longitude: userLocationLongitude, onRequestCompleted: { detectedAddress in
             address = detectedAddress
-            let startRideParameters = ["longitude": 23.584109, "latitude": 46.753302, "scooterNumber": scooterNumber, "startMode": "PIN", "startAddress": address] as [String: Any]
+            let startRideParameters = ["longitude": userLocationLongitude, "latitude": userLocationLatitude, "scooterNumber": scooterNumber, "startMode": "PIN", "startAddress": address] as [String: Any]
             
             ridesService.startRide(startRideParameters: startRideParameters) { result in
                 switch result {

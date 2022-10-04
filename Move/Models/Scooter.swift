@@ -94,7 +94,7 @@ class ScooterData: Codable {
     }
     
     static func mockedScooter() -> ScooterData {
-        return .init(_id: "alaal", scooterNumber: 1234, bookedStatus: "free", lockedStatus: "locked", battery: 100, location: .init(coordinates: [23.123456, 46.123456], address: "Strada Avram Iancu nr .26 Cladirea 2"))
+        return .init(_id: "alaal", scooterNumber: 1234, bookedStatus: "free", lockedStatus: "locked", battery: 32, location: .init(coordinates: [23.123456, 46.123456], address: "Strada Avram Iancu nr .26 Cladirea 2"))
     }
 }
 

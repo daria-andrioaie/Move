@@ -54,7 +54,7 @@ struct ButtonsTripDetailsFullView: View {
 }
 
 struct TripDetailsFullView: View {
-    var scooterData: ScooterData
+    var scooterData: ScooterData?
     var timeInSeconds: Int
     var distanceInMeters: Int
     
@@ -71,9 +71,9 @@ struct TripDetailsFullView: View {
             Spacer()
             
             VStack(spacing: 24) {
-                GenericTravelMetricsRectangleView(metricsValue: "\(scooterData.battery)%") {
+                GenericTravelMetricsRectangleView(metricsValue: "\(scooterData?.battery ?? 0)%") {
                     HStack{
-                        ScooterBatteryIcon(batteryPercentage: scooterData.battery)
+                        ScooterBatteryIcon(batteryPercentage: scooterData?.battery ?? 0)
                         Text("Battery")
                             .foregroundColor(.primaryBlue)
                             .opacity(0.6)
@@ -93,7 +93,7 @@ struct TripDetailsFullView: View {
             
             Spacer()
             
-            ButtonsTripDetailsFullView(scooterLockStatus: scooterData.lockedStatus, onLockUnlock: onLockUnlock, onEndRide: onEndRide)
+            ButtonsTripDetailsFullView(scooterLockStatus: scooterData?.lockedStatus ?? .unlocked, onLockUnlock: onLockUnlock, onEndRide: onEndRide)
                 .padding(.bottom, 34)
         }
         .padding(.horizontal, 24)

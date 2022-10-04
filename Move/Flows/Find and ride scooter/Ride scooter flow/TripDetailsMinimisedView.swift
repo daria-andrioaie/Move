@@ -46,7 +46,7 @@ struct GenericTravelMetricsView: View {
 }
 
 struct LeftSection: View {
-    var scooterData: ScooterData
+    var scooterData: ScooterData?
     let timeInSeconds: Int
     let onLockUnlock: () -> Void
     
@@ -54,7 +54,7 @@ struct LeftSection: View {
         VStack(alignment: .leading, spacing: 36) {
             GenericTravelMetricsView(metricsType: .time, metricsValue: timeInSeconds)
             
-            LockUnlockButton(scooterLockStatus: scooterData.lockedStatus, onLockUnlock: onLockUnlock)
+            LockUnlockButton(scooterLockStatus: scooterData?.lockedStatus ?? .unlocked, onLockUnlock: onLockUnlock)
         }
     }
 }
@@ -72,7 +72,7 @@ struct RightSection: View {
 }
 
 struct TripDetailsMinimisedView: View {
-    var scooterData: ScooterData
+    var scooterData: ScooterData?
     let timeInSeconds: Int
     let distanceInMeters: Int
     let onLockUnlock: () -> Void
@@ -83,7 +83,7 @@ struct TripDetailsMinimisedView: View {
             Text("Trip details")
                 .foregroundColor(.primaryBlue)
                 .font(.primary(type: .button1SemiBold))
-            ScooterBatteryView(batteryPercentage: scooterData.battery)
+            ScooterBatteryView(batteryPercentage: scooterData?.battery ?? 0)
                 .frame(maxWidth: .infinity, alignment: .leading)
             HStack(spacing: 20) {
                 LeftSection(scooterData: scooterData, timeInSeconds: timeInSeconds, onLockUnlock: onLockUnlock)

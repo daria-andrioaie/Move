@@ -40,6 +40,7 @@ class RidesAPIService {
     }
     
     func startRide(startRideParameters: Parameters, onRequestCompleted: @escaping (Result<Ride, APIError>) -> Void) -> Void {
+        print("starting ride with coordinates: \(startRideParameters["longitude"]), \(startRideParameters["latitude"])")
         guard let userToken = try? userDefaultsService.getUserToken() else {
             onRequestCompleted(.failure(APIError(message: "Can't find token in User Defaults!")))
             return
@@ -92,6 +93,31 @@ class RidesAPIService {
                                 }
                             }
                         }
+                        onRequestCompleted(.failure(APIerror))
+                    }
+                    else {
+                        print("Unknown decoding error: \(error.localizedDescription)")
+                        onRequestCompleted(.failure(.defaultServerError))
+                    }
+                }
+            }
+    }
+    
+    func updateRide(updateRideParameters: Parameters, onRequestCompleted: @escaping (Result<Ride, APIError>) -> Void) -> Void {
+        guard let userToken = try? userDefaultsService.getUserToken() else {
+            onRequestCompleted(.failure(APIError(message: "Can't find token in User Defaults!")))
+            return
+        }
+        let header: HTTPHeaders = ["Authorization": "Bearer \(userToken)"]
+        
+        AF.request(self.baseURL, method: .put, parameters: updateRideParameters, headers: header)
+            .validate()
+            .responseDecodable(of: Ride.self) { response in
+                switch response.result {
+                case .success(let ride):
+                    onRequestCompleted(.success(ride))
+                case .failure(let error):
+                    if let data = response.data, let APIerror = try? JSONDecoder().decode(APIError.self, from: data) {
                         onRequestCompleted(.failure(APIerror))
                     }
                     else {

@@ -14,25 +14,9 @@
             filePath = "Move/Networking/API Services/RidesAPIService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "endRide(rideId:endRideParameters:onRequestCompleted:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2EA7994A-6CC4-4D73-860E-C1AF22F388D9"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Move/Flows/Find and ride scooter/Find scooters flow/ScooterMapViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
-            landmarkName = "getAddressBasedOnCoordinates(latitude:longitude:onRequestCompleted:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

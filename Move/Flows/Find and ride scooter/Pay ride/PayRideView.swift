@@ -61,7 +61,7 @@ struct TripSourceAndDestinationView: View {
     let destination: String
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             RouteSummaryView(locationType: .source, address: source)
             RouteSummaryView(locationType: .destination, address: destination)
         }

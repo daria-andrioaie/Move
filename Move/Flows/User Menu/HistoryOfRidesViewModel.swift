@@ -8,13 +8,16 @@
 import Foundation
 
 class HistoryOfRidesViewModel: ObservableObject {
-    @Published var rides: [Ride] = []
+    @Published var rides: [Ride]? = nil
+    @Published var requestInProgress: Bool = true
 
     init() {
         getRidesOfUser { returnedRides in
-            self.rides = returnedRides
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.rides = returnedRides
+                self.requestInProgress = false
+            }
         }
-        
     }
     
     func getRidesOfUser(onRequestCompleted: @escaping ([Ride]) -> Void) {

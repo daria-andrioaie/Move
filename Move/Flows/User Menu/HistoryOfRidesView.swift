@@ -87,6 +87,27 @@ struct RideView: View {
     }
 }
 
+struct RidesScrollView: View {
+    let rides: [Ride]
+    
+    var body: some View {
+        if rides.count == 0 {
+            Text("You have no rides yet. :(")
+                .frame(maxHeight: .infinity, alignment: .center)
+                .font(.primary(type: .heading2))
+                .foregroundColor(.primaryBlue)
+        }
+        else {
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 12) {
+                    ForEach(rides, id: \.self) { ride in
+                        RideView(rideData: ride)
+                    }
+                }
+            }
+        }
+    }
+}
 
 struct HistoryOfRidesView: View {
     @StateObject var viewModel: HistoryOfRidesViewModel = .init()
@@ -95,21 +116,17 @@ struct HistoryOfRidesView: View {
     var body: some View {
         VStack {
             HeaderView(buttonAction: .slideBack, onButtonPressed: onBack, headerTitle: "History")
-            if viewModel.rides.count == 0 {
-                Text("You have no rides yet. :(")
-                    .frame(maxHeight: .infinity, alignment: .center)
-                    .font(.primary(type: .heading2))
+            
+            if viewModel.requestInProgress {
+                ActivityIndicator()
+                    .frame(width: 50, height: 50)
                     .foregroundColor(.primaryPurple)
+                    .frame(maxHeight: .infinity, alignment: .center)
             }
             else {
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing: 12) {
-                        ForEach(viewModel.rides, id: \.self) { ride in
-                            RideView(rideData: ride)
-                        }
-                    }
-                }
+                RidesScrollView(rides: viewModel.rides ?? [])
             }
+            
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .padding(.horizontal, 24)
