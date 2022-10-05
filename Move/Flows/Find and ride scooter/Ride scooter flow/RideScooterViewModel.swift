@@ -142,7 +142,12 @@ class RideScooterViewModel: ObservableObject {
                 self.distanceCovered = ride.distance
                 try? UserDefaultsService().saveRide(ride)
             case .failure(let error):
-                self.errorHandler.handle(message: error.message)
+                if error.message == "Incorrect token, no ride in progress!" {
+                    print(error.message)
+                }
+                else {
+                    self.errorHandler.handle(message: error.message)
+                }
             }
         }
         

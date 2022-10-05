@@ -174,7 +174,7 @@ struct ScooterCardView: View {
                 .padding(.trailing, 30)
                 .padding(.top, 20)
             }
-            AddressView(address: scooterData.location.address ?? "no address detected")
+            AddressView(address: scooterData.location.address ?? "")
             FormButton(title: "Unlock", isEnabled: userCanUnlockScooter) {
                 onUnlock()
             }

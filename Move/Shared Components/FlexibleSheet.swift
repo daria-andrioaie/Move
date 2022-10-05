@@ -60,7 +60,9 @@ struct FlexibleSheet<Content: View>: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .overlay(alignment: .top, content: {
-                GrabberView()
+                if self.sheetDisplayMode != .full {
+                    GrabberView()
+                }
             })
             .offset(y: self.calculateOffset() + verticalTranslation)
             .gesture(dragGesture)

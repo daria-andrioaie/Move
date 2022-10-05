@@ -112,11 +112,11 @@ struct PayRideView: View {
             Spacer()
             ApplePayButton {
                 payRideViewModel.paymentSuccessfulAlertIsShowing = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-                    payRideViewModel.paymentSuccessfulAlertIsShowing = false
-                    payRideViewModel.removeRideFromUserDefaults()
-                    onSuccessfullyPaidRide()
-                })
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+//                    payRideViewModel.paymentSuccessfulAlertIsShowing = false
+//                    payRideViewModel.removeRideFromUserDefaults()
+//                    onSuccessfullyPaidRide()
+//                })
                 
             } label: {
                 HStack {
@@ -132,7 +132,10 @@ struct PayRideView: View {
         }
         .padding(.horizontal, 24)
         .alert(isPresented: $payRideViewModel.paymentSuccessfulAlertIsShowing) {
-            Alert(title: Text("Payment was successful"), message: Text("You can find your receipt on your email"), dismissButton: .default(Text("OK")))
+            Alert(title: Text("Payment was successful"), message: Text("You can find your receipt on your email"), dismissButton: .default(Text("OK"), action: {
+                payRideViewModel.removeRideFromUserDefaults()
+                onSuccessfullyPaidRide()
+            }))
         }
     }
     

@@ -61,18 +61,19 @@ struct RideScooterView: View {
             }
         }
         .ignoresSafeArea()
-        .onReceive(viewModel.metricsTimer) { _ in
-            viewModel.updateTimeLocally()
-            viewModel.updateDistanceLocallyIfScooterIsUnlocked()
+        .onAppear {
+            viewModel.startUpdatingElapsedTime()
+            viewModel.startUpdatingCoveredDistance()
+            viewModel.startSendingLocationUpdates()
         }
-        onReceive(viewModel.locationUpdateTimer) { _ in
-            viewModel.sendLocationUpdates()
-        }
-//        .onAppear {
-//            viewModel.startUpdatingElapsedTime()
-//            viewModel.startUpdatingCoveredDistance()
-//            viewModel.startSendingLocationUpdates()
+//        .onReceive(viewModel.metricsTimer) { _ in
+//            viewModel.updateTimeLocally()
+//            viewModel.updateDistanceLocallyIfScooterIsUnlocked()
 //        }
+//        onReceive(viewModel.locationUpdateTimer) { _ in
+//            viewModel.sendLocationUpdates()
+//        }
+
     }
 }
 

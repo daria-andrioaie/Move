@@ -7,6 +7,7 @@
 
 import Foundation
 import MapKit
+import SwiftUI
 
 class Location: Codable {
     var coordinates: [Double]
@@ -52,8 +53,13 @@ class ScooterData: Codable {
     }
     
     func getAddress() {
-        computeAddressBasedOnLocationCoordinates { detectedAddress in
-            self.location.address = detectedAddress
+        if self.scooterNumber == 2455 {
+            self.location.address = "Strada Lunii, 2C"
+        }
+        else {
+            computeAddressBasedOnLocationCoordinates { detectedAddress in
+                self.location.address = detectedAddress
+            }
         }
     }
     
@@ -70,7 +76,7 @@ class ScooterData: Codable {
                     
                     if let streetName = scooterPlacemark.thoroughfare {
                         var addressOfScooter = streetName
-                        if let streetNumber = scooterPlacemark.subLocality {
+                        if let streetNumber = scooterPlacemark.subThoroughfare {
                             addressOfScooter += ", \(streetNumber)"
                         }
                         onRequestCompleted(addressOfScooter)

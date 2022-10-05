@@ -50,13 +50,15 @@ class MainCoordinatorViewModel: ObservableObject {
             print("No user logged in")
             // no user saved in UserDefaults
             // determine if it's the first time launching the app or not
-            if userDefaultsService.isAppOnFirstLaunch() {
-                userDefaultsService.setAppAlreadyLanchedOnce()
-                return .firstUseOfApplication
-            }
-            else {
-                return .notLoggedIn
-            }
+            
+//            if userDefaultsService.isAppOnFirstLaunch() {
+//                userDefaultsService.setAppAlreadyLanchedOnce()
+//                return .firstUseOfApplication
+//            }
+//            else {
+//                return .notLoggedIn
+//            }
+            return .firstUseOfApplication
         }
         catch {
             print("Unexpected error: \(error)")
