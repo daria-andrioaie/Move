@@ -75,25 +75,6 @@ struct TripSourceAndDestinationView: View {
     }
 }
 
-class PayRideViewModel: ObservableObject {
-    @Published var rideData: Ride
-    @Published var paymentSuccessfulAlertIsShowing: Bool = false
-
-    init() {
-        do {
-            let ride = try UserDefaultsService().getRide()
-            self.rideData = ride
-        }
-        catch {
-            rideData = Ride.mockedRide()
-            print("unexpected error occured")
-        }
-    }
-    
-    func removeRideFromUserDefaults() {
-        UserDefaultsService().removeCurrentRide()
-    }
-}
 
 struct PayRideView: View {
     let onSuccessfullyPaidRide: () -> Void
@@ -104,7 +85,7 @@ struct PayRideView: View {
             HeaderView(buttonAction: nil, onButtonPressed: {}, headerTitle: "Trip Summary")
                 .padding(.top, 18)
                 .padding(.bottom, 40)
-            mapSnapshot
+            Image(uiImage: payRideViewModel.getSnapshotOfRide())
                 .padding(.bottom, 40)
             TripSourceAndDestinationView(source: payRideViewModel.rideData.startAddress ?? "no source", destination: payRideViewModel.rideData.endAddress ?? "no destination")
                 .padding(.bottom, 36)
@@ -112,12 +93,6 @@ struct PayRideView: View {
             Spacer()
             ApplePayButton {
                 payRideViewModel.paymentSuccessfulAlertIsShowing = true
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-//                    payRideViewModel.paymentSuccessfulAlertIsShowing = false
-//                    payRideViewModel.removeRideFromUserDefaults()
-//                    onSuccessfullyPaidRide()
-//                })
-                
             } label: {
                 HStack {
                     Text("Pay with")
@@ -128,7 +103,6 @@ struct PayRideView: View {
                         .offset(x: -6)
                 }
             }
-
         }
         .padding(.horizontal, 24)
         .alert(isPresented: $payRideViewModel.paymentSuccessfulAlertIsShowing) {
@@ -139,18 +113,17 @@ struct PayRideView: View {
         }
     }
     
-    var mapSnapshot: some View {
-        ZStack {
-            Image("mapSnapshot")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .cornerRadius(29)
-            Text("No route yet. :(")
-                .font(.primary(type: .heading2))
-                .foregroundColor(.accentPink)
-        }
-    }
-    
+//    var mapSnapshot: some View {
+//        ZStack {
+//            Image("mapSnapshot")
+//                .resizable()
+//                .aspectRatio(contentMode: .fit)
+//                .cornerRadius(29)
+//            Text("No route yet. :(")
+//                .font(.primary(type: .heading2))
+//                .foregroundColor(.accentPink)
+//        }
+//    }
 }
 
 struct PayRideView_Previews: PreviewProvider {

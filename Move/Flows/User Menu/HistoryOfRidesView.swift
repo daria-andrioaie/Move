@@ -104,9 +104,7 @@ struct RidesScrollView: View {
                     ForEach(rides, id: \.self) { ride in
                         RideView(rideData: ride)
                             .onAppear {
-                                if viewModel.hasReachedEndOfCollection(ride: ride) {
-                                    viewModel.getNextPageOfRides()
-                                }
+                                viewModel.getNextPageOfRidesIfNeeded(currentRide: ride)
                             }
                     }
                 }

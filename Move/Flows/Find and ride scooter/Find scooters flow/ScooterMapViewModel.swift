@@ -178,6 +178,13 @@ extension ScooterMapViewModel: MKMapViewDelegate {
         refreshAddressOfMapCenter()
     }
     
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = UIColor(.accentPink)
+        renderer.lineWidth = 4
+        return renderer
+    }
+    
     func refreshAddressOfMapCenter() {
         CLGeocoder().reverseGeocodeLocation(.init(latitude: mapView.region.center.latitude, longitude: mapView.region.center.longitude)) { placemarks, error in
             if let error = error {
@@ -239,11 +246,23 @@ extension ScooterMapViewModel: MKMapViewDelegate {
 
 extension ScooterMapViewModel: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let shouldCenterOnUserLocation = self.userLocation == nil
         
         guard let lastLocation = locations.last else {
             return
         }
+        
+        var shouldCenterOnUserLocation = false
+        
+        if self.userLocation == nil {
+            shouldCenterOnUserLocation = true
+        }
+        else {
+            let userLocation = self.userLocation!
+            if userLocation.distance(from: lastLocation) > 5 {
+                shouldCenterOnUserLocation = true
+            }
+        }
+                                           
 //        DispatchQueue.main.async {
             self.userLocation = lastLocation
             if shouldCenterOnUserLocation {

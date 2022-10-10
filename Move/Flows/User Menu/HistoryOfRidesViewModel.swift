@@ -35,6 +35,12 @@ class HistoryOfRidesViewModel: ObservableObject {
         }
     }
     
+    func getNextPageOfRidesIfNeeded(currentRide: Ride) {
+        if hasReachedEndOfCollection(ride: currentRide) {
+            getNextPageOfRides()
+        }
+    }
+    
     func getRidesOfUserPaginated(onRequestCompleted: @escaping ([Ride]) -> Void) {
         RidesAPIService().getRidesOfUserPaginated(pageNumber: currentPage, pageSize: pageSize) { result in
             switch result {
@@ -51,7 +57,7 @@ class HistoryOfRidesViewModel: ObservableObject {
         }
     }
     
-    func hasReachedEndOfCollection(ride: Ride) -> Bool {
+    private func hasReachedEndOfCollection(ride: Ride) -> Bool {
         guard let lastRide = rides.last else {
             return false
         }
