@@ -8,20 +8,35 @@
 import Foundation
 
 class HistoryOfRidesViewModel: ObservableObject {
-    @Published var rides: [Ride]? = nil
-    @Published var requestInProgress: Bool = true
+    @Published var rides: [Ride] = []
+    @Published var isFetchingNextRides: Bool = false
+    @Published var isFetchingFirstRides: Bool = true
+    private var currentPage: Int = 0
+    private let pageSize: Int = 7
 
     init() {
-        getRidesOfUser { returnedRides in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        getRidesOfUserPaginated { returnedRides in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.rides = returnedRides
-                self.requestInProgress = false
+                self.isFetchingFirstRides = false
             }
         }
     }
     
-    func getRidesOfUser(onRequestCompleted: @escaping ([Ride]) -> Void) {
-        RidesAPIService().getRidesOfUser(pageNumber: 0, pageSize: 10) { result in
+    func getNextPageOfRides() {
+        print("fetching next page")
+        isFetchingNextRides = true
+        currentPage += 1
+        getRidesOfUserPaginated { [weak self] returnedRides in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self?.rides += returnedRides
+                self?.isFetchingNextRides = false
+            }
+        }
+    }
+    
+    func getRidesOfUserPaginated(onRequestCompleted: @escaping ([Ride]) -> Void) {
+        RidesAPIService().getRidesOfUserPaginated(pageNumber: currentPage, pageSize: pageSize) { result in
             switch result {
             case .success(let returnedRides):
                 
@@ -32,9 +47,16 @@ class HistoryOfRidesViewModel: ObservableObject {
                     SwiftMessagesErrorHandler().handle(message: apiError.message)
                 }
                 onRequestCompleted([])
-                
             }
         }
+    }
+    
+    func hasReachedEndOfCollection(ride: Ride) -> Bool {
+        guard let lastRide = rides.last else {
+            return false
+        }
+        
+        return lastRide._id == ride._id
     }
     
 }

@@ -153,7 +153,7 @@ class RidesAPIService {
             }
     }
     
-    func getRidesOfUser(pageNumber: Int, pageSize: Int, onRequestCompleted: @escaping (Result<[Ride], APIError>) -> Void) -> Void {
+    func getRidesOfUserPaginated(pageNumber: Int, pageSize: Int, onRequestCompleted: @escaping (Result<[Ride], APIError>) -> Void) -> Void {
         
         guard let userToken = try? userDefaultsService.getUserToken() else {
             return
@@ -174,7 +174,6 @@ class RidesAPIService {
                     else {
                         print("Unknown decoding error: \(error.localizedDescription)")
                         onRequestCompleted(.failure(.defaultServerError))
-
                     }
                 }
             }

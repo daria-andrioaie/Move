@@ -143,7 +143,7 @@ class RideScooterViewModel: ObservableObject {
                 try? UserDefaultsService().saveRide(ride)
             case .failure(let error):
                 if error.message == "Incorrect token, no ride in progress!" {
-                    print(error.message)
+                    return
                 }
                 else {
                     self.errorHandler.handle(message: error.message)

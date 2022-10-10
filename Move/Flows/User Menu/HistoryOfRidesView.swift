@@ -89,6 +89,7 @@ struct RideView: View {
 
 struct RidesScrollView: View {
     let rides: [Ride]
+    @ObservedObject var viewModel: HistoryOfRidesViewModel
     
     var body: some View {
         if rides.count == 0 {
@@ -99,10 +100,22 @@ struct RidesScrollView: View {
         }
         else {
             ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 12) {
+                LazyVStack(spacing: 12) {
                     ForEach(rides, id: \.self) { ride in
                         RideView(rideData: ride)
+                            .onAppear {
+                                if viewModel.hasReachedEndOfCollection(ride: ride) {
+                                    viewModel.getNextPageOfRides()
+                                }
+                            }
                     }
+                }
+                
+                if viewModel.isFetchingNextRides {
+                    ActivityIndicator()
+                        .frame(width: 25, height: 25)
+                        .foregroundColor(.primaryPurple)
+                        .padding(.vertical, 25)
                 }
             }
         }
@@ -117,14 +130,14 @@ struct HistoryOfRidesView: View {
         VStack {
             HeaderView(buttonAction: .slideBack, onButtonPressed: onBack, headerTitle: "History")
             
-            if viewModel.requestInProgress {
+            if viewModel.isFetchingFirstRides {
                 ActivityIndicator()
                     .frame(width: 50, height: 50)
                     .foregroundColor(.primaryPurple)
                     .frame(maxHeight: .infinity, alignment: .center)
             }
             else {
-                RidesScrollView(rides: viewModel.rides ?? [])
+                RidesScrollView(rides: viewModel.rides, viewModel: viewModel)
             }
             
         }
