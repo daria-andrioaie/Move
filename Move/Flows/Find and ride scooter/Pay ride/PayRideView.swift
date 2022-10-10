@@ -85,8 +85,16 @@ struct PayRideView: View {
             HeaderView(buttonAction: nil, onButtonPressed: {}, headerTitle: "Trip Summary")
                 .padding(.top, 18)
                 .padding(.bottom, 40)
-            Image(uiImage: payRideViewModel.getSnapshotOfRide())
-                .padding(.bottom, 40)
+            
+            if let routeImage = payRideViewModel.routeImage {
+                Image(uiImage: routeImage)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                   .padding(.bottom, 40)
+            }
+            else {
+                Color.red
+            }
+             
             TripSourceAndDestinationView(source: payRideViewModel.rideData.startAddress ?? "no source", destination: payRideViewModel.rideData.endAddress ?? "no destination")
                 .padding(.bottom, 36)
             TripMetricsSummaryView(travelTime: payRideViewModel.rideData.duration, distance: payRideViewModel.rideData.distance)
@@ -112,18 +120,6 @@ struct PayRideView: View {
             }))
         }
     }
-    
-//    var mapSnapshot: some View {
-//        ZStack {
-//            Image("mapSnapshot")
-//                .resizable()
-//                .aspectRatio(contentMode: .fit)
-//                .cornerRadius(29)
-//            Text("No route yet. :(")
-//                .font(.primary(type: .heading2))
-//                .foregroundColor(.accentPink)
-//        }
-//    }
 }
 
 struct PayRideView_Previews: PreviewProvider {
