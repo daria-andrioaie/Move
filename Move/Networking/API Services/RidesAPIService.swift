@@ -12,7 +12,7 @@ class RidesAPIService {
     private let userDefaultsService = UserDefaultsService()
     private let baseURL = "https://move-scooter.herokuapp.com/api/rides"
     
-    func scanScooter(scooterNumber: String, onRequestCompleted: @escaping (Result<ScooterData, APIError>) -> Void) {
+    func scanScooter(scooterNumber: String, scanParemeters: Parameters, onRequestCompleted: @escaping (Result<ScooterData, APIError>) -> Void) {
         guard let userToken = try? userDefaultsService.getUserToken() else {
             onRequestCompleted(.failure(APIError(message: "Can't find token in User Defaults!")))
             return
@@ -21,7 +21,7 @@ class RidesAPIService {
         let header: HTTPHeaders = ["Authorization": "Bearer \(userToken)"]
         let path = baseURL + "/scan/\(scooterNumber)"
         
-        AF.request(path, method: .put, headers: header)
+        AF.request(path, method: .put, parameters: scanParemeters, headers: header)
             .validate()
             .responseDecodable(of: ScooterData.self) { response in
                 switch response.result {
@@ -40,7 +40,6 @@ class RidesAPIService {
     }
     
     func startRide(startRideParameters: Parameters, onRequestCompleted: @escaping (Result<Ride, APIError>) -> Void) -> Void {
-        print("starting ride with coordinates: \(startRideParameters["longitude"]), \(startRideParameters["latitude"])")
         guard let userToken = try? userDefaultsService.getUserToken() else {
             onRequestCompleted(.failure(APIError(message: "Can't find token in User Defaults!")))
             return
